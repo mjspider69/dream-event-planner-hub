@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CalendarDays, Heart, Camera, Users, Star, Phone, Mail, MapPin, ArrowRight, Sparkles, Gift, Music, Bot, Shield, CheckCircle, User, Utensils, Car, Flower2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const vendorCategories = [
@@ -86,32 +87,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                <Sparkles className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                Aaroham
-              </span>
-            </div>
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/about" className="text-gray-700 hover:text-amber-600 transition-colors">About</Link>
-              <Link to="/vendors" className="text-gray-700 hover:text-amber-600 transition-colors">Vendors</Link>
-              <Link to="/packages" className="text-gray-700 hover:text-amber-600 transition-colors">Packages</Link>
-              <Link to="/plan-event" className="text-gray-700 hover:text-amber-600 transition-colors">Plan My Event</Link>
-              <Link to="/contact" className="text-gray-700 hover:text-amber-600 transition-colors">Contact</Link>
-              <Link to="/login" className="text-gray-700 hover:text-amber-600 transition-colors">Login</Link>
-              <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white">
-                Plan My Event
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -131,14 +107,18 @@ const Index = () => {
               Experience seamless event planning with our intelligent matching system.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-lg px-8 py-6 text-white">
-                Plan My Event
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-amber-400 text-amber-600 hover:bg-amber-50 text-lg px-8 py-6">
-                Join as Vendor
-                <Users className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/plan-event">
+                <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-lg px-8 py-6 text-white">
+                  Plan My Event
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/vendor-onboarding">
+                <Button size="lg" variant="outline" className="border-2 border-amber-400 text-amber-600 hover:bg-amber-50 text-lg px-8 py-6">
+                  Join as Vendor
+                  <Users className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -391,64 +371,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                  <Sparkles className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-2xl font-bold">Aaroham</span>
-              </div>
-              <p className="text-gray-400 leading-relaxed">
-                India's first AI-powered event planning platform, elevating every celebration 
-                with intelligent technology and cultural respect.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Services</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/vendors/wedding" className="hover:text-amber-400 transition-colors">Wedding Planning</Link></li>
-                <li><Link to="/vendors/corporate" className="hover:text-amber-400 transition-colors">Corporate Events</Link></li>
-                <li><Link to="/vendors/birthday" className="hover:text-amber-400 transition-colors">Birthday Parties</Link></li>
-                <li><Link to="/vendors/social" className="hover:text-amber-400 transition-colors">Social Events</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/about" className="hover:text-amber-400 transition-colors">About Us</Link></li>
-                <li><Link to="/vendors" className="hover:text-amber-400 transition-colors">Vendors</Link></li>
-                <li><Link to="/testimonials" className="hover:text-amber-400 transition-colors">Testimonials</Link></li>
-                <li><Link to="/contact" className="hover:text-amber-400 transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
-              <p className="text-gray-400 mb-4">Stay updated with our latest events and AI innovations</p>
-              <div className="flex space-x-4">
-                <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center hover:bg-amber-700 transition-colors cursor-pointer">
-                  <span className="text-sm font-bold">f</span>
-                </div>
-                <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center hover:bg-amber-700 transition-colors cursor-pointer">
-                  <span className="text-sm font-bold">t</span>
-                </div>
-                <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center hover:bg-amber-700 transition-colors cursor-pointer">
-                  <span className="text-sm font-bold">i</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Aaroham. All rights reserved. Rising with every celebration. 🚀</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
