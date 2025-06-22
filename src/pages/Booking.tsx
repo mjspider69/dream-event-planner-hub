@@ -181,7 +181,7 @@ const Booking = () => {
                       <Checkbox 
                         id="terms" 
                         checked={agreedToTerms}
-                        onCheckedChange={setAgreedToTerms}
+                        onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
                       />
                       <div className="text-sm">
                         <label htmlFor="terms" className="font-medium cursor-pointer">
