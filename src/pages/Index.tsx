@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,16 +8,25 @@ import { CalendarDays, Heart, Camera, Users, Star, Phone, Mail, MapPin, ArrowRig
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Index = () => {
+  const heroAnimation = useScrollAnimation();
+  const aboutAnimation = useScrollAnimation();
+  const howItWorksAnimation = useScrollAnimation();
+  const vendorAnimation = useScrollAnimation();
+  const packagesAnimation = useScrollAnimation();
+  const testimonialsAnimation = useScrollAnimation();
+  const contactAnimation = useScrollAnimation();
+
   const vendorCategories = [
-    { name: "Photographer", icon: Camera, color: "bg-pink-500" },
-    { name: "DJ", icon: Music, color: "bg-purple-500" },
-    { name: "Decorator", icon: Flower2, color: "bg-green-500" },
-    { name: "Caterer", icon: Utensils, color: "bg-orange-500" },
-    { name: "Priest", icon: User, color: "bg-blue-500" },
-    { name: "Gifts", icon: Gift, color: "bg-red-500" },
-    { name: "Transport", icon: Car, color: "bg-gray-500" }
+    { name: "Photographer", icon: Camera, color: "bg-burgundy" },
+    { name: "DJ", icon: Music, color: "bg-dark-burgundy" },
+    { name: "Decorator", icon: Flower2, color: "bg-burgundy" },
+    { name: "Caterer", icon: Utensils, color: "bg-dark-burgundy" },
+    { name: "Priest", icon: User, color: "bg-burgundy" },
+    { name: "Gifts", icon: Gift, color: "bg-dark-burgundy" },
+    { name: "Transport", icon: Car, color: "bg-burgundy" }
   ];
 
   const featuredPackages = [
@@ -45,19 +55,19 @@ const Index = () => {
       title: "AI Chatbot",
       description: "Our intelligent AI understands your needs and provides personalized recommendations",
       icon: Bot,
-      color: "from-blue-500 to-purple-500"
+      color: "from-burgundy to-dark-burgundy"
     },
     {
       title: "Smart Vendor Match", 
       description: "Advanced algorithms match you with the perfect vendors for your event",
       icon: Users,
-      color: "from-green-500 to-blue-500"
+      color: "from-dark-burgundy to-burgundy"
     },
     {
       title: "Verified Vendors",
       description: "All our vendors are thoroughly verified and trusted by thousands of customers",
       icon: Shield,
-      color: "from-purple-500 to-pink-500"
+      color: "from-burgundy to-dark-burgundy"
     }
   ];
 
@@ -86,36 +96,36 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-light-gold via-white to-amber-50">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-600/10 to-orange-600/10"></div>
+      <section ref={heroAnimation.elementRef} className="relative py-20 overflow-hidden luxury-gradient">
+        <div className="absolute inset-0 bg-gradient-to-r from-burgundy/90 to-dark-burgundy/90"></div>
         <div className="container mx-auto px-6 relative">
-          <div className="text-center max-w-4xl mx-auto">
-            <Badge className="mb-6 bg-amber-100 text-amber-700 hover:bg-amber-200">
+          <div className={`text-center max-w-4xl mx-auto ${heroAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-6 bg-gold/20 text-gold border-gold/30 hover:bg-gold/30">
               ✨ India's First AI-Powered Event Planning Platform
             </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent leading-tight">
-              Elevate Every Occasion
+            <h1 className={`text-5xl md:text-7xl font-bold mb-6 text-gold-gradient leading-tight ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-1' : ''}`}>
+              "Elevate Every Occasion
               <br />
-              with Aaroham
+              with Aaroham"
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className={`text-xl text-gold/90 mb-8 max-w-3xl mx-auto leading-relaxed ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-2' : ''}`}>
               India's first AI-powered event planning platform blending tradition with technology. 
               Experience seamless event planning with our intelligent matching system.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-3' : ''}`}>
               <Link to="/plan-event">
-                <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-lg px-8 py-6 text-white">
-                  Plan My Event
+                <Button size="lg" className="gold-gradient hover:opacity-90 text-lg px-8 py-6 text-burgundy font-semibold hover-lift">
+                  Start Planning
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/vendor-onboarding">
-                <Button size="lg" variant="outline" className="border-2 border-amber-400 text-amber-600 hover:bg-amber-50 text-lg px-8 py-6">
-                  Join as Vendor
+                <Button size="lg" variant="outline" className="border-2 border-gold text-gold hover:bg-gold/10 text-lg px-8 py-6 hover-lift">
+                  Explore Services
                   <Users className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -124,16 +134,16 @@ const Index = () => {
         </div>
         
         {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-amber-200 rounded-full opacity-50 animate-bounce" style={{animationDelay: '0s'}}></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-orange-200 rounded-full opacity-50 animate-bounce" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-20 left-20 w-12 h-12 bg-red-200 rounded-full opacity-50 animate-bounce" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gold/20 rounded-full opacity-50 animate-bounce" style={{animationDelay: '0s'}}></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-gold/30 rounded-full opacity-50 animate-bounce" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-20 left-20 w-12 h-12 bg-gold/40 rounded-full opacity-50 animate-bounce" style={{animationDelay: '2s'}}></div>
       </section>
 
       {/* About Snippet */}
-      <section className="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">About Aaroham</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+      <section ref={aboutAnimation.elementRef} className="py-16 bg-gradient-to-r from-light-gold to-white">
+        <div className={`container mx-auto px-6 text-center ${aboutAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+          <h2 className="text-3xl font-bold mb-6 text-burgundy">About Aaroham</h2>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
             Aaroham means "rising" in Sanskrit, symbolizing how we elevate every celebration. 
             We combine cutting-edge AI technology with deep cultural understanding to create 
             unforgettable experiences that honor traditions while embracing innovation.
@@ -142,11 +152,11 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section ref={howItWorksAnimation.elementRef} className="py-20 bg-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-orange-100 text-orange-700">How It Works</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+          <div className={`text-center mb-16 ${howItWorksAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-4 bg-burgundy/10 text-burgundy">How It Works</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gold-gradient">
               Three Simple Steps
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -156,15 +166,15 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {howItWorks.map((step, index) => (
-              <Card key={index} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 bg-gradient-to-br from-white to-gray-50">
+              <Card key={index} className={`group hover:shadow-2xl transition-all duration-500 hover-lift border-0 bg-gradient-to-br from-white to-light-gold/30 ${howItWorksAnimation.isVisible ? `animate-fade-in-up animate-stagger-${index + 1}` : ''}`}>
                 <CardContent className="p-8 text-center">
                   <div className="relative mb-6">
                     <div className={`w-16 h-16 bg-gradient-to-r ${step.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto`}>
-                      <step.icon className="h-8 w-8 text-white" />
+                      <step.icon className="h-8 w-8 text-gold" />
                     </div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-800">{step.title}</h3>
+                  <h3 className="text-xl font-bold mb-3 text-burgundy">{step.title}</h3>
                   <p className="text-gray-600">{step.description}</p>
                 </CardContent>
               </Card>
@@ -174,11 +184,11 @@ const Index = () => {
       </section>
 
       {/* Vendor Categories Grid */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-amber-50">
+      <section ref={vendorAnimation.elementRef} className="py-20 bg-gradient-to-br from-light-gold/50 to-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-amber-100 text-amber-700">Vendor Categories</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+          <div className={`text-center mb-16 ${vendorAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-4 bg-burgundy/10 text-burgundy">Vendor Categories</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gold-gradient">
               All Your Event Needs
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -188,12 +198,12 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
             {vendorCategories.map((category, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+              <Card key={index} className={`group hover:shadow-xl transition-all duration-300 hover-lift cursor-pointer ${vendorAnimation.isVisible ? `animate-scale-in animate-stagger-${index + 1}` : ''}`}>
                 <CardContent className="p-6 text-center">
                   <div className={`w-16 h-16 ${category.color} rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto`}>
-                    <category.icon className="h-8 w-8 text-white" />
+                    <category.icon className="h-8 w-8 text-gold" />
                   </div>
-                  <h3 className="font-semibold text-gray-800 group-hover:text-amber-600 transition-colors">
+                  <h3 className="font-semibold text-burgundy group-hover:text-gold transition-colors">
                     {category.name}
                   </h3>
                 </CardContent>
@@ -204,11 +214,11 @@ const Index = () => {
       </section>
 
       {/* Featured Packages */}
-      <section className="py-20 bg-white">
+      <section ref={packagesAnimation.elementRef} className="py-20 bg-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-green-100 text-green-700">Featured Packages</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+          <div className={`text-center mb-16 ${packagesAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-4 bg-burgundy/10 text-burgundy">Featured Packages</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gold-gradient">
               Curated Event Packages
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -218,7 +228,7 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {featuredPackages.map((pkg, index) => (
-              <Card key={index} className="group overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+              <Card key={index} className={`group overflow-hidden hover:shadow-2xl transition-all duration-500 hover-lift ${packagesAnimation.isVisible ? `animate-fade-in-up animate-stagger-${index + 1}` : ''}`}>
                 <div className="relative overflow-hidden">
                   <img 
                     src={`https://images.unsplash.com/${pkg.image}?auto=format&fit=crop&w=800&q=80`}
@@ -226,24 +236,24 @@ const Index = () => {
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute top-4 right-4">
-                    <Badge className="bg-amber-500 text-white">
+                    <Badge className="bg-burgundy text-gold">
                       {pkg.price}
                     </Badge>
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-amber-600 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-burgundy group-hover:text-gold transition-colors">
                     {pkg.title}
                   </h3>
                   <div className="space-y-2">
                     {pkg.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center text-sm text-gray-600">
-                        <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                        <CheckCircle className="h-4 w-4 text-burgundy mr-2" />
                         {feature}
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white">
+                  <Button className="w-full mt-4 bg-burgundy hover:bg-dark-burgundy text-gold hover-lift">
                     View Package
                   </Button>
                 </CardContent>
@@ -254,11 +264,11 @@ const Index = () => {
       </section>
 
       {/* Testimonials Carousel */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+      <section ref={testimonialsAnimation.elementRef} className="py-20 bg-gradient-to-br from-light-gold/50 to-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-yellow-100 text-yellow-700">Client Reviews</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+          <div className={`text-center mb-16 ${testimonialsAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-4 bg-burgundy/10 text-burgundy">Client Reviews</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gold-gradient">
               What Our Clients Say
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -268,20 +278,20 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-xl transition-shadow duration-300 bg-gradient-to-br from-white to-amber-50">
+              <Card key={index} className={`hover:shadow-xl transition-shadow duration-300 bg-gradient-to-br from-white to-light-gold/30 hover-lift ${testimonialsAnimation.isVisible ? `animate-fade-in-up animate-stagger-${index + 1}` : ''}`}>
                 <CardContent className="p-8">
                   <div className="flex mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                      <Star key={i} className="h-5 w-5 text-gold fill-current" />
                     ))}
                   </div>
                   <p className="text-gray-700 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-burgundy to-dark-burgundy rounded-full flex items-center justify-center text-gold font-bold mr-4">
                       {testimonial.name.charAt(0)}
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-800">{testimonial.name}</h4>
+                      <h4 className="font-bold text-burgundy">{testimonial.name}</h4>
                       <p className="text-gray-600 text-sm">{testimonial.event}</p>
                     </div>
                   </div>
@@ -293,72 +303,72 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-amber-600 to-orange-600 text-white">
+      <section ref={contactAnimation.elementRef} id="contact" className="py-20 luxury-gradient text-gold">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 bg-white/20 text-white">Get In Touch</Badge>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <div className={`text-center mb-16 ${contactAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+              <Badge className="mb-4 bg-gold/20 text-gold border-gold/30">Get In Touch</Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gold">
                 Ready to Plan Your Perfect Event?
               </h2>
-              <p className="text-xl text-amber-100 max-w-3xl mx-auto">
+              <p className="text-xl text-gold/80 max-w-3xl mx-auto">
                 Start your journey with Aaroham today. Our AI-powered platform is ready to make your celebration extraordinary.
               </p>
             </div>
             
             <div className="grid md:grid-cols-2 gap-12">
-              <div>
+              <div className={`${contactAnimation.isVisible ? 'animate-fade-in-left' : ''}`}>
                 <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
                 <div className="space-y-6">
                   <div className="flex items-center">
-                    <Phone className="h-6 w-6 mr-4 text-amber-200" />
+                    <Phone className="h-6 w-6 mr-4 text-gold/80" />
                     <div>
                       <p className="font-semibold">Phone</p>
-                      <p className="text-amber-100">+91 98765 43210</p>
+                      <p className="text-gold/80">+91 98765 43210</p>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <Mail className="h-6 w-6 mr-4 text-amber-200" />
+                    <Mail className="h-6 w-6 mr-4 text-gold/80" />
                     <div>
                       <p className="font-semibold">Email</p>
-                      <p className="text-amber-100">hello@aaroham.com</p>
+                      <p className="text-gold/80">hello@aaroham.com</p>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <MapPin className="h-6 w-6 mr-4 text-amber-200" />
+                    <MapPin className="h-6 w-6 mr-4 text-gold/80" />
                     <div>
                       <p className="font-semibold">Location</p>
-                      <p className="text-amber-100">Mumbai, India</p>
+                      <p className="text-gold/80">Mumbai, India</p>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div>
+              <div className={`${contactAnimation.isVisible ? 'animate-fade-in-right' : ''}`}>
                 <form className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <Input 
                       placeholder="Your Name" 
-                      className="bg-white/10 border-white/20 text-white placeholder:text-amber-200"
+                      className="bg-gold/10 border-gold/30 text-gold placeholder:text-gold/60"
                     />
                     <Input 
                       placeholder="Email Address" 
                       type="email"
-                      className="bg-white/10 border-white/20 text-white placeholder:text-amber-200"
+                      className="bg-gold/10 border-gold/30 text-gold placeholder:text-gold/60"
                     />
                   </div>
                   <Input 
                     placeholder="Event Type" 
-                    className="bg-white/10 border-white/20 text-white placeholder:text-amber-200"
+                    className="bg-gold/10 border-gold/30 text-gold placeholder:text-gold/60"
                   />
                   <Textarea 
                     placeholder="Tell us about your event..." 
                     rows={4}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-amber-200 resize-none"
+                    className="bg-gold/10 border-gold/30 text-gold placeholder:text-gold/60 resize-none"
                   />
                   <Button 
                     size="lg" 
-                    className="w-full bg-white text-amber-600 hover:bg-amber-50 font-semibold"
+                    className="w-full gold-gradient text-burgundy hover:opacity-90 font-semibold hover-lift"
                   >
                     Send Message
                     <ArrowRight className="ml-2 h-5 w-5" />
