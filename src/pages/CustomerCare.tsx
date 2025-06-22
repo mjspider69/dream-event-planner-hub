@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -89,7 +90,7 @@ const CustomerCare = () => {
               <CardContent className="p-6">
                 <Clock className="h-8 w-8 text-amber-600 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Response Time</h3>
-                <p className="text-gray-600">< 2 Hours</p>
+                <p className="text-gray-600">&lt; 2 Hours</p>
                 <p className="text-sm text-gray-500">Average</p>
               </CardContent>
             </Card>
