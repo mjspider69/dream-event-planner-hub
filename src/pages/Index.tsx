@@ -99,46 +99,46 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-cream-white via-white to-pastel-gold/20">
       <Header />
 
       {/* Hero Section */}
-      <section ref={heroAnimation.elementRef} className="relative py-24 overflow-hidden royal-gradient royal-section">
+      <section ref={heroAnimation.elementRef} className="relative py-32 overflow-hidden pastel-gradient royal-section-pastel">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-burgundy/95 to-dark-burgundy/90"></div>
-          <div className="absolute top-10 left-10 w-32 h-32 bg-metallic-gold/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-royal-gold/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-soft-burgundy/90 to-royal-purple/85"></div>
+          <div className="absolute top-20 left-20 w-40 h-40 bg-pastel-gold/30 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-48 h-48 bg-pastel-rose/30 rounded-full blur-3xl animate-float" style={{animationDelay: '1.5s'}}></div>
         </div>
         
         <div className="container mx-auto px-6 relative">
-          <div className={`text-center max-w-5xl mx-auto ${heroAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-            <Badge className="mb-8 bg-metallic-gold/20 text-metallic-gold border-2 border-metallic-gold/50 hover:bg-metallic-gold/30 px-6 py-2 text-lg font-elegant">
-              <Crown className="w-5 h-5 mr-2" />
+          <div className={`text-center max-w-6xl mx-auto ${heroAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-10 bg-pastel-gold/30 text-white border-2 border-pastel-gold/60 hover:bg-pastel-gold/40 px-8 py-3 text-xl font-royal rounded-full">
+              <Crown className="w-6 h-6 mr-3" />
               India's Premier AI-Powered Royal Event Planning
             </Badge>
             
-            <h1 className={`text-6xl md:text-8xl font-royal font-bold mb-8 leading-tight ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-1' : ''}`}>
-              <span className="shimmer-text block mb-4">Elevate Every</span>
-              <span className="text-gold-gradient font-script text-7xl md:text-9xl">Celebration</span>
-              <span className="shimmer-text block mt-4">with Aaroham</span>
+            <h1 className={`text-7xl md:text-9xl font-majestic font-bold mb-12 leading-tight text-white ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-1' : ''}`}>
+              <span className="block mb-6">Elevate Every</span>
+              <span className="font-signature text-8xl md:text-10xl text-pastel-gold block mb-6">Celebration</span>
+              <span className="block">with Aaroham</span>
             </h1>
             
-            <p className={`text-2xl text-gold/90 mb-12 max-w-4xl mx-auto leading-relaxed font-elegant ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-2' : ''}`}>
+            <p className={`text-2xl text-white/90 mb-16 max-w-5xl mx-auto leading-relaxed font-elegant ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-2' : ''}`}>
               Experience India's most sophisticated AI-powered event planning platform. 
               Where royal traditions meet cutting-edge technology for unforgettable celebrations.
             </p>
             
-            <div className={`flex flex-col sm:flex-row gap-6 justify-center ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-3' : ''}`}>
+            <div className={`flex flex-col sm:flex-row gap-8 justify-center ${heroAnimation.isVisible ? 'animate-fade-in-up animate-stagger-3' : ''}`}>
               <Link to="/plan-event">
-                <Button size="lg" className="royal-button text-xl px-12 py-8 font-royal">
-                  <Sparkles className="mr-3 h-6 w-6" />
+                <Button size="lg" className="royal-button-pastel text-xl px-16 py-10 font-majestic shadow-2xl">
+                  <Sparkles className="mr-4 h-7 w-7" />
                   Begin Your Royal Journey
-                  <ArrowRight className="ml-3 h-6 w-6" />
+                  <ArrowRight className="ml-4 h-7 w-7" />
                 </Button>
               </Link>
               <Link to="/vendor-onboarding">
-                <Button size="lg" variant="outline" className="border-3 border-metallic-gold text-metallic-gold hover:bg-metallic-gold/10 text-xl px-12 py-8 font-elegant backdrop-blur-sm">
-                  <Crown className="mr-3 h-6 w-6" />
+                <Button size="lg" variant="outline" className="border-3 border-pastel-gold text-white hover:bg-pastel-gold/20 text-xl px-16 py-10 font-royal backdrop-blur-sm rounded-full">
+                  <Crown className="mr-4 h-7 w-7" />
                   Explore Premium Services
                 </Button>
               </Link>
@@ -148,13 +148,13 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section ref={aboutAnimation.elementRef} className="py-20 bg-gradient-to-r from-amber-50 to-yellow-50 royal-section">
+      <section ref={aboutAnimation.elementRef} className="py-28 bg-gradient-to-r from-cream-white to-pastel-gold/30 royal-section-pastel">
         <div className={`container mx-auto px-6 text-center ${aboutAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-          <Badge className="mb-6 bg-burgundy/10 text-burgundy border-burgundy/30 px-6 py-2 text-lg font-elegant">
+          <Badge className="mb-8 bg-soft-burgundy/10 text-soft-burgundy border-soft-burgundy/30 px-8 py-3 text-xl font-royal rounded-full">
             About Aaroham
           </Badge>
-          <h2 className="text-5xl font-royal font-bold mb-8 text-burgundy">The Royal Legacy</h2>
-          <p className="text-xl text-gray-700 max-w-4xl mx-auto font-elegant leading-relaxed">
+          <h2 className="text-6xl font-majestic font-bold mb-12 text-gradient-royal">The Royal Legacy</h2>
+          <p className="text-2xl text-gray-700 max-w-5xl mx-auto font-elegant leading-relaxed">
             Aaroham means "rising" in Sanskrit, symbolizing how we elevate every celebration to royal heights. 
             We masterfully blend sophisticated AI technology with deep cultural reverence to create 
             extraordinary experiences that honor ancient traditions while embracing modern innovation.
@@ -163,33 +163,33 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section ref={howItWorksAnimation.elementRef} className="py-24 bg-white royal-section">
+      <section ref={howItWorksAnimation.elementRef} className="py-32 bg-white royal-section-pastel">
         <div className="container mx-auto px-6">
-          <div className={`text-center mb-20 ${howItWorksAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-            <Badge className="mb-6 bg-burgundy/10 text-burgundy border-burgundy/30 px-6 py-2 text-lg font-elegant">
+          <div className={`text-center mb-24 ${howItWorksAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-8 bg-soft-burgundy/10 text-soft-burgundy border-soft-burgundy/30 px-8 py-3 text-xl font-royal rounded-full">
               Royal Process
             </Badge>
-            <h2 className="text-5xl md:text-6xl font-royal font-bold mb-8 shimmer-text">
+            <h2 className="text-6xl md:text-7xl font-majestic font-bold mb-12 shimmer-text-pastel">
               Three Elite Steps
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto font-elegant">
+            <p className="text-2xl text-gray-600 max-w-5xl mx-auto font-elegant">
               Our royal AI-powered platform transforms event planning into an effortless, luxurious experience with premium recommendations and elite vendor partnerships.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-12">
             {howItWorks.map((step, index) => (
               <div key={index} className={`group ${howItWorksAnimation.isVisible ? `animate-fade-in-up animate-stagger-${index + 1}` : ''}`}>
-                <Card className="royal-card h-full">
-                  <CardContent className="p-10 text-center">
-                    <div className="relative mb-8">
-                      <div className={`w-20 h-20 bg-gradient-to-r ${step.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 mx-auto shadow-2xl`}>
-                        <step.icon className="h-10 w-10 text-white" />
+                <Card className="royal-card-pastel h-full">
+                  <CardContent className="p-12 text-center">
+                    <div className="relative mb-10">
+                      <div className={`w-24 h-24 bg-gradient-to-r ${step.color} rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 mx-auto shadow-2xl`}>
+                        <step.icon className="h-12 w-12 text-white" />
                       </div>
-                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-metallic-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute -top-3 -right-3 w-10 h-10 bg-pastel-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
-                    <h3 className="text-2xl font-royal font-bold mb-4 text-burgundy">{step.title}</h3>
-                    <p className="text-gray-600 font-elegant leading-relaxed">{step.description}</p>
+                    <h3 className="text-3xl font-majestic font-bold mb-6 text-soft-burgundy">{step.title}</h3>
+                    <p className="text-gray-600 font-elegant leading-relaxed text-lg">{step.description}</p>
                   </CardContent>
                 </Card>
               </div>
@@ -199,29 +199,29 @@ const Index = () => {
       </section>
 
       {/* Vendor Categories */}
-      <section ref={vendorAnimation.elementRef} className="py-24 bg-gradient-to-br from-amber-50/50 to-yellow-50/50 royal-section">
+      <section ref={vendorAnimation.elementRef} className="py-32 bg-gradient-to-br from-pastel-lavender/20 to-pastel-mint/20 royal-section-pastel">
         <div className="container mx-auto px-6">
-          <div className={`text-center mb-20 ${vendorAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-            <Badge className="mb-6 bg-burgundy/10 text-burgundy border-burgundy/30 px-6 py-2 text-lg font-elegant">
+          <div className={`text-center mb-24 ${vendorAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-8 bg-soft-burgundy/10 text-soft-burgundy border-soft-burgundy/30 px-8 py-3 text-xl font-royal rounded-full">
               Elite Vendor Categories
             </Badge>
-            <h2 className="text-5xl md:text-6xl font-royal font-bold mb-8 shimmer-text">
+            <h2 className="text-6xl md:text-7xl font-majestic font-bold mb-12 shimmer-text-pastel">
               Premium Event Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto font-elegant">
+            <p className="text-2xl text-gray-600 max-w-5xl mx-auto font-elegant">
               From royal photographers to master chefs, discover our curated collection of premium vendors for every aspect of your celebration.
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-10">
             {vendorCategories.map((category, index) => (
               <div key={index} className={`group cursor-pointer ${vendorAnimation.isVisible ? `animate-scale-in animate-stagger-${index + 1}` : ''}`}>
-                <Card className="royal-card text-center h-full">
-                  <CardContent className="p-8">
-                    <div className={`w-16 h-16 ${category.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 mx-auto shadow-xl`}>
-                      <category.icon className="h-8 w-8 text-gold" />
+                <Card className="royal-card-pastel text-center h-full">
+                  <CardContent className="p-10">
+                    <div className={`w-20 h-20 ${category.color} rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 mx-auto shadow-xl`}>
+                      <category.icon className="h-10 w-10 text-white" />
                     </div>
-                    <h3 className="font-elegant font-semibold text-burgundy group-hover:text-metallic-gold transition-colors text-lg">
+                    <h3 className="font-royal font-semibold text-soft-burgundy group-hover:text-royal-purple transition-colors text-xl">
                       {category.name}
                     </h3>
                   </CardContent>
@@ -233,56 +233,56 @@ const Index = () => {
       </section>
 
       {/* Featured Packages */}
-      <section ref={packagesAnimation.elementRef} className="py-24 bg-white royal-section">
+      <section ref={packagesAnimation.elementRef} className="py-32 bg-white royal-section-pastel">
         <div className="container mx-auto px-6">
-          <div className={`text-center mb-20 ${packagesAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-            <Badge className="mb-6 bg-burgundy/10 text-burgundy border-burgundy/30 px-6 py-2 text-lg font-elegant">
+          <div className={`text-center mb-24 ${packagesAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-8 bg-soft-burgundy/10 text-soft-burgundy border-soft-burgundy/30 px-8 py-3 text-xl font-royal rounded-full">
               Royal Packages
             </Badge>
-            <h2 className="text-5xl md:text-6xl font-royal font-bold mb-8 shimmer-text">
+            <h2 className="text-6xl md:text-7xl font-majestic font-bold mb-12 shimmer-text-pastel">
               Curated Elite Experiences
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto font-elegant">
+            <p className="text-2xl text-gray-600 max-w-5xl mx-auto font-elegant">
               Choose from our meticulously crafted packages designed for different occasions and refined for the most discerning clientele.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-12">
             {featuredPackages.map((pkg, index) => (
               <div key={index} className={`group ${packagesAnimation.isVisible ? `animate-fade-in-up animate-stagger-${index + 1}` : ''}`}>
-                <Card className="royal-card overflow-hidden h-full">
+                <Card className="royal-card-pastel overflow-hidden h-full">
                   <div className="relative overflow-hidden">
                     <img 
                       src={`https://images.unsplash.com/${pkg.image}?auto=format&fit=crop&w=800&q=80`}
                       alt={pkg.title}
-                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-metallic-gold text-burgundy font-elegant font-semibold px-4 py-2">
+                    <div className="absolute top-6 right-6">
+                      <Badge className="bg-pastel-gold text-soft-burgundy font-royal font-semibold px-6 py-3 text-lg rounded-full">
                         {pkg.badge}
                       </Badge>
                     </div>
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-burgundy text-gold font-royal font-bold text-lg px-4 py-2">
+                    <div className="absolute top-6 left-6">
+                      <Badge className="bg-soft-burgundy text-white font-majestic font-bold text-xl px-6 py-3 rounded-full">
                         {pkg.price}
                       </Badge>
                     </div>
                   </div>
 
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-royal font-bold mb-6 text-burgundy group-hover:text-metallic-gold transition-colors">
+                  <CardContent className="p-10">
+                    <h3 className="text-3xl font-majestic font-bold mb-8 text-soft-burgundy group-hover:text-royal-purple transition-colors">
                       {pkg.title}
                     </h3>
-                    <div className="space-y-3 mb-8">
+                    <div className="space-y-4 mb-10">
                       {pkg.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center text-gray-600 font-elegant">
-                          <CheckCircle className="h-5 w-5 text-metallic-gold mr-3" />
+                        <div key={idx} className="flex items-center text-gray-600 font-elegant text-lg">
+                          <CheckCircle className="h-6 w-6 text-pastel-gold mr-4" />
                           {feature}
                         </div>
                       ))}
                     </div>
-                    <Button className="w-full royal-button font-royal text-lg py-3">
-                      <Crown className="mr-2 h-5 w-5" />
+                    <Button className="w-full royal-button-pastel font-majestic text-xl py-4">
+                      <Crown className="mr-3 h-6 w-6" />
                       Select Royal Package
                     </Button>
                   </CardContent>
@@ -294,40 +294,40 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section ref={testimonialsAnimation.elementRef} className="py-24 bg-gradient-to-br from-amber-50/50 to-yellow-50/50 royal-section">
+      <section ref={testimonialsAnimation.elementRef} className="py-32 bg-gradient-to-br from-pastel-peach/20 to-pastel-rose/20 royal-section-pastel">
         <div className="container mx-auto px-6">
-          <div className={`text-center mb-20 ${testimonialsAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-            <Badge className="mb-6 bg-burgundy/10 text-burgundy border-burgundy/30 px-6 py-2 text-lg font-elegant">
+          <div className={`text-center mb-24 ${testimonialsAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+            <Badge className="mb-8 bg-soft-burgundy/10 text-soft-burgundy border-soft-burgundy/30 px-8 py-3 text-xl font-royal rounded-full">
               Royal Testimonials
             </Badge>
-            <h2 className="text-5xl md:text-6xl font-royal font-bold mb-8 shimmer-text">
+            <h2 className="text-6xl md:text-7xl font-majestic font-bold mb-12 shimmer-text-pastel">
               Elite Client Experiences
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto font-elegant">
+            <p className="text-2xl text-gray-600 max-w-5xl mx-auto font-elegant">
               Discover how thousands of discerning clients have trusted Aaroham to create their most precious and unforgettable moments.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-12">
             {testimonials.map((testimonial, index) => (
               <div key={index} className={`${testimonialsAnimation.isVisible ? `animate-fade-in-up animate-stagger-${index + 1}` : ''}`}>
-                <Card className="royal-card h-full">
-                  <CardContent className="p-8">
-                    <div className="flex mb-6">
+                <Card className="royal-card-pastel h-full">
+                  <CardContent className="p-10">
+                    <div className="flex mb-8">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-6 w-6 text-metallic-gold fill-current" />
+                        <Star key={i} className="h-7 w-7 text-pastel-gold fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-700 mb-8 italic leading-relaxed font-elegant text-lg">
+                    <p className="text-gray-700 mb-10 italic leading-relaxed font-elegant text-xl">
                       "{testimonial.text}"
                     </p>
                     <div className="flex items-center">
-                      <div className="w-16 h-16 royal-gradient rounded-full flex items-center justify-center text-gold font-royal font-bold text-xl mr-4 shadow-lg">
+                      <div className="w-20 h-20 pastel-gradient rounded-full flex items-center justify-center text-white font-majestic font-bold text-2xl mr-6 shadow-xl">
                         {testimonial.name.charAt(0)}
                       </div>
                       <div>
-                        <h4 className="font-royal font-bold text-burgundy text-lg">{testimonial.name}</h4>
-                        <p className="text-metallic-gold font-elegant">{testimonial.event}</p>
+                        <h4 className="font-majestic font-bold text-soft-burgundy text-xl">{testimonial.name}</h4>
+                        <p className="text-royal-purple font-elegant text-lg">{testimonial.event}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -339,87 +339,87 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section ref={contactAnimation.elementRef} id="contact" className="py-24 royal-gradient text-gold royal-section">
+      <section ref={contactAnimation.elementRef} id="contact" className="py-32 pastel-gradient text-white royal-section-pastel">
         <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className={`text-center mb-20 ${contactAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
-              <Badge className="mb-8 bg-metallic-gold/20 text-metallic-gold border-2 border-metallic-gold/50 px-6 py-2 text-lg font-elegant">
-                <Diamond className="w-5 h-5 mr-2" />
+          <div className="max-w-7xl mx-auto">
+            <div className={`text-center mb-24 ${contactAnimation.isVisible ? 'animate-fade-in-up' : ''}`}>
+              <Badge className="mb-10 bg-pastel-gold/30 text-white border-2 border-pastel-gold/60 px-8 py-3 text-xl font-royal rounded-full">
+                <Diamond className="w-6 h-6 mr-3" />
                 Royal Consultation
               </Badge>
-              <h2 className="text-5xl md:text-6xl font-royal font-bold mb-8 shimmer-text">
+              <h2 className="text-6xl md:text-7xl font-majestic font-bold mb-12 text-white">
                 Begin Your Royal Event Journey
               </h2>
-              <p className="text-xl text-gold/90 max-w-4xl mx-auto font-elegant">
+              <p className="text-2xl text-white/90 max-w-5xl mx-auto font-elegant">
                 Connect with our royal concierge today. Our AI-powered platform awaits to transform your celebration into an extraordinary, unforgettable experience.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-16">
+            <div className="grid md:grid-cols-2 gap-20">
               <div className={`${contactAnimation.isVisible ? 'animate-fade-in-left' : ''}`}>
-                <h3 className="text-3xl font-royal font-bold mb-8">Royal Contact Information</h3>
-                <div className="space-y-8">
+                <h3 className="text-4xl font-majestic font-bold mb-12">Royal Contact Information</h3>
+                <div className="space-y-10">
                   <div className="flex items-center">
-                    <div className="w-16 h-16 bg-metallic-gold rounded-2xl flex items-center justify-center mr-6 shadow-xl">
-                      <Phone className="h-8 w-8 text-burgundy" />
+                    <div className="w-20 h-20 bg-pastel-gold rounded-3xl flex items-center justify-center mr-8 shadow-xl">
+                      <Phone className="h-10 w-10 text-soft-burgundy" />
                     </div>
                     <div>
-                      <p className="font-royal font-semibold text-xl">Royal Hotline</p>
-                      <p className="text-gold/80 font-elegant text-lg">+91 98765 43210</p>
+                      <p className="font-majestic font-semibold text-2xl">Royal Hotline</p>
+                      <p className="text-white/80 font-elegant text-xl">+91 98765 43210</p>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-16 h-16 bg-metallic-gold rounded-2xl flex items-center justify-center mr-6 shadow-xl">
-                      <Mail className="h-8 w-8 text-burgundy" />
+                    <div className="w-20 h-20 bg-pastel-gold rounded-3xl flex items-center justify-center mr-8 shadow-xl">
+                      <Mail className="h-10 w-10 text-soft-burgundy" />
                     </div>
                     <div>
-                      <p className="font-royal font-semibold text-xl">Royal Email</p>
-                      <p className="text-gold/80 font-elegant text-lg">hello@aaroham.com</p>
+                      <p className="font-majestic font-semibold text-2xl">Royal Email</p>
+                      <p className="text-white/80 font-elegant text-xl">hello@aaroham.com</p>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-16 h-16 bg-metallic-gold rounded-2xl flex items-center justify-center mr-6 shadow-xl">
-                      <MapPin className="h-8 w-8 text-burgundy" />
+                    <div className="w-20 h-20 bg-pastel-gold rounded-3xl flex items-center justify-center mr-8 shadow-xl">
+                      <MapPin className="h-10 w-10 text-soft-burgundy" />
                     </div>
                     <div>
-                      <p className="font-royal font-semibold text-xl">Royal Palace</p>
-                      <p className="text-gold/80 font-elegant text-lg">Mumbai, India</p>
+                      <p className="font-majestic font-semibold text-2xl">Royal Palace</p>
+                      <p className="text-white/80 font-elegant text-xl">Mumbai, India</p>
                     </div>
                   </div>
                 </div>
               </div>
               
               <div className={`${contactAnimation.isVisible ? 'animate-fade-in-right' : ''}`}>
-                <div className="royal-card bg-white/10 backdrop-blur-xl border-2 border-metallic-gold/50">
-                  <CardContent className="p-8">
-                    <form className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-4">
+                <div className="royal-card-pastel bg-white/15 backdrop-blur-xl border-2 border-pastel-gold/60">
+                  <CardContent className="p-10">
+                    <form className="space-y-8">
+                      <div className="grid md:grid-cols-2 gap-6">
                         <Input 
                           placeholder="Your Royal Name" 
-                          className="bg-gold/10 border-2 border-metallic-gold/50 text-gold placeholder:text-gold/60 font-elegant text-lg py-3"
+                          className="bg-white/20 border-2 border-pastel-gold/60 text-white placeholder:text-white/70 font-elegant text-xl py-4 rounded-xl"
                         />
                         <Input 
                           placeholder="Royal Email Address" 
                           type="email"
-                          className="bg-gold/10 border-2 border-metallic-gold/50 text-gold placeholder:text-gold/60 font-elegant text-lg py-3"
+                          className="bg-white/20 border-2 border-pastel-gold/60 text-white placeholder:text-white/70 font-elegant text-xl py-4 rounded-xl"
                         />
                       </div>
                       <Input 
                         placeholder="Event Type" 
-                        className="bg-gold/10 border-2 border-metallic-gold/50 text-gold placeholder:text-gold/60 font-elegant text-lg py-3"
+                        className="bg-white/20 border-2 border-pastel-gold/60 text-white placeholder:text-white/70 font-elegant text-xl py-4 rounded-xl"
                       />
                       <Textarea 
                         placeholder="Tell us about your royal celebration..." 
-                        rows={4}
-                        className="bg-gold/10 border-2 border-metallic-gold/50 text-gold placeholder:text-gold/60 resize-none font-elegant text-lg"
+                        rows={5}
+                        className="bg-white/20 border-2 border-pastel-gold/60 text-white placeholder:text-white/70 resize-none font-elegant text-xl rounded-xl"
                       />
                       <Button 
                         size="lg" 
-                        className="w-full royal-button font-royal text-xl py-4"
+                        className="w-full royal-button-pastel font-majestic text-2xl py-6"
                       >
-                        <Crown className="mr-3 h-6 w-6" />
+                        <Crown className="mr-4 h-7 w-7" />
                         Send Royal Message
-                        <ArrowRight className="ml-3 h-6 w-6" />
+                        <ArrowRight className="ml-4 h-7 w-7" />
                       </Button>
                     </form>
                   </CardContent>
