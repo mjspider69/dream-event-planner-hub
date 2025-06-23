@@ -94,10 +94,10 @@ const SEOOptimization = ({
       }
     };
 
-    let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
+    let script = document.querySelector('script[type="application/ld+json"]');
     if (!script) {
-      script = document.createElement('script') as HTMLScriptElement;
-      script.type = 'application/ld+json';
+      script = document.createElement('script');
+      script.setAttribute('type', 'application/ld+json');
       document.head.appendChild(script);
     }
     script.textContent = JSON.stringify(structuredData);
