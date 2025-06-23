@@ -94,9 +94,9 @@ const SEOOptimization = ({
       }
     };
 
-    let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
+    let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
     if (!script) {
-      script = document.createElement('script');
+      script = document.createElement('script') as HTMLScriptElement;
       script.type = 'application/ld+json';
       document.head.appendChild(script);
     }
