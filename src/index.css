@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,16 +32,18 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 43 20% 90%;
+    --border: 43 60% 75%;
     --input: 43 20% 90%;
     --ring: 0 60% 25%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --burgundy: 0 60% 25%;
     --gold: 43 100% 65%;
     --dark-burgundy: 0 70% 20%;
     --light-gold: 43 80% 85%;
+    --metallic-gold: 45 100% 51%;
+    --royal-gold: 38 100% 50%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -49,44 +52,6 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 0 60% 25%;
-    --foreground: 43 100% 65%;
-
-    --card: 0 70% 20%;
-    --card-foreground: 43 100% 65%;
-
-    --popover: 0 70% 20%;
-    --popover-foreground: 43 100% 65%;
-
-    --primary: 43 100% 65%;
-    --primary-foreground: 0 60% 25%;
-
-    --secondary: 0 30% 40%;
-    --secondary-foreground: 43 100% 65%;
-
-    --muted: 0 30% 40%;
-    --muted-foreground: 43 60% 75%;
-
-    --accent: 0 30% 40%;
-    --accent-foreground: 43 100% 65%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 0 30% 40%;
-    --input: 0 30% 40%;
-    --ring: 43 100% 65%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -98,33 +63,84 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Cormorant Garamond', serif;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .royal-script {
+    font-family: 'Dancing Script', cursive;
+  }
+}
+
+/* Royal Typography */
+@layer utilities {
+  .font-royal {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-elegant {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .font-script {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  /* Enhanced Colors */
+  .bg-burgundy { background-color: hsl(var(--burgundy)); }
+  .bg-gold { background-color: hsl(var(--gold)); }
+  .bg-dark-burgundy { background-color: hsl(var(--dark-burgundy)); }
+  .bg-light-gold { background-color: hsl(var(--light-gold)); }
+  .bg-metallic-gold { background-color: hsl(var(--metallic-gold)); }
+  .bg-royal-gold { background-color: hsl(var(--royal-gold)); }
+  
+  .text-burgundy { color: hsl(var(--burgundy)); }
+  .text-gold { color: hsl(var(--gold)); }
+  .text-dark-burgundy { color: hsl(var(--dark-burgundy)); }
+  .text-metallic-gold { color: hsl(var(--metallic-gold)); }
+  .text-royal-gold { color: hsl(var(--royal-gold)); }
+  
+  .border-burgundy { border-color: hsl(var(--burgundy)); }
+  .border-gold { border-color: hsl(var(--gold)); }
+  .border-metallic-gold { border-color: hsl(var(--metallic-gold)); }
+  .border-royal-gold { border-color: hsl(var(--royal-gold)); }
+
+  /* Gradients */
+  .from-burgundy { --tw-gradient-from: hsl(var(--burgundy)); }
+  .to-gold { --tw-gradient-to: hsl(var(--gold)); }
+  .from-dark-burgundy { --tw-gradient-from: hsl(var(--dark-burgundy)); }
+  .to-burgundy { --tw-gradient-to: hsl(var(--burgundy)); }
+  .from-metallic-gold { --tw-gradient-from: hsl(var(--metallic-gold)); }
+  .to-royal-gold { --tw-gradient-to: hsl(var(--royal-gold)); }
 }
 
 /* Scroll animations */
 @layer utilities {
   .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 1s ease-out forwards;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
 
   .animate-fade-in-left {
-    animation: fadeInLeft 0.8s ease-out forwards;
+    animation: fadeInLeft 1s ease-out forwards;
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-40px);
   }
 
   .animate-fade-in-right {
-    animation: fadeInRight 0.8s ease-out forwards;
+    animation: fadeInRight 1s ease-out forwards;
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(40px);
   }
 
   .animate-scale-in {
-    animation: scaleIn 0.6s ease-out forwards;
+    animation: scaleIn 0.8s ease-out forwards;
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.9);
   }
 
   .animate-stagger-1 { animation-delay: 0.1s; }
@@ -134,23 +150,6 @@
   .animate-stagger-5 { animation-delay: 0.5s; }
   .animate-stagger-6 { animation-delay: 0.6s; }
   .animate-stagger-7 { animation-delay: 0.7s; }
-
-  .bg-burgundy { background-color: hsl(var(--burgundy)); }
-  .bg-gold { background-color: hsl(var(--gold)); }
-  .bg-dark-burgundy { background-color: hsl(var(--dark-burgundy)); }
-  .bg-light-gold { background-color: hsl(var(--light-gold)); }
-  
-  .text-burgundy { color: hsl(var(--burgundy)); }
-  .text-gold { color: hsl(var(--gold)); }
-  .text-dark-burgundy { color: hsl(var(--dark-burgundy)); }
-  
-  .border-burgundy { border-color: hsl(var(--burgundy)); }
-  .border-gold { border-color: hsl(var(--gold)); }
-
-  .from-burgundy { --tw-gradient-from: hsl(var(--burgundy)); }
-  .to-gold { --tw-gradient-to: hsl(var(--gold)); }
-  .from-dark-burgundy { --tw-gradient-from: hsl(var(--dark-burgundy)); }
-  .to-burgundy { --tw-gradient-to: hsl(var(--burgundy)); }
 }
 
 @keyframes fadeInUp {
@@ -181,27 +180,98 @@
   }
 }
 
-/* Luxury styling */
-.luxury-gradient {
-  background: linear-gradient(135deg, hsl(var(--burgundy)) 0%, hsl(var(--dark-burgundy)) 100%);
+/* Royal luxury styling */
+.royal-gradient {
+  background: linear-gradient(135deg, hsl(var(--dark-burgundy)) 0%, hsl(var(--burgundy)) 50%, hsl(0 50% 30%) 100%);
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(43 90% 55%) 100%);
+  background: linear-gradient(135deg, hsl(var(--metallic-gold)) 0%, hsl(var(--royal-gold)) 50%, hsl(var(--gold)) 100%);
 }
 
 .text-gold-gradient {
-  background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(43 90% 55%) 100%);
+  background: linear-gradient(135deg, hsl(var(--metallic-gold)) 0%, hsl(var(--royal-gold)) 50%, hsl(var(--gold)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.royal-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid hsl(var(--metallic-gold));
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 30px rgba(218, 165, 32, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+.royal-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.35), 0 0 50px rgba(218, 165, 32, 0.5);
+  border-color: hsl(var(--royal-gold));
+}
+
+.royal-button {
+  background: linear-gradient(135deg, hsl(var(--metallic-gold)) 0%, hsl(var(--royal-gold)) 100%);
+  border: 2px solid hsl(var(--royal-gold));
+  color: hsl(var(--dark-burgundy));
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.royal-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.royal-button:hover::before {
+  left: 100%;
+}
+
+.royal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(218, 165, 32, 0.4);
+}
+
+.elegant-border {
+  border: 3px solid;
+  border-image: linear-gradient(45deg, hsl(var(--metallic-gold)), hsl(var(--royal-gold)), hsl(var(--gold))) 1;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, hsl(var(--metallic-gold)), hsl(var(--royal-gold)), hsl(var(--metallic-gold)));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.royal-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.royal-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
