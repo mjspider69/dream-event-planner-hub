@@ -39,6 +39,7 @@ const App = () => (
           <Route path="/customer-care" element={<CustomerCare />} />
           <Route path="/plan-event" element={<PlanMyEvent />} />
           <Route path="/ai-chatbot" element={<AIChatbot />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/login" element={<CustomerLogin />} />
           <Route path="/customer-dashboard" element={<CustomerDashboard />} />
           <Route path="/vendors" element={<VendorListing />} />
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/vendor-dashboard" element={<VendorDashboard />} />
           <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin" element={
             <AdminProtectedRoute>
               <AdminPanel />
