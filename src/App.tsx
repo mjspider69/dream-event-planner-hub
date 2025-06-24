@@ -22,6 +22,7 @@ import VendorDashboard from "./pages/VendorDashboard";
 import VendorOnboarding from "./pages/VendorOnboarding";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLogin from "./pages/AdminLogin";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,7 +50,12 @@ const App = () => (
           <Route path="/deal-done" element={<DealDone />} />
           <Route path="/vendor-dashboard" element={<VendorDashboard />} />
           <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={
+            <AdminProtectedRoute>
+              <AdminPanel />
+            </AdminProtectedRoute>
+          } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
