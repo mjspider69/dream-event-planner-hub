@@ -1,10 +1,10 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Great+Vibes:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Great+Vibes:wght@400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Pastel Royal Color System */
+/* Blue and Gold Color System */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -16,37 +16,36 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
 
-    --primary: 340 40% 65%;
-    --primary-foreground: 43 80% 75%;
+    --primary: 220 100% 50%;
+    --primary-foreground: 43 96% 56%;
 
-    --secondary: 43 80% 75%;
-    --secondary-foreground: 340 40% 65%;
+    --secondary: 43 96% 56%;
+    --secondary-foreground: 220 100% 50%;
 
-    --muted: 43 30% 95%;
+    --muted: 220 13% 95%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 43 80% 75%;
-    --accent-foreground: 340 40% 65%;
+    --accent: 43 96% 56%;
+    --accent-foreground: 220 100% 50%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 43 60% 85%;
-    --input: 43 30% 92%;
-    --ring: 340 40% 65%;
+    --border: 220 13% 91%;
+    --input: 220 13% 95%;
+    --ring: 220 100% 50%;
 
     --radius: 0.75rem;
 
-    /* Pastel Royal Colors */
-    --pastel-rose: 340 40% 65%;
-    --pastel-gold: 43 80% 75%;
-    --pastel-lavender: 280 30% 80%;
-    --pastel-mint: 160 30% 80%;
-    --pastel-peach: 25 60% 80%;
-    --soft-burgundy: 340 35% 55%;
-    --cream-white: 43 50% 95%;
-    --royal-purple: 280 40% 70%;
-    --sage-green: 160 25% 75%;
+    /* Blue and Gold Theme Colors */
+    --royal-blue: 220 100% 50%;
+    --bright-gold: 43 96% 56%;
+    --navy-blue: 220 100% 25%;
+    --light-gold: 43 96% 85%;
+    --deep-blue: 220 100% 35%;
+    --golden-yellow: 43 100% 50%;
+    --sky-blue: 220 100% 85%;
+    --cream-gold: 43 50% 95%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -65,8 +64,8 @@
   }
 
   body {
-    background: linear-gradient(135deg, hsl(var(--cream-white)) 0%, white 50%, hsla(var(--pastel-gold), 0.2) 100%);
-    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(135deg, white 0%, hsl(var(--sky-blue)) 50%, hsl(var(--cream-gold)) 100%);
+    font-family: 'Inter', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -74,14 +73,14 @@
   }
 }
 
-/* Royal Typography System */
+/* Blue and Gold Typography System */
 @layer utilities {
   .font-royal {
     font-family: 'Playfair Display', serif;
   }
   
   .font-elegant {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
   }
   
   .font-script {
@@ -96,39 +95,36 @@
     font-family: 'Great Vibes', cursive;
   }
 
-  /* Pastel Color Classes */
-  .bg-pastel-rose { background-color: hsl(var(--pastel-rose)); }
-  .bg-pastel-gold { background-color: hsl(var(--pastel-gold)); }
-  .bg-pastel-lavender { background-color: hsl(var(--pastel-lavender)); }
-  .bg-pastel-mint { background-color: hsl(var(--pastel-mint)); }
-  .bg-pastel-peach { background-color: hsl(var(--pastel-peach)); }
-  .bg-soft-burgundy { background-color: hsl(var(--soft-burgundy)); }
-  .bg-cream-white { background-color: hsl(var(--cream-white)); }
-  .bg-royal-purple { background-color: hsl(var(--royal-purple)); }
-  .bg-sage-green { background-color: hsl(var(--sage-green)); }
+  /* Blue and Gold Color Classes */
+  .bg-royal-blue { background-color: hsl(var(--royal-blue)); }
+  .bg-bright-gold { background-color: hsl(var(--bright-gold)); }
+  .bg-navy-blue { background-color: hsl(var(--navy-blue)); }
+  .bg-light-gold { background-color: hsl(var(--light-gold)); }
+  .bg-deep-blue { background-color: hsl(var(--deep-blue)); }
+  .bg-golden-yellow { background-color: hsl(var(--golden-yellow)); }
+  .bg-sky-blue { background-color: hsl(var(--sky-blue)); }
+  .bg-cream-gold { background-color: hsl(var(--cream-gold)); }
   
-  .text-pastel-rose { color: hsl(var(--pastel-rose)); }
-  .text-pastel-gold { color: hsl(var(--pastel-gold)); }
-  .text-pastel-lavender { color: hsl(var(--pastel-lavender)); }
-  .text-pastel-mint { color: hsl(var(--pastel-mint)); }
-  .text-pastel-peach { color: hsl(var(--pastel-peach)); }
-  .text-soft-burgundy { color: hsl(var(--soft-burgundy)); }
-  .text-royal-purple { color: hsl(var(--royal-purple)); }
-  .text-sage-green { color: hsl(var(--sage-green)); }
+  .text-royal-blue { color: hsl(var(--royal-blue)); }
+  .text-bright-gold { color: hsl(var(--bright-gold)); }
+  .text-navy-blue { color: hsl(var(--navy-blue)); }
+  .text-light-gold { color: hsl(var(--light-gold)); }
+  .text-deep-blue { color: hsl(var(--deep-blue)); }
+  .text-golden-yellow { color: hsl(var(--golden-yellow)); }
+  .text-sky-blue { color: hsl(var(--sky-blue)); }
   
-  .border-pastel-rose { border-color: hsl(var(--pastel-rose)); }
-  .border-pastel-gold { border-color: hsl(var(--pastel-gold)); }
-  .border-pastel-lavender { border-color: hsl(var(--pastel-lavender)); }
-  .border-royal-purple { border-color: hsl(var(--royal-purple)); }
+  .border-royal-blue { border-color: hsl(var(--royal-blue)); }
+  .border-bright-gold { border-color: hsl(var(--bright-gold)); }
+  .border-navy-blue { border-color: hsl(var(--navy-blue)); }
+  .border-light-gold { border-color: hsl(var(--light-gold)); }
 
-  /* Gradient Combinations */
-  .from-pastel-rose { --tw-gradient-from: hsl(var(--pastel-rose)); }
-  .to-pastel-gold { --tw-gradient-to: hsl(var(--pastel-gold)); }
-  .from-pastel-lavender { --tw-gradient-from: hsl(var(--pastel-lavender)); }
-  .to-royal-purple { --tw-gradient-to: hsl(var(--royal-purple)); }
-  .from-pastel-mint { --tw-gradient-from: hsl(var(--pastel-mint)); }
-  .to-pastel-peach { --tw-gradient-to: hsl(var(--pastel-peach)); }
-  .from-cream-white { --tw-gradient-from: hsl(var(--cream-white)); }
+  /* Blue Gold Gradient Combinations */
+  .from-royal-blue { --tw-gradient-from: hsl(var(--royal-blue)); }
+  .to-bright-gold { --tw-gradient-to: hsl(var(--bright-gold)); }
+  .from-navy-blue { --tw-gradient-from: hsl(var(--navy-blue)); }
+  .to-golden-yellow { --tw-gradient-to: hsl(var(--golden-yellow)); }
+  .from-deep-blue { --tw-gradient-from: hsl(var(--deep-blue)); }
+  .to-light-gold { --tw-gradient-to: hsl(var(--light-gold)); }
 }
 
 /* Enhanced Scroll Animations */
@@ -203,41 +199,41 @@
   50% { transform: translateY(-10px); }
 }
 
-/* Pastel Royal Styling */
-.pastel-gradient {
-  background: linear-gradient(135deg, hsl(var(--pastel-rose)) 0%, hsl(var(--royal-purple)) 50%, hsl(var(--pastel-lavender)) 100%);
+/* Blue Gold Styling */
+.blue-gold-gradient {
+  background: linear-gradient(135deg, hsl(var(--royal-blue)) 0%, hsl(var(--bright-gold)) 50%, hsl(var(--navy-blue)) 100%);
 }
 
-.gold-pastel-gradient {
-  background: linear-gradient(135deg, hsl(var(--pastel-gold)) 0%, hsl(var(--pastel-peach)) 50%, hsl(var(--cream-white)) 100%);
+.gold-blue-gradient {
+  background: linear-gradient(135deg, hsl(var(--bright-gold)) 0%, hsl(var(--light-gold)) 50%, hsl(var(--cream-gold)) 100%);
 }
 
-.text-gradient-royal {
-  background: linear-gradient(135deg, hsl(var(--soft-burgundy)) 0%, hsl(var(--royal-purple)) 50%, hsl(var(--pastel-rose)) 100%);
+.text-gradient-blue-gold {
+  background: linear-gradient(135deg, hsl(var(--navy-blue)) 0%, hsl(var(--royal-blue)) 50%, hsl(var(--bright-gold)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.royal-card-pastel {
+.modern-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border: 2px solid hsl(var(--pastel-gold));
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 0 25px rgba(218, 165, 32, 0.2);
+  border: 1px solid hsl(var(--light-gold));
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 0 25px rgba(255, 215, 0, 0.15);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 1rem;
 }
 
-.royal-card-pastel:hover {
+.modern-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(218, 165, 32, 0.3);
-  border-color: hsl(var(--royal-purple));
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 215, 0, 0.25);
+  border-color: hsl(var(--royal-blue));
 }
 
-.royal-button-pastel {
-  background: linear-gradient(135deg, hsl(var(--pastel-gold)) 0%, hsl(var(--pastel-peach)) 100%);
-  border: 2px solid hsl(var(--pastel-gold));
-  color: hsl(var(--soft-burgundy));
+.modern-button {
+  background: linear-gradient(135deg, hsl(var(--royal-blue)) 0%, hsl(var(--bright-gold)) 100%);
+  border: 1px solid hsl(var(--royal-blue));
+  color: white;
   font-weight: 600;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
@@ -246,81 +242,118 @@
   border-radius: 2rem;
 }
 
-.royal-button-pastel::before {
+.modern-button::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   transition: left 0.5s;
 }
 
-.royal-button-pastel:hover::before {
+.modern-button:hover::before {
   left: 100%;
 }
 
-.royal-button-pastel:hover {
+.modern-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(218, 165, 32, 0.3);
-  background: linear-gradient(135deg, hsl(var(--royal-purple)) 0%, hsl(var(--pastel-rose)) 100%);
-  color: white;
+  box-shadow: 0 12px 25px rgba(13, 110, 253, 0.3);
+  background: linear-gradient(135deg, hsl(var(--navy-blue)) 0%, hsl(var(--golden-yellow)) 100%);
 }
 
-.elegant-border-pastel {
-  border: 3px solid;
-  border-image: linear-gradient(45deg, hsl(var(--pastel-gold)), hsl(var(--royal-purple)), hsl(var(--pastel-rose))) 1;
+.elegant-border {
+  border: 2px solid;
+  border-image: linear-gradient(45deg, hsl(var(--royal-blue)), hsl(var(--bright-gold)), hsl(var(--navy-blue))) 1;
   border-radius: 1rem;
 }
 
-.shimmer-text-pastel {
-  background: linear-gradient(90deg, hsl(var(--soft-burgundy)), hsl(var(--royal-purple)), hsl(var(--pastel-rose)), hsl(var(--soft-burgundy)));
+.shimmer-text {
+  background: linear-gradient(90deg, hsl(var(--navy-blue)), hsl(var(--royal-blue)), hsl(var(--bright-gold)), hsl(var(--navy-blue)));
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmerPastel 4s ease-in-out infinite;
+  animation: shimmer 4s ease-in-out infinite;
 }
 
-@keyframes shimmerPastel {
+@keyframes shimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 
-.royal-section-pastel {
+.modern-section {
   position: relative;
   overflow: hidden;
 }
 
-.royal-section-pastel::before {
+.modern-section::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(200, 100, 150, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 20%, rgba(13, 110, 253, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
   pointer-events: none;
 }
 
-/* Royal Decorative Elements */
-.royal-accent {
-  position: relative;
+/* Remove special effects and maintain clean visuals */
+.clean-minimal {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.royal-accent::after {
-  content: '✦';
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  color: hsl(var(--pastel-gold));
-  font-size: 1.5rem;
-  opacity: 0.7;
+.clean-minimal:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
-.royal-divider {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, hsl(var(--pastel-gold)), transparent);
-  margin: 2rem 0;
+/* Blue navigation styling */
+.nav-blue {
+  background: linear-gradient(135deg, hsl(var(--royal-blue)) 0%, hsl(var(--navy-blue)) 100%);
+  border-bottom: 2px solid hsl(var(--bright-gold));
+}
+
+/* Bright gold accents for mobile responsiveness */
+@media (max-width: 768px) {
+  .gold-accent {
+    color: hsl(var(--bright-gold)) !important;
+    font-weight: 600;
+  }
+  
+  .gold-bg {
+    background-color: hsl(var(--bright-gold)) !important;
+  }
+  
+  .gold-border {
+    border-color: hsl(var(--bright-gold)) !important;
+    border-width: 2px;
+  }
+}
+
+/* Voice bot visual movement */
+@keyframes voicePulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.voice-bot-active {
+  animation: voicePulse 1.5s ease-in-out infinite;
+}
+
+.voice-wave {
+  animation: voiceWave 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes voiceWave {
+  from { height: 8px; }
+  to { height: 24px; }
 }

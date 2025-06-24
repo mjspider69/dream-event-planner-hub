@@ -1,101 +1,111 @@
 
-import { Button } from "@/components/ui/button";
-import { Sparkles, Menu, Crown } from "lucide-react";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X, Bot, Sparkles } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Vendors", path: "/vendors" },
+    { name: "Packages", path: "/plan-event" },
+    { name: "Contact", path: "/customer-care" },
+  ];
+
+  const isActivePath = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
-    <header className="bg-white/95 backdrop-blur-xl shadow-lg sticky top-0 z-50 border-b-2 border-pastel-gold">
-      <div className="container mx-auto px-6 py-5">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-4">
-            <div className="w-14 h-14 pastel-gradient rounded-full flex items-center justify-center shadow-xl">
-              <Crown className="h-8 w-8 text-white" />
+    <header className="bg-white shadow-sm border-b border-blue-100 sticky top-0 z-50">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-white" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-4xl font-majestic font-bold shimmer-text-pastel">
-                AAROHAM
-              </span>
-              <span className="text-sm font-signature text-soft-burgundy tracking-widest">
-                Royal Events
-              </span>
+            <div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                Aaroham
+              </h1>
+              <p className="text-xs text-gray-500 -mt-1">AI Event Planning</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-10">
-            <Link to="/" className="text-soft-burgundy hover:text-royal-purple transition-all duration-300 font-royal font-medium text-lg tracking-wide hover:scale-105 relative group">
-              Home
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pastel-gold transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link to="/vendors" className="text-soft-burgundy hover:text-royal-purple transition-all duration-300 font-royal font-medium text-lg tracking-wide hover:scale-105 relative group">
-              Vendors
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pastel-gold transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link to="/about" className="text-soft-burgundy hover:text-royal-purple transition-all duration-300 font-royal font-medium text-lg tracking-wide hover:scale-105 relative group">
-              Services
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pastel-gold transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link to="/plan-event" className="text-soft-burgundy hover:text-royal-purple transition-all duration-300 font-royal font-medium text-lg tracking-wide hover:scale-105 relative group">
-              Gallery
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pastel-gold transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link to="/customer-care" className="text-soft-burgundy hover:text-royal-purple transition-all duration-300 font-royal font-medium text-lg tracking-wide hover:scale-105 relative group">
-              Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pastel-gold transition-all duration-300 group-hover:w-full"></span>
-            </Link>
+          <nav className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`text-sm font-medium transition-colors hover:text-amber-600 ${
+                  isActivePath(item.path) 
+                    ? "text-blue-600 border-b-2 border-amber-400 pb-1" 
+                    : "text-gray-700"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
           </nav>
 
-          {/* Action Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="outline" className="border-2 border-soft-burgundy text-soft-burgundy hover:bg-soft-burgundy hover:text-white font-royal font-semibold px-6 py-2 rounded-full transition-all duration-300">
-                Customer Login
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link to="/ai-chatbot">
+              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
+                <Bot className="w-4 h-4 mr-2" />
+                AI Chat
               </Button>
             </Link>
-            <Link to="/vendor-onboarding">
-              <Button className="royal-button-pastel px-8 py-3 font-majestic text-lg">
-                <Sparkles className="mr-2 h-5 w-5" />
-                Vendor Login
-              </Button>
-            </Link>
-            <Link to="/admin">
-              <Button variant="outline" className="border-2 border-royal-purple text-royal-purple hover:bg-royal-purple hover:text-white font-royal font-semibold px-6 py-2 rounded-full transition-all duration-300">
-                Admin Panel
+            <Link to="/plan-event">
+              <Button className="bg-gradient-to-r from-blue-600 to-amber-500 hover:from-blue-700 hover:to-amber-600 text-white">
+                Plan My Event
               </Button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
-            className="lg:hidden text-soft-burgundy hover:text-royal-purple transition-colors"
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Menu className="h-7 w-7" />
-          </button>
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 border-t border-pastel-gold/30">
-            <nav className="flex flex-col space-y-4 mt-6">
-              <Link to="/" className="text-soft-burgundy hover:text-royal-purple font-royal font-medium text-lg">Home</Link>
-              <Link to="/vendors" className="text-soft-burgundy hover:text-royal-purple font-royal font-medium text-lg">Vendors</Link>
-              <Link to="/about" className="text-soft-burgundy hover:text-royal-purple font-royal font-medium text-lg">Services</Link>
-              <Link to="/plan-event" className="text-soft-burgundy hover:text-royal-purple font-royal font-medium text-lg">Gallery</Link>
-              <Link to="/customer-care" className="text-soft-burgundy hover:text-royal-purple font-royal font-medium text-lg">Contact</Link>
-              <div className="flex flex-col space-y-3 pt-6">
-                <Link to="/login">
-                  <Button variant="outline" className="w-full border-soft-burgundy text-soft-burgundy hover:bg-soft-burgundy hover:text-white font-royal">
-                    Customer Login
+          <div className="md:hidden py-4 border-t border-gray-200">
+            <nav className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`text-sm font-medium transition-colors hover:text-amber-600 ${
+                    isActivePath(item.path) ? "text-blue-600" : "text-gray-700"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="flex flex-col space-y-2 pt-4">
+                <Link to="/ai-chatbot" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="outline" className="w-full border-blue-600 text-blue-600">
+                    <Bot className="w-4 h-4 mr-2" />
+                    AI Chat
                   </Button>
                 </Link>
-                <Link to="/vendor-onboarding">
-                  <Button className="w-full royal-button-pastel font-majestic">
-                    Vendor Login
+                <Link to="/plan-event" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-amber-500 text-white">
+                    Plan My Event
                   </Button>
                 </Link>
               </div>
