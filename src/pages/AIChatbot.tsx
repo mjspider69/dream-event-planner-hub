@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,8 +7,16 @@ import { Bot, Send, Clock, LogIn, Mic, MicOff, Volume2, VolumeX } from "lucide-r
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 
+interface Message {
+  id: number;
+  sender: 'ai' | 'user';
+  text: string;
+  time: string;
+  isVoice?: boolean;
+}
+
 const AIChatbot = () => {
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       sender: 'ai',
@@ -62,7 +69,7 @@ const AIChatbot = () => {
   const sendMessage = () => {
     if (!inputMessage.trim() || showLoginWall) return;
     
-    const newMessage = {
+    const newMessage: Message = {
       id: messages.length + 1,
       sender: 'user',
       text: inputMessage,
@@ -82,7 +89,7 @@ const AIChatbot = () => {
         "That's exciting! I can help you plan every detail. What's the expected number of guests?"
       ];
       
-      const aiResponse = {
+      const aiResponse: Message = {
         id: messages.length + 2,
         sender: 'ai',
         text: responses[Math.floor(Math.random() * responses.length)],
@@ -114,7 +121,7 @@ const AIChatbot = () => {
         setIsSpeaking(true);
         
         // Add user voice message
-        const voiceMessage = {
+        const voiceMessage: Message = {
           id: messages.length + 1,
           sender: 'user',
           text: "I'm planning a wedding for 200 guests in Mumbai",
@@ -125,7 +132,7 @@ const AIChatbot = () => {
         
         // Simulate AI voice response
         setTimeout(() => {
-          const aiVoiceResponse = {
+          const aiVoiceResponse: Message = {
             id: messages.length + 2,
             sender: 'ai',
             text: "Wonderful! Mumbai has excellent wedding venues. I can suggest photographers, decorators, and caterers. What's your budget range?",
