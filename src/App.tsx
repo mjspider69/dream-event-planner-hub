@@ -9,6 +9,7 @@ import About from "./pages/About";
 import CustomerCare from "./pages/CustomerCare";
 import PlanMyEvent from "./pages/PlanMyEvent";
 import AIChatbot from "./pages/AIChatbot";
+import Auth from "./pages/Auth";
 import CustomerLogin from "./pages/CustomerLogin";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import VendorListing from "./pages/VendorListing";
@@ -22,6 +23,7 @@ import VendorDashboard from "./pages/VendorDashboard";
 import VendorOnboarding from "./pages/VendorOnboarding";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import NotFound from "./pages/NotFound";
 
