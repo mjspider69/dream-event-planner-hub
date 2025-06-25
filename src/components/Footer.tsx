@@ -4,77 +4,151 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="pastel-gradient text-white py-20 royal-section-pastel">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-16">
+    <footer className="bg-gradient-to-br from-navy-blue via-deep-blue to-royal-blue text-white py-20 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-bright-gold rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-golden-yellow rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid md:grid-cols-4 gap-12">
           <div>
-            <div className="flex items-center space-x-4 mb-10">
-              <div className="w-16 h-16 bg-gradient-to-r from-pastel-gold to-white rounded-full flex items-center justify-center shadow-xl">
-                <Crown className="h-9 w-9 text-soft-burgundy" />
+            <div className="flex items-center space-x-4 mb-8">
+              <div className="w-16 h-16 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center shadow-xl">
+                <Crown className="h-9 w-9 text-navy-blue" />
               </div>
               <div className="flex flex-col">
                 <span className="text-4xl font-majestic font-bold text-white">AAROHAM</span>
-                <span className="text-sm font-signature text-white/80 tracking-widest">Royal Events</span>
+                <span className="text-sm font-signature text-bright-gold tracking-widest">Royal Events</span>
               </div>
             </div>
-            <p className="text-white/90 leading-relaxed font-elegant text-lg">
+            <p className="text-white/90 leading-relaxed font-elegant text-base mb-6">
               India's premier AI-powered royal event planning platform, elevating every celebration 
               with sophisticated technology and deep cultural reverence for unforgettable experiences.
             </p>
+            <div className="flex items-center space-x-4 text-white/80">
+              <div className="flex items-center space-x-2">
+                <Phone className="h-4 w-4 text-bright-gold" />
+                <span className="text-sm">+91 98765 43210</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4 text-white/80 mt-2">
+              <div className="flex items-center space-x-2">
+                <Mail className="h-4 w-4 text-bright-gold" />
+                <span className="text-sm">info@aaroham.com</span>
+              </div>
+            </div>
           </div>
           
           <div>
-            <h4 className="text-3xl font-majestic font-semibold mb-8 flex items-center">
-              <Diamond className="w-6 h-6 mr-3" />
+            <h4 className="text-2xl font-majestic font-semibold mb-6 flex items-center text-white">
+              <Diamond className="w-5 h-5 mr-3 text-bright-gold" />
               Royal Services
             </h4>
-            <ul className="space-y-4 text-white/90 font-elegant">
-              <li><Link to="/vendors/wedding" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Royal Wedding Planning</Link></li>
-              <li><Link to="/vendors/corporate" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Elite Corporate Events</Link></li>
-              <li><Link to="/vendors/birthday" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Premium Birthday Parties</Link></li>
-              <li><Link to="/vendors/social" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Exclusive Social Events</Link></li>
+            <ul className="space-y-3 text-white/90 font-elegant">
+              <li>
+                <Link to="/vendors?category=wedding" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Royal Wedding Planning
+                </Link>
+              </li>
+              <li>
+                <Link to="/vendors?category=corporate" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Elite Corporate Events
+                </Link>
+              </li>
+              <li>
+                <Link to="/vendors?category=birthday" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Premium Birthday Parties
+                </Link>
+              </li>
+              <li>
+                <Link to="/vendors?category=social" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Exclusive Social Events
+                </Link>
+              </li>
+              <li>
+                <Link to="/plan-event" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  AI Event Planning
+                </Link>
+              </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-3xl font-majestic font-semibold mb-8 flex items-center">
-              <Sparkles className="w-6 h-6 mr-3" />
+            <h4 className="text-2xl font-majestic font-semibold mb-6 flex items-center text-white">
+              <Sparkles className="w-5 h-5 mr-3 text-bright-gold" />
               Royal Company
             </h4>
-            <ul className="space-y-4 text-white/90 font-elegant">
-              <li><Link to="/about" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">About Our Legacy</Link></li>
-              <li><Link to="/vendors" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Elite Vendors</Link></li>
-              <li><Link to="/testimonials" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Royal Testimonials</Link></li>
-              <li><Link to="/customer-care" className="hover:text-pastel-gold transition-colors text-lg hover:translate-x-2 inline-block transition-transform duration-300">Royal Support</Link></li>
+            <ul className="space-y-3 text-white/90 font-elegant">
+              <li>
+                <Link to="/about" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  About Our Legacy
+                </Link>
+              </li>
+              <li>
+                <Link to="/vendors" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Elite Vendors
+                </Link>
+              </li>
+              <li>
+                <Link to="/customer-care" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Royal Support
+                </Link>
+              </li>
+              <li>
+                <Link to="/auth" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Join Aaroham
+                </Link>
+              </li>
+              <li>
+                <Link to="/customer-dashboard" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  My Dashboard
+                </Link>
+              </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-3xl font-majestic font-semibold mb-8 flex items-center">
-              <Heart className="w-6 h-6 mr-3" />
+            <h4 className="text-2xl font-majestic font-semibold mb-6 flex items-center text-white">
+              <Heart className="w-5 h-5 mr-3 text-bright-gold" />
               Royal Connect
             </h4>
-            <p className="text-white/90 mb-8 font-elegant text-lg">Stay connected with our latest royal events and AI innovations</p>
-            <div className="flex space-x-5">
-              <div className="w-16 h-16 bg-gradient-to-r from-pastel-gold to-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-xl group">
-                <span className="text-xl font-majestic font-bold text-soft-burgundy group-hover:scale-110 transition-transform duration-300">f</span>
+            <p className="text-white/90 mb-6 font-elegant text-base">
+              Stay connected with our latest royal events and AI innovations
+            </p>
+            <div className="flex space-x-4 mb-6">
+              <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg group">
+                <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">f</span>
               </div>
-              <div className="w-16 h-16 bg-gradient-to-r from-pastel-gold to-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-xl group">
-                <span className="text-xl font-majestic font-bold text-soft-burgundy group-hover:scale-110 transition-transform duration-300">t</span>
+              <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg group">
+                <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">ig</span>
               </div>
-              <div className="w-16 h-16 bg-gradient-to-r from-pastel-gold to-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-xl group">
-                <span className="text-xl font-majestic font-bold text-soft-burgundy group-hover:scale-110 transition-transform duration-300">i</span>
+              <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg group">
+                <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">tw</span>
               </div>
+            </div>
+            <div className="space-y-2 text-white/80">
+              <div className="flex items-center space-x-2">
+                <MapPin className="h-4 w-4 text-bright-gold" />
+                <span className="text-sm">Mumbai, Delhi, Bangalore</span>
+              </div>
+              <p className="text-sm">Pan-India Service Available</p>
             </div>
           </div>
         </div>
         
-        <div className="border-t-2 border-pastel-gold/40 mt-20 pt-16 text-center">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-white/90 font-elegant text-xl">
+        <div className="border-t-2 border-bright-gold/30 mt-16 pt-12 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <p className="text-white/90 font-elegant text-base">
               &copy; 2024 Aaroham Royal Events. All rights reserved. 
             </p>
-            <p className="text-pastel-gold font-signature text-2xl mt-4 md:mt-0">
+            <div className="flex space-x-6 text-sm text-white/80">
+              <Link to="/privacy" className="hover:text-bright-gold transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-bright-gold transition-colors">Terms of Service</Link>
+              <Link to="/refund" className="hover:text-bright-gold transition-colors">Refund Policy</Link>
+            </div>
+            <p className="text-bright-gold font-signature text-xl">
               Rising with every royal celebration ✨
             </p>
           </div>
