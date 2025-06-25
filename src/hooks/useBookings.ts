@@ -50,7 +50,7 @@ export const useCreateBooking = () => {
         .from('bookings')
         .insert({
           customer_id: user.id,
-          vendor_ids: bookingData.vendor_ids,
+          vendor_id: bookingData.vendor_ids[0], // Use first vendor for now, since we only have vendor_id field
           event_type: bookingData.event_type,
           event_date: bookingData.event_date,
           event_location: bookingData.event_location,
@@ -58,8 +58,6 @@ export const useCreateBooking = () => {
           budget: bookingData.budget,
           requirements: bookingData.requirements,
           status: 'pending',
-          payment_status: 'pending',
-          booking_expires_at: expiryDate.toISOString(),
         })
         .select()
         .single();
@@ -69,7 +67,6 @@ export const useCreateBooking = () => {
         throw error;
       }
 
-      // Note: Notifications functionality will be added once the table is available in types
       console.log('Booking created successfully:', data);
 
       return data;
@@ -109,7 +106,7 @@ export const useUserBookings = () => {
       const transformedData = data?.map(booking => ({
         id: booking.id,
         customer_id: booking.customer_id,
-        vendor_ids: Array.isArray(booking.vendor_ids) ? booking.vendor_ids : [],
+        vendor_ids: booking.vendor_id ? [booking.vendor_id] : [], // Convert single vendor_id to array
         event_type: booking.event_type,
         event_date: booking.event_date,
         event_location: booking.event_location,
@@ -118,8 +115,8 @@ export const useUserBookings = () => {
         requirements: booking.requirements,
         status: booking.status || 'pending',
         total_amount: booking.total_amount,
-        payment_status: booking.payment_status || 'pending',
-        booking_expires_at: booking.booking_expires_at || null,
+        payment_status: 'pending', // Default for now
+        booking_expires_at: null, // Default for now
         created_at: booking.created_at,
         updated_at: booking.updated_at,
       })) || [];

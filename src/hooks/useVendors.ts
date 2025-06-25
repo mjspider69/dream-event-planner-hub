@@ -39,16 +39,16 @@ export const useVendors = (params: UseVendorsParams = {}) => {
       let query = supabase
         .from('vendors')
         .select('*')
-        .eq('is_approved', true)
-        .eq('is_online', true);
+        .eq('status', 'approved');
 
-      // Apply filters
+      // Apply filters based on available fields
       if (params.speciality && params.speciality !== 'all') {
-        query = query.contains('speciality', [params.speciality]);
+        // Filter by category since speciality might not be available
+        query = query.ilike('category', `%${params.speciality}%`);
       }
 
       if (params.city && params.city !== 'all cities') {
-        query = query.ilike('city', `%${params.city}%`);
+        query = query.ilike('location', `%${params.city}%`);
       }
 
       if (params.rating) {
@@ -69,20 +69,20 @@ export const useVendors = (params: UseVendorsParams = {}) => {
       const transformedData = data?.map(vendor => ({
         id: vendor.id,
         business_name: vendor.business_name,
-        contact_person: vendor.contact_person || null,
-        email: vendor.email || null,
-        phone: vendor.phone || null,
-        city: vendor.city || null,
+        contact_person: null, // Will be available after schema update
+        email: null, // Will be available after schema update
+        phone: null, // Will be available after schema update
+        city: vendor.location, // Map location to city
         category: vendor.category,
-        speciality: Array.isArray(vendor.speciality) ? vendor.speciality : [],
+        speciality: [vendor.category], // Use category as speciality for now
         description: vendor.description,
         price_range: vendor.price_range,
         portfolio_images: vendor.portfolio_images || [],
-        is_approved: vendor.is_approved || false,
-        is_online: vendor.is_online || false,
-        is_featured: vendor.is_featured || false,
+        is_approved: vendor.status === 'approved',
+        is_online: true, // Default to true for now
+        is_featured: false, // Default to false for now
         rating: Number(vendor.rating) || 0,
-        total_bookings: vendor.total_bookings || 0,
+        total_bookings: 0, // Default to 0 for now
         created_at: vendor.created_at,
         updated_at: vendor.updated_at,
       })) || [];
@@ -110,20 +110,20 @@ export const useVendorById = (id: string) => {
       const transformedData = {
         id: data.id,
         business_name: data.business_name,
-        contact_person: data.contact_person || null,
-        email: data.email || null,
-        phone: data.phone || null,
-        city: data.city || null,
+        contact_person: null, // Will be available after schema update
+        email: null, // Will be available after schema update
+        phone: null, // Will be available after schema update
+        city: data.location, // Map location to city
         category: data.category,
-        speciality: Array.isArray(data.speciality) ? data.speciality : [],
+        speciality: [data.category], // Use category as speciality for now
         description: data.description,
         price_range: data.price_range,
         portfolio_images: data.portfolio_images || [],
-        is_approved: data.is_approved || false,
-        is_online: data.is_online || false,
-        is_featured: data.is_featured || false,
+        is_approved: data.status === 'approved',
+        is_online: true, // Default to true for now
+        is_featured: false, // Default to false for now
         rating: Number(data.rating) || 0,
-        total_bookings: data.total_bookings || 0,
+        total_bookings: 0, // Default to 0 for now
         created_at: data.created_at,
         updated_at: data.updated_at,
       };
