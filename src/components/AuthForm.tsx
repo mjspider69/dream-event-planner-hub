@@ -17,6 +17,7 @@ const AuthForm = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -24,7 +25,8 @@ const AuthForm = ({
     fullName: '',
     phone: '',
     businessName: '',
-    category: ''
+    category: '',
+    otp: ''
   });
   const { toast } = useToast();
 
@@ -32,6 +34,79 @@ const AuthForm = ({
     "Photography", "Videography", "Decoration", "Catering", 
     "Music & DJ", "Transportation", "Venue", "Priest", "Gifts"
   ];
+
+  const handleSendOTP = async () => {
+    if (!formData.email) {
+      toast({
+        title: "Error",
+        description: "Please enter your email address",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: formData.email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+        }
+      });
+
+      if (error) throw error;
+
+      setOtpSent(true);
+      toast({
+        title: "OTP Sent!",
+        description: "Please check your email for the verification code",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send OTP",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOTP = async () => {
+    if (!formData.otp || formData.otp.length !== 6) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid 6-digit OTP",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email: formData.email,
+        token: formData.otp,
+        type: 'email'
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success!",
+        description: "You have been logged in successfully",
+      });
+      onSuccess();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Invalid OTP",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +118,15 @@ const AuthForm = ({
           toast({
             title: "Error",
             description: "Passwords do not match",
+            variant: "destructive"
+          });
+          return;
+        }
+
+        if (formData.password.length < 6) {
+          toast({
+            title: "Error",
+            description: "Password must be at least 6 characters long",
             variant: "destructive"
           });
           return;
@@ -63,7 +147,18 @@ const AuthForm = ({
           }
         });
 
-        if (error) throw error;
+        if (error) {
+          if (error.message.includes('already registered')) {
+            toast({
+              title: "Account Exists",
+              description: "This email is already registered. Please try logging in instead.",
+              variant: "destructive"
+            });
+          } else {
+            throw error;
+          }
+          return;
+        }
 
         toast({
           title: "Success!",
@@ -76,7 +171,24 @@ const AuthForm = ({
           password: formData.password,
         });
 
-        if (error) throw error;
+        if (error) {
+          if (error.message.includes('Invalid login credentials')) {
+            toast({
+              title: "Login Failed",
+              description: "Invalid email or password. Please check your credentials.",
+              variant: "destructive"
+            });
+          } else if (error.message.includes('Email not confirmed')) {
+            toast({
+              title: "Email Not Confirmed",
+              description: "Please check your email and click the confirmation link.",
+              variant: "destructive"
+            });
+          } else {
+            throw error;
+          }
+          return;
+        }
 
         toast({
           title: "Welcome back!",
@@ -85,9 +197,10 @@ const AuthForm = ({
         onSuccess();
       }
     } catch (error: any) {
+      console.error('Auth error:', error);
       toast({
         title: "Error",
-        description: error.message,
+        description: error.message || "An unexpected error occurred",
         variant: "destructive"
       });
     } finally {
@@ -120,6 +233,65 @@ const AuthForm = ({
       </CardHeader>
 
       <CardContent className="p-6">
+        {/* OTP Login Option for existing users */}
+        {mode === 'login' && (
+          <div className="mb-4 p-4 bg-amber-50 rounded-lg">
+            <h4 className="font-semibold mb-2">Quick Login with OTP</h4>
+            <div className="space-y-3">
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <Input
+                  type="email"
+                  placeholder="Email address"
+                  value={formData.email}
+                  onChange={(e) => updateFormData('email', e.target.value)}
+                  className="pl-10 py-2"
+                />
+              </div>
+              {!otpSent ? (
+                <Button
+                  type="button"
+                  onClick={handleSendOTP}
+                  disabled={loading}
+                  className="w-full bg-amber-500 hover:bg-amber-600"
+                >
+                  {loading ? 'Sending...' : 'Send OTP'}
+                </Button>
+              ) : (
+                <div className="space-y-3">
+                  <Input
+                    type="text"
+                    placeholder="Enter 6-digit OTP"
+                    value={formData.otp}
+                    onChange={(e) => updateFormData('otp', e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    className="text-center text-lg"
+                    maxLength={6}
+                  />
+                  <Button
+                    type="button"
+                    onClick={handleVerifyOTP}
+                    disabled={loading}
+                    className="w-full bg-green-500 hover:bg-green-600"
+                  >
+                    {loading ? 'Verifying...' : 'Verify OTP'}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setOtpSent(false)}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Use Different Email
+                  </Button>
+                </div>
+              )}
+            </div>
+            <div className="mt-3 pt-3 border-t">
+              <p className="text-sm text-gray-600 text-center">Or use password login below</p>
+            </div>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           
           {/* Email */}
@@ -237,6 +409,14 @@ const AuthForm = ({
             )}
           </Button>
         </form>
+
+        {mode === 'login' && (
+          <div className="mt-4 text-center">
+            <button className="text-sm text-blue-600 hover:underline">
+              Forgot Password?
+            </button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
