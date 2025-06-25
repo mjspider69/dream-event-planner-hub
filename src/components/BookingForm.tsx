@@ -64,7 +64,7 @@ const BookingForm = ({ vendorId, vendorName, onSuccess }: BookingFormProps) => {
     }
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | Date | undefined) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -111,7 +111,7 @@ const BookingForm = ({ vendorId, vendorName, onSuccess }: BookingFormProps) => {
                   <Calendar
                     mode="single"
                     selected={formData.event_date}
-                    onSelect={(date) => handleInputChange('event_date', '')}
+                    onSelect={(date) => handleInputChange('event_date', date)}
                     disabled={(date) => date < new Date()}
                     initialFocus
                   />

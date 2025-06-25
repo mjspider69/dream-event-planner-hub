@@ -64,7 +64,30 @@ export const useVendors = (params: UseVendorsParams = {}) => {
       }
 
       console.log('Fetched vendors:', data);
-      return data as Vendor[];
+      
+      // Transform the data to match our Vendor interface
+      const transformedData = data?.map(vendor => ({
+        id: vendor.id,
+        business_name: vendor.business_name,
+        contact_person: vendor.contact_person || null,
+        email: vendor.email || null,
+        phone: vendor.phone || null,
+        city: vendor.city || null,
+        category: vendor.category,
+        speciality: Array.isArray(vendor.speciality) ? vendor.speciality : [],
+        description: vendor.description,
+        price_range: vendor.price_range,
+        portfolio_images: vendor.portfolio_images || [],
+        is_approved: vendor.is_approved || false,
+        is_online: vendor.is_online || false,
+        is_featured: vendor.is_featured || false,
+        rating: Number(vendor.rating) || 0,
+        total_bookings: vendor.total_bookings || 0,
+        created_at: vendor.created_at,
+        updated_at: vendor.updated_at,
+      })) || [];
+
+      return transformedData as Vendor[];
     },
   });
 };
@@ -83,7 +106,29 @@ export const useVendorById = (id: string) => {
         throw error;
       }
 
-      return data as Vendor;
+      // Transform the data to match our Vendor interface
+      const transformedData = {
+        id: data.id,
+        business_name: data.business_name,
+        contact_person: data.contact_person || null,
+        email: data.email || null,
+        phone: data.phone || null,
+        city: data.city || null,
+        category: data.category,
+        speciality: Array.isArray(data.speciality) ? data.speciality : [],
+        description: data.description,
+        price_range: data.price_range,
+        portfolio_images: data.portfolio_images || [],
+        is_approved: data.is_approved || false,
+        is_online: data.is_online || false,
+        is_featured: data.is_featured || false,
+        rating: Number(data.rating) || 0,
+        total_bookings: data.total_bookings || 0,
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+      };
+
+      return transformedData as Vendor;
     },
     enabled: !!id,
   });
