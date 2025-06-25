@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Phone, Mail, MapPin, Clock, MessageCircle, HelpCircle, CreditCard, User } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, HelpCircle, CreditCard, User, ExternalLink, Instagram, Linkedin } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -63,8 +63,17 @@ const CustomerCare = () => {
               <CardContent className="p-6">
                 <Phone className="h-8 w-8 text-amber-600 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Call Us</h3>
-                <p className="text-gray-600">+91 98765 43210</p>
-                <p className="text-sm text-gray-500">24/7 Support</p>
+                <a href="tel:+917698889321" className="text-gray-600 hover:text-amber-600 transition-colors">
+                  +91 769 888 9321
+                </a>
+                <p className="text-sm text-gray-500 mt-1">24/7 Support</p>
+                <Button 
+                  size="sm" 
+                  className="mt-3 bg-amber-600 hover:bg-amber-700"
+                  onClick={() => window.open('tel:+917698889321')}
+                >
+                  📱 Call Us Now
+                </Button>
               </CardContent>
             </Card>
             
@@ -72,8 +81,17 @@ const CustomerCare = () => {
               <CardContent className="p-6">
                 <Mail className="h-8 w-8 text-amber-600 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Email Us</h3>
-                <p className="text-gray-600">help@aaroham.com</p>
-                <p className="text-sm text-gray-500">Quick Response</p>
+                <a href="mailto:aaroham.net@gmail.com" className="text-gray-600 hover:text-amber-600 transition-colors">
+                  aaroham.net@gmail.com
+                </a>
+                <p className="text-sm text-gray-500 mt-1">Quick Response</p>
+                <Button 
+                  size="sm" 
+                  className="mt-3 bg-amber-600 hover:bg-amber-700"
+                  onClick={() => window.open('mailto:aaroham.net@gmail.com')}
+                >
+                  📬 Drop Us a Mail
+                </Button>
               </CardContent>
             </Card>
             
@@ -95,6 +113,80 @@ const CustomerCare = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Social Media & Career Section */}
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <Card className="bg-gradient-to-br from-amber-50 to-orange-50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Instagram className="h-5 w-5 text-amber-600" />
+                  Follow Our Journey
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4">
+                  Stay updated with our latest events, behind-the-scenes content, and royal celebrations on Instagram.
+                </p>
+                <Button 
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                  onClick={() => window.open('https://www.instagram.com/aaroham_', '_blank')}
+                >
+                  📸 Follow Our Journey <ExternalLink className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Linkedin className="h-5 w-5 text-blue-600" />
+                  Join Our Network
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4">
+                  Connect with vendors, partners, and event professionals in our exclusive LinkedIn community.
+                </p>
+                <Button 
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                  onClick={() => window.open('https://www.linkedin.com/groups/14719662/', '_blank')}
+                >
+                  👥 Join Our Network <ExternalLink className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Careers Section */}
+          <Card className="mb-16 bg-gradient-to-r from-amber-600/10 to-orange-600/10">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Work With Us</h3>
+              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                Join our team of passionate event planning professionals. We're always looking for talented individuals 
+                to help us create magical moments across India.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700"
+                  onClick={() => window.open('mailto:withaaroham@aaroham', '_blank')}
+                >
+                  💼 Career Opportunities
+                </Button>
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-amber-600 text-amber-600 hover:bg-amber-50"
+                  onClick={() => window.open('mailto:withaaroham@aaroham', '_blank')}
+                >
+                  🎓 Internship Programs
+                </Button>
+              </div>
+              <p className="text-sm text-gray-500 mt-4">
+                Send your resume to: <a href="mailto:withaaroham@aaroham" className="text-amber-600 hover:underline">withaaroham@aaroham</a>
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

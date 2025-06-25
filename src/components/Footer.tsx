@@ -1,5 +1,5 @@
 
-import { Sparkles, Crown, Diamond, Heart, MapPin, Phone, Mail } from "lucide-react";
+import { Sparkles, Crown, Diamond, Heart, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -27,16 +27,25 @@ const Footer = () => {
               India's premier AI-powered royal event planning platform, elevating every celebration 
               with sophisticated technology and deep cultural reverence for unforgettable experiences.
             </p>
-            <div className="flex items-center space-x-4 text-white/80">
-              <div className="flex items-center space-x-2">
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 text-white/80">
                 <Phone className="h-4 w-4 text-bright-gold" />
-                <span className="text-sm">+91 98765 43210</span>
+                <a href="tel:+917698889321" className="text-sm hover:text-bright-gold transition-colors">
+                  +91 769 888 9321
+                </a>
               </div>
-            </div>
-            <div className="flex items-center space-x-4 text-white/80 mt-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-3 text-white/80">
                 <Mail className="h-4 w-4 text-bright-gold" />
-                <span className="text-sm">info@aaroham.com</span>
+                <a href="mailto:aaroham.net@gmail.com" className="text-sm hover:text-bright-gold transition-colors">
+                  aaroham.net@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center space-x-3 text-white/80">
+                <Mail className="h-4 w-4 text-bright-gold" />
+                <a href="mailto:withaaroham@aaroham" className="text-sm hover:text-bright-gold transition-colors">
+                  withaaroham@aaroham
+                </a>
+                <span className="text-xs text-bright-gold">(Careers)</span>
               </div>
             </div>
           </div>
@@ -102,9 +111,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/customer-dashboard" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
-                  My Dashboard
-                </Link>
+                <a href="mailto:withaaroham@aaroham" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                  Work With Us
+                </a>
               </li>
             </ul>
           </div>
@@ -118,22 +127,59 @@ const Footer = () => {
               Stay connected with our latest royal events and AI innovations
             </p>
             <div className="flex space-x-4 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg group">
-                <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">f</span>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg group">
-                <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">ig</span>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg group">
-                <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">tw</span>
-              </div>
+              <a 
+                href="https://www.instagram.com/aaroham_" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group"
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg">
+                  <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">ig</span>
+                </div>
+              </a>
+              <a 
+                href="https://www.linkedin.com/groups/14719662/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group"
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg">
+                  <span className="text-lg font-majestic font-bold text-navy-blue group-hover:scale-110 transition-transform duration-300">in</span>
+                </div>
+              </a>
+              <a 
+                href="mailto:aaroham.net@gmail.com" 
+                className="group"
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer shadow-lg">
+                  <Mail className="h-5 w-5 text-navy-blue group-hover:scale-110 transition-transform duration-300" />
+                </div>
+              </a>
             </div>
-            <div className="space-y-2 text-white/80">
+            <div className="space-y-3 text-white/80">
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-bright-gold" />
                 <span className="text-sm">Mumbai, Delhi, Bangalore</span>
               </div>
               <p className="text-sm">Pan-India Service Available</p>
+              <div className="flex flex-wrap gap-2 mt-4">
+                <a 
+                  href="https://www.instagram.com/aaroram_" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs bg-bright-gold/20 text-bright-gold px-2 py-1 rounded-full hover:bg-bright-gold/30 transition-colors flex items-center gap-1"
+                >
+                  📸 Follow Our Journey <ExternalLink className="h-3 w-3" />
+                </a>
+                <a 
+                  href="https://www.linkedin.com/groups/14719662/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs bg-bright-gold/20 text-bright-gold px-2 py-1 rounded-full hover:bg-bright-gold/30 transition-colors flex items-center gap-1"
+                >
+                  👥 Join Our Network <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
