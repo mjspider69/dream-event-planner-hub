@@ -359,7 +359,7 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
               <Checkbox
                 id="terms"
                 checked={acceptTerms}
-                onCheckedChange={setAcceptTerms}
+                onCheckedChange={(checked) => setAcceptTerms(checked === true)}
               />
               <label
                 htmlFor="terms"
