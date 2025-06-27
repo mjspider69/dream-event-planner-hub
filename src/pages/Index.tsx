@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,9 +8,11 @@ import Footer from "@/components/Footer";
 import ChatbotIntroPopup from "@/components/ChatbotIntroPopup";
 import EventPackages from "@/components/EventPackages";
 import SignUpModal from "@/components/SignUpModal";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const [showSignUp, setShowSignUp] = useState(false);
+  const { user } = useAuth();
 
   const handleGetStarted = () => {
     setShowSignUp(true);
@@ -80,16 +81,30 @@ const Index = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               
-              <Link to="/ai-chatbot">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg"
-                >
-                  <Bot className="mr-2 h-5 w-5" />
-                  Chat with Aarohi
-                </Button>
-              </Link>
+              {/* Only show AI chatbot link if user is authenticated */}
+              {user ? (
+                <Link to="/ai-chatbot">
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg"
+                  >
+                    <Bot className="mr-2 h-5 w-5" />
+                    Chat with Aarohi
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/auth">
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg"
+                  >
+                    <Bot className="mr-2 h-5 w-5" />
+                    Sign In to Chat
+                  </Button>
+                </Link>
+              )}
             </div>
 
             <div className="grid md:grid-cols-3 gap-8 mt-16">
@@ -121,7 +136,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
@@ -172,7 +186,6 @@ const Index = () => {
       {/* Event Packages */}
       <EventPackages />
 
-      {/* Testimonials */}
       <section className="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
@@ -228,16 +241,30 @@ const Index = () => {
               <Calendar className="ml-2 h-5 w-5" />
             </Button>
             
-            <Link to="/ai-chatbot">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-2 border-white text-white hover:bg-white hover:text-amber-600 px-8 py-4 text-lg"
-              >
-                <Bot className="mr-2 h-5 w-5" />
-                Talk to Aarohi
-              </Button>
-            </Link>
+            {/* Only show AI chatbot link if user is authenticated */}
+            {user ? (
+              <Link to="/ai-chatbot">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-2 border-white text-white hover:bg-white hover:text-amber-600 px-8 py-4 text-lg"
+                >
+                  <Bot className="mr-2 h-5 w-5" />
+                  Talk to Aarohi
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/auth">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-2 border-white text-white hover:bg-white hover:text-amber-600 px-8 py-4 text-lg"
+                >
+                  <Bot className="mr-2 h-5 w-5" />
+                  Sign In to Chat
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </section>

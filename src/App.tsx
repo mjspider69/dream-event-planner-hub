@@ -49,20 +49,43 @@ function App() {
           <Toaster />
           <BrowserRouter>
             <Routes>
-              {/* Public Routes */}
+              {/* Public Routes - Only these pages are accessible without authentication */}
               <Route path="/" element={<Index />} />
+              <Route path="/vendors" element={<VendorListing />} />
+              <Route path="/about" element={<About />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/customer-auth" element={<CustomerAuth />} />
               <Route path="/vendor-auth" element={<VendorAuth />} />
               <Route path="/admin-login" element={<AdminLogin />} />
-              <Route path="/vendors" element={<VendorListing />} />
-              <Route path="/vendor/:id" element={<VendorView />} />
-              <Route path="/ai-chatbot" element={<AIChatbot />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/packages" element={<Packages />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/refund-policy" element={<RefundPolicy />} />
+
+              {/* Protected Routes - All other pages require authentication */}
+              <Route
+                path="/vendor/:id"
+                element={
+                  <ProtectedRoute>
+                    <VendorView />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/ai-chatbot"
+                element={
+                  <ProtectedRoute>
+                    <AIChatbot />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/packages"
+                element={
+                  <ProtectedRoute>
+                    <Packages />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* Protected Customer Routes */}
               <Route

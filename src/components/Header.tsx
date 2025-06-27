@@ -55,7 +55,7 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Only show public links when not authenticated */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/vendors"
@@ -63,19 +63,26 @@ const Header = () => {
             >
               Find Vendors
             </Link>
-            <Link
-              to="/packages"
-              className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
-            >
-              Packages
-            </Link>
-            <Link
-              to="/ai-chatbot"
-              className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
-            >
-              <MessageCircle className="h-4 w-4 mr-1" />
-              Chat with Aarohi
-            </Link>
+            
+            {/* Only show these links when user is authenticated */}
+            {user && (
+              <>
+                <Link
+                  to="/packages"
+                  className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                >
+                  Packages
+                </Link>
+                <Link
+                  to="/ai-chatbot"
+                  className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
+                >
+                  <MessageCircle className="h-4 w-4 mr-1" />
+                  Chat with Aarohi
+                </Link>
+              </>
+            )}
+            
             <Link
               to="/about"
               className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
@@ -146,21 +153,28 @@ const Header = () => {
               >
                 Find Vendors
               </Link>
-              <Link
-                to="/packages"
-                className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                Packages
-              </Link>
-              <Link
-                to="/ai-chatbot"
-                className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
-                onClick={() => setIsOpen(false)}
-              >
-                <MessageCircle className="h-4 w-4 mr-1" />
-                Chat with Aarohi
-              </Link>
+              
+              {/* Only show these links when user is authenticated */}
+              {user && (
+                <>
+                  <Link
+                    to="/packages"
+                    className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Packages
+                  </Link>
+                  <Link
+                    to="/ai-chatbot"
+                    className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <MessageCircle className="h-4 w-4 mr-1" />
+                    Chat with Aarohi
+                  </Link>
+                </>
+              )}
+              
               <Link
                 to="/about"
                 className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
