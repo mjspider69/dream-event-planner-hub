@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,11 +8,18 @@ import { Search, MapPin, Star, Filter, Heart, Bot, Loader2 } from "lucide-react"
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CulturalBackdrop from "@/components/CulturalBackdrop";
+import LoginPromptModal from "@/components/LoginPromptModal";
 import { useVendors } from "@/hooks/useVendors";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const VendorListing = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("all cities");
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [selectedVendor, setSelectedVendor] = useState<string>("");
+  const [user, setUser] = useState<any>(null);
   const [filters, setFilters] = useState({
     speciality: "",
     city: "",
@@ -23,21 +29,39 @@ const VendorListing = () => {
 
   const { data: vendors = [], isLoading, error } = useVendors(filters);
 
-  // Filter vendors based on search term
-  const filteredVendors = vendors.filter(vendor =>
-    vendor.business_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vendor.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vendor.city?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Check authentication status
+  useState(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+  });
+
+  // Filter vendors based on search term and approval status
+  const filteredVendors = vendors.filter(vendor => {
+    const matchesSearch = vendor.business_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.city?.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Only show approved and online vendors
+    const isApproved = vendor.is_approved === true;
+    const isOnline = vendor.is_online === true;
+    
+    return matchesSearch && isApproved && isOnline;
+  });
 
   const categories = ["All", "Photography", "Decoration", "Catering", "DJ & Music", "Priest", "Transport"];
-  const locations = ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Pune", "Hyderabad", "Ahmedabad"];
+  const locations = ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Pune", "Hyderabad", "Ahmedabad", "Jaipur", "Kolkata", "Kochi", "Lucknow"];
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({
       ...prev,
       [key]: value.toLowerCase()
     }));
+  };
+
+  const handleLocationChange = (value: string) => {
+    setSelectedLocation(value.toLowerCase());
+    handleFilterChange('city', value);
   };
 
   const clearFilters = () => {
@@ -48,6 +72,16 @@ const VendorListing = () => {
       priceRange: "",
     });
     setSearchTerm("");
+    setSelectedLocation("all cities");
+  };
+
+  const handleVendorClick = (vendorName: string) => {
+    if (!user) {
+      setSelectedVendor(vendorName);
+      setShowLoginModal(true);
+      return false;
+    }
+    return true;
   };
 
   if (error) {
@@ -59,14 +93,15 @@ const VendorListing = () => {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
       <Header />
       
-      {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-r from-amber-600/10 to-orange-600/10">
-        <div className="container mx-auto px-6">
+      {/* Hero Section with Cultural Backdrop */}
+      <section className="relative py-16 overflow-hidden">
+        <CulturalBackdrop location={selectedLocation} />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg">
               Find Perfect Vendors
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-white/90 mb-8 drop-shadow">
               Discover verified vendors matched by AI for your perfect celebration
             </p>
             
@@ -77,7 +112,7 @@ const VendorListing = () => {
                 placeholder="Search vendors, services, or locations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 pr-4 py-3 text-lg"
+                className="pl-12 pr-4 py-3 text-lg bg-white/95 backdrop-blur"
               />
             </div>
           </div>
@@ -106,7 +141,7 @@ const VendorListing = () => {
               </SelectContent>
             </Select>
             
-            <Select onValueChange={(value) => handleFilterChange('city', value)}>
+            <Select onValueChange={handleLocationChange}>
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Location" />
               </SelectTrigger>
@@ -186,7 +221,7 @@ const VendorListing = () => {
             </div>
           ) : filteredVendors.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-xl text-gray-600">No vendors found matching your criteria.</p>
+              <p className="text-xl text-gray-600">No approved vendors found matching your criteria.</p>
               <Button onClick={clearFilters} className="mt-4">
                 Clear Filters
               </Button>
@@ -252,11 +287,20 @@ const VendorListing = () => {
                       </div>
                       
                       <div className="flex space-x-2">
-                        <Link to={`/vendor/${vendor.id}`} className="flex-1">
-                          <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                        {handleVendorClick(vendor.business_name) ? (
+                          <Link to={`/vendor/${vendor.id}`} className="flex-1">
+                            <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                              View Details
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Button 
+                            onClick={() => handleVendorClick(vendor.business_name)}
+                            className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                          >
                             View Details
                           </Button>
-                        </Link>
+                        )}
                         <Button variant="outline" size="icon">
                           <Heart className="h-4 w-4" />
                         </Button>
@@ -278,6 +322,12 @@ const VendorListing = () => {
           )}
         </div>
       </section>
+
+      <LoginPromptModal 
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        vendorName={selectedVendor}
+      />
 
       <Footer />
     </div>

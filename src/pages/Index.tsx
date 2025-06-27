@@ -2,25 +2,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, Camera, Users, Star, Phone, Mail, MapPin, ArrowRight, Sparkles, Gift, Music, Bot, Shield, CheckCircle, User, Utensils, Car, Flower2, Crown, Diamond, Search, Filter } from "lucide-react";
+import { CalendarDays, Star, ArrowRight, Sparkles, Gift, Music, Bot, Shield, CheckCircle, User, Utensils, Car, Flower2, Crown, Diamond } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SubscriptionPopup from "@/components/SubscriptionPopup";
 import SEOOptimization from "@/components/SEOOptimization";
+import ChatbotIntroPopup from "@/components/ChatbotIntroPopup";
 
 const Index = () => {
-  const vendorCategories = [
-    { name: "Photographer", icon: Camera, count: "200+" },
-    { name: "DJ & Music", icon: Music, count: "150+" },
-    { name: "Decorator", icon: Flower2, count: "180+" },
-    { name: "Caterer", icon: Utensils, count: "220+" },
-    { name: "Priest", icon: User, count: "80+" },
-    { name: "Gifts & Favors", icon: Gift, count: "120+" },
-    { name: "Transport", icon: Car, count: "90+" },
-    { name: "Venue", icon: Crown, count: "160+" }
-  ];
-
   const featuredPackages = [
     {
       title: "Royal Wedding Package",
@@ -119,6 +109,7 @@ const Index = () => {
       <div className="min-h-screen bg-white">
         <Header />
         <SubscriptionPopup />
+        <ChatbotIntroPopup />
 
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-blue-50 via-white to-amber-50 py-20 overflow-hidden">
@@ -131,11 +122,11 @@ const Index = () => {
               </Badge>
               
               <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
                   Elevate Every
                 </span>
                 <br />
-                <span className="text-gray-900">Celebration</span>
+                <span className="text-gray-900">Occasion</span>
               </h1>
               
               <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -145,16 +136,16 @@ const Index = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <Link to="/plan-event">
-                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-amber-500 hover:from-blue-700 hover:to-amber-600 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg">
+                  <Button size="lg" className="bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg">
                     <Sparkles className="mr-2 h-5 w-5" />
                     Plan My Event
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-                <Link to="/vendor-onboarding">
-                  <Button size="lg" variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg rounded-full">
-                    <Crown className="mr-2 h-5 w-5" />
-                    Join as Vendor
+                <Link to="/ai-chatbot">
+                  <Button size="lg" variant="outline" className="border-2 border-amber-600 text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg rounded-full">
+                    <Bot className="mr-2 h-5 w-5" />
+                    Try AI Assistant
                   </Button>
                 </Link>
               </div>
@@ -163,7 +154,7 @@ const Index = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                    <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
                       {stat.number}
                     </div>
                     <div className="text-sm text-gray-600">{stat.label}</div>
@@ -182,7 +173,7 @@ const Index = () => {
                 How It Works
               </Badge>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
                   Three Simple Steps
                 </span>
               </h2>
@@ -196,7 +187,7 @@ const Index = () => {
                 <Card key={index} className="relative bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <CardContent className="p-8 text-center">
                     <div className="relative mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <div className="w-16 h-16 bg-gradient-to-r from-amber-600 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <step.icon className="h-8 w-8 text-white" />
                       </div>
                       <div className="absolute -top-2 -right-2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
@@ -212,67 +203,15 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Vendor Categories */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 bg-amber-100 text-amber-800 px-6 py-2 rounded-full">
-                Vendor Categories
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
-                  Find Perfect Vendors
-                </span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-                Choose from our curated network of verified professionals across all event categories
-              </p>
-              
-              <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                  <input 
-                    type="text" 
-                    placeholder="Search vendors..." 
-                    className="pl-10 pr-4 py-3 border border-gray-200 rounded-full w-80 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <Button variant="outline" className="border-gray-200 rounded-full">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filters
-                </Button>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {vendorCategories.map((category, index) => (
-                <Link key={index} to="/vendors">
-                  <Card className="group cursor-pointer bg-white border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                    <CardContent className="p-6 text-center">
-                      <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-amber-100 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
-                        <category.icon className="h-8 w-8 text-blue-600" />
-                      </div>
-                      <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                        {category.name}
-                      </h3>
-                      <p className="text-sm text-gray-500">{category.count} vendors</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Featured Packages */}
         <section className="py-20 bg-gradient-to-br from-blue-50 to-amber-50">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 bg-blue-100 text-blue-800 px-6 py-2 rounded-full">
+              <Badge className="mb-4 bg-amber-100 text-amber-800 px-6 py-2 rounded-full">
                 Featured Packages
               </Badge>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
                   Curated Event Packages
                 </span>
               </h2>
@@ -296,7 +235,7 @@ const Index = () => {
                       </Badge>
                     </div>
                     <div className="absolute top-4 left-4">
-                      <div className="bg-gradient-to-r from-blue-600 to-amber-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      <div className="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                         Save 30%
                       </div>
                     </div>
@@ -316,7 +255,7 @@ const Index = () => {
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-amber-600 transition-colors">
                       {pkg.title}
                     </h3>
                     
@@ -336,7 +275,7 @@ const Index = () => {
                       ))}
                     </div>
                     
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-amber-500 hover:from-blue-700 hover:to-amber-600 text-white">
+                    <Button className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white">
                       <Crown className="mr-2 h-4 w-4" />
                       Book Package
                     </Button>
@@ -355,7 +294,7 @@ const Index = () => {
                 Customer Stories
               </Badge>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
                   What Our Clients Say
                 </span>
               </h2>
@@ -377,7 +316,7 @@ const Index = () => {
                       "{testimonial.text}"
                     </p>
                     <div className="flex items-center">
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-amber-600 to-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
                         {testimonial.image}
                       </div>
                       <div>
@@ -393,7 +332,7 @@ const Index = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-amber-500">
+        <section className="py-20 bg-gradient-to-r from-amber-600 to-orange-500">
           <div className="container mx-auto px-6 text-center">
             <div className="max-w-3xl mx-auto text-white">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -404,7 +343,7 @@ const Index = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/plan-event">
-                  <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full">
+                  <Button size="lg" className="bg-white text-amber-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full">
                     <Bot className="mr-2 h-5 w-5" />
                     Start Planning Now
                   </Button>
