@@ -35,7 +35,6 @@ const CulturalBackdrop = ({ location, className = "" }: CulturalBackdropProps) =
     
     // Major Cities
     "mumbai": "photo-1472396961693-142e6e269027", // Urban coastal
-    "delhi": "photo-1466442929976-97f336a657be", // Historical
     "bangalore": "photo-1472396961693-142e6e269027", // Garden city
     "chennai": "photo-1466442929976-97f336a657be", // Temple city
     "kolkata": "photo-1466442929976-97f336a657be", // Cultural capital
@@ -52,7 +51,7 @@ const CulturalBackdrop = ({ location, className = "" }: CulturalBackdropProps) =
     "kochi": "photo-1472396961693-142e6e269027", // Backwaters
     "thiruvananthapuram": "photo-1472396961693-142e6e269027", // Kerala culture
     "chandigarh": "photo-1472396961693-142e6e269027", // Planned city
-    "vadodara": "photo-1469041797191-50ace28483c3", // Gujarati heritage,
+    "vadodara": "photo-1469041797191-50ace28483c3", // Gujarati heritage
     
     // Default fallback
     "default": "photo-1472396961693-142e6e269027"
