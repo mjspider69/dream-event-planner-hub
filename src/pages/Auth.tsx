@@ -10,7 +10,12 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleSuccess = () => {
-    navigate('/');
+    // Redirect based on user type
+    if (mode === 'vendor') {
+      navigate('/vendor-dashboard');
+    } else {
+      navigate('/customer-dashboard');
+    }
   };
 
   return (
@@ -55,7 +60,7 @@ const Auth = () => {
                   <span className="text-gray-900">Event Platform</span>
                 </h2>
                 <p className="text-xl text-gray-600 leading-relaxed">
-                  Connect with verified vendors, plan with AI assistance, and create unforgettable celebrations across India.
+                  Connect with verified vendors, plan with Aarohi AI assistance, and create unforgettable celebrations across India.
                 </p>
               </div>
 
@@ -64,7 +69,7 @@ const Auth = () => {
                   <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm">✓</span>
                   </div>
-                  <span className="text-gray-700">AI-powered event planning</span>
+                  <span className="text-gray-700">Aarohi AI-powered event planning</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
@@ -76,7 +81,13 @@ const Auth = () => {
                   <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm">✓</span>
                   </div>
-                  <span className="text-gray-700">Secure payment processing</span>
+                  <span className="text-gray-700">Secure Razorpay payment processing</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm">✓</span>
+                  </div>
+                  <span className="text-gray-700">OTP-based secure authentication</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
@@ -99,21 +110,21 @@ const Auth = () => {
                     onClick={() => setMode('login')}
                     size="sm"
                   >
-                    Login
+                    Customer Login
                   </Button>
                   <Button
                     variant={mode === 'signup' ? 'default' : 'ghost'}
                     onClick={() => setMode('signup')}
                     size="sm"
                   >
-                    Sign Up
+                    Customer Sign Up
                   </Button>
                   <Button
                     variant={mode === 'vendor' ? 'default' : 'ghost'}
                     onClick={() => setMode('vendor')}
                     size="sm"
                   >
-                    Vendor
+                    Vendor Registration
                   </Button>
                 </div>
                 
@@ -122,6 +133,18 @@ const Auth = () => {
                   {mode === 'signup' && "Already have an account? Switch to Login"}
                   {mode === 'vendor' && "Want to join as a service provider? Perfect!"}
                 </p>
+
+                {mode === 'login' && (
+                  <p className="text-sm text-blue-600 font-medium">
+                    Are you a vendor? 
+                    <button 
+                      onClick={() => setMode('vendor')}
+                      className="ml-1 underline hover:no-underline"
+                    >
+                      Click here to access vendor portal
+                    </button>
+                  </p>
+                )}
               </div>
             </div>
           </div>

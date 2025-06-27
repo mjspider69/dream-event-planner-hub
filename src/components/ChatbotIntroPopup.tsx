@@ -46,7 +46,7 @@ const ChatbotIntroPopup = () => {
           </div>
           
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
-            Meet Your AI Event Planner
+            Meet Aarohi - Your AI Event Planner
           </CardTitle>
         </CardHeader>
         
@@ -54,7 +54,7 @@ const ChatbotIntroPopup = () => {
           <div className="space-y-4 mb-6">
             <div className="flex items-center space-x-3 text-left">
               <Sparkles className="h-5 w-5 text-amber-500 flex-shrink-0" />
-              <span className="text-gray-700">Get instant event recommendations</span>
+              <span className="text-gray-700">Get instant event recommendations from Aarohi</span>
             </div>
             <div className="flex items-center space-x-3 text-left">
               <MessageCircle className="h-5 w-5 text-amber-500 flex-shrink-0" />
@@ -62,13 +62,13 @@ const ChatbotIntroPopup = () => {
             </div>
             <div className="flex items-center space-x-3 text-left">
               <Bot className="h-5 w-5 text-amber-500 flex-shrink-0" />
-              <span className="text-gray-700">Find perfect vendors in seconds</span>
+              <span className="text-gray-700">Find perfect vendors in seconds with Aarohi</span>
             </div>
           </div>
           
           <div className="bg-amber-50 p-4 rounded-lg mb-6">
             <p className="text-sm text-amber-800">
-              <strong>Try it free!</strong> Chat for 2 minutes without signing up. 
+              <strong>Try Aarohi free!</strong> Chat for 2 minutes without signing up. 
               Login for unlimited access and personalized recommendations.
             </p>
           </div>
@@ -77,7 +77,7 @@ const ChatbotIntroPopup = () => {
             <Link to="/ai-chatbot" onClick={handleTryNow}>
               <Button className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white">
                 <Bot className="mr-2 h-4 w-4" />
-                Try AI Assistant Now
+                Chat with Aarohi Now
               </Button>
             </Link>
             
