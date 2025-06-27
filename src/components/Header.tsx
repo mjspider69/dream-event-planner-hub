@@ -1,36 +1,54 @@
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Bot, Sparkles } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Sparkles, Menu, X, User, LogOut, Settings, MessageCircle } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Vendors", path: "/vendors" },
-    { name: "Packages", path: "/plan-event" },
-    { name: "Contact", path: "/customer-care" },
-  ];
+  const handleSignOut = async () => {
+    const result = await signOut();
+    if (!result.error) {
+      navigate('/');
+    }
+  };
 
-  const isActivePath = (path: string) => {
-    return location.pathname === path;
+  const getUserDashboard = () => {
+    const userType = user?.user_metadata?.user_type;
+    switch (userType) {
+      case 'vendor': return '/vendor-dashboard';
+      case 'admin': return '/admin-dashboard';
+      default: return '/customer-dashboard';
+    }
+  };
+
+  const getUserName = () => {
+    return user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-blue-100 sticky top-0 z-50">
+    <header className="bg-white/95 backdrop-blur-md border-b sticky top-0 z-50">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
                 Aaroham
               </h1>
               <p className="text-xs text-gray-500 -mt-1">AI Event Planning</p>
@@ -39,76 +57,153 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`text-sm font-medium transition-colors hover:text-amber-600 ${
-                  isActivePath(item.path) 
-                    ? "text-blue-600 border-b-2 border-amber-400 pb-1" 
-                    : "text-gray-700"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            <Link
+              to="/vendors"
+              className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+            >
+              Find Vendors
+            </Link>
+            <Link
+              to="/packages"
+              className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+            >
+              Packages
+            </Link>
+            <Link
+              to="/ai-chatbot"
+              className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
+            >
+              <MessageCircle className="h-4 w-4 mr-1" />
+              Chat with Aarohi
+            </Link>
+            <Link
+              to="/about"
+              className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+            >
+              About
+            </Link>
           </nav>
 
-          {/* CTA Buttons */}
+          {/* User Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/ai-chatbot">
-              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                <Bot className="w-4 h-4 mr-2" />
-                AI Chat
-              </Button>
-            </Link>
-            <Link to="/plan-event">
-              <Button className="bg-gradient-to-r from-blue-600 to-amber-500 hover:from-blue-700 hover:to-amber-600 text-white">
-                Plan My Event
-              </Button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <nav className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={`text-sm font-medium transition-colors hover:text-amber-600 ${
-                    isActivePath(item.path) ? "text-blue-600" : "text-gray-700"
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="flex flex-col space-y-2 pt-4">
-                <Link to="/ai-chatbot" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-blue-600 text-blue-600">
-                    <Bot className="w-4 h-4 mr-2" />
-                    AI Chat
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="font-medium">{getUserName()}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem asChild>
+                    <Link to={getUserDashboard()} className="flex items-center">
+                      <Settings className="h-4 w-4 mr-2" />
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link to="/auth">
+                  <Button variant="ghost" className="text-gray-700 hover:text-amber-600">
+                    Sign In
                   </Button>
                 </Link>
-                <Link to="/plan-event" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-amber-500 text-white">
-                    Plan My Event
+                <Link to="/auth">
+                  <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white">
+                    Get Started
                   </Button>
                 </Link>
               </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-amber-600 hover:bg-gray-100"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden border-t py-4">
+            <nav className="flex flex-col space-y-4">
+              <Link
+                to="/vendors"
+                className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                Find Vendors
+              </Link>
+              <Link
+                to="/packages"
+                className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                Packages
+              </Link>
+              <Link
+                to="/ai-chatbot"
+                className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
+                onClick={() => setIsOpen(false)}
+              >
+                <MessageCircle className="h-4 w-4 mr-1" />
+                Chat with Aarohi
+              </Link>
+              <Link
+                to="/about"
+                className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </Link>
+              
+              {user ? (
+                <div className="border-t pt-4 space-y-2">
+                  <Link
+                    to={getUserDashboard()}
+                    className="flex items-center text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleSignOut();
+                      setIsOpen(false);
+                    }}
+                    className="flex items-center text-gray-700 hover:text-amber-600 transition-colors font-medium w-full text-left"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <div className="border-t pt-4 space-y-2">
+                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start text-gray-700 hover:text-amber-600">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                    <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </nav>
           </div>
         )}

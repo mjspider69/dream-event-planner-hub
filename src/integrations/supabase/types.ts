@@ -46,6 +46,7 @@ export type Database = {
       }
       bookings: {
         Row: {
+          booking_expires_at: string | null
           budget: number | null
           created_at: string
           customer_id: string | null
@@ -54,6 +55,7 @@ export type Database = {
           event_type: string
           guest_count: number | null
           id: string
+          payment_status: string | null
           requirements: string | null
           status: string | null
           total_amount: number | null
@@ -61,6 +63,7 @@ export type Database = {
           vendor_id: string | null
         }
         Insert: {
+          booking_expires_at?: string | null
           budget?: number | null
           created_at?: string
           customer_id?: string | null
@@ -69,6 +72,7 @@ export type Database = {
           event_type: string
           guest_count?: number | null
           id?: string
+          payment_status?: string | null
           requirements?: string | null
           status?: string | null
           total_amount?: number | null
@@ -76,6 +80,7 @@ export type Database = {
           vendor_id?: string | null
         }
         Update: {
+          booking_expires_at?: string | null
           budget?: number | null
           created_at?: string
           customer_id?: string | null
@@ -84,6 +89,7 @@ export type Database = {
           event_type?: string
           guest_count?: number | null
           id?: string
+          payment_status?: string | null
           requirements?: string | null
           status?: string | null
           total_amount?: number | null
@@ -99,6 +105,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      chat_history: {
+        Row: {
+          id: string
+          message: string
+          metadata: Json | null
+          sender_type: string
+          session_id: string | null
+          timestamp: string
+          user_id: string | null
+        }
+        Insert: {
+          id?: string
+          message: string
+          metadata?: Json | null
+          sender_type: string
+          session_id?: string | null
+          timestamp?: string
+          user_id?: string | null
+        }
+        Update: {
+          id?: string
+          message?: string
+          metadata?: Json | null
+          sender_type?: string
+          session_id?: string | null
+          timestamp?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       chat_messages: {
         Row: {
@@ -196,6 +232,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      commission_settings: {
+        Row: {
+          commission_percentage: number
+          id: string
+          updated_at: string
+          updated_by: string | null
+          vendor_category: string
+        }
+        Insert: {
+          commission_percentage?: number
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor_category: string
+        }
+        Update: {
+          commission_percentage?: number
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor_category?: string
+        }
+        Relationships: []
       }
       contact_submissions: {
         Row: {
@@ -317,6 +377,69 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          title?: string
+          type?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      otps: {
+        Row: {
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          is_verified: boolean | null
+          otp_code: string
+          phone: string | null
+          purpose: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          expires_at: string
+          id?: string
+          is_verified?: boolean | null
+          otp_code: string
+          phone?: string | null
+          purpose: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          is_verified?: boolean | null
+          otp_code?: string
+          phone?: string | null
+          purpose?: string
+        }
+        Relationships: []
+      }
       packages: {
         Row: {
           category: string
@@ -358,33 +481,45 @@ export type Database = {
           amount: number
           booking_id: string | null
           created_at: string
+          currency: string | null
           customer_id: string | null
           id: string
           payment_date: string | null
           payment_method: string | null
           payment_status: string | null
+          razorpay_order_id: string | null
+          razorpay_payment_id: string | null
+          razorpay_signature: string | null
           transaction_id: string | null
         }
         Insert: {
           amount: number
           booking_id?: string | null
           created_at?: string
+          currency?: string | null
           customer_id?: string | null
           id?: string
           payment_date?: string | null
           payment_method?: string | null
           payment_status?: string | null
+          razorpay_order_id?: string | null
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
           transaction_id?: string | null
         }
         Update: {
           amount?: number
           booking_id?: string | null
           created_at?: string
+          currency?: string | null
           customer_id?: string | null
           id?: string
           payment_date?: string | null
           payment_method?: string | null
           payment_status?: string | null
+          razorpay_order_id?: string | null
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
           transaction_id?: string | null
         }
         Relationships: [
@@ -410,13 +545,17 @@ export type Database = {
           first_call_used: boolean | null
           full_name: string | null
           id: string
+          is_approved: boolean | null
+          is_featured: boolean | null
           is_online: boolean | null
           phone: string | null
           portfolio_images: string[] | null
           price_range: string | null
+          rating: number | null
           services: Json | null
           social_links: Json | null
           speciality: string[] | null
+          total_bookings: number | null
           updated_at: string
           user_type: string | null
           verification_status: string | null
@@ -433,13 +572,17 @@ export type Database = {
           first_call_used?: boolean | null
           full_name?: string | null
           id: string
+          is_approved?: boolean | null
+          is_featured?: boolean | null
           is_online?: boolean | null
           phone?: string | null
           portfolio_images?: string[] | null
           price_range?: string | null
+          rating?: number | null
           services?: Json | null
           social_links?: Json | null
           speciality?: string[] | null
+          total_bookings?: number | null
           updated_at?: string
           user_type?: string | null
           verification_status?: string | null
@@ -456,13 +599,17 @@ export type Database = {
           first_call_used?: boolean | null
           full_name?: string | null
           id?: string
+          is_approved?: boolean | null
+          is_featured?: boolean | null
           is_online?: boolean | null
           phone?: string | null
           portfolio_images?: string[] | null
           price_range?: string | null
+          rating?: number | null
           services?: Json | null
           social_links?: Json | null
           speciality?: string[] | null
+          total_bookings?: number | null
           updated_at?: string
           user_type?: string | null
           verification_status?: string | null
@@ -630,6 +777,33 @@ export type Database = {
           },
         ]
       }
+      user_sessions: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          last_accessed: string | null
+          session_token: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          last_accessed?: string | null
+          session_token: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          last_accessed?: string | null
+          session_token?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       vendor_availability: {
         Row: {
           created_at: string | null
@@ -725,11 +899,45 @@ export type Database = {
           },
         ]
       }
+      vendor_reviews: {
+        Row: {
+          booking_id: string | null
+          created_at: string
+          customer_id: string | null
+          id: string
+          is_verified: boolean | null
+          rating: number | null
+          review_text: string | null
+          vendor_id: string
+        }
+        Insert: {
+          booking_id?: string | null
+          created_at?: string
+          customer_id?: string | null
+          id?: string
+          is_verified?: boolean | null
+          rating?: number | null
+          review_text?: string | null
+          vendor_id: string
+        }
+        Update: {
+          booking_id?: string | null
+          created_at?: string
+          customer_id?: string | null
+          id?: string
+          is_verified?: boolean | null
+          rating?: number | null
+          review_text?: string | null
+          vendor_id?: string
+        }
+        Relationships: []
+      }
       vendors: {
         Row: {
           availability: Json | null
           business_name: string
           category: string
+          city: string | null
           contact_email: string | null
           contact_phone: string | null
           created_at: string
@@ -737,13 +945,16 @@ export type Database = {
           earnings: number | null
           id: string
           is_approved: boolean | null
+          is_featured: boolean | null
           is_online: boolean | null
           location: string | null
           portfolio_images: string[] | null
           price_range: string | null
           rating: number | null
           services: Json | null
+          speciality: string[] | null
           status: string | null
+          total_bookings: number | null
           updated_at: string
           user_id: string | null
         }
@@ -751,6 +962,7 @@ export type Database = {
           availability?: Json | null
           business_name: string
           category: string
+          city?: string | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
@@ -758,13 +970,16 @@ export type Database = {
           earnings?: number | null
           id?: string
           is_approved?: boolean | null
+          is_featured?: boolean | null
           is_online?: boolean | null
           location?: string | null
           portfolio_images?: string[] | null
           price_range?: string | null
           rating?: number | null
           services?: Json | null
+          speciality?: string[] | null
           status?: string | null
+          total_bookings?: number | null
           updated_at?: string
           user_id?: string | null
         }
@@ -772,6 +987,7 @@ export type Database = {
           availability?: Json | null
           business_name?: string
           category?: string
+          city?: string | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
@@ -779,13 +995,16 @@ export type Database = {
           earnings?: number | null
           id?: string
           is_approved?: boolean | null
+          is_featured?: boolean | null
           is_online?: boolean | null
           location?: string | null
           portfolio_images?: string[] | null
           price_range?: string | null
           rating?: number | null
           services?: Json | null
+          speciality?: string[] | null
           status?: string | null
+          total_bookings?: number | null
           updated_at?: string
           user_id?: string | null
         }

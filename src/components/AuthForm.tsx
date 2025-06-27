@@ -1,23 +1,23 @@
 
-import React, { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Eye, EyeOff, Mail, Lock, User, Phone, Shield } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Eye, EyeOff, Loader2, Mail, Phone, Lock, User } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useOTP } from "@/hooks/useOTP";
+import OTPVerification from "./OTPVerification";
+import { toast } from "sonner";
 
-const AuthForm = ({ 
-  mode, 
-  onSuccess 
-}: { 
-  mode: 'login' | 'signup' | 'vendor'; 
-  onSuccess: () => void; 
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
+interface AuthFormProps {
+  mode: 'login' | 'signup' | 'vendor';
+  onSuccess: () => void;
+}
+
+const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,397 +26,380 @@ const AuthForm = ({
     phone: '',
     businessName: '',
     category: '',
-    otp: ''
+    city: '',
   });
-  const { toast } = useToast();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [showOTP, setShowOTP] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const vendorCategories = [
-    "Photography", "Videography", "Decoration", "Catering", 
-    "Music & DJ", "Transportation", "Venue", "Priest", "Gifts"
-  ];
+  const { signUp, signIn } = useAuth();
+  const { sendOTP } = useOTP();
 
-  const handleSendOTP = async () => {
-    if (!formData.email) {
-      toast({
-        title: "Error",
-        description: "Please enter your email address",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email: formData.email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-        }
-      });
-
-      if (error) throw error;
-
-      setOtpSent(true);
-      toast({
-        title: "OTP Sent!",
-        description: "Please check your email for the verification code",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to send OTP",
-        variant: "destructive"
-      });
-    } finally {
-      setLoading(false);
-    }
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleVerifyOTP = async () => {
-    if (!formData.otp || formData.otp.length !== 6) {
-      toast({
-        title: "Error",
-        description: "Please enter a valid 6-digit OTP",
-        variant: "destructive"
-      });
-      return;
+  const validateForm = () => {
+    if (!formData.email || !formData.password) {
+      toast.error('Email and password are required');
+      return false;
     }
 
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.verifyOtp({
-        email: formData.email,
-        token: formData.otp,
-        type: 'email'
-      });
+    if (mode === 'signup' || mode === 'vendor') {
+      if (!formData.fullName) {
+        toast.error('Full name is required');
+        return false;
+      }
+      
+      if (formData.password !== formData.confirmPassword) {
+        toast.error('Passwords do not match');
+        return false;
+      }
 
-      if (error) throw error;
+      if (formData.password.length < 6) {
+        toast.error('Password must be at least 6 characters');
+        return false;
+      }
 
-      toast({
-        title: "Success!",
-        description: "You have been logged in successfully",
-      });
-      onSuccess();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Invalid OTP",
-        variant: "destructive"
-      });
-    } finally {
-      setLoading(false);
+      if (!acceptTerms) {
+        toast.error('Please accept the terms and conditions');
+        return false;
+      }
+
+      if (mode === 'vendor') {
+        if (!formData.businessName || !formData.category || !formData.city) {
+          toast.error('Please fill in all business details');
+          return false;
+        }
+      }
     }
+
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) return;
+
     setLoading(true);
 
     try {
-      if (mode === 'signup' || mode === 'vendor') {
-        if (formData.password !== formData.confirmPassword) {
-          toast({
-            title: "Error",
-            description: "Passwords do not match",
-            variant: "destructive"
-          });
-          return;
+      if (mode === 'login') {
+        const result = await signIn(formData.email, formData.password);
+        if (!result.error) {
+          onSuccess();
         }
-
-        if (formData.password.length < 6) {
-          toast({
-            title: "Error",
-            description: "Password must be at least 6 characters long",
-            variant: "destructive"
-          });
-          return;
-        }
-
-        const { error } = await supabase.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/`,
-            data: {
-              full_name: formData.fullName,
-              phone: formData.phone,
-              user_type: mode === 'vendor' ? 'vendor' : 'customer',
-              business_name: formData.businessName,
-              category: formData.category
-            }
-          }
-        });
-
-        if (error) {
-          if (error.message.includes('already registered')) {
-            toast({
-              title: "Account Exists",
-              description: "This email is already registered. Please try logging in instead.",
-              variant: "destructive"
-            });
-          } else {
-            throw error;
-          }
-          return;
-        }
-
-        toast({
-          title: "Success!",
-          description: "Please check your email to confirm your account",
-        });
-        onSuccess();
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (error) {
-          if (error.message.includes('Invalid login credentials')) {
-            toast({
-              title: "Login Failed",
-              description: "Invalid email or password. Please check your credentials.",
-              variant: "destructive"
-            });
-          } else if (error.message.includes('Email not confirmed')) {
-            toast({
-              title: "Email Not Confirmed",
-              description: "Please check your email and click the confirmation link.",
-              variant: "destructive"
-            });
-          } else {
-            throw error;
-          }
-          return;
+        // For signup and vendor registration, send OTP first
+        const otpResult = await sendOTP(
+          formData.email, 
+          formData.phone, 
+          mode === 'vendor' ? 'vendor_signup' : 'signup'
+        );
+        
+        if (otpResult.success) {
+          setShowOTP(true);
         }
-
-        toast({
-          title: "Welcome back!",
-          description: "You have been logged in successfully",
-        });
-        onSuccess();
       }
     } catch (error: any) {
-      console.error('Auth error:', error);
-      toast({
-        title: "Error",
-        description: error.message || "An unexpected error occurred",
-        variant: "destructive"
-      });
+      toast.error(error.message || 'An error occurred');
     } finally {
       setLoading(false);
     }
   };
 
-  const updateFormData = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleOTPVerified = async () => {
+    try {
+      const userData = {
+        full_name: formData.fullName,
+        phone: formData.phone,
+        user_type: mode === 'vendor' ? 'vendor' : 'customer',
+        ...(mode === 'vendor' && {
+          business_name: formData.businessName,
+          business_category: formData.category,
+          city: formData.city,
+        })
+      };
+
+      const result = await signUp(formData.email, formData.password, userData);
+      
+      if (!result.error) {
+        if (mode === 'vendor') {
+          // Create vendor profile
+          // This would be handled by a trigger in production
+          toast.success('Vendor registration successful! Please wait for approval.');
+        } else {
+          toast.success('Account created successfully!');
+        }
+        onSuccess();
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Registration failed');
+    }
+  };
+
+  if (showOTP) {
+    return (
+      <OTPVerification
+        email={formData.email}
+        phone={formData.phone}
+        purpose={mode === 'vendor' ? 'vendor_signup' : 'signup'}
+        onVerified={handleOTPVerified}
+        onCancel={() => setShowOTP(false)}
+      />
+    );
+  }
+
+  const getTitle = () => {
+    switch (mode) {
+      case 'login': return 'Welcome Back';
+      case 'signup': return 'Create Account';
+      case 'vendor': return 'Join as Vendor';
+      default: return 'Authentication';
+    }
+  };
+
+  const getSubmitText = () => {
+    switch (mode) {
+      case 'login': return 'Sign In';
+      case 'signup': return 'Create Account';
+      case 'vendor': return 'Register as Vendor';
+      default: return 'Submit';
+    }
   };
 
   return (
     <Card className="w-full max-w-md mx-auto shadow-2xl border-0">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-amber-50 text-center">
-        <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          {mode === 'vendor' ? (
-            <Shield className="h-8 w-8 text-white" />
-          ) : (
-            <User className="h-8 w-8 text-white" />
-          )}
-        </div>
-        <CardTitle className="text-2xl">
-          {mode === 'login' && "Welcome Back"}
-          {mode === 'signup' && "Join Aaroham"}
-          {mode === 'vendor' && "Vendor Registration"}
+      <CardHeader className="text-center bg-gradient-to-r from-amber-50 to-orange-50">
+        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+          {getTitle()}
         </CardTitle>
-        <Badge className="bg-blue-100 text-blue-800 mx-auto">
-          {mode === 'vendor' ? 'Business Account' : 'Customer Account'}
-        </Badge>
+        <p className="text-gray-600">
+          {mode === 'login' 
+            ? 'Sign in to your account' 
+            : mode === 'vendor'
+            ? 'Join our network of trusted vendors'
+            : 'Create your Aaroham account'
+          }
+        </p>
       </CardHeader>
-
+      
       <CardContent className="p-6">
-        {/* OTP Login Option for existing users */}
-        {mode === 'login' && (
-          <div className="mb-4 p-4 bg-amber-50 rounded-lg">
-            <h4 className="font-semibold mb-2">Quick Login with OTP</h4>
-            <div className="space-y-3">
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <Input
-                  type="email"
-                  placeholder="Email address"
-                  value={formData.email}
-                  onChange={(e) => updateFormData('email', e.target.value)}
-                  className="pl-10 py-2"
-                />
-              </div>
-              {!otpSent ? (
-                <Button
-                  type="button"
-                  onClick={handleSendOTP}
-                  disabled={loading}
-                  className="w-full bg-amber-500 hover:bg-amber-600"
-                >
-                  {loading ? 'Sending...' : 'Send OTP'}
-                </Button>
-              ) : (
-                <div className="space-y-3">
-                  <Input
-                    type="text"
-                    placeholder="Enter 6-digit OTP"
-                    value={formData.otp}
-                    onChange={(e) => updateFormData('otp', e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    className="text-center text-lg"
-                    maxLength={6}
-                  />
-                  <Button
-                    type="button"
-                    onClick={handleVerifyOTP}
-                    disabled={loading}
-                    className="w-full bg-green-500 hover:bg-green-600"
-                  >
-                    {loading ? 'Verifying...' : 'Verify OTP'}
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={() => setOtpSent(false)}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    Use Different Email
-                  </Button>
-                </div>
-              )}
-            </div>
-            <div className="mt-3 pt-3 border-t">
-              <p className="text-sm text-gray-600 text-center">Or use password login below</p>
-            </div>
-          </div>
-        )}
-
         <form onSubmit={handleSubmit} className="space-y-4">
-          
-          {/* Email */}
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input
-              type="email"
-              placeholder="Email address"
-              value={formData.email}
-              onChange={(e) => updateFormData('email', e.target.value)}
-              className="pl-10 py-3 border-2 border-gray-200 focus:border-blue-500"
-              required
-            />
-          </div>
-
-          {/* Password */}
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) => updateFormData('password', e.target.value)}
-              className="pl-10 pr-10 py-3 border-2 border-gray-200 focus:border-blue-500"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            >
-              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-            </button>
-          </div>
-
-          {/* Confirm Password for Signup */}
           {(mode === 'signup' || mode === 'vendor') && (
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <div>
+              <Label htmlFor="fullName" className="flex items-center text-sm font-medium text-gray-700">
+                <User className="w-4 h-4 mr-2" />
+                Full Name
+              </Label>
               <Input
-                type="password"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={(e) => updateFormData('confirmPassword', e.target.value)}
-                className="pl-10 py-3 border-2 border-gray-200 focus:border-blue-500"
-                required
-              />
-            </div>
-          )}
-
-          {/* Full Name for Signup */}
-          {(mode === 'signup' || mode === 'vendor') && (
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <Input
+                id="fullName"
                 type="text"
-                placeholder="Full Name"
                 value={formData.fullName}
-                onChange={(e) => updateFormData('fullName', e.target.value)}
-                className="pl-10 py-3 border-2 border-gray-200 focus:border-blue-500"
+                onChange={(e) => handleInputChange('fullName', e.target.value)}
+                placeholder="Enter your full name"
+                className="mt-1"
                 required
               />
             </div>
           )}
 
-          {/* Phone for Signup */}
+          <div>
+            <Label htmlFor="email" className="flex items-center text-sm font-medium text-gray-700">
+              <Mail className="w-4 h-4 mr-2" />
+              Email Address
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              placeholder="Enter your email"
+              className="mt-1"
+              required
+            />
+          </div>
+
           {(mode === 'signup' || mode === 'vendor') && (
-            <div className="relative">
-              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <div>
+              <Label htmlFor="phone" className="flex items-center text-sm font-medium text-gray-700">
+                <Phone className="w-4 h-4 mr-2" />
+                Phone Number
+              </Label>
               <Input
+                id="phone"
                 type="tel"
-                placeholder="Phone Number"
                 value={formData.phone}
-                onChange={(e) => updateFormData('phone', e.target.value)}
-                className="pl-10 py-3 border-2 border-gray-200 focus:border-blue-500"
-                required
+                onChange={(e) => handleInputChange('phone', e.target.value)}
+                placeholder="+91 98765 43210"
+                className="mt-1"
               />
             </div>
           )}
 
-          {/* Vendor Specific Fields */}
           {mode === 'vendor' && (
             <>
+              <div>
+                <Label htmlFor="businessName" className="text-sm font-medium text-gray-700">
+                  Business Name
+                </Label>
+                <Input
+                  id="businessName"
+                  type="text"
+                  value={formData.businessName}
+                  onChange={(e) => handleInputChange('businessName', e.target.value)}
+                  placeholder="Your business name"
+                  className="mt-1"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="category" className="text-sm font-medium text-gray-700">
+                    Category
+                  </Label>
+                  <Select onValueChange={(value) => handleInputChange('category', value)}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="photography">Photography</SelectItem>
+                      <SelectItem value="catering">Catering</SelectItem>
+                      <SelectItem value="decoration">Decoration</SelectItem>
+                      <SelectItem value="dj-music">DJ & Music</SelectItem>
+                      <SelectItem value="priest">Priest</SelectItem>
+                      <SelectItem value="transport">Transport</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="city" className="text-sm font-medium text-gray-700">
+                    City
+                  </Label>
+                  <Input
+                    id="city"
+                    type="text"
+                    value={formData.city}
+                    onChange={(e) => handleInputChange('city', e.target.value)}
+                    placeholder="Your city"
+                    className="mt-1"
+                    required
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
+          <div>
+            <Label htmlFor="password" className="flex items-center text-sm font-medium text-gray-700">
+              <Lock className="w-4 h-4 mr-2" />
+              Password
+            </Label>
+            <div className="relative mt-1">
               <Input
-                type="text"
-                placeholder="Business Name"
-                value={formData.businessName}
-                onChange={(e) => updateFormData('businessName', e.target.value)}
-                className="py-3 border-2 border-gray-200 focus:border-blue-500"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={(e) => handleInputChange('password', e.target.value)}
+                placeholder="Enter your password"
+                className="pr-10"
                 required
               />
-              
-              <select
-                value={formData.category}
-                onChange={(e) => updateFormData('category', e.target.value)}
-                className="w-full py-3 px-3 border-2 border-gray-200 rounded-md focus:border-blue-500"
-                required
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
-                <option value="">Select Service Category</option>
-                {vendorCategories.map((category) => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-            </>
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-gray-400" />
+                ) : (
+                  <Eye className="h-4 w-4 text-gray-400" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {(mode === 'signup' || mode === 'vendor') && (
+            <div>
+              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+                Confirm Password
+              </Label>
+              <div className="relative mt-1">
+                <Input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                  placeholder="Confirm your password"
+                  className="pr-10"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4 text-gray-400" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-gray-400" />
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {(mode === 'signup' || mode === 'vendor') && (
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="terms"
+                checked={acceptTerms}
+                onCheckedChange={setAcceptTerms}
+              />
+              <label
+                htmlFor="terms"
+                className="text-sm text-gray-600 cursor-pointer"
+              >
+                I accept the{" "}
+                <a href="/terms-of-service" className="text-amber-600 hover:underline">
+                  Terms & Conditions
+                </a>{" "}
+                and{" "}
+                <a href="/privacy-policy" className="text-amber-600 hover:underline">
+                  Privacy Policy
+                </a>
+              </label>
+            </div>
           )}
 
           <Button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-blue-600 to-amber-500 hover:from-blue-700 hover:to-amber-600 text-white font-semibold rounded-full"
+            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold py-3"
           >
-            {loading ? 'Processing...' : (
-              mode === 'login' ? 'Sign In' : 
-              mode === 'vendor' ? 'Register as Vendor' : 'Create Account'
-            )}
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin mr-2" />
+            ) : null}
+            {getSubmitText()}
           </Button>
-        </form>
 
-        {mode === 'login' && (
-          <div className="mt-4 text-center">
-            <button className="text-sm text-blue-600 hover:underline">
-              Forgot Password?
-            </button>
-          </div>
-        )}
+          {mode === 'login' && (
+            <div className="text-center">
+              <Button
+                type="button"
+                variant="ghost"
+                className="text-amber-600 hover:text-amber-700"
+              >
+                Forgot Password?
+              </Button>
+            </div>
+          )}
+        </form>
       </CardContent>
     </Card>
   );
