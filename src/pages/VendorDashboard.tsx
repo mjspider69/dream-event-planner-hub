@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,8 @@ import {
   Upload,
   TrendingUp,
   Star,
-  Camera
+  Camera,
+  UserCheck
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -28,6 +28,7 @@ const VendorDashboard = () => {
   const [vendorData, setVendorData] = useState<any>(null);
   const [bookings, setBookings] = useState<any[]>([]);
   const [earnings, setEarnings] = useState<any[]>([]);
+  const [clientSelections, setClientSelections] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const VendorDashboard = () => {
       fetchVendorData();
       fetchBookings();
       fetchEarnings();
+      fetchClientSelections();
     }
   }, [user]);
 
@@ -82,6 +84,24 @@ const VendorDashboard = () => {
       setEarnings(data || []);
     } catch (error: any) {
       console.error('Error fetching earnings:', error);
+    }
+  };
+
+  const fetchClientSelections = async () => {
+    try {
+      // Count unique customers who have selected this vendor (made bookings)
+      const { data, error } = await supabase
+        .from('bookings')
+        .select('customer_id')
+        .eq('vendor_id', vendorData?.id);
+
+      if (error) throw error;
+      
+      // Count unique customer IDs
+      const uniqueClients = new Set(data?.map(booking => booking.customer_id) || []);
+      setClientSelections(uniqueClients.size);
+    } catch (error: any) {
+      console.error('Error fetching client selections:', error);
     }
   };
 
@@ -136,7 +156,7 @@ const VendorDashboard = () => {
         </div>
 
         {/* Stats Overview */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-5 gap-6 mb-8">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -147,6 +167,18 @@ const VendorDashboard = () => {
                   </p>
                 </div>
                 <DollarSign className="h-8 w-8 text-green-500" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Clients Selected</p>
+                  <p className="text-2xl font-bold text-blue-600">{clientSelections}</p>
+                </div>
+                <UserCheck className="h-8 w-8 text-blue-500" />
               </div>
             </CardContent>
           </Card>
@@ -168,9 +200,9 @@ const VendorDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Completed Events</p>
-                  <p className="text-2xl font-bold text-blue-600">{completedBookings}</p>
+                  <p className="text-2xl font-bold text-purple-600">{completedBookings}</p>
                 </div>
-                <Users className="h-8 w-8 text-blue-500" />
+                <Users className="h-8 w-8 text-purple-500" />
               </div>
             </CardContent>
           </Card>
