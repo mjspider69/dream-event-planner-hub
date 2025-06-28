@@ -44,11 +44,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
                 Aaroham
               </h1>
               <p className="text-xs text-gray-500 -mt-1">AI Event Planning</p>
@@ -59,7 +59,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/vendors"
-              className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               Find Vendors
             </Link>
@@ -69,13 +69,13 @@ const Header = () => {
               <>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
                 >
                   Packages
                 </Link>
                 <Link
                   to="/ai-chatbot"
-                  className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
+                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center"
                 >
                   <MessageCircle className="h-4 w-4 mr-1" />
                   Chat with Aarohi
@@ -85,7 +85,7 @@ const Header = () => {
             
             <Link
               to="/about"
-              className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               About
             </Link>
@@ -97,10 +97,10 @@ const Header = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center">
                       <User className="h-4 w-4 text-white" />
                     </div>
-                    <span className="font-medium">{getUserName()}</span>
+                    <span className="font-medium bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">{getUserName()}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
@@ -120,12 +120,12 @@ const Header = () => {
             ) : (
               <div className="flex items-center space-x-3">
                 <Link to="/auth">
-                  <Button variant="ghost" className="text-gray-700 hover:text-amber-600">
+                  <Button variant="ghost" className="text-gray-700 hover:text-blue-600">
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white">
+                  <Button className="bg-gradient-to-r from-blue-500 to-yellow-500 hover:from-blue-600 hover:to-yellow-600 text-white">
                     Get Started
                   </Button>
                 </Link>
@@ -136,7 +136,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-amber-600 hover:bg-gray-100"
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -148,7 +148,7 @@ const Header = () => {
             <nav className="flex flex-col space-y-4">
               <Link
                 to="/vendors"
-                className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 Find Vendors
@@ -159,14 +159,14 @@ const Header = () => {
                 <>
                   <Link
                     to="/packages"
-                    className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                    className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
                     onClick={() => setIsOpen(false)}
                   >
                     Packages
                   </Link>
                   <Link
                     to="/ai-chatbot"
-                    className="text-gray-700 hover:text-amber-600 transition-colors font-medium flex items-center"
+                    className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center"
                     onClick={() => setIsOpen(false)}
                   >
                     <MessageCircle className="h-4 w-4 mr-1" />
@@ -177,7 +177,7 @@ const Header = () => {
               
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 About
@@ -187,7 +187,7 @@ const Header = () => {
                 <div className="border-t pt-4 space-y-2">
                   <Link
                     to={getUserDashboard()}
-                    className="flex items-center text-gray-700 hover:text-amber-600 transition-colors font-medium"
+                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors font-medium"
                     onClick={() => setIsOpen(false)}
                   >
                     <Settings className="h-4 w-4 mr-2" />
@@ -198,7 +198,7 @@ const Header = () => {
                       handleSignOut();
                       setIsOpen(false);
                     }}
-                    className="flex items-center text-gray-700 hover:text-amber-600 transition-colors font-medium w-full text-left"
+                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors font-medium w-full text-left"
                   >
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -207,12 +207,12 @@ const Header = () => {
               ) : (
                 <div className="border-t pt-4 space-y-2">
                   <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start text-gray-700 hover:text-amber-600">
+                    <Button variant="ghost" className="w-full justify-start text-gray-700 hover:text-blue-600">
                       Sign In
                     </Button>
                   </Link>
                   <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white">
+                    <Button className="w-full bg-gradient-to-r from-blue-500 to-yellow-500 hover:from-blue-600 hover:to-yellow-600 text-white">
                       Get Started
                     </Button>
                   </Link>

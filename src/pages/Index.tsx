@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -48,20 +49,20 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
       <Header />
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-600/10 to-orange-600/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-yellow-600/10"></div>
         <div className="container mx-auto px-6 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-6 bg-amber-100 text-amber-700 px-4 py-2">
+            <Badge className="mb-6 bg-blue-100 text-blue-700 px-4 py-2">
               AI-Powered Event Planning
             </Badge>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">
                 ELEVATE EVERY OCCASION
               </span>
             </h1>
@@ -75,7 +76,7 @@ const Index = () => {
               <Button 
                 onClick={handleGetStarted}
                 size="lg" 
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-4 text-lg"
+                className="bg-gradient-to-r from-blue-500 to-yellow-500 hover:from-blue-600 hover:to-yellow-600 text-white px-8 py-4 text-lg"
               >
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -87,7 +88,7 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     size="lg" 
-                    className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg"
+                    className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg"
                   >
                     <Bot className="mr-2 h-5 w-5" />
                     Chat with Aarohi
@@ -98,7 +99,7 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     size="lg" 
-                    className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg"
+                    className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg"
                   >
                     <Bot className="mr-2 h-5 w-5" />
                     Sign In to Chat
@@ -109,26 +110,26 @@ const Index = () => {
 
             <div className="grid md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">1000+ Verified Vendors</h3>
+                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">1000+ Verified Vendors</h3>
                 <p className="text-gray-600">Handpicked professionals across India</p>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Secure Payments</h3>
+                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Secure Payments</h3>
                 <p className="text-gray-600">Razorpay powered safe transactions</p>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">24/7 Support</h3>
+                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">24/7 Support</h3>
                 <p className="text-gray-600">Dedicated assistance throughout your journey</p>
               </div>
             </div>
@@ -140,7 +141,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">
                 How Aaroham Works
               </span>
             </h2>
@@ -152,7 +153,7 @@ const Index = () => {
               <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
                 1
               </div>
-              <h3 className="text-xl font-semibold mb-2">Choose Package</h3>
+              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Choose Package</h3>
               <p className="text-gray-600">Select from our curated event packages or customize your own</p>
             </div>
             
@@ -160,7 +161,7 @@ const Index = () => {
               <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
                 2
               </div>
-              <h3 className="text-xl font-semibold mb-2">OTP Verification</h3>
+              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">OTP Verification</h3>
               <p className="text-gray-600">Quick sign-up with email/SMS OTP for secure account creation</p>
             </div>
             
@@ -168,15 +169,15 @@ const Index = () => {
               <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
                 3
               </div>
-              <h3 className="text-xl font-semibold mb-2">Get Matched</h3>
+              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Get Matched</h3>
               <p className="text-gray-600">Our AI connects you with the best vendors for your needs</p>
             </div>
             
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
                 4
               </div>
-              <h3 className="text-xl font-semibold mb-2">Celebrate</h3>
+              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Celebrate</h3>
               <p className="text-gray-600">Relax and enjoy your perfectly planned event</p>
             </div>
           </div>
@@ -186,11 +187,11 @@ const Index = () => {
       {/* Event Packages */}
       <EventPackages />
 
-      <section className="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-yellow-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">
                 What Our Customers Say
               </span>
             </h2>
@@ -207,7 +208,7 @@ const Index = () => {
                     className="w-12 h-12 rounded-full mr-4"
                   />
                   <div>
-                    <h4 className="font-semibold">{testimonial.name}</h4>
+                    <h4 className="font-semibold bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">{testimonial.name}</h4>
                     <p className="text-sm text-gray-600">{testimonial.event}</p>
                   </div>
                 </div>
@@ -226,7 +227,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-amber-600 to-orange-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-yellow-600 text-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Plan Your Perfect Event?</h2>
           <p className="text-xl mb-8 opacity-90">Join thousands of satisfied customers who trusted Aaroham</p>
@@ -235,7 +236,7 @@ const Index = () => {
             <Button 
               onClick={handleGetStarted}
               size="lg" 
-              className="bg-white text-amber-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
             >
               Start Planning Now
               <Calendar className="ml-2 h-5 w-5" />
@@ -247,7 +248,7 @@ const Index = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-amber-600 px-8 py-4 text-lg"
+                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg"
                 >
                   <Bot className="mr-2 h-5 w-5" />
                   Talk to Aarohi
@@ -258,7 +259,7 @@ const Index = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-amber-600 px-8 py-4 text-lg"
+                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg"
                 >
                   <Bot className="mr-2 h-5 w-5" />
                   Sign In to Chat

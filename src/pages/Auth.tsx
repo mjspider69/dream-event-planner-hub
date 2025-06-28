@@ -19,16 +19,16 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
       {/* Header */}
       <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-yellow-500 rounded-full flex items-center justify-center">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
                 Aaroham
               </h1>
               <p className="text-xs text-gray-500 -mt-1">AI Event Planning</p>
@@ -53,7 +53,7 @@ const Auth = () => {
             <div className="space-y-8">
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  <span className="bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
                     Join India's Premier
                   </span>
                   <br />
@@ -109,6 +109,7 @@ const Auth = () => {
                     variant={mode === 'login' ? 'default' : 'ghost'}
                     onClick={() => setMode('login')}
                     size="sm"
+                    className={mode === 'login' ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white' : ''}
                   >
                     Customer Login
                   </Button>
@@ -116,6 +117,7 @@ const Auth = () => {
                     variant={mode === 'signup' ? 'default' : 'ghost'}
                     onClick={() => setMode('signup')}
                     size="sm"
+                    className={mode === 'signup' ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white' : ''}
                   >
                     Customer Sign Up
                   </Button>
@@ -123,6 +125,7 @@ const Auth = () => {
                     variant={mode === 'vendor' ? 'default' : 'ghost'}
                     onClick={() => setMode('vendor')}
                     size="sm"
+                    className={mode === 'vendor' ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white' : ''}
                   >
                     Vendor Registration
                   </Button>
