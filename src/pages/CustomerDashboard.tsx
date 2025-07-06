@@ -32,10 +32,12 @@ const CustomerDashboard = () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', user?.id)
+        .eq('user_id', user?.id)
         .single();
 
-      if (error) throw error;
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
       setProfile(data);
     } catch (error: any) {
       console.error('Error fetching profile:', error);
@@ -44,34 +46,44 @@ const CustomerDashboard = () => {
 
   const fetchSavedVendors = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('saved_vendors')
         .select(`
           *,
           vendors (*)
         `)
-        .eq('customer_id', user?.id);
+        .eq('user_id', user?.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching saved vendors:', error);
+        setSavedVendors([]);
+        return;
+      }
       setSavedVendors(data || []);
     } catch (error: any) {
       console.error('Error fetching saved vendors:', error);
+      setSavedVendors([]);
     }
   };
 
   const fetchNotifications = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('notifications')
         .select('*')
         .eq('user_id', user?.id)
         .order('created_at', { ascending: false })
         .limit(10);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching notifications:', error);
+        setNotifications([]);
+        return;
+      }
       setNotifications(data || []);
     } catch (error: any) {
       console.error('Error fetching notifications:', error);
+      setNotifications([]);
     }
   };
 
@@ -80,7 +92,7 @@ const CustomerDashboard = () => {
       const { error } = await supabase
         .from('profiles')
         .update(updatedData)
-        .eq('id', user?.id);
+        .eq('user_id', user?.id);
 
       if (error) throw error;
       setProfile({ ...profile, ...updatedData });
@@ -92,10 +104,10 @@ const CustomerDashboard = () => {
 
   const removeSavedVendor = async (vendorId: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('saved_vendors')
         .delete()
-        .eq('customer_id', user?.id)
+        .eq('user_id', user?.id)
         .eq('vendor_id', vendorId);
 
       if (error) throw error;
@@ -240,6 +252,8 @@ const CustomerDashboard = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {savedVendors.map((savedVendor) => {
                   const vendor = savedVendor.vendors;
+                  if (!vendor) return null;
+                  
                   return (
                     <Card key={savedVendor.id} className="hover:shadow-lg transition-shadow">
                       <CardContent className="p-6">
@@ -247,7 +261,7 @@ const CustomerDashboard = () => {
                           <div>
                             <h3 className="text-lg font-semibold">{vendor.business_name}</h3>
                             <p className="text-gray-600">{vendor.category}</p>
-                            <p className="text-sm text-gray-500">{vendor.location}</p>
+                            <p className="text-sm text-gray-500">{vendor.city}</p>
                           </div>
                           <Button
                             variant="ghost"

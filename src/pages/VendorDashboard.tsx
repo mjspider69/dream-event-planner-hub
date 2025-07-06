@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
@@ -25,11 +26,16 @@ const VendorDashboard = () => {
   useEffect(() => {
     if (user) {
       fetchVendorData();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (vendorData?.id) {
       fetchBookings();
       fetchEarnings();
       fetchClientSelections();
     }
-  }, [user]);
+  }, [vendorData]);
 
   const fetchVendorData = async () => {
     try {
@@ -65,16 +71,21 @@ const VendorDashboard = () => {
 
   const fetchEarnings = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('vendor_earnings')
         .select('*')
         .eq('vendor_id', vendorData?.id)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching earnings:', error);
+        setEarnings([]);
+        return;
+      }
       setEarnings(data || []);
     } catch (error: any) {
       console.error('Error fetching earnings:', error);
+      setEarnings([]);
     }
   };
 

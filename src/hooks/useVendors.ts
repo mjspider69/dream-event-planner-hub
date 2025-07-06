@@ -182,7 +182,7 @@ export const useVendors = (params: UseVendorsParams = {}) => {
         let query = supabase
           .from('vendors')
           .select('*')
-          .eq('status', 'approved');
+          .eq('is_approved', true);
 
         // Apply filters based on available fields
         if (params.speciality && params.speciality !== 'all') {
@@ -190,7 +190,7 @@ export const useVendors = (params: UseVendorsParams = {}) => {
         }
 
         if (params.city && params.city !== 'all cities') {
-          query = query.ilike('location', `%${params.city}%`);
+          query = query.ilike('city', `%${params.city}%`);
         }
 
         if (params.rating) {
@@ -221,20 +221,20 @@ export const useVendors = (params: UseVendorsParams = {}) => {
         const transformedData = data?.map(vendor => ({
           id: vendor.id,
           business_name: vendor.business_name,
-          contact_person: null,
-          email: null,
-          phone: null,
-          city: vendor.location,
+          contact_person: vendor.contact_person,
+          email: vendor.email,
+          phone: vendor.phone,
+          city: vendor.city,
           category: vendor.category,
           speciality: [vendor.category],
           description: vendor.description,
           price_range: vendor.price_range,
           portfolio_images: vendor.portfolio_images || [],
-          is_approved: vendor.status === 'approved',
+          is_approved: vendor.is_approved,
           is_online: true,
           is_featured: false,
           rating: Number(vendor.rating) || 0,
-          total_bookings: 0,
+          total_bookings: vendor.total_bookings || 0,
           created_at: vendor.created_at,
           updated_at: vendor.updated_at,
         })) || [];
@@ -274,20 +274,20 @@ export const useVendorById = (id: string) => {
         const transformedData = {
           id: data.id,
           business_name: data.business_name,
-          contact_person: null,
-          email: null,
-          phone: null,
-          city: data.location,
+          contact_person: data.contact_person,
+          email: data.email,
+          phone: data.phone,
+          city: data.city,
           category: data.category,
           speciality: [data.category],
           description: data.description,
           price_range: data.price_range,
           portfolio_images: data.portfolio_images || [],
-          is_approved: data.status === 'approved',
+          is_approved: data.is_approved,
           is_online: true,
           is_featured: false,
           rating: Number(data.rating) || 0,
-          total_bookings: 0,
+          total_bookings: data.total_bookings || 0,
           created_at: data.created_at,
           updated_at: data.updated_at,
         };
