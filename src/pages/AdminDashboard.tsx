@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -88,10 +89,11 @@ const AdminDashboard = () => {
       if (bookingsError) throw bookingsError;
       setBookings(bookingsData || []);
 
-      // Calculate stats
-      const pendingVendors = vendorsData?.filter(v => v.status === 'pending').length || 0;
+      // Calculate stats - use is_approved instead of status for vendors
+      const pendingVendors = vendorsData?.filter(v => !v.is_approved).length || 0;
       const totalRevenue = bookingsData?.reduce((sum, booking) => sum + (booking.budget || 0), 0) || 0;
-      const activeUsers = usersData?.filter(u => u.is_online).length || 0;
+      // Remove is_online check since it doesn't exist in the profiles table
+      const activeUsers = usersData?.length || 0;
 
       // Get website visitors from localStorage (simulated)
       const visitors = localStorage.getItem('websiteVisitors') || '0';
@@ -117,14 +119,14 @@ const AdminDashboard = () => {
     try {
       const { error } = await supabase
         .from('vendors')
-        .update({ status: 'approved', is_approved: true })
+        .update({ is_approved: true })
         .eq('id', vendorId);
 
       if (error) throw error;
       
       setVendors(vendors.map(v => 
         v.id === vendorId 
-          ? { ...v, status: 'approved', is_approved: true }
+          ? { ...v, is_approved: true }
           : v
       ));
       
@@ -138,14 +140,14 @@ const AdminDashboard = () => {
     try {
       const { error } = await supabase
         .from('vendors')
-        .update({ status: 'rejected', is_approved: false })
+        .update({ is_approved: false })
         .eq('id', vendorId);
 
       if (error) throw error;
       
       setVendors(vendors.map(v => 
         v.id === vendorId 
-          ? { ...v, status: 'rejected', is_approved: false }
+          ? { ...v, is_approved: false }
           : v
       ));
       
@@ -155,13 +157,13 @@ const AdminDashboard = () => {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'approved': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'rejected': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+  const getStatusColor = (isApproved: boolean) => {
+    if (isApproved) return 'bg-green-100 text-green-800';
+    return 'bg-yellow-100 text-yellow-800';
+  };
+
+  const getStatusText = (isApproved: boolean) => {
+    return isApproved ? 'approved' : 'pending';
   };
 
   if (loading) {
@@ -286,11 +288,11 @@ const AdminDashboard = () => {
                       <div>
                         <h3 className="text-lg font-semibold">{vendor.business_name}</h3>
                         <p className="text-gray-600">{vendor.category}</p>
-                        <p className="text-sm text-gray-500">{vendor.location}</p>
+                        <p className="text-sm text-gray-500">{vendor.city}</p>
                         <p className="text-sm text-amber-600 font-medium">{vendor.price_range}</p>
                       </div>
-                      <Badge className={getStatusColor(vendor.status)}>
-                        {vendor.status || 'pending'}
+                      <Badge className={getStatusColor(vendor.is_approved)}>
+                        {getStatusText(vendor.is_approved)}
                       </Badge>
                     </div>
                     
@@ -300,7 +302,7 @@ const AdminDashboard = () => {
                         <p>Joined: {new Date(vendor.created_at).toLocaleDateString()}</p>
                       </div>
                       
-                      {vendor.status === 'pending' && (
+                      {!vendor.is_approved && (
                         <div className="flex space-x-2">
                           <Button
                             size="sm"
@@ -370,7 +372,7 @@ const AdminDashboard = () => {
                           Budget: ₹{booking.budget?.toLocaleString()}
                         </p>
                       </div>
-                      <Badge className={getStatusColor(booking.status)}>
+                      <Badge className={getStatusColor(booking.status === 'confirmed')}>
                         {booking.status}
                       </Badge>
                     </div>
