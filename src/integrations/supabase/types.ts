@@ -9,7 +9,238 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          budget: number
+          created_at: string | null
+          customer_id: string
+          event_date: string
+          event_location: string
+          event_type: string
+          guest_count: number
+          id: string
+          requirements: string | null
+          status: string | null
+          total_amount: number | null
+          updated_at: string | null
+          vendor_id: string
+        }
+        Insert: {
+          budget: number
+          created_at?: string | null
+          customer_id: string
+          event_date: string
+          event_location: string
+          event_type: string
+          guest_count: number
+          id?: string
+          requirements?: string | null
+          status?: string | null
+          total_amount?: number | null
+          updated_at?: string | null
+          vendor_id: string
+        }
+        Update: {
+          budget?: number
+          created_at?: string | null
+          customer_id?: string
+          event_date?: string
+          event_location?: string
+          event_type?: string
+          guest_count?: number
+          id?: string
+          requirements?: string | null
+          status?: string | null
+          total_amount?: number | null
+          updated_at?: string | null
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      otps: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          expires_at: string
+          id: string
+          is_verified: boolean | null
+          otp_code: string
+          phone: string | null
+          purpose: string
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          expires_at: string
+          id?: string
+          is_verified?: boolean | null
+          otp_code: string
+          phone?: string | null
+          purpose?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          expires_at?: string
+          id?: string
+          is_verified?: boolean | null
+          otp_code?: string
+          phone?: string | null
+          purpose?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          booking_id: string
+          created_at: string | null
+          currency: string | null
+          customer_id: string
+          id: string
+          payment_date: string | null
+          payment_status: string | null
+          razorpay_order_id: string | null
+          razorpay_payment_id: string | null
+          razorpay_signature: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          booking_id: string
+          created_at?: string | null
+          currency?: string | null
+          customer_id: string
+          id?: string
+          payment_date?: string | null
+          payment_status?: string | null
+          razorpay_order_id?: string | null
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          booking_id?: string
+          created_at?: string | null
+          currency?: string | null
+          customer_id?: string
+          id?: string
+          payment_date?: string | null
+          payment_status?: string | null
+          razorpay_order_id?: string | null
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          city: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string | null
+          user_id: string
+          user_type: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+          user_id: string
+          user_type?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+          user_id?: string
+          user_type?: string | null
+        }
+        Relationships: []
+      }
+      vendors: {
+        Row: {
+          business_name: string
+          category: string
+          city: string
+          contact_person: string | null
+          created_at: string | null
+          description: string | null
+          email: string | null
+          id: string
+          is_approved: boolean | null
+          phone: string | null
+          portfolio_images: string[] | null
+          price_range: string | null
+          rating: number | null
+          total_bookings: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          business_name: string
+          category: string
+          city: string
+          contact_person?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          is_approved?: boolean | null
+          phone?: string | null
+          portfolio_images?: string[] | null
+          price_range?: string | null
+          rating?: number | null
+          total_bookings?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          business_name?: string
+          category?: string
+          city?: string
+          contact_person?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          is_approved?: boolean | null
+          phone?: string | null
+          portfolio_images?: string[] | null
+          price_range?: string | null
+          rating?: number | null
+          total_bookings?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
