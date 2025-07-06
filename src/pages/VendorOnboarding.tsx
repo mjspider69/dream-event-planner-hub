@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { User, Camera, DollarSign, Share2, FileCheck, ArrowRight, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
+import { VENDOR_CATEGORIES, CATEGORY_GROUPS } from "@/constants/vendorCategories";
 
 const VendorOnboarding = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -87,13 +88,19 @@ const VendorOnboarding = () => {
                           <SelectTrigger>
                             <SelectValue placeholder="Select category" />
                           </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="photography">Photography</SelectItem>
-                            <SelectItem value="decoration">Decoration</SelectItem>
-                            <SelectItem value="catering">Catering</SelectItem>
-                            <SelectItem value="dj">DJ & Music</SelectItem>
-                            <SelectItem value="priest">Priest</SelectItem>
-                            <SelectItem value="transport">Transport</SelectItem>
+                          <SelectContent className="max-h-60">
+                            {Object.entries(CATEGORY_GROUPS).map(([groupName, categories]) => (
+                              <div key={groupName}>
+                                <div className="px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100">
+                                  {groupName}
+                                </div>
+                                {categories.map((category) => (
+                                  <SelectItem key={category} value={category.toLowerCase()}>
+                                    {category}
+                                  </SelectItem>
+                                ))}
+                              </div>
+                            ))}
                           </SelectContent>
                         </Select>
                       </div>

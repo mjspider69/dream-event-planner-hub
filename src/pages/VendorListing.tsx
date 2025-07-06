@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,6 +14,7 @@ import LoginPromptModal from "@/components/LoginPromptModal";
 import { useVendors } from "@/hooks/useVendors";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { VENDOR_CATEGORIES, CATEGORY_GROUPS } from "@/constants/vendorCategories";
 
 const VendorListing = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,7 +51,6 @@ const VendorListing = () => {
     return matchesSearch && isApproved && isOnline;
   });
 
-  const categories = ["All", "Photography", "Decoration", "Catering", "DJ & Music", "Priest", "Transport"];
   const locations = ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Pune", "Hyderabad", "Ahmedabad", "Jaipur", "Kolkata", "Kochi", "Lucknow"];
 
   const handleFilterChange = (key: string, value: string) => {
@@ -129,14 +130,22 @@ const VendorListing = () => {
             </div>
             
             <Select onValueChange={(value) => handleFilterChange('speciality', value)}>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-64">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category.toLowerCase()}>
-                    {category}
-                  </SelectItem>
+              <SelectContent className="max-h-60">
+                <SelectItem value="all">All Categories</SelectItem>
+                {Object.entries(CATEGORY_GROUPS).map(([groupName, categories]) => (
+                  <div key={groupName}>
+                    <div className="px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100">
+                      {groupName}
+                    </div>
+                    {categories.map((category) => (
+                      <SelectItem key={category} value={category.toLowerCase()}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </div>
                 ))}
               </SelectContent>
             </Select>

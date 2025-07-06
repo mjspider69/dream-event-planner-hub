@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, Filter, MapPin, Star, DollarSign, X } from "lucide-react";
+import { VENDOR_CATEGORIES, CATEGORY_GROUPS } from "@/constants/vendorCategories";
 
 interface FilterOptions {
   category: string[];
@@ -29,11 +30,6 @@ const VendorFilter = ({
     rating: 0,
     availability: ''
   });
-
-  const categories = [
-    "Photography", "Videography", "Decoration", "Catering", 
-    "Music & DJ", "Transportation", "Venue", "Priest", "Gifts"
-  ];
 
   const budgetRanges = [
     "Under ₹25,000", "₹25,000 - ₹50,000", "₹50,000 - ₹1,00,000", 
@@ -176,17 +172,24 @@ const VendorFilter = ({
               {/* Categories */}
               <div>
                 <h3 className="font-semibold mb-3">Service Category</h3>
-                <div className="space-y-2 max-h-48 overflow-y-auto">
-                  {categories.map((category) => (
-                    <label key={category} className="flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={filters.category.includes(category)}
-                        onChange={() => toggleCategory(category)}
-                        className="mr-2 text-blue-600 rounded"
-                      />
-                      <span className="text-sm">{category}</span>
-                    </label>
+                <div className="space-y-3 max-h-80 overflow-y-auto">
+                  {Object.entries(CATEGORY_GROUPS).map(([groupName, categories]) => (
+                    <div key={groupName} className="space-y-2">
+                      <h4 className="text-sm font-medium text-gray-700 bg-gray-50 px-2 py-1 rounded">
+                        {groupName}
+                      </h4>
+                      {categories.map((category) => (
+                        <label key={category} className="flex items-start cursor-pointer pl-2">
+                          <input
+                            type="checkbox"
+                            checked={filters.category.includes(category)}
+                            onChange={() => toggleCategory(category)}
+                            className="mr-2 mt-0.5 text-blue-600 rounded"
+                          />
+                          <span className="text-sm leading-tight">{category}</span>
+                        </label>
+                      ))}
+                    </div>
                   ))}
                 </div>
               </div>
