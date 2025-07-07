@@ -7,7 +7,7 @@ interface Earning {
   id: string;
   net_amount: number;
   commission_amount: number;
-  payment_date: string;
+  created_at: string;
   status: string;
 }
 
@@ -41,12 +41,12 @@ const VendorEarnings = ({ earnings, totalEarnings }: VendorEarningsProps) => {
               <CardContent className="p-6">
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="font-semibold">₹{Number(earning.net_amount).toLocaleString()}</p>
+                    <p className="font-semibold">₹{Number(earning.net_amount || 0).toLocaleString()}</p>
                     <p className="text-sm text-gray-600">
-                      Commission: ₹{Number(earning.commission_amount).toLocaleString()}
+                      Commission: ₹{Number(earning.commission_amount || 0).toLocaleString()}
                     </p>
                     <p className="text-xs text-gray-500">
-                      {new Date(earning.payment_date).toLocaleDateString()}
+                      {new Date(earning.created_at).toLocaleDateString()}
                     </p>
                   </div>
                   <Badge className={
@@ -54,7 +54,7 @@ const VendorEarnings = ({ earnings, totalEarnings }: VendorEarningsProps) => {
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-yellow-100 text-yellow-800'
                   }>
-                    {earning.status}
+                    {earning.status || 'pending'}
                   </Badge>
                 </div>
               </CardContent>

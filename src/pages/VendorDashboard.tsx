@@ -6,8 +6,9 @@ import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
-// Import the new components
+// Import the vendor components
 import VendorStats from "@/components/vendor/VendorStats";
 import VendorBookings from "@/components/vendor/VendorBookings";
 import VendorEarnings from "@/components/vendor/VendorEarnings";
@@ -17,6 +18,7 @@ import VendorMessages from "@/components/vendor/VendorMessages";
 
 const VendorDashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [vendorData, setVendorData] = useState<any>(null);
   const [bookings, setBookings] = useState<any[]>([]);
   const [earnings, setEarnings] = useState<any[]>([]);
@@ -24,10 +26,13 @@ const VendorDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      fetchVendorData();
+    if (!user) {
+      console.log('No user found, redirecting to auth');
+      navigate('/vendor-auth');
+      return;
     }
-  }, [user]);
+    fetchVendorData();
+  }, [user, navigate]);
 
   useEffect(() => {
     if (vendorData?.id) {
@@ -39,16 +44,23 @@ const VendorDashboard = () => {
 
   const fetchVendorData = async () => {
     try {
+      console.log('Fetching vendor data for user:', user?.id);
       const { data, error } = await supabase
         .from('vendors')
         .select('*')
         .eq('user_id', user?.id)
         .single();
 
-      if (error && error.code !== 'PGRST116') throw error;
+      if (error && error.code !== 'PGRST116') {
+        console.error('Error fetching vendor data:', error);
+        throw error;
+      }
+      
+      console.log('Vendor data fetched:', data);
       setVendorData(data);
     } catch (error: any) {
       console.error('Error fetching vendor data:', error);
+      toast.error('Error loading vendor profile');
     } finally {
       setLoading(false);
     }
@@ -56,22 +68,30 @@ const VendorDashboard = () => {
 
   const fetchBookings = async () => {
     try {
+      console.log('Fetching bookings for vendor:', vendorData?.id);
       const { data, error } = await supabase
         .from('bookings')
         .select('*')
         .eq('vendor_id', vendorData?.id)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching bookings:', error);
+        throw error;
+      }
+      
+      console.log('Bookings fetched:', data);
       setBookings(data || []);
     } catch (error: any) {
       console.error('Error fetching bookings:', error);
+      toast.error('Error loading bookings');
     }
   };
 
   const fetchEarnings = async () => {
     try {
-      const { data, error } = await (supabase as any)
+      console.log('Fetching earnings for vendor:', vendorData?.id);
+      const { data, error } = await supabase
         .from('vendor_earnings')
         .select('*')
         .eq('vendor_id', vendorData?.id)
@@ -82,6 +102,8 @@ const VendorDashboard = () => {
         setEarnings([]);
         return;
       }
+      
+      console.log('Earnings fetched:', data);
       setEarnings(data || []);
     } catch (error: any) {
       console.error('Error fetching earnings:', error);
@@ -91,36 +113,48 @@ const VendorDashboard = () => {
 
   const fetchClientSelections = async () => {
     try {
+      console.log('Fetching client selections for vendor:', vendorData?.id);
       const { data, error } = await supabase
         .from('bookings')
         .select('customer_id')
         .eq('vendor_id', vendorData?.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching client selections:', error);
+        throw error;
+      }
       
       const uniqueClients = new Set(data?.map(booking => booking.customer_id) || []);
+      console.log('Unique clients:', uniqueClients.size);
       setClientSelections(uniqueClients.size);
     } catch (error: any) {
       console.error('Error fetching client selections:', error);
+      toast.error('Error loading client data');
     }
   };
 
   const updateVendorProfile = async (updatedData: any) => {
     try {
+      console.log('Updating vendor profile:', updatedData);
       const { error } = await supabase
         .from('vendors')
         .update(updatedData)
         .eq('id', vendorData?.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error updating vendor profile:', error);
+        throw error;
+      }
+      
       setVendorData({ ...vendorData, ...updatedData });
       toast.success('Profile updated successfully!');
     } catch (error: any) {
+      console.error('Error updating profile:', error);
       toast.error('Error updating profile');
     }
   };
 
-  const totalEarnings = earnings.reduce((sum, earning) => sum + Number(earning.net_amount), 0);
+  const totalEarnings = earnings.reduce((sum, earning) => sum + Number(earning.net_amount || 0), 0);
   const pendingBookings = bookings.filter(b => b.status === 'pending').length;
   const completedBookings = bookings.filter(b => b.status === 'confirmed').length;
 
@@ -128,6 +162,29 @@ const VendorDashboard = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-500"></div>
+      </div>
+    );
+  }
+
+  if (!vendorData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+        <Header />
+        <div className="container mx-auto px-6 py-16 text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            Vendor Profile Not Found
+          </h1>
+          <p className="text-gray-600 mb-8">
+            You need to complete your vendor onboarding first.
+          </p>
+          <button 
+            onClick={() => navigate('/vendor-onboarding')}
+            className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-lg hover:from-amber-600 hover:to-orange-600 transition-colors"
+          >
+            Complete Vendor Setup
+          </button>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -142,7 +199,7 @@ const VendorDashboard = () => {
             Vendor Dashboard
           </h1>
           <p className="text-gray-600">
-            {vendorData?.business_name || 'Welcome to your vendor dashboard'}
+            Welcome back, {vendorData?.business_name || 'Vendor'}!
           </p>
         </div>
 
@@ -151,7 +208,7 @@ const VendorDashboard = () => {
           clientSelections={clientSelections}
           pendingBookings={pendingBookings}
           completedBookings={completedBookings}
-          rating={vendorData?.rating}
+          rating={vendorData?.rating || 0}
         />
 
         <Tabs defaultValue="bookings" className="space-y-6">

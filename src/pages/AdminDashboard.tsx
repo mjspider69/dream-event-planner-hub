@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { 
   Users, 
   DollarSign, 
@@ -16,17 +18,17 @@ import {
   BarChart3,
   Eye,
   Globe,
-  LogOut
+  LogOut,
+  Edit,
+  Save
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -41,9 +43,17 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [websiteConfig, setWebsiteConfig] = useState({
+    siteName: "AAROHAM",
+    tagline: "Your Ultimate Event Planning Platform",
+    description: "Connect with the best vendors for your special events",
+    contactEmail: "contact@aaroham.com",
+    contactPhone: "+91-98765-43210",
+    heroTitle: "Make Your Events Memorable",
+    heroSubtitle: "Find and book the perfect vendors for your special occasions"
+  });
 
   useEffect(() => {
-    // Check if admin is authenticated
     const isAdminAuth = localStorage.getItem("isAdminAuthenticated");
     if (isAdminAuth !== "true") {
       navigate("/admin/login");
@@ -55,7 +65,6 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   const trackWebsiteVisitor = () => {
-    // Simulate website visitor tracking
     const visitors = localStorage.getItem('websiteVisitors');
     const currentVisitors = visitors ? parseInt(visitors) : 0;
     const newVisitorCount = currentVisitors + Math.floor(Math.random() * 50) + 100;
@@ -69,7 +78,6 @@ const AdminDashboard = () => {
       setLoading(true);
       console.log('Fetching admin dashboard data...');
       
-      // Fetch vendors
       const { data: vendorsData, error: vendorsError } = await supabase
         .from('vendors')
         .select('*')
@@ -83,7 +91,6 @@ const AdminDashboard = () => {
         setVendors(vendorsData || []);
       }
 
-      // Fetch profiles (users)
       const { data: usersData, error: usersError } = await supabase
         .from('profiles')
         .select('*')
@@ -97,7 +104,6 @@ const AdminDashboard = () => {
         setUsers(usersData || []);
       }
 
-      // Fetch bookings
       const { data: bookingsData, error: bookingsError } = await supabase
         .from('bookings')
         .select('*')
@@ -111,7 +117,6 @@ const AdminDashboard = () => {
         setBookings(bookingsData || []);
       }
 
-      // Calculate stats
       const pendingVendors = vendorsData?.filter(v => !v.is_approved).length || 0;
       const totalRevenue = bookingsData?.reduce((sum, booking) => sum + (booking.budget || 0), 0) || 0;
       const activeUsers = usersData?.length || 0;
@@ -125,14 +130,6 @@ const AdminDashboard = () => {
         pendingVendors,
         websiteVisitors: parseInt(visitors),
         activeUsers,
-      });
-
-      console.log('Dashboard stats calculated:', {
-        totalUsers: usersData?.length || 0,
-        totalVendors: vendorsData?.length || 0,
-        totalBookings: bookingsData?.length || 0,
-        totalRevenue,
-        pendingVendors,
       });
 
     } catch (error: any) {
@@ -194,6 +191,11 @@ const AdminDashboard = () => {
     localStorage.removeItem("adminEmail");
     toast.success("Logged out successfully");
     navigate("/admin/login");
+  };
+
+  const saveWebsiteConfig = () => {
+    localStorage.setItem('websiteConfig', JSON.stringify(websiteConfig));
+    toast.success('Website configuration saved successfully!');
   };
 
   const getStatusColor = (isApproved: boolean) => {
@@ -309,11 +311,12 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs defaultValue="vendors" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="vendors">Vendors</TabsTrigger>
             <TabsTrigger value="users">Users</TabsTrigger>
             <TabsTrigger value="bookings">Bookings</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="website">Website Editor</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
@@ -496,6 +499,110 @@ const AdminDashboard = () => {
                       <span className="text-gray-600">Bookings:</span>
                       <span className="font-semibold">{stats.totalBookings}</span>
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="website" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">Website Editor</h2>
+              <Button onClick={saveWebsiteConfig} className="bg-gradient-to-r from-amber-500 to-orange-500">
+                <Save className="h-4 w-4 mr-2" />
+                Save Changes
+              </Button>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Edit className="h-5 w-5 mr-2" />
+                    Site Information
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Site Name
+                    </label>
+                    <Input
+                      value={websiteConfig.siteName}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, siteName: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Tagline
+                    </label>
+                    <Input
+                      value={websiteConfig.tagline}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, tagline: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Description
+                    </label>
+                    <Textarea
+                      value={websiteConfig.description}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, description: e.target.value})}
+                      rows={3}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Contact Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Contact Email
+                    </label>
+                    <Input
+                      value={websiteConfig.contactEmail}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, contactEmail: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Contact Phone
+                    </label>
+                    <Input
+                      value={websiteConfig.contactPhone}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, contactPhone: e.target.value})}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Hero Section</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Hero Title
+                    </label>
+                    <Input
+                      value={websiteConfig.heroTitle}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, heroTitle: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Hero Subtitle
+                    </label>
+                    <Textarea
+                      value={websiteConfig.heroSubtitle}
+                      onChange={(e) => setWebsiteConfig({...websiteConfig, heroSubtitle: e.target.value})}
+                      rows={2}
+                    />
                   </div>
                 </CardContent>
               </Card>

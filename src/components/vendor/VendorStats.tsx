@@ -81,7 +81,7 @@ const VendorStats = ({
             <div>
               <p className="text-sm font-medium text-gray-600">Rating</p>
               <p className="text-2xl font-bold text-amber-600">
-                {rating || '0.0'}
+                {rating ? Number(rating).toFixed(1) : '0.0'}
               </p>
             </div>
             <Star className="h-8 w-8 text-amber-500" />

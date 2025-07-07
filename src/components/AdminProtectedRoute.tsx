@@ -18,11 +18,14 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
       console.log('Admin auth status:', isAdminAuth);
       
       if (isAdminAuth === "true") {
+        console.log('Admin authenticated, allowing access');
         setIsAuthenticated(true);
       } else {
         console.log('Not authenticated, redirecting to admin login');
         setIsAuthenticated(false);
-        navigate("/admin/login");
+        setTimeout(() => {
+          navigate("/admin/login");
+        }, 100);
       }
     };
 
@@ -41,7 +44,19 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
     );
   }
 
-  return isAuthenticated ? <>{children}</> : null;
+  if (isAuthenticated === false) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center">
+        <div className="text-center">
+          <Crown className="h-16 w-16 text-red-500 mx-auto mb-4" />
+          <p className="text-red-600 font-semibold text-xl">Access Denied</p>
+          <p className="text-gray-600 mt-2">Redirecting to login...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
 };
 
 export default AdminProtectedRoute;
