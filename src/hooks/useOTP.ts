@@ -14,7 +14,7 @@ export const useOTP = () => {
       const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
 
       // Store OTP in database
-      const { error } = await supabase
+      const { error: insertError } = await supabase
         .from('otps')
         .insert({
           email,
@@ -24,7 +24,10 @@ export const useOTP = () => {
           expires_at: expiresAt.toISOString(),
         });
 
-      if (error) throw error;
+      if (insertError) {
+        console.error('Error storing OTP:', insertError);
+        throw insertError;
+      }
 
       // In production, you would send actual SMS/email here
       console.log(`OTP for ${email}: ${otpCode}`);
@@ -32,7 +35,8 @@ export const useOTP = () => {
       
       return { success: true, error: null };
     } catch (error: any) {
-      toast.error(error.message);
+      console.error('Error in sendOTP:', error);
+      toast.error(error.message || 'Failed to send OTP');
       return { success: false, error };
     } finally {
       setLoading(false);
@@ -42,6 +46,14 @@ export const useOTP = () => {
   const verifyOTP = async (email: string, otpCode: string, purpose: string = 'signup') => {
     setLoading(true);
     try {
+      if (!email || !otpCode) {
+        throw new Error('Email and OTP code are required');
+      }
+
+      if (otpCode.length !== 6) {
+        throw new Error('OTP must be 6 digits');
+      }
+
       const { data, error } = await supabase
         .from('otps')
         .select('*')
@@ -52,23 +64,34 @@ export const useOTP = () => {
         .gt('expires_at', new Date().toISOString())
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
-      if (error || !data) {
+      if (error) {
+        console.error('Error verifying OTP:', error);
+        throw error;
+      }
+
+      if (!data) {
         toast.error('Invalid or expired OTP');
-        return { success: false, error: error || new Error('Invalid OTP') };
+        return { success: false, error: new Error('Invalid or expired OTP') };
       }
 
       // Mark OTP as verified
-      await supabase
+      const { error: updateError } = await supabase
         .from('otps')
         .update({ is_verified: true })
         .eq('id', data.id);
 
+      if (updateError) {
+        console.error('Error updating OTP:', updateError);
+        throw updateError;
+      }
+
       toast.success('OTP verified successfully!');
       return { success: true, error: null };
     } catch (error: any) {
-      toast.error(error.message);
+      console.error('Error in verifyOTP:', error);
+      toast.error(error.message || 'Failed to verify OTP');
       return { success: false, error };
     } finally {
       setLoading(false);

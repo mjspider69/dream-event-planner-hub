@@ -47,8 +47,15 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
       return false;
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Please enter a valid email address');
+      return false;
+    }
+
     if (mode === 'signup' || mode === 'vendor') {
-      if (!formData.fullName) {
+      if (!formData.fullName?.trim()) {
         toast.error('Full name is required');
         return false;
       }
@@ -69,7 +76,7 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
       }
 
       if (mode === 'vendor') {
-        if (!formData.businessName || !formData.category || !formData.city) {
+        if (!formData.businessName?.trim() || !formData.category || !formData.city?.trim()) {
           toast.error('Please fill in all business details');
           return false;
         }
@@ -105,6 +112,7 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
         }
       }
     } catch (error: any) {
+      console.error('Auth error:', error);
       toast.error(error.message || 'An error occurred');
     } finally {
       setLoading(false);
@@ -128,8 +136,6 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
       
       if (!result.error) {
         if (mode === 'vendor') {
-          // Create vendor profile
-          // This would be handled by a trigger in production
           toast.success('Vendor registration successful! Please wait for approval.');
         } else {
           toast.success('Account created successfully!');
@@ -137,6 +143,7 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
         onSuccess();
       }
     } catch (error: any) {
+      console.error('Registration error:', error);
       toast.error(error.message || 'Registration failed');
     }
   };

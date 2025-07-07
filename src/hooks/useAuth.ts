@@ -21,6 +21,7 @@ export const useAuth = () => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
         setAuthState({
           user: session?.user ?? null,
           session,
@@ -36,7 +37,11 @@ export const useAuth = () => {
     );
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('Error getting session:', error);
+      }
+      console.log('Initial session:', session?.user?.email);
       setAuthState({
         user: session?.user ?? null,
         session,
@@ -48,56 +53,88 @@ export const useAuth = () => {
   }, []);
 
   const signUp = async (email: string, password: string, userData: any) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-        data: userData
-      }
-    });
+    try {
+      const redirectUrl = `${window.location.origin}/`;
+      
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: redirectUrl,
+          data: userData
+        }
+      });
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        console.error('Sign up error:', error);
+        toast.error(error.message);
+        return { error };
+      }
+
+      console.log('Sign up successful:', data.user?.email);
+      toast.success('Account created successfully! Please check your email for verification.');
+      return { data, error: null };
+    } catch (error: any) {
+      console.error('Unexpected sign up error:', error);
+      toast.error(error.message || 'Failed to create account');
       return { error };
     }
-
-    toast.success('Account created successfully! Please check your email for verification.');
-    return { data, error: null };
   };
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        console.error('Sign in error:', error);
+        toast.error(error.message);
+        return { error };
+      }
+
+      console.log('Sign in successful:', data.user?.email);
+      return { data, error: null };
+    } catch (error: any) {
+      console.error('Unexpected sign in error:', error);
+      toast.error(error.message || 'Failed to sign in');
       return { error };
     }
-
-    return { data, error: null };
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      toast.error(error.message);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Sign out error:', error);
+        toast.error(error.message);
+      }
+      return { error };
+    } catch (error: any) {
+      console.error('Unexpected sign out error:', error);
+      toast.error(error.message || 'Failed to sign out');
+      return { error };
     }
-    return { error };
   };
 
   const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success('Password reset email sent!');
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) {
+        console.error('Reset password error:', error);
+        toast.error(error.message);
+      } else {
+        toast.success('Password reset email sent!');
+      }
+      return { error };
+    } catch (error: any) {
+      console.error('Unexpected reset password error:', error);
+      toast.error(error.message || 'Failed to send reset email');
+      return { error };
     }
-    return { error };
   };
 
   return {

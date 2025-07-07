@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,7 +26,9 @@ const OTPVerification = ({
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const { sendOTP, verifyOTP, loading } = useOTP();
 
-  useState(() => {
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -38,10 +40,10 @@ const OTPVerification = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  });
+  }, [timeLeft]);
 
   const handleVerifyOTP = async () => {
-    if (otpCode.length !== 6) {
+    if (!otpCode || otpCode.length !== 6) {
       toast.error('Please enter a valid 6-digit OTP');
       return;
     }
@@ -67,6 +69,11 @@ const OTPVerification = ({
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    setOtpCode(value);
+  };
+
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="text-center">
@@ -90,10 +97,11 @@ const OTPVerification = ({
           <Input
             type="text"
             value={otpCode}
-            onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+            onChange={handleInputChange}
             placeholder="123456"
             className="text-center text-lg tracking-widest"
             maxLength={6}
+            disabled={loading}
           />
         </div>
 
