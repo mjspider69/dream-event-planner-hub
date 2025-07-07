@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Crown } from "lucide-react";
+import { Crown, Loader2 } from "lucide-react";
 
 interface AdminProtectedRouteProps {
   children: React.ReactNode;
@@ -13,10 +13,14 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
 
   useEffect(() => {
     const checkAuth = () => {
+      console.log('Checking admin authentication...');
       const isAdminAuth = localStorage.getItem("isAdminAuthenticated");
+      console.log('Admin auth status:', isAdminAuth);
+      
       if (isAdminAuth === "true") {
         setIsAuthenticated(true);
       } else {
+        console.log('Not authenticated, redirecting to admin login');
         setIsAuthenticated(false);
         navigate("/admin/login");
       }
@@ -27,10 +31,11 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
 
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen royal-section-pastel flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center">
         <div className="text-center">
-          <Crown className="h-16 w-16 text-pastel-gold mx-auto mb-4 animate-pulse" />
-          <p className="text-soft-burgundy font-elegant text-xl">Loading Admin Panel...</p>
+          <Loader2 className="h-16 w-16 text-blue-600 mx-auto mb-4 animate-spin" />
+          <Crown className="h-8 w-8 text-yellow-500 mx-auto mb-4" />
+          <p className="text-blue-600 font-semibold text-xl">Loading Admin Panel...</p>
         </div>
       </div>
     );

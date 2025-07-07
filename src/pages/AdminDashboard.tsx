@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,16 +15,19 @@ import {
   FileText,
   BarChart3,
   Eye,
-  Globe
+  Globe,
+  LogOut
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalVendors: 0,
@@ -41,18 +43,22 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      fetchDashboardData();
-      trackWebsiteVisitor();
+    // Check if admin is authenticated
+    const isAdminAuth = localStorage.getItem("isAdminAuthenticated");
+    if (isAdminAuth !== "true") {
+      navigate("/admin/login");
+      return;
     }
-  }, [user]);
+    
+    fetchDashboardData();
+    trackWebsiteVisitor();
+  }, [navigate]);
 
   const trackWebsiteVisitor = () => {
     // Simulate website visitor tracking
-    // In a real app, this would be connected to analytics service
     const visitors = localStorage.getItem('websiteVisitors');
     const currentVisitors = visitors ? parseInt(visitors) : 0;
-    const newVisitorCount = currentVisitors + Math.floor(Math.random() * 50) + 100; // Simulate visitor data
+    const newVisitorCount = currentVisitors + Math.floor(Math.random() * 50) + 100;
     localStorage.setItem('websiteVisitors', newVisitorCount.toString());
     
     setStats(prev => ({ ...prev, websiteVisitors: newVisitorCount }));
@@ -61,6 +67,7 @@ const AdminDashboard = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
+      console.log('Fetching admin dashboard data...');
       
       // Fetch vendors
       const { data: vendorsData, error: vendorsError } = await supabase
@@ -68,8 +75,13 @@ const AdminDashboard = () => {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (vendorsError) throw vendorsError;
-      setVendors(vendorsData || []);
+      if (vendorsError) {
+        console.error('Error fetching vendors:', vendorsError);
+        toast.error('Error loading vendors data');
+      } else {
+        console.log('Vendors data:', vendorsData);
+        setVendors(vendorsData || []);
+      }
 
       // Fetch profiles (users)
       const { data: usersData, error: usersError } = await supabase
@@ -77,8 +89,13 @@ const AdminDashboard = () => {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (usersError) throw usersError;
-      setUsers(usersData || []);
+      if (usersError) {
+        console.error('Error fetching users:', usersError);
+        toast.error('Error loading users data');
+      } else {
+        console.log('Users data:', usersData);
+        setUsers(usersData || []);
+      }
 
       // Fetch bookings
       const { data: bookingsData, error: bookingsError } = await supabase
@@ -86,16 +103,18 @@ const AdminDashboard = () => {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (bookingsError) throw bookingsError;
-      setBookings(bookingsData || []);
+      if (bookingsError) {
+        console.error('Error fetching bookings:', bookingsError);
+        toast.error('Error loading bookings data');
+      } else {
+        console.log('Bookings data:', bookingsData);
+        setBookings(bookingsData || []);
+      }
 
-      // Calculate stats - use is_approved instead of status for vendors
+      // Calculate stats
       const pendingVendors = vendorsData?.filter(v => !v.is_approved).length || 0;
       const totalRevenue = bookingsData?.reduce((sum, booking) => sum + (booking.budget || 0), 0) || 0;
-      // Remove is_online check since it doesn't exist in the profiles table
       const activeUsers = usersData?.length || 0;
-
-      // Get website visitors from localStorage (simulated)
       const visitors = localStorage.getItem('websiteVisitors') || '0';
 
       setStats({
@@ -107,6 +126,15 @@ const AdminDashboard = () => {
         websiteVisitors: parseInt(visitors),
         activeUsers,
       });
+
+      console.log('Dashboard stats calculated:', {
+        totalUsers: usersData?.length || 0,
+        totalVendors: vendorsData?.length || 0,
+        totalBookings: bookingsData?.length || 0,
+        totalRevenue,
+        pendingVendors,
+      });
+
     } catch (error: any) {
       console.error('Error fetching dashboard data:', error);
       toast.error('Error loading dashboard data');
@@ -117,6 +145,7 @@ const AdminDashboard = () => {
 
   const approveVendor = async (vendorId: string) => {
     try {
+      console.log('Approving vendor:', vendorId);
       const { error } = await supabase
         .from('vendors')
         .update({ is_approved: true })
@@ -132,12 +161,14 @@ const AdminDashboard = () => {
       
       toast.success('Vendor approved successfully!');
     } catch (error: any) {
+      console.error('Error approving vendor:', error);
       toast.error('Error approving vendor');
     }
   };
 
   const rejectVendor = async (vendorId: string) => {
     try {
+      console.log('Rejecting vendor:', vendorId);
       const { error } = await supabase
         .from('vendors')
         .update({ is_approved: false })
@@ -153,8 +184,16 @@ const AdminDashboard = () => {
       
       toast.success('Vendor rejected');
     } catch (error: any) {
+      console.error('Error rejecting vendor:', error);
       toast.error('Error rejecting vendor');
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAdminAuthenticated");
+    localStorage.removeItem("adminEmail");
+    toast.success("Logged out successfully");
+    navigate("/admin/login");
   };
 
   const getStatusColor = (isApproved: boolean) => {
@@ -179,11 +218,17 @@ const AdminDashboard = () => {
       <Header />
       
       <div className="container mx-auto px-6 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Admin Dashboard
-          </h1>
-          <p className="text-gray-600">Manage your Aaroham platform</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Admin Dashboard
+            </h1>
+            <p className="text-gray-600">Manage your Aaroham platform</p>
+          </div>
+          <Button onClick={handleLogout} variant="outline" className="border-red-500 text-red-500 hover:bg-red-50">
+            <LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </Button>
         </div>
 
         {/* Stats Overview */}
@@ -326,6 +371,14 @@ const AdminDashboard = () => {
                   </CardContent>
                 </Card>
               ))}
+              
+              {vendors.length === 0 && (
+                <Card>
+                  <CardContent className="p-6 text-center">
+                    <p className="text-gray-500">No vendors found</p>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </TabsContent>
 

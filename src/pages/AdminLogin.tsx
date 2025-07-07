@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Crown, Lock, User, Mail } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Crown, Lock, Mail, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const AdminLogin = () => {
   const [loginData, setLoginData] = useState({
@@ -15,11 +15,12 @@ const AdminLogin = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+
+    console.log('Admin login attempt:', loginData.email);
 
     // Admin credentials (in real app, this would be backend authentication)
     const adminCredentials = {
@@ -27,23 +28,35 @@ const AdminLogin = () => {
       password: "admin123"
     };
 
-    if (loginData.email === adminCredentials.email && loginData.password === adminCredentials.password) {
-      localStorage.setItem("isAdminAuthenticated", "true");
-      localStorage.setItem("adminEmail", loginData.email);
-      toast({
-        title: "Welcome Admin!",
-        description: "Successfully logged into Aaroham Admin Panel",
-      });
-      navigate("/admin-dashboard");
-    } else {
-      toast({
-        title: "Authentication Failed",
-        description: "Invalid email or password",
-        variant: "destructive",
-      });
+    try {
+      if (loginData.email === adminCredentials.email && loginData.password === adminCredentials.password) {
+        console.log('Admin login successful');
+        localStorage.setItem("isAdminAuthenticated", "true");
+        localStorage.setItem("adminEmail", loginData.email);
+        
+        toast.success("Welcome Admin! Successfully logged into Aaroham Admin Panel");
+        
+        // Redirect to admin dashboard
+        navigate("/admin-dashboard");
+      } else {
+        console.log('Admin login failed - invalid credentials');
+        toast.error("Authentication Failed - Invalid email or password");
+      }
+    } catch (error) {
+      console.error('Admin login error:', error);
+      toast.error("An error occurred during login");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
+
+  // Check if already authenticated
+  useState(() => {
+    const isAuthenticated = localStorage.getItem("isAdminAuthenticated");
+    if (isAuthenticated === "true") {
+      navigate("/admin-dashboard");
+    }
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center p-6">
@@ -77,6 +90,7 @@ const AdminLogin = () => {
                 onChange={(e) => setLoginData({...loginData, email: e.target.value})}
                 className="border-gray-300 focus:border-blue-500 transition-colors"
                 required
+                disabled={isLoading}
               />
             </div>
             
@@ -93,6 +107,7 @@ const AdminLogin = () => {
                 onChange={(e) => setLoginData({...loginData, password: e.target.value})}
                 className="border-gray-300 focus:border-blue-500 transition-colors"
                 required
+                disabled={isLoading}
               />
             </div>
             
@@ -101,13 +116,20 @@ const AdminLogin = () => {
               className="w-full bg-gradient-to-r from-blue-600 to-yellow-500 hover:from-blue-700 hover:to-yellow-600 text-white font-semibold text-lg py-3"
               disabled={isLoading}
             >
-              {isLoading ? "Authenticating..." : "Access Admin Panel"}
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Authenticating...
+                </>
+              ) : (
+                "Access Admin Panel"
+              )}
             </Button>
           </form>
           
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <p className="text-sm text-gray-700 text-center">
-              Demo Credentials:<br />
+              <strong>Demo Credentials:</strong><br />
               Email: admin@aaroham.com<br />
               Password: admin123
             </p>
