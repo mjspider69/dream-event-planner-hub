@@ -21,6 +21,7 @@ import DealDone from "./pages/DealDone";
 import PlanMyEvent from "./pages/PlanMyEvent";
 import Packages from "./pages/Packages";
 import TalkToVendor from "./pages/TalkToVendor";
+import CustomInput from "./pages/CustomInput";
 import AIChatbot from "./pages/AIChatbot";
 import CustomerCare from "./pages/CustomerCare";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -73,6 +74,8 @@ const App = () => (
             <Route path="/plan-my-event" element={<PlanMyEvent />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/talk-to-vendor" element={<TalkToVendor />} />
+            <Route path="/talk-to-vendor/:id" element={<TalkToVendor />} />
+            <Route path="/custom-input" element={<CustomInput />} />
             <Route path="/ai-chatbot" element={<AIChatbot />} />
             <Route path="/customer-care" element={<CustomerCare />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
