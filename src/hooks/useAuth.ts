@@ -18,9 +18,13 @@ export const useAuth = () => {
   });
 
   useEffect(() => {
+    let mounted = true;
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        if (!mounted) return;
+        
         console.log('Auth state changed:', event, session?.user?.email);
         setAuthState({
           user: session?.user ?? null,
@@ -38,6 +42,8 @@ export const useAuth = () => {
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (!mounted) return;
+      
       if (error) {
         console.error('Error getting session:', error);
       }
@@ -49,7 +55,10 @@ export const useAuth = () => {
       });
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, userData: any) => {
@@ -61,18 +70,31 @@ export const useAuth = () => {
         password,
         options: {
           emailRedirectTo: redirectUrl,
-          data: userData
+          data: {
+            ...userData,
+            email_confirmed: false
+          }
         }
       });
 
       if (error) {
         console.error('Sign up error:', error);
-        toast.error(error.message);
+        if (error.message.includes('already registered')) {
+          toast.error('An account with this email already exists. Please sign in instead.');
+        } else {
+          toast.error(error.message);
+        }
         return { error };
       }
 
       console.log('Sign up successful:', data.user?.email);
-      toast.success('Account created successfully! Please check your email for verification.');
+      
+      if (data.user && !data.session) {
+        toast.success('Account created! Please check your email for verification.');
+      } else {
+        toast.success('Account created successfully!');
+      }
+      
       return { data, error: null };
     } catch (error: any) {
       console.error('Unexpected sign up error:', error);

@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   const getUserDashboard = () => {
-    const userType = user?.user_metadata?.user_type;
+    const userType = getUserType();
     switch (userType) {
       case 'vendor': return '/vendor-dashboard';
       case 'admin': return '/admin-dashboard';
@@ -36,6 +36,10 @@ const Header = () => {
 
   const getUserName = () => {
     return user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+  };
+
+  const getUserType = () => {
+    return user?.user_metadata?.user_type || 'customer';
   };
 
   return (

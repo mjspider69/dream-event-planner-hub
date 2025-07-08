@@ -31,23 +31,27 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPanel from "./pages/AdminPanel";
+import CustomerLogin from "./pages/CustomerLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/customer-auth" element={<CustomerAuth />} />
+            <Route path="/customer-login" element={<CustomerLogin />} />
             <Route path="/vendor-auth" element={<VendorAuth />} />
             <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
             <Route path="/vendors" element={<VendorListing />} />
@@ -108,6 +112,7 @@ const App = () => (
       </TooltipProvider>
     </HelmetProvider>
   </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;

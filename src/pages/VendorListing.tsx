@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, MapPin, Star, Filter, Heart, Bot, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CulturalBackdrop from "@/components/CulturalBackdrop";
@@ -40,15 +41,15 @@ const VendorListing = () => {
 
   // Filter vendors based on search term and approval status
   const filteredVendors = vendors.filter(vendor => {
-    const matchesSearch = vendor.business_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = vendor.business_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      vendor.city?.toLowerCase().includes(searchTerm.toLowerCase());
+      vendor.city?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.category?.toLowerCase().includes(searchTerm.toLowerCase());
     
-    // Only show approved and online vendors
+    // Only show approved vendors (is_online field may not exist in all records)
     const isApproved = vendor.is_approved === true;
-    const isOnline = vendor.is_online === true;
     
-    return matchesSearch && isApproved && isOnline;
+    return matchesSearch && isApproved;
   });
 
   const locations = ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Pune", "Hyderabad", "Ahmedabad", "Jaipur", "Kolkata", "Kochi", "Lucknow"];
@@ -92,6 +93,12 @@ const VendorListing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <Helmet>
+        <title>Find Best Event Vendors in India - Aaroham</title>
+        <meta name="description" content="Discover 1000+ verified event vendors across India. From photographers to caterers, decorators to DJs. Book with confidence on Aaroham's AI-powered platform." />
+        <meta name="keywords" content="event vendors India, wedding vendors, photographers, caterers, decorators, DJ services, event planning vendors" />
+        <link rel="canonical" href="https://aaroham-com.lovable.app/vendors" />
+      </Helmet>
       <Header />
       
       {/* Hero Section with Cultural Backdrop */}
@@ -238,7 +245,6 @@ const VendorListing = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredVendors.map((vendor) => {
-                const specialityArray = Array.isArray(vendor.speciality) ? vendor.speciality : [];
                 const portfolioImages = Array.isArray(vendor.portfolio_images) ? vendor.portfolio_images : [];
                 const mainImage = portfolioImages.length > 0 ? portfolioImages[0] : 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=400&q=80';
                 
@@ -277,12 +283,12 @@ const VendorListing = () => {
                           <h3 className="font-bold text-lg group-hover:text-amber-600 transition-colors">
                             {vendor.business_name}
                           </h3>
-                          <p className="text-gray-600">{specialityArray.join(', ')}</p>
+                          <p className="text-gray-600">{vendor.category || 'Service Provider'}</p>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                          <span className="font-semibold">{vendor.rating}</span>
-                          <span className="text-gray-500 text-sm">({vendor.total_bookings})</span>
+                          <span className="font-semibold">{vendor.rating || 4.5}</span>
+                          <span className="text-gray-500 text-sm">({vendor.total_bookings || 0})</span>
                         </div>
                       </div>
                       
@@ -292,7 +298,7 @@ const VendorListing = () => {
                       </div>
                       
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-semibold text-amber-600">{vendor.price_range}</span>
+                        <span className="font-semibold text-amber-600">{vendor.price_range || 'Contact for pricing'}</span>
                       </div>
                       
                       <div className="flex space-x-2">

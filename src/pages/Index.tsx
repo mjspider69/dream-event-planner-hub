@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, ArrowRight, Star, Users, Shield, Calendar, CheckCircle, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatbotIntroPopup from "@/components/ChatbotIntroPopup";
@@ -50,6 +51,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+      <Helmet>
+        <title>Aaroham - India's Premier AI Event Planning Platform</title>
+        <meta name="description" content="Plan perfect events with Aaroham's AI-powered platform. 1000+ verified vendors, secure payments, 24/7 support. From weddings to corporate events across India." />
+        <meta name="keywords" content="event planning, wedding planner, AI event planning, India events, vendor booking, corporate events, birthday parties" />
+        <meta property="og:title" content="Aaroham - India's Premier AI Event Planning Platform" />
+        <meta property="og:description" content="Plan perfect events with Aaroham's AI-powered platform. 1000+ verified vendors, secure payments, 24/7 support." />
+        <meta property="og:image" content="https://aaroham-com.lovable.app/og-image.jpg" />
+        <meta property="og:url" content="https://aaroham-com.lovable.app/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Aaroham - India's Premier AI Event Planning Platform" />
+        <meta name="twitter:description" content="Plan perfect events with Aaroham's AI-powered platform. 1000+ verified vendors across India." />
+        <link rel="canonical" href="https://aaroham-com.lovable.app/" />
+      </Helmet>
       <Header />
       
       {/* Hero Section */}

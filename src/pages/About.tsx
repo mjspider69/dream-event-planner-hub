@@ -2,6 +2,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Crown, Shield, Sparkles, Users, Target, Zap } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOOptimization from "@/components/SEOOptimization";
@@ -53,14 +54,14 @@ const About = () => {
   ];
 
   return (
-    <>
-      <SEOOptimization 
-        title="About Aaroham - Our Story of Rising with Every Celebration"
-        description="Learn about Aaroham's mission to revolutionize event planning in India through AI technology, cultural respect, and verified vendor networks."
-        keywords="about aaroham, event planning company, AI technology, indian celebrations, vendor network"
-      />
-      <div className="min-h-screen bg-white">
-        <Header />
+    <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>About Aaroham - Our Story of Rising with Every Celebration</title>
+        <meta name="description" content="Learn about Aaroham's mission to revolutionize event planning in India through AI technology, cultural respect, and verified vendor networks." />
+        <meta name="keywords" content="about aaroham, event planning company, AI technology, indian celebrations, vendor network" />
+        <link rel="canonical" href="https://aaroham-com.lovable.app/about" />
+      </Helmet>
+      <Header />
 
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-blue-50 to-amber-50">
@@ -277,7 +278,6 @@ const About = () => {
 
         <Footer />
       </div>
-    </>
   );
 };
 

@@ -42,8 +42,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-white/80">
                 <Mail className="h-4 w-4 text-bright-gold" />
-                <a href="mailto:withaaroham@aaroham" className="text-sm hover:text-bright-gold transition-colors">
-                  withaaroham@aaroham
+                <a href="mailto:withaaroham@aaroham.com" className="text-sm hover:text-bright-gold transition-colors">
+                  withaaroham@aaroham.com
                 </a>
                 <span className="text-xs text-bright-gold">(Careers)</span>
               </div>
@@ -77,7 +77,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/plan-event" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                <Link to="/plan-my-event" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
                   AI Event Planning
                 </Link>
               </li>
@@ -111,7 +111,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="mailto:withaaroham@aaroham" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
+                <a href="mailto:withaaroham@aaroham.com" className="hover:text-bright-gold transition-colors text-base hover:translate-x-2 inline-block transition-transform duration-300">
                   Work With Us
                 </a>
               </li>
@@ -190,9 +190,9 @@ const Footer = () => {
               &copy; 2024 Aaroham Royal Events. All rights reserved. 
             </p>
             <div className="flex space-x-6 text-sm text-white/80">
-              <Link to="/privacy" className="hover:text-bright-gold transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-bright-gold transition-colors">Terms of Service</Link>
-              <Link to="/refund" className="hover:text-bright-gold transition-colors">Refund Policy</Link>
+              <Link to="/privacy-policy" className="hover:text-bright-gold transition-colors">Privacy Policy</Link>
+              <Link to="/terms-of-service" className="hover:text-bright-gold transition-colors">Terms of Service</Link>
+              <Link to="/refund-policy" className="hover:text-bright-gold transition-colors">Refund Policy</Link>
             </div>
             <p className="text-bright-gold font-signature text-xl">
               Rising with every royal celebration ✨
