@@ -50,7 +50,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-pearl-white">
       <Helmet>
         <title>Aaroham - India's Premier AI Event Planning Platform</title>
         <meta name="description" content="Plan perfect events with Aaroham's AI-powered platform. 1000+ verified vendors, secure payments, 24/7 support. From weddings to corporate events across India." />
@@ -72,17 +72,17 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-yellow-600/10"></div>
         <div className="container mx-auto px-6 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-6 bg-blue-100 text-blue-700 px-4 py-2">
+            <Badge className="mb-6 bg-soft-sand text-charcoal-gray px-4 py-2 border border-royal-gold">
               AI-Powered Event Planning
             </Badge>
             
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">
+            <h1 className="font-playfair text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="text-gradient-gold">
                 ELEVATE EVERY OCCASION
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+            <p className="font-poppins text-xl md:text-2xl text-charcoal-gray mb-8 leading-relaxed">
               Transform your celebrations with India's most trusted event planning platform. 
               From intimate gatherings to grand celebrations, we make every moment unforgettable.
             </p>
@@ -91,7 +91,7 @@ const Index = () => {
               <Button 
                 onClick={handleGetStarted}
                 size="lg" 
-                className="bg-gradient-to-r from-blue-500 to-yellow-500 hover:from-blue-600 hover:to-yellow-600 text-white px-8 py-4 text-lg"
+                className="bg-gradient-to-r from-royal-gold to-warm-gold hover:from-deep-gold hover:to-royal-gold text-pearl-white px-8 py-4 text-lg font-poppins transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -103,7 +103,7 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     size="lg" 
-                    className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg"
+                    className="border-2 border-royal-gold text-royal-gold hover:bg-soft-sand px-8 py-4 text-lg font-poppins transition-all duration-300"
                   >
                     <Bot className="mr-2 h-5 w-5" />
                     Chat with Aarohi
@@ -114,7 +114,7 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     size="lg" 
-                    className="border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg"
+                    className="border-2 border-royal-gold text-royal-gold hover:bg-soft-sand px-8 py-4 text-lg font-poppins transition-all duration-300"
                   >
                     <Bot className="mr-2 h-5 w-5" />
                     Sign In to Chat
@@ -125,27 +125,27 @@ const Index = () => {
 
             <div className="grid md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <Users className="h-8 w-8 text-pearl-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">1000+ Verified Vendors</h3>
-                <p className="text-gray-600">Handpicked professionals across India</p>
+                <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">1000+ Verified Vendors</h3>
+                <p className="font-poppins text-charcoal-gray">Handpicked professionals across India</p>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <Shield className="h-8 w-8 text-pearl-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Secure Payments</h3>
-                <p className="text-gray-600">Razorpay powered safe transactions</p>
+                <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Secure Payments</h3>
+                <p className="font-poppins text-charcoal-gray">Razorpay powered safe transactions</p>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <CheckCircle className="h-8 w-8 text-pearl-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">24/7 Support</h3>
-                <p className="text-gray-600">Dedicated assistance throughout your journey</p>
+                <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">24/7 Support</h3>
+                <p className="font-poppins text-charcoal-gray">Dedicated assistance throughout your journey</p>
               </div>
             </div>
           </div>

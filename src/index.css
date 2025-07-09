@@ -1,51 +1,51 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Great+Vibes:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes:wght@400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Blue and Gold Color System */
+/* Pearl White & Royal Gold Color System */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 47 33% 98%;
+    --foreground: 0 0% 18%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card: 47 33% 98%;
+    --card-foreground: 0 0% 18%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    --popover: 47 33% 98%;
+    --popover-foreground: 0 0% 18%;
 
-    --primary: 220 100% 50%;
-    --primary-foreground: 43 96% 56%;
+    --primary: 43 74% 49%;
+    --primary-foreground: 47 33% 98%;
 
-    --secondary: 43 96% 56%;
-    --secondary-foreground: 220 100% 50%;
+    --secondary: 47 33% 95%;
+    --secondary-foreground: 43 74% 49%;
 
-    --muted: 220 13% 95%;
+    --muted: 47 33% 95%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 43 96% 56%;
-    --accent-foreground: 220 100% 50%;
+    --accent: 43 74% 49%;
+    --accent-foreground: 47 33% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 95%;
-    --ring: 220 100% 50%;
+    --border: 47 33% 90%;
+    --input: 47 33% 95%;
+    --ring: 43 74% 49%;
 
     --radius: 0.75rem;
 
-    /* Blue and Gold Theme Colors */
-    --royal-blue: 220 100% 50%;
-    --bright-gold: 43 96% 56%;
-    --navy-blue: 220 100% 25%;
-    --light-gold: 43 96% 85%;
-    --deep-blue: 220 100% 35%;
-    --golden-yellow: 43 100% 50%;
-    --sky-blue: 220 100% 85%;
-    --cream-gold: 43 50% 95%;
+    /* Pearl White & Royal Gold Theme Colors */
+    --pearl-white: 47 33% 98%;
+    --royal-gold: 43 74% 49%;
+    --charcoal-gray: 0 0% 18%;
+    --soft-sand: 42 25% 92%;
+    --light-gold: 43 40% 88%;
+    --deep-gold: 43 90% 35%;
+    --cream-white: 47 50% 95%;
+    --warm-gold: 45 85% 55%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -64,8 +64,8 @@
   }
 
   body {
-    background: linear-gradient(135deg, white 0%, hsl(var(--sky-blue)) 50%, hsl(var(--cream-gold)) 100%);
-    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, hsl(var(--pearl-white)) 0%, hsl(var(--soft-sand)) 50%, hsl(var(--cream-white)) 100%);
+    font-family: 'Poppins', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -73,58 +73,63 @@
   }
 }
 
-/* Blue and Gold Typography System */
+/* Pearl White & Royal Gold Typography System */
 @layer utilities {
-  .font-royal {
+  .font-playfair {
     font-family: 'Playfair Display', serif;
   }
   
-  .font-elegant {
-    font-family: 'Inter', sans-serif;
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
   }
   
-  .font-script {
-    font-family: 'Dancing Script', cursive;
-  }
-
-  .font-majestic {
-    font-family: 'Cinzel', serif;
+  .font-cormorant {
+    font-family: 'Cormorant Garamond', serif;
   }
 
   .font-signature {
     font-family: 'Great Vibes', cursive;
   }
 
-  /* Blue and Gold Color Classes */
-  .bg-royal-blue { background-color: hsl(var(--royal-blue)); }
-  .bg-bright-gold { background-color: hsl(var(--bright-gold)); }
-  .bg-navy-blue { background-color: hsl(var(--navy-blue)); }
+  /* Pearl White & Royal Gold Color Classes */
+  .bg-pearl-white { background-color: hsl(var(--pearl-white)); }
+  .bg-royal-gold { background-color: hsl(var(--royal-gold)); }
+  .bg-charcoal-gray { background-color: hsl(var(--charcoal-gray)); }
+  .bg-soft-sand { background-color: hsl(var(--soft-sand)); }
   .bg-light-gold { background-color: hsl(var(--light-gold)); }
-  .bg-deep-blue { background-color: hsl(var(--deep-blue)); }
-  .bg-golden-yellow { background-color: hsl(var(--golden-yellow)); }
-  .bg-sky-blue { background-color: hsl(var(--sky-blue)); }
-  .bg-cream-gold { background-color: hsl(var(--cream-gold)); }
+  .bg-deep-gold { background-color: hsl(var(--deep-gold)); }
+  .bg-cream-white { background-color: hsl(var(--cream-white)); }
+  .bg-warm-gold { background-color: hsl(var(--warm-gold)); }
   
-  .text-royal-blue { color: hsl(var(--royal-blue)); }
-  .text-bright-gold { color: hsl(var(--bright-gold)); }
-  .text-navy-blue { color: hsl(var(--navy-blue)); }
+  .text-pearl-white { color: hsl(var(--pearl-white)); }
+  .text-royal-gold { color: hsl(var(--royal-gold)); }
+  .text-charcoal-gray { color: hsl(var(--charcoal-gray)); }
+  .text-soft-sand { color: hsl(var(--soft-sand)); }
   .text-light-gold { color: hsl(var(--light-gold)); }
-  .text-deep-blue { color: hsl(var(--deep-blue)); }
-  .text-golden-yellow { color: hsl(var(--golden-yellow)); }
-  .text-sky-blue { color: hsl(var(--sky-blue)); }
+  .text-deep-gold { color: hsl(var(--deep-gold)); }
+  .text-warm-gold { color: hsl(var(--warm-gold)); }
   
-  .border-royal-blue { border-color: hsl(var(--royal-blue)); }
-  .border-bright-gold { border-color: hsl(var(--bright-gold)); }
-  .border-navy-blue { border-color: hsl(var(--navy-blue)); }
+  .border-pearl-white { border-color: hsl(var(--pearl-white)); }
+  .border-royal-gold { border-color: hsl(var(--royal-gold)); }
+  .border-charcoal-gray { border-color: hsl(var(--charcoal-gray)); }
+  .border-soft-sand { border-color: hsl(var(--soft-sand)); }
   .border-light-gold { border-color: hsl(var(--light-gold)); }
 
-  /* Blue Gold Gradient Combinations */
-  .from-royal-blue { --tw-gradient-from: hsl(var(--royal-blue)); }
-  .to-bright-gold { --tw-gradient-to: hsl(var(--bright-gold)); }
-  .from-navy-blue { --tw-gradient-from: hsl(var(--navy-blue)); }
-  .to-golden-yellow { --tw-gradient-to: hsl(var(--golden-yellow)); }
-  .from-deep-blue { --tw-gradient-from: hsl(var(--deep-blue)); }
+  /* Pearl White & Royal Gold Gradient Combinations */
+  .from-pearl-white { --tw-gradient-from: hsl(var(--pearl-white)); }
+  .to-royal-gold { --tw-gradient-to: hsl(var(--royal-gold)); }
+  .from-charcoal-gray { --tw-gradient-from: hsl(var(--charcoal-gray)); }
+  .to-warm-gold { --tw-gradient-to: hsl(var(--warm-gold)); }
+  .from-soft-sand { --tw-gradient-from: hsl(var(--soft-sand)); }
   .to-light-gold { --tw-gradient-to: hsl(var(--light-gold)); }
+
+  /* Text Gradients */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--royal-gold)), hsl(var(--warm-gold)), hsl(var(--deep-gold)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 /* Enhanced Scroll Animations */

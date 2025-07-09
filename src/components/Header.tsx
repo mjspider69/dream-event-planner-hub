@@ -43,19 +43,19 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md border-b sticky top-0 z-50">
+    <header className="bg-pearl-white/95 backdrop-blur-md border-b border-soft-sand sticky top-0 z-50">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center">
-              <Sparkles className="h-6 w-6 text-white" />
+            <div className="w-10 h-10 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center shadow-lg">
+              <Sparkles className="h-6 w-6 text-pearl-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              <h1 className="font-playfair text-2xl font-bold text-gradient-gold">
                 Aaroham
               </h1>
-              <p className="text-xs text-gray-500 -mt-1">AI Event Planning</p>
+              <p className="font-poppins text-xs text-charcoal-gray -mt-1">AI Event Planning</p>
             </div>
           </Link>
 
