@@ -4,48 +4,48 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Pearl White & Royal Gold Color System */
+/* Pearl White & Royal Gold Luxury Color System */
 @layer base {
   :root {
-    --background: 47 33% 98%;
-    --foreground: 0 0% 18%;
+    --background: 47 33% 98%; /* Pearl White */
+    --foreground: 0 0% 18%; /* Charcoal Gray */
 
-    --card: 47 33% 98%;
-    --card-foreground: 0 0% 18%;
+    --card: 47 33% 98%; /* Pearl White */
+    --card-foreground: 0 0% 18%; /* Charcoal Gray */
 
-    --popover: 47 33% 98%;
-    --popover-foreground: 0 0% 18%;
+    --popover: 47 33% 98%; /* Pearl White */
+    --popover-foreground: 0 0% 18%; /* Charcoal Gray */
 
-    --primary: 43 74% 49%;
-    --primary-foreground: 47 33% 98%;
+    --primary: 43 74% 49%; /* Royal Gold */
+    --primary-foreground: 47 33% 98%; /* Pearl White */
 
-    --secondary: 47 33% 95%;
-    --secondary-foreground: 43 74% 49%;
+    --secondary: 42 25% 92%; /* Soft Sand */
+    --secondary-foreground: 0 0% 18%; /* Charcoal Gray */
 
-    --muted: 47 33% 95%;
+    --muted: 42 25% 92%; /* Soft Sand */
     --muted-foreground: 0 0% 45%;
 
-    --accent: 43 74% 49%;
-    --accent-foreground: 47 33% 98%;
+    --accent: 43 74% 49%; /* Royal Gold */
+    --accent-foreground: 47 33% 98%; /* Pearl White */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 47 33% 90%;
-    --input: 47 33% 95%;
-    --ring: 43 74% 49%;
+    --border: 42 25% 90%;
+    --input: 42 25% 95%;
+    --ring: 43 74% 49%; /* Royal Gold */
 
     --radius: 0.75rem;
 
-    /* Pearl White & Royal Gold Theme Colors */
-    --pearl-white: 47 33% 98%;
-    --royal-gold: 43 74% 49%;
-    --charcoal-gray: 0 0% 18%;
-    --soft-sand: 42 25% 92%;
-    --light-gold: 43 40% 88%;
+    /* Luxury Color Palette */
+    --pearl-white: 47 33% 98%; /* #FAF9F6 */
+    --royal-gold: 43 74% 49%; /* #D4AF37 */
+    --charcoal-gray: 0 0% 18%; /* #2E2E2E */
+    --soft-sand: 42 25% 92%; /* #EDE6D6 */
+    --misty-rose: 18 50% 94%; /* #F9E9E1 */
+    --warm-gold: 45 85% 60%;
     --deep-gold: 43 90% 35%;
-    --cream-white: 47 50% 95%;
-    --warm-gold: 45 85% 55%;
+    --light-gold: 43 40% 88%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -204,50 +204,36 @@
   50% { transform: translateY(-10px); }
 }
 
-/* Blue Gold Styling */
-.blue-gold-gradient {
-  background: linear-gradient(135deg, hsl(var(--royal-blue)) 0%, hsl(var(--bright-gold)) 50%, hsl(var(--navy-blue)) 100%);
-}
-
-.gold-blue-gradient {
-  background: linear-gradient(135deg, hsl(var(--bright-gold)) 0%, hsl(var(--light-gold)) 50%, hsl(var(--cream-gold)) 100%);
-}
-
-.text-gradient-blue-gold {
-  background: linear-gradient(135deg, hsl(var(--navy-blue)) 0%, hsl(var(--royal-blue)) 50%, hsl(var(--bright-gold)) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.modern-card {
-  background: rgba(255, 255, 255, 0.95);
+/* Luxury Golden Pearl White Styling */
+.luxury-card {
+  background: hsl(var(--pearl-white));
   backdrop-filter: blur(20px);
-  border: 1px solid hsl(var(--light-gold));
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 0 25px rgba(255, 215, 0, 0.15);
+  border: 1px solid hsl(var(--soft-sand));
+  box-shadow: 0 20px 40px -12px rgba(212, 175, 55, 0.1), 0 0 25px rgba(212, 175, 55, 0.15);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 1rem;
 }
 
-.modern-card:hover {
+.luxury-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 215, 0, 0.25);
-  border-color: hsl(var(--royal-blue));
+  box-shadow: 0 30px 60px -12px rgba(212, 175, 55, 0.2), 0 0 40px rgba(212, 175, 55, 0.25);
+  border-color: hsl(var(--royal-gold));
 }
 
-.modern-button {
-  background: linear-gradient(135deg, hsl(var(--royal-blue)) 0%, hsl(var(--bright-gold)) 100%);
-  border: 1px solid hsl(var(--royal-blue));
-  color: white;
+.luxury-button {
+  background: linear-gradient(135deg, hsl(var(--royal-gold)) 0%, hsl(var(--warm-gold)) 100%);
+  border: 1px solid hsl(var(--royal-gold));
+  color: hsl(var(--pearl-white));
   font-weight: 600;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   border-radius: 2rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-.modern-button::before {
+.luxury-button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -258,24 +244,24 @@
   transition: left 0.5s;
 }
 
-.modern-button:hover::before {
+.luxury-button:hover::before {
   left: 100%;
 }
 
-.modern-button:hover {
+.luxury-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(13, 110, 253, 0.3);
-  background: linear-gradient(135deg, hsl(var(--navy-blue)) 0%, hsl(var(--golden-yellow)) 100%);
+  box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3);
+  background: linear-gradient(135deg, hsl(var(--deep-gold)) 0%, hsl(var(--royal-gold)) 100%);
 }
 
 .elegant-border {
   border: 2px solid;
-  border-image: linear-gradient(45deg, hsl(var(--royal-blue)), hsl(var(--bright-gold)), hsl(var(--navy-blue))) 1;
+  border-image: linear-gradient(45deg, hsl(var(--royal-gold)), hsl(var(--warm-gold)), hsl(var(--deep-gold))) 1;
   border-radius: 1rem;
 }
 
-.shimmer-text {
-  background: linear-gradient(90deg, hsl(var(--navy-blue)), hsl(var(--royal-blue)), hsl(var(--bright-gold)), hsl(var(--navy-blue)));
+.gold-shimmer-text {
+  background: linear-gradient(90deg, hsl(var(--royal-gold)), hsl(var(--warm-gold)), hsl(var(--deep-gold)), hsl(var(--royal-gold)));
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -287,78 +273,102 @@
   50% { background-position: 100% 50%; }
 }
 
-.modern-section {
+.luxury-section {
   position: relative;
   overflow: hidden;
+  background: hsl(var(--pearl-white));
 }
 
-.modern-section::before {
+.luxury-section::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(13, 110, 253, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(237, 230, 214, 0.08) 0%, transparent 50%);
   pointer-events: none;
 }
 
-/* Remove special effects and maintain clean visuals */
-.clean-minimal {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+/* Luxury navigation styling */
+.luxury-nav {
+  background: linear-gradient(135deg, hsl(var(--pearl-white)) 0%, rgba(237, 230, 214, 0.8) 100%);
+  border-bottom: 2px solid hsl(var(--soft-sand));
+  backdrop-filter: blur(20px);
 }
 
-.clean-minimal:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-/* Blue navigation styling */
-.nav-blue {
-  background: linear-gradient(135deg, hsl(var(--royal-blue)) 0%, hsl(var(--navy-blue)) 100%);
-  border-bottom: 2px solid hsl(var(--bright-gold));
-}
-
-/* Bright gold accents for mobile responsiveness */
+/* Gold accents for mobile responsiveness */
 @media (max-width: 768px) {
   .gold-accent {
-    color: hsl(var(--bright-gold)) !important;
+    color: hsl(var(--royal-gold)) !important;
     font-weight: 600;
   }
   
   .gold-bg {
-    background-color: hsl(var(--bright-gold)) !important;
+    background-color: hsl(var(--royal-gold)) !important;
   }
   
   .gold-border {
-    border-color: hsl(var(--bright-gold)) !important;
+    border-color: hsl(var(--royal-gold)) !important;
     border-width: 2px;
   }
 }
 
-/* Voice bot visual movement */
-@keyframes voicePulse {
-  0%, 100% { 
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% { 
-    transform: scale(1.1);
-    opacity: 1;
-  }
+/* Luxury vendor card styling */
+.vendor-card {
+  background: hsl(var(--pearl-white));
+  border: 1px solid hsl(var(--soft-sand));
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
 }
 
-.voice-bot-active {
-  animation: voicePulse 1.5s ease-in-out infinite;
+.vendor-card:hover {
+  border-color: hsl(var(--royal-gold));
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.2);
+  transform: translateY(-4px);
 }
 
-.voice-wave {
-  animation: voiceWave 0.8s ease-in-out infinite alternate;
+/* Cultural quote styling */
+.cultural-quote {
+  font-family: 'Great Vibes', cursive;
+  color: hsl(var(--royal-gold));
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 2rem 0;
 }
 
-@keyframes voiceWave {
-  from { height: 8px; }
-  to { height: 24px; }
+/* Luxury testimonial styling */
+.testimonial-card {
+  background: hsl(var(--soft-sand));
+  border-radius: 1rem;
+  padding: 2rem;
+  position: relative;
+  border: 1px solid hsl(var(--light-gold));
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 4rem;
+  color: hsl(var(--royal-gold));
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+}
+
+/* Chatbot luxury styling */
+.luxury-chatbot {
+  background: linear-gradient(135deg, hsl(var(--royal-gold)) 0%, hsl(var(--warm-gold)) 100%);
+  color: hsl(var(--pearl-white));
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+}
+
+.luxury-chatbot:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
 }

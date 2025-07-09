@@ -43,7 +43,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-pearl-white/95 backdrop-blur-md border-b border-soft-sand sticky top-0 z-50">
+    <header className="luxury-nav sticky top-0 z-50">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -52,7 +52,7 @@ const Header = () => {
               <Sparkles className="h-6 w-6 text-pearl-white" />
             </div>
             <div>
-              <h1 className="font-playfair text-2xl font-bold text-gradient-gold">
+              <h1 className="font-playfair text-2xl font-bold gold-shimmer-text">
                 Aaroham
               </h1>
               <p className="font-poppins text-xs text-charcoal-gray -mt-1">AI Event Planning</p>
@@ -63,7 +63,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/vendors"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
             >
               Find Vendors
             </Link>
@@ -73,13 +73,13 @@ const Header = () => {
               <>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                  className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
                 >
                   Packages
                 </Link>
                 <Link
                   to="/ai-chatbot"
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center"
+                  className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium flex items-center"
                 >
                   <MessageCircle className="h-4 w-4 mr-1" />
                   Chat with Aarohi
@@ -89,7 +89,7 @@ const Header = () => {
             
             <Link
               to="/about"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
             >
               About
             </Link>
@@ -100,22 +100,22 @@ const Header = () => {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center">
-                      <User className="h-4 w-4 text-white" />
+                  <Button variant="ghost" className="flex items-center space-x-2 hover:bg-soft-sand">
+                    <div className="w-8 h-8 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 text-pearl-white" />
                     </div>
-                    <span className="font-medium bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">{getUserName()}</span>
+                    <span className="font-cormorant font-medium text-royal-gold">{getUserName()}</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 bg-pearl-white border-soft-sand">
                   <DropdownMenuItem asChild>
-                    <Link to={getUserDashboard()} className="flex items-center">
+                    <Link to={getUserDashboard()} className="flex items-center font-poppins">
                       <Settings className="h-4 w-4 mr-2" />
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut}>
+                  <DropdownMenuItem onClick={handleSignOut} className="font-poppins">
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
@@ -124,12 +124,12 @@ const Header = () => {
             ) : (
               <div className="flex items-center space-x-3">
                 <Link to="/auth">
-                  <Button variant="ghost" className="text-gray-700 hover:text-blue-600">
+                  <Button variant="ghost" className="font-poppins text-charcoal-gray hover:text-royal-gold hover:bg-soft-sand">
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="bg-gradient-to-r from-blue-500 to-yellow-500 hover:from-blue-600 hover:to-yellow-600 text-white">
+                  <Button className="luxury-button">
                     Get Started
                   </Button>
                 </Link>

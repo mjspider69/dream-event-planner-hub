@@ -152,48 +152,46 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="luxury-section py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">
-                How Aaroham Works
-              </span>
+            <h2 className="font-playfair text-4xl font-bold mb-4 gold-shimmer-text">
+              How Aaroham Works
             </h2>
-            <p className="text-xl text-gray-600">Simple steps to your perfect event</p>
+            <p className="font-cormorant text-xl text-charcoal-gray">Simple steps to your perfect event</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              <div className="w-20 h-20 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
                 1
               </div>
-              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Choose Package</h3>
-              <p className="text-gray-600">Select from our curated event packages or customize your own</p>
+              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Choose Package</h3>
+              <p className="font-poppins text-charcoal-gray">Select from our curated event packages or customize your own</p>
             </div>
             
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              <div className="w-20 h-20 bg-gradient-to-r from-deep-gold to-royal-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
                 2
               </div>
-              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">OTP Verification</h3>
-              <p className="text-gray-600">Quick sign-up with email/SMS OTP for secure account creation</p>
+              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">OTP Verification</h3>
+              <p className="font-poppins text-charcoal-gray">Quick sign-up with email/SMS OTP for secure account creation</p>
             </div>
             
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              <div className="w-20 h-20 bg-gradient-to-r from-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
                 3
               </div>
-              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Get Matched</h3>
-              <p className="text-gray-600">Our AI connects you with the best vendors for your needs</p>
+              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Get Matched</h3>
+              <p className="font-poppins text-charcoal-gray">Our AI connects you with the best vendors for your needs</p>
             </div>
             
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              <div className="w-20 h-20 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
                 4
               </div>
-              <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">Celebrate</h3>
-              <p className="text-gray-600">Relax and enjoy your perfectly planned event</p>
+              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Celebrate</h3>
+              <p className="font-poppins text-charcoal-gray">Relax and enjoy your perfectly planned event</p>
             </div>
           </div>
         </div>
@@ -202,39 +200,38 @@ const Index = () => {
       {/* Event Packages */}
       <EventPackages />
 
-      <section className="py-16 bg-gradient-to-r from-blue-50 to-yellow-50">
+      <section className="luxury-section py-16 bg-soft-sand">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">
-                What Our Customers Say
-              </span>
+            <h2 className="font-playfair text-4xl font-bold mb-4 gold-shimmer-text">
+              What Our Customers Say
             </h2>
-            <p className="text-xl text-gray-600">Real stories from real celebrations</p>
+            <p className="font-cormorant text-xl text-charcoal-gray">Real stories from real celebrations</p>
+            <div className="cultural-quote">"Every celebration tells a story of love and tradition"</div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div key={index} className="testimonial-card">
                 <div className="flex items-center mb-4">
                   <img 
                     src={testimonial.image} 
                     alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4"
+                    className="w-12 h-12 rounded-full mr-4 border-2 border-royal-gold"
                   />
                   <div>
-                    <h4 className="font-semibold bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-600">{testimonial.event}</p>
+                    <h4 className="font-cormorant font-semibold text-royal-gold">{testimonial.name}</h4>
+                    <p className="font-poppins text-sm text-charcoal-gray">{testimonial.event}</p>
                   </div>
                 </div>
                 
                 <div className="flex mb-3">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                    <Star key={i} className="h-4 w-4 text-royal-gold fill-current" />
                   ))}
                 </div>
                 
-                <p className="text-gray-700">{testimonial.review}</p>
+                <p className="font-poppins text-charcoal-gray italic">{testimonial.review}</p>
               </div>
             ))}
           </div>
@@ -242,16 +239,16 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-yellow-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-royal-gold to-warm-gold text-pearl-white">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Plan Your Perfect Event?</h2>
-          <p className="text-xl mb-8 opacity-90">Join thousands of satisfied customers who trusted Aaroham</p>
+          <h2 className="font-playfair text-4xl font-bold mb-4">Ready to Plan Your Perfect Event?</h2>
+          <p className="font-cormorant text-xl mb-8 opacity-90">Join thousands of satisfied customers who trusted Aaroham</p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={handleGetStarted}
               size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+              className="bg-pearl-white text-royal-gold hover:bg-soft-sand px-8 py-4 text-lg font-poppins font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Start Planning Now
               <Calendar className="ml-2 h-5 w-5" />
@@ -263,7 +260,7 @@ const Index = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg"
+                  className="border-2 border-pearl-white text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-8 py-4 text-lg font-poppins transition-all duration-300"
                 >
                   <Bot className="mr-2 h-5 w-5" />
                   Talk to Aarohi
@@ -274,7 +271,7 @@ const Index = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg"
+                  className="border-2 border-pearl-white text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-8 py-4 text-lg font-poppins transition-all duration-300"
                 >
                   <Bot className="mr-2 h-5 w-5" />
                   Sign In to Chat
