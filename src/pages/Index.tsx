@@ -256,127 +256,99 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Packages Section */}
-      <section className="luxury-section py-20 bg-soft-sand">
+
+      {/* How It Works Section */}
+      <section className="luxury-section py-20 bg-gradient-to-br from-pearl-white to-soft-sand">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="font-playfair text-5xl font-bold mb-4 gold-shimmer-text">
-              Packages
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {packages.map((pkg, index) => (
-              <div key={index} className="luxury-card p-8 relative">
-                {pkg.popular && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-royal-gold to-warm-gold text-pearl-white px-4 py-2 rounded-bl-lg rounded-tr-lg">
-                    <span className="font-poppins font-semibold text-sm">Popular</span>
-                  </div>
-                )}
-                <h3 className="font-playfair text-2xl font-bold mb-2 text-gradient-gold">{pkg.name}</h3>
-                <div className="font-playfair text-3xl font-bold mb-6 text-charcoal-gray">{pkg.price}</div>
-                {pkg.name === "Silver Package" && (
-                  <div className="mb-6">
-                    <p className="font-poppins text-charcoal-gray font-medium">Includes</p>
-                  </div>
-                )}
-                <ul className="space-y-3 mb-8">
-                  {pkg.includes.map((item, i) => (
-                    <li key={i} className="flex items-center">
-                      <span className="w-2 h-2 bg-royal-gold rounded-full mr-3"></span>
-                      <span className="font-poppins text-charcoal-gray">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button className="w-full luxury-button font-poppins font-medium">
-                  View Details
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="luxury-section py-16">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-playfair text-4xl font-bold mb-4 gold-shimmer-text">
+            <h2 className="font-playfair text-5xl font-bold mb-6 gold-shimmer-text">
               How Aaroham Works
             </h2>
-            <p className="font-cormorant text-xl text-charcoal-gray">Simple steps to your perfect event</p>
+            <p className="font-cormorant text-2xl text-charcoal-gray max-w-3xl mx-auto">
+              Experience the seamless journey from dream to celebration with our proven process
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
+          <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 1
               </div>
-              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Choose Package</h3>
-              <p className="font-poppins text-charcoal-gray">Select from our curated event packages or customize your own</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Tell Us Your Vision</h3>
+              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Share your event details, preferences, and budget with our intelligent platform</p>
             </div>
             
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-deep-gold to-royal-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-deep-gold via-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 2
               </div>
-              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">OTP Verification</h3>
-              <p className="font-poppins text-charcoal-gray">Quick sign-up with email/SMS OTP for secure account creation</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Get Matched</h3>
+              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Our AI algorithm connects you with the perfect vendors based on your requirements</p>
             </div>
             
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-warm-gold via-deep-gold to-royal-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 3
               </div>
-              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Get Matched</h3>
-              <p className="font-poppins text-charcoal-gray">Our AI connects you with the best vendors for your needs</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Book & Pay Securely</h3>
+              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Confirm your vendors with secure payments and comprehensive protection</p>
             </div>
             
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-4 text-pearl-white text-2xl font-bold shadow-lg">
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 4
               </div>
-              <h3 className="font-cormorant text-xl font-semibold mb-2 text-gradient-gold">Celebrate</h3>
-              <p className="font-poppins text-charcoal-gray">Relax and enjoy your perfectly planned event</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Celebrate</h3>
+              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Relax and enjoy your perfectly orchestrated event while we handle everything</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Event Packages */}
-      <EventPackages />
-
-      <section className="luxury-section py-16 bg-soft-sand">
+      {/* Testimonials Section */}
+      <section className="luxury-section py-20 bg-gradient-to-br from-soft-sand via-pearl-white to-misty-rose">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-playfair text-4xl font-bold mb-4 gold-shimmer-text">
-              What Our Customers Say
+          <div className="text-center mb-16">
+            <h2 className="font-playfair text-5xl font-bold mb-6 gold-shimmer-text">
+              Stories of Success
             </h2>
-            <p className="font-cormorant text-xl text-charcoal-gray">Real stories from real celebrations</p>
-            <div className="cultural-quote">"Every celebration tells a story of love and tradition"</div>
+            <p className="font-cormorant text-2xl text-charcoal-gray max-w-3xl mx-auto mb-4">
+              Real experiences from families who trusted Aaroham with their most precious moments
+            </p>
+            <div className="cultural-quote text-2xl font-great-vibes text-royal-gold opacity-80">
+              "Every celebration tells a story of love and tradition"
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="flex items-center mb-4">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4 border-2 border-royal-gold"
-                  />
-                  <div>
-                    <h4 className="font-cormorant font-semibold text-royal-gold">{testimonial.name}</h4>
-                    <p className="font-poppins text-sm text-charcoal-gray">{testimonial.event}</p>
+              <div key={index} className="testimonial-card group">
+                <div className="flex items-center mb-6">
+                  <div className="relative">
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.name}
+                      className="w-16 h-16 rounded-full border-3 border-royal-gold shadow-lg"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center">
+                      <CheckCircle className="h-3 w-3 text-pearl-white" />
+                    </div>
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="font-playfair font-bold text-xl text-royal-gold">{testimonial.name}</h4>
+                    <p className="font-poppins text-charcoal-gray">{testimonial.event}</p>
                   </div>
                 </div>
                 
-                <div className="flex mb-3">
+                <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-royal-gold fill-current" />
+                    <Star key={i} className="h-5 w-5 text-royal-gold fill-current" />
                   ))}
                 </div>
                 
-                <p className="font-poppins text-charcoal-gray italic">{testimonial.review}</p>
+                <p className="font-poppins text-charcoal-gray text-lg leading-relaxed italic">
+                  "{testimonial.review}"
+                </p>
               </div>
             ))}
           </div>
@@ -384,70 +356,69 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-royal-gold to-warm-gold text-pearl-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="font-playfair text-4xl font-bold mb-4">Ready to Plan Your Perfect Event?</h2>
-          <p className="font-cormorant text-xl mb-8 opacity-90">Join thousands of satisfied customers who trusted Aaroham</p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={handleGetStarted}
-              size="lg" 
-              className="bg-pearl-white text-royal-gold hover:bg-soft-sand px-8 py-4 text-lg font-poppins font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Start Planning Now
-              <Calendar className="ml-2 h-5 w-5" />
-            </Button>
+      <section className="py-24 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-playfair text-6xl font-bold mb-6 drop-shadow-lg">
+              Your Dream Event Awaits
+            </h2>
+            <p className="font-cormorant text-2xl mb-12 opacity-95 leading-relaxed">
+              Join thousands of satisfied families who trusted Aaroham to create their most cherished memories
+            </p>
             
-            {/* Only show AI chatbot link if user is authenticated */}
-            {user ? (
-              <Link to="/ai-chatbot">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button 
+                onClick={handleGetStarted}
+                size="lg" 
+                className="bg-pearl-white text-royal-gold hover:bg-soft-sand px-12 py-6 text-xl font-poppins font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 rounded-full"
+              >
+                Start Planning Now
+                <Sparkles className="ml-3 h-6 w-6" />
+              </Button>
+              
+              <Link to="/vendors">
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-pearl-white text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-8 py-4 text-lg font-poppins transition-all duration-300"
+                  className="border-3 border-pearl-white bg-pearl-white/10 backdrop-blur-sm text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-12 py-6 text-xl font-poppins font-bold transition-all duration-300 rounded-full"
                 >
-                  <Bot className="mr-2 h-5 w-5" />
-                  Talk to Aarohi
+                  Browse Vendors
+                  <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
               </Link>
-            ) : (
-              <Link to="/auth">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-2 border-pearl-white text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-8 py-4 text-lg font-poppins transition-all duration-300"
-                >
-                  <Bot className="mr-2 h-5 w-5" />
-                  Sign In to Chat
-                </Button>
-              </Link>
-            )}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
-      <ChatbotIntroPopup />
-      
+
       {/* Floating Chatbot */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button 
-          className="luxury-chatbot w-16 h-16 rounded-full shadow-2xl"
-          onClick={() => user ? window.location.href = '/ai-chatbot' : window.location.href = '/auth'}
-        >
-          <Bot className="h-6 w-6" />
-        </Button>
-        <div className="absolute -top-12 right-0 bg-pearl-white text-charcoal-gray px-3 py-1 rounded-lg shadow-lg font-poppins text-sm whitespace-nowrap">
-          How can I assist you?
+      <div className="fixed bottom-8 right-8 z-50">
+        <div className="group relative">
+          <Button 
+            className="w-18 h-18 rounded-full bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 border-4 border-pearl-white/20"
+            onClick={() => {}}
+          >
+            <Bot className="h-9 w-9" />
+          </Button>
+          <div className="absolute bottom-full right-0 mb-2 px-4 py-2 bg-charcoal-gray text-pearl-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            How can I help you today?
+          </div>
         </div>
       </div>
+
+      <ChatbotIntroPopup />
       
-      <SignUpModal 
-        isOpen={showSignUp}
-        onClose={() => setShowSignUp(false)}
-        onSuccess={handleSignUpSuccess}
-      />
+      {showSignUp && (
+        <SignUpModal 
+          isOpen={showSignUp}
+          onClose={() => setShowSignUp(false)}
+          onSuccess={handleSignUpSuccess}
+        />
+      )}
     </div>
   );
 };
