@@ -41,7 +41,7 @@ const Index = () => {
     {
       id: 2,
       name: "Elegant Decor",
-      speciality: "Decorator",
+      speciality: "Decorator", 
       location: "Delhi",
       image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=300&fit=crop",
       rating: 4.9,
@@ -152,7 +152,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop')"
+            backgroundImage: "url('/src/assets/hero-bg.jpg')"
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-royal-gold/20 to-warm-gold/30"></div>
@@ -399,7 +399,7 @@ const Index = () => {
       <div className="fixed bottom-8 right-8 z-50">
         <div className="group relative">
           <Button 
-            className="w-18 h-18 rounded-full bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 border-4 border-pearl-white/20"
+            className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 border-4 border-pearl-white/20"
             onClick={() => {}}
           >
             <Bot className="h-9 w-9" />
