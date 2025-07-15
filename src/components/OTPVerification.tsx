@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Shield, RefreshCw } from "lucide-react";
 import { useOTP } from "@/hooks/useOTP";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface OTPVerificationProps {
   email: string;
@@ -25,6 +26,7 @@ const OTPVerification = ({
   const [otpCode, setOtpCode] = useState('');
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const { sendOTP, verifyOTP, loading } = useOTP();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -50,7 +52,12 @@ const OTPVerification = ({
 
     const result = await verifyOTP(email, otpCode, purpose);
     if (result.success) {
+      toast.success('Email verified successfully! Redirecting to dashboard...');
       onVerified();
+      // Redirect to customer dashboard after successful verification
+      setTimeout(() => {
+        navigate('/customer-dashboard');
+      }, 1500);
     }
   };
 

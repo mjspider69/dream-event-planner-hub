@@ -29,9 +29,25 @@ export const useOTP = () => {
         throw insertError;
       }
 
-      // In production, you would send actual SMS/email here
-      console.log(`OTP for ${email}: ${otpCode}`);
-      toast.success(`OTP sent to ${email}`);
+      // Send OTP via email using SMTP edge function
+      const { data, error: emailError } = await supabase.functions.invoke('send-otp-email', {
+        body: {
+          email,
+          otpCode,
+          purpose
+        }
+      });
+
+      if (emailError) {
+        console.error('Error sending OTP email:', emailError);
+        throw new Error('Failed to send OTP email. Please try again.');
+      }
+
+      if (!data?.success) {
+        throw new Error(data?.error || 'Failed to send OTP email');
+      }
+
+      toast.success(`OTP sent to ${email}. Please check your inbox.`);
       
       return { success: true, error: null };
     } catch (error: any) {
