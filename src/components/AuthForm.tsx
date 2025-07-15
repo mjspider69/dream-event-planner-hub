@@ -34,7 +34,7 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
   const [showOTP, setShowOTP] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { signUp, signIn } = useAuth();
+  const { signUp, signIn, signInWithMagicLink } = useAuth();
   const { sendOTP } = useOTP();
 
   const handleInputChange = (field: string, value: string) => {
@@ -396,13 +396,32 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
           </Button>
 
           {mode === 'login' && (
-            <div className="text-center">
+            <div className="text-center space-y-2">
               <Button
                 type="button"
                 variant="ghost"
                 className="text-amber-600 hover:text-amber-700"
               >
                 Forgot Password?
+              </Button>
+              <div className="text-sm text-gray-500">or</div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={async () => {
+                  if (!formData.email) {
+                    toast.error('Please enter your email first');
+                    return;
+                  }
+                  setLoading(true);
+                  await signInWithMagicLink(formData.email);
+                  setLoading(false);
+                }}
+                disabled={loading || !formData.email}
+                className="w-full"
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Send Magic Link
               </Button>
             </div>
           )}

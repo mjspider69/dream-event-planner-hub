@@ -25,8 +25,19 @@ const ProtectedRoute = ({ children, requiredUserType }: ProtectedRouteProps) => 
   }
 
   // Check user type if required
-  if (requiredUserType && user.user_metadata?.user_type !== requiredUserType) {
-    return <Navigate to="/" replace />;
+  if (requiredUserType) {
+    const userType = user.user_metadata?.user_type;
+    if (userType !== requiredUserType) {
+      // Redirect vendors to vendor dashboard if they try to access customer areas
+      if (userType === 'vendor' && requiredUserType === 'customer') {
+        return <Navigate to="/vendor-dashboard" replace />;
+      }
+      // Redirect customers to customer dashboard if they try to access vendor areas  
+      if (userType === 'customer' && requiredUserType === 'vendor') {
+        return <Navigate to="/customer-dashboard" replace />;
+      }
+      return <Navigate to="/" replace />;
+    }
   }
 
   return <>{children}</>;

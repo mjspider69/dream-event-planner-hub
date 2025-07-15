@@ -63,7 +63,7 @@ export const useAuth = () => {
 
   const signUp = async (email: string, password: string, userData: any) => {
     try {
-      const redirectUrl = `${window.location.origin}/`;
+      const redirectUrl = `${window.location.origin}/customer-dashboard`;
       
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -72,7 +72,7 @@ export const useAuth = () => {
           emailRedirectTo: redirectUrl,
           data: {
             ...userData,
-            email_confirmed: false
+            email_confirmed: true
           }
         }
       });
@@ -89,11 +89,48 @@ export const useAuth = () => {
 
       console.log('Sign up successful:', data.user?.email);
       
-      if (data.user && !data.session) {
-        toast.success('Account created! Please check your email for verification.');
-      } else {
-        toast.success('Account created successfully!');
+      // If user was created successfully, create their profile
+      if (data.user) {
+        try {
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({
+              user_id: data.user.id,
+              full_name: userData.full_name,
+              phone: userData.phone,
+              city: userData.city,
+              user_type: userData.user_type
+            });
+
+          if (profileError) {
+            console.error('Profile creation error:', profileError);
+          }
+
+          // Create vendor record if needed
+          if (userData.user_type === 'vendor') {
+            const { error: vendorError } = await supabase
+              .from('vendors')
+              .insert({
+                user_id: data.user.id,
+                business_name: userData.business_name,
+                category: userData.business_category,
+                city: userData.city,
+                email: email,
+                contact_person: userData.full_name,
+                phone: userData.phone,
+                is_approved: false
+              });
+
+            if (vendorError) {
+              console.error('Vendor creation error:', vendorError);
+            }
+          }
+        } catch (profileError) {
+          console.error('Error creating user profile:', profileError);
+        }
       }
+      
+      toast.success('Account created successfully!');
       
       return { data, error: null };
     } catch (error: any) {
@@ -121,6 +158,32 @@ export const useAuth = () => {
     } catch (error: any) {
       console.error('Unexpected sign in error:', error);
       toast.error(error.message || 'Failed to sign in');
+      return { error };
+    }
+  };
+
+  const signInWithMagicLink = async (email: string) => {
+    try {
+      const redirectUrl = `${window.location.origin}/customer-dashboard`;
+      
+      const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: redirectUrl,
+        },
+      });
+
+      if (error) {
+        console.error('Magic link error:', error);
+        toast.error(error.message);
+        return { error };
+      }
+
+      toast.success('Magic link sent! Check your email.');
+      return { data, error: null };
+    } catch (error: any) {
+      console.error('Unexpected magic link error:', error);
+      toast.error(error.message || 'Failed to send magic link');
       return { error };
     }
   };
@@ -163,6 +226,7 @@ export const useAuth = () => {
     ...authState,
     signUp,
     signIn,
+    signInWithMagicLink,
     signOut,
     resetPassword,
   };

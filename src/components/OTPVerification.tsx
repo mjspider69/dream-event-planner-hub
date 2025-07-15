@@ -52,12 +52,8 @@ const OTPVerification = ({
 
     const result = await verifyOTP(email, otpCode, purpose);
     if (result.success) {
-      toast.success('Email verified successfully! Redirecting to dashboard...');
+      toast.success('Email verified successfully!');
       onVerified();
-      // Redirect to customer dashboard after successful verification
-      setTimeout(() => {
-        navigate('/customer-dashboard');
-      }, 1500);
     }
   };
 

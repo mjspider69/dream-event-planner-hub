@@ -9,13 +9,15 @@ const Auth = () => {
   const [mode, setMode] = useState<'login' | 'signup' | 'vendor'>('login');
   const navigate = useNavigate();
 
-  const handleSuccess = () => {
-    // Redirect based on user type
-    if (mode === 'vendor') {
-      navigate('/vendor-dashboard');
-    } else {
-      navigate('/customer-dashboard');
-    }
+  const handleSuccess = async () => {
+    // Small delay to ensure auth state is updated
+    setTimeout(() => {
+      if (mode === 'vendor') {
+        navigate('/vendor-dashboard', { replace: true });
+      } else {
+        navigate('/customer-dashboard', { replace: true });
+      }
+    }, 100);
   };
 
   return (
