@@ -316,6 +316,8 @@
   .gold-border {
     border-color: hsl(var(--royal-gold)) !important;
     border-width: 2px;
+  }
+  
   .font-great-vibes {
     font-family: 'Great Vibes', cursive;
   }

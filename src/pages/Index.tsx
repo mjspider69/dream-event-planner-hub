@@ -11,6 +11,7 @@ import ChatbotIntroPopup from "@/components/ChatbotIntroPopup";
 import EventPackages from "@/components/EventPackages";
 import SignUpModal from "@/components/SignUpModal";
 import { useAuth } from "@/hooks/useAuth";
+import heroBackground from "@/assets/hero-bg.jpg";
 
 const Index = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -152,7 +153,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/src/assets/hero-bg.jpg')"
+            backgroundImage: `url(${heroBackground})`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-royal-gold/20 to-warm-gold/30"></div>
