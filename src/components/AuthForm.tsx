@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +34,7 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
   const [loading, setLoading] = useState(false);
 
   const { signUp, signIn, signInWithMagicLink } = useAuth();
-  const { sendOTP } = useOTP();
+  const { sendOTP, validatePhoneNumber } = useOTP();
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -57,6 +56,12 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
     if (mode === 'signup' || mode === 'vendor') {
       if (!formData.fullName?.trim()) {
         toast.error('Full name is required');
+        return false;
+      }
+      
+      // Phone number validation for Indian numbers
+      if (formData.phone && !validatePhoneNumber(formData.phone)) {
+        toast.error('Please enter a valid Indian mobile number (starting with 6, 7, 8, or 9)');
         return false;
       }
       
@@ -244,6 +249,9 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
                 placeholder="+91 98765 43210"
                 className="mt-1"
               />
+              <p className="text-xs text-gray-500 mt-1">
+                Enter Indian mobile number starting with 6, 7, 8, or 9
+              </p>
             </div>
           )}
 

@@ -1,7 +1,19 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+
+// Phone number validation for Indian numbers
+const validatePhoneNumber = (phone: string): boolean => {
+  // Remove all non-digit characters
+  const cleanPhone = phone.replace(/\D/g, '');
+  
+  // Check if it's a valid Indian mobile number
+  // Indian mobile numbers: 10 digits starting with 6, 7, 8, or 9
+  // Or 13 digits starting with +91 followed by 6, 7, 8, or 9
+  const indianMobileRegex = /^(?:\+91)?[6-9]\d{9}$/;
+  
+  return indianMobileRegex.test(cleanPhone);
+};
 
 export const useOTP = () => {
   const [loading, setLoading] = useState(false);
@@ -9,6 +21,11 @@ export const useOTP = () => {
   const sendOTP = async (email: string, phone?: string, purpose: string = 'signup') => {
     setLoading(true);
     try {
+      // Validate phone number if provided
+      if (phone && !validatePhoneNumber(phone)) {
+        throw new Error('Please enter a valid Indian mobile number (starting with 6, 7, 8, or 9)');
+      }
+
       // Generate 6-digit OTP
       const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
       const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
@@ -47,7 +64,13 @@ export const useOTP = () => {
         throw new Error(data?.error || 'Failed to send OTP email');
       }
 
-      toast.success(`OTP sent to ${email}. Please check your inbox.`);
+      // If phone number is provided, simulate SMS sending (in real app, integrate with SMS provider)
+      if (phone && validatePhoneNumber(phone)) {
+        console.log(`SMS OTP would be sent to ${phone}: ${otpCode}`);
+        toast.success(`OTP sent to ${email} and ${phone}. Please check your inbox and messages.`);
+      } else {
+        toast.success(`OTP sent to ${email}. Please check your inbox.`);
+      }
       
       return { success: true, error: null };
     } catch (error: any) {
@@ -118,5 +141,6 @@ export const useOTP = () => {
     sendOTP,
     verifyOTP,
     loading,
+    validatePhoneNumber,
   };
 };

@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, ArrowRight, Star, Users, Shield, Calendar, CheckCircle, Bot } from "lucide-react";
+import { Sparkles, ArrowRight, Star, Users, Shield, Calendar, CheckCircle, Bot, Phone, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
@@ -15,8 +14,6 @@ import heroBackground from "@/assets/hero-bg.jpg";
 
 const Index = () => {
   const [showSignUp, setShowSignUp] = useState(false);
-  const [selectedSpeciality, setSelectedSpeciality] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("");
   const { user } = useAuth();
 
   const handleGetStarted = () => {
@@ -27,70 +24,6 @@ const Index = () => {
     setShowSignUp(false);
     window.location.href = '/customer-dashboard';
   };
-
-  const vendors = [
-    {
-      id: 1,
-      name: "Rajesh Singh",
-      speciality: "Photographer",
-      location: "Jaipur",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
-      rating: 4.8,
-      isApproved: true,
-      isOnline: true
-    },
-    {
-      id: 2,
-      name: "Elegant Decor",
-      speciality: "Decorator", 
-      location: "Delhi",
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=300&fit=crop",
-      rating: 4.9,
-      isApproved: true,
-      isOnline: true
-    },
-    {
-      id: 3,
-      name: "Sweet Treats",
-      speciality: "Bakery",
-      location: "Mumbai",
-      image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop",
-      rating: 4.7,
-      isApproved: true,
-      isOnline: true
-    },
-    {
-      id: 4,
-      name: "DJ Arjun",
-      speciality: "DJ",
-      location: "Bangalore",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop&crop=face",
-      rating: 4.8,
-      isApproved: true,
-      isOnline: true
-    }
-  ];
-
-  const packages = [
-    {
-      name: "Golden Package",
-      price: "₹50,000",
-      includes: ["Venue", "Catering", "Decoration"],
-      popular: true
-    },
-    {
-      name: "Silver Package", 
-      price: "₹30,000",
-      includes: ["Photography", "Sound & Lighting"],
-      popular: false
-    },
-    {
-      name: "Platinum Package",
-      price: "Customizable",
-      includes: ["Personalize all services"],
-      popular: false
-    }
-  ];
 
   const testimonials = [
     {
@@ -116,20 +49,6 @@ const Index = () => {
     }
   ];
 
-  const filteredVendors = vendors.filter(vendor => {
-    const matchesSpeciality = !selectedSpeciality || vendor.speciality === selectedSpeciality;
-    const matchesLocation = !selectedLocation || vendor.location === selectedLocation;
-    return vendor.isApproved && vendor.isOnline && matchesSpeciality && matchesLocation;
-  });
-
-  const handleVendorClick = (vendor: any) => {
-    if (!user) {
-      alert("Please log in to view full vendor details and contact options.");
-      return;
-    }
-    // Navigate to vendor details
-  };
-
   return (
     <div className="min-h-screen bg-pearl-white">
       <Helmet>
@@ -148,6 +67,22 @@ const Index = () => {
       </Helmet>
       <Header />
       
+      {/* Customer Support CTA - Fixed Position */}
+      <div className="fixed top-20 right-6 z-40 flex flex-col space-y-2">
+        <Button 
+          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg rounded-full p-3"
+          onClick={() => window.open('https://wa.me/917698889321', '_blank')}
+        >
+          <MessageCircle className="h-5 w-5" />
+        </Button>
+        <Button 
+          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg rounded-full p-3"
+          onClick={() => window.open('tel:+917698889321', '_blank')}
+        >
+          <Phone className="h-5 w-5" />
+        </Button>
+      </div>
+      
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div 
@@ -162,9 +97,12 @@ const Index = () => {
             <h1 className="font-playfair text-6xl md:text-8xl font-bold mb-8 leading-tight text-pearl-white drop-shadow-lg">
               Celebrate Elegance
             </h1>
-            <h2 className="font-playfair text-4xl md:text-6xl font-semibold mb-12 text-gradient-gold drop-shadow-lg">
+            <h2 className="font-playfair text-4xl md:text-6xl font-semibold mb-6 text-gradient-gold drop-shadow-lg">
               Plan with Aaroham
             </h2>
+            <p className="font-playfair text-2xl md:text-3xl font-medium mb-12 text-gradient-gold drop-shadow-lg">
+              ELEVATE EVERY OCCASION
+            </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
@@ -188,75 +126,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Vendor Showcase Section */}
-      <section className="luxury-section py-20 bg-pearl-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-playfair text-5xl font-bold mb-4 gold-shimmer-text">
-              Vendors
-            </h2>
-            <div className="flex justify-end mb-8">
-              <span className="font-poppins text-charcoal-gray">Sort by</span>
-            </div>
-          </div>
-
-          {/* Filter Bar */}
-          <div className="flex gap-6 mb-12 max-w-2xl">
-            <div className="flex-1">
-              <select 
-                value={selectedSpeciality}
-                onChange={(e) => setSelectedSpeciality(e.target.value)}
-                className="w-full p-4 border-2 border-soft-sand rounded-lg bg-pearl-white font-poppins text-charcoal-gray focus:border-royal-gold focus:outline-none"
-              >
-                <option value="">Speciality</option>
-                <option value="Photographer">Photographer</option>
-                <option value="Decorator">Decorator</option>
-                <option value="Bakery">Bakery</option>
-                <option value="DJ">DJ</option>
-              </select>
-            </div>
-            <div className="flex-1">
-              <select 
-                value={selectedLocation}
-                onChange={(e) => setSelectedLocation(e.target.value)}
-                className="w-full p-4 border-2 border-soft-sand rounded-lg bg-pearl-white font-poppins text-charcoal-gray focus:border-royal-gold focus:outline-none"
-              >
-                <option value="">Location</option>
-                <option value="Jaipur">Jaipur</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="Bangalore">Bangalore</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Vendor Cards Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {filteredVendors.map((vendor) => (
-              <div key={vendor.id} className="vendor-card p-6 cursor-pointer" onClick={() => handleVendorClick(vendor)}>
-                <div className="aspect-square mb-4 overflow-hidden rounded-lg">
-                  <img 
-                    src={vendor.image} 
-                    alt={vendor.name}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  />
-                </div>
-                <h3 className="font-playfair text-xl font-semibold mb-2 text-charcoal-gray">{vendor.name}</h3>
-                <p className="font-poppins text-charcoal-gray mb-1">{vendor.speciality}</p>
-                <div className="flex items-center mb-4">
-                  <Star className="h-4 w-4 text-royal-gold fill-current mr-1" />
-                  <span className="font-poppins text-charcoal-gray">{vendor.location}</span>
-                </div>
-                <Button className="w-full luxury-button font-poppins font-medium">
-                  Add to Event
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
 
       {/* How It Works Section */}
       <section className="luxury-section py-20 bg-gradient-to-br from-pearl-white to-soft-sand">
@@ -305,6 +174,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Event Packages Section */}
+      <EventPackages />
 
       {/* Testimonials Section */}
       <section className="luxury-section py-20 bg-gradient-to-br from-soft-sand via-pearl-white to-misty-rose">
@@ -399,14 +271,15 @@ const Index = () => {
       {/* Floating Chatbot */}
       <div className="fixed bottom-8 right-8 z-50">
         <div className="group relative">
-          <Button 
-            className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 border-4 border-pearl-white/20"
-            onClick={() => {}}
-          >
-            <Bot className="h-9 w-9" />
-          </Button>
+          <Link to="/ai-chatbot">
+            <Button 
+              className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 border-4 border-pearl-white/20"
+            >
+              <Bot className="h-9 w-9" />
+            </Button>
+          </Link>
           <div className="absolute bottom-full right-0 mb-2 px-4 py-2 bg-charcoal-gray text-pearl-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-            How can I help you today?
+            Chat with Aarohi AI
           </div>
         </div>
       </div>

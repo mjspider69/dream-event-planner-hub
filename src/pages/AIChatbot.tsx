@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Bot, Send, Clock, LogIn, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Message {
   id: number;
@@ -17,6 +17,7 @@ interface Message {
 }
 
 const AIChatbot = () => {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -26,10 +27,10 @@ const AIChatbot = () => {
     }
   ]);
   const [inputMessage, setInputMessage] = useState("");
-  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for authenticated users
+  const [timeLeft, setTimeLeft] = useState(user ? 1800 : 60); // 30 min for logged in, 1 min for guests
   const [showLoginWall, setShowLoginWall] = useState(false);
   const [isVoiceChatActive, setIsVoiceChatActive] = useState(false);
-  const [voiceTimeLeft, setVoiceTimeLeft] = useState(600); // 10 minutes for voice
+  const [voiceTimeLeft, setVoiceTimeLeft] = useState(user ? 600 : 30); // 10 min for logged in, 30 sec for guests
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,11 +49,11 @@ const AIChatbot = () => {
       timer = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
       }, 1000);
-    } else if (timeLeft === 0) {
+    } else if (timeLeft === 0 && !user) {
       setShowLoginWall(true);
     }
     return () => clearTimeout(timer);
-  }, [timeLeft, showLoginWall]);
+  }, [timeLeft, showLoginWall, user]);
 
   useEffect(() => {
     let voiceTimer: NodeJS.Timeout;
@@ -63,12 +64,15 @@ const AIChatbot = () => {
     } else if (voiceTimeLeft === 0 && isVoiceChatActive) {
       setIsVoiceChatActive(false);
       setIsListening(false);
+      if (!user) {
+        setShowLoginWall(true);
+      }
     }
     return () => clearTimeout(voiceTimer);
-  }, [isVoiceChatActive, voiceTimeLeft]);
+  }, [isVoiceChatActive, voiceTimeLeft, user]);
 
   const sendMessage = () => {
-    if (!inputMessage.trim() || showLoginWall) return;
+    if (!inputMessage.trim() || (showLoginWall && !user)) return;
     
     const newMessage: Message = {
       id: messages.length + 1,
@@ -147,7 +151,7 @@ const AIChatbot = () => {
   const toggleVoiceChat = () => {
     if (!isVoiceChatActive) {
       setIsVoiceChatActive(true);
-      setVoiceTimeLeft(600);
+      setVoiceTimeLeft(user ? 600 : 30);
     } else {
       setIsVoiceChatActive(false);
       setIsListening(false);
@@ -236,6 +240,11 @@ const AIChatbot = () => {
                   <span>Voice Chat: {formatTime(voiceTimeLeft)} remaining</span>
                 </div>
               )}
+              {!user && (
+                <Badge className="bg-red-100 text-red-800">
+                  Guest Mode - Limited Time
+                </Badge>
+              )}
             </div>
           </div>
 
@@ -257,7 +266,7 @@ const AIChatbot = () => {
                 ) : (
                   <>
                     <Volume2 className="h-4 w-4 mr-2" />
-                    Start Voice Chat (10 min)
+                    Start Voice Chat ({user ? '10 min' : '30 sec'})
                   </>
                 )}
               </Button>
@@ -388,7 +397,7 @@ const AIChatbot = () => {
                     size="sm"
                     onClick={() => setInputMessage(suggestion)}
                     className="text-xs border-blue-200 text-blue-600 hover:bg-blue-50"
-                    disabled={showLoginWall}
+                    disabled={showLoginWall && !user}
                   >
                     {suggestion}
                   </Button>
@@ -402,14 +411,14 @@ const AIChatbot = () => {
                 <Input
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
-                  placeholder={showLoginWall ? "Session expired. Please refresh to continue..." : "Ask me anything about event planning..."}
+                  placeholder={showLoginWall && !user ? "Session expired. Please login to continue..." : "Ask me anything about event planning..."}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                  disabled={showLoginWall}
+                  disabled={showLoginWall && !user}
                   className="border-gray-200 focus:border-blue-500"
                 />
                 <Button 
                   onClick={sendMessage}
-                  disabled={showLoginWall || !inputMessage.trim()}
+                  disabled={(showLoginWall && !user) || !inputMessage.trim()}
                   className="bg-gradient-to-r from-blue-600 to-yellow-500 hover:from-blue-700 hover:to-yellow-600 text-white"
                 >
                   <Send className="h-4 w-4" />
@@ -419,28 +428,32 @@ const AIChatbot = () => {
           </Card>
 
           {/* Login Wall */}
-          {showLoginWall && (
+          {showLoginWall && !user && (
             <div className="mt-6">
               <Card className="bg-gradient-to-r from-blue-600 to-yellow-500 text-white border-0 shadow-xl">
                 <CardContent className="p-8 text-center">
                   <LogIn className="h-12 w-12 mx-auto mb-4" />
-                  <h2 className="text-2xl font-bold mb-2">Your Session Has Ended</h2>
+                  <h2 className="text-2xl font-bold mb-2">Your Free Session Has Ended</h2>
                   <p className="mb-6 opacity-90">
-                    Please refresh the page to start a new chat session with Aarohi AI.
+                    Please login to continue chatting with Aarohi AI and unlock unlimited access to our platform.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link to="/auth">
+                      <Button 
+                        size="lg" 
+                        className="bg-white text-blue-600 hover:bg-gray-100 font-semibold"
+                      >
+                        Login / Sign Up
+                      </Button>
+                    </Link>
                     <Button 
                       onClick={() => window.location.reload()}
                       size="lg" 
-                      className="bg-white text-blue-600 hover:bg-gray-100 font-semibold"
+                      variant="outline" 
+                      className="border-white text-white hover:bg-white/10"
                     >
-                      Refresh Page
+                      Start New Session
                     </Button>
-                    <Link to="/auth">
-                      <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                        Sign Up for More Features
-                      </Button>
-                    </Link>
                   </div>
                 </CardContent>
               </Card>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -59,7 +58,7 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation - Only show public links when not authenticated */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/vendors"
@@ -68,23 +67,22 @@ const Header = () => {
               Find Vendors
             </Link>
             
+            <Link
+              to="/packages"
+              className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
+            >
+              Packages
+            </Link>
+            
             {/* Only show these links when user is authenticated */}
             {user && (
-              <>
-                <Link
-                  to="/packages"
-                  className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
-                >
-                  Packages
-                </Link>
-                <Link
-                  to="/ai-chatbot"
-                  className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium flex items-center"
-                >
-                  <MessageCircle className="h-4 w-4 mr-1" />
-                  Chat with Aarohi
-                </Link>
-              </>
+              <Link
+                to="/ai-chatbot"
+                className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium flex items-center"
+              >
+                <MessageCircle className="h-4 w-4 mr-1" />
+                Chat with Aarohi
+              </Link>
             )}
             
             <Link
@@ -158,25 +156,24 @@ const Header = () => {
                 Find Vendors
               </Link>
               
+              <Link
+                to="/packages"
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                Packages
+              </Link>
+              
               {/* Only show these links when user is authenticated */}
               {user && (
-                <>
-                  <Link
-                    to="/packages"
-                    className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Packages
-                  </Link>
-                  <Link
-                    to="/ai-chatbot"
-                    className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <MessageCircle className="h-4 w-4 mr-1" />
-                    Chat with Aarohi
-                  </Link>
-                </>
+                <Link
+                  to="/ai-chatbot"
+                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <MessageCircle className="h-4 w-4 mr-1" />
+                  Chat with Aarohi
+                </Link>
               )}
               
               <Link

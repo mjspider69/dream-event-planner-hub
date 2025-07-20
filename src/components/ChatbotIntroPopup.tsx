@@ -1,12 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bot, X, MessageCircle, Sparkles } from "lucide-react";
+import { Bot, X, MessageCircle, Sparkles, Clock, Crown } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const ChatbotIntroPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     // Show popup after 3 seconds if user hasn't seen it before
@@ -67,9 +68,22 @@ const ChatbotIntroPopup = () => {
           </div>
           
           <div className="bg-amber-50 p-4 rounded-lg mb-6">
-            <p className="text-sm text-amber-800">
-              <strong>Try Aarohi free!</strong> Chat for 2 minutes without signing up. 
-              Login for unlimited access and personalized recommendations.
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              {user ? (
+                <Crown className="h-4 w-4 text-amber-500" />
+              ) : (
+                <Clock className="h-4 w-4 text-amber-500" />
+              )}
+              <span className="font-semibold text-amber-800">
+                {user ? 'Premium Access' : 'Free Trial'}
+              </span>
+            </div>
+            <p className="text-sm text-amber-700">
+              {user 
+                ? <strong>Unlimited access!</strong> 
+                : <strong>Try Aarohi free!</strong>
+              } Chat for {user ? 'unlimited time' : '1 minute'} and experience AI-powered event planning.
+              {!user && ' Login for unlimited access and personalized recommendations.'}
             </p>
           </div>
           
@@ -81,10 +95,21 @@ const ChatbotIntroPopup = () => {
               </Button>
             </Link>
             
+            {!user && (
+              <Link to="/auth" onClick={handleTryNow}>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-amber-200 text-amber-600 hover:bg-amber-50"
+                >
+                  Login for Unlimited Access
+                </Button>
+              </Link>
+            )}
+            
             <Button 
-              variant="outline" 
+              variant="ghost" 
               onClick={handleClose}
-              className="border-gray-200 text-gray-600 hover:bg-gray-50"
+              className="text-gray-500 hover:bg-gray-50"
             >
               Maybe Later
             </Button>
