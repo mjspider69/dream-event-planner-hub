@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User, Session } from "@supabase/supabase-js";
@@ -22,10 +21,23 @@ export const useAuth = () => {
 
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         if (!mounted) return;
         
         console.log('Auth state changed:', event, session?.user?.email);
+        
+        // Update profile last_login when user signs in
+        if (event === 'SIGNED_IN' && session?.user) {
+          try {
+            await supabase
+              .from('profiles')
+              .update({ last_login: new Date().toISOString() })
+              .eq('user_id', session.user.id);
+          } catch (error) {
+            console.error('Error updating last login:', error);
+          }
+        }
+        
         setAuthState({
           user: session?.user ?? null,
           session,
@@ -63,6 +75,23 @@ export const useAuth = () => {
 
   const signUp = async (email: string, password: string, userData: any) => {
     try {
+      console.log('Starting signup process for:', email);
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        throw new Error('Please enter a valid email address');
+      }
+
+      // Validate phone number if provided
+      if (userData.phone) {
+        const cleanPhone = userData.phone.replace(/\D/g, '');
+        const indianMobileRegex = /^(91)?[6-9]\d{9}$/;
+        if (!indianMobileRegex.test(cleanPhone)) {
+          throw new Error('Please enter a valid Indian mobile number');
+        }
+      }
+
       const redirectUrl = `${window.location.origin}/customer-dashboard`;
       
       const { data, error } = await supabase.auth.signUp({
@@ -72,7 +101,7 @@ export const useAuth = () => {
           emailRedirectTo: redirectUrl,
           data: {
             ...userData,
-            email_confirmed: true
+            email_confirmed: true // Skip email confirmation for now
           }
         }
       });
@@ -99,11 +128,14 @@ export const useAuth = () => {
               full_name: userData.full_name,
               phone: userData.phone,
               city: userData.city,
-              user_type: userData.user_type
+              user_type: userData.user_type,
+              email_verified: true, // Mark as verified since OTP was used
+              phone_verified: userData.phone ? true : false
             });
 
           if (profileError) {
             console.error('Profile creation error:', profileError);
+            // Don't fail the signup if profile creation fails
           }
 
           // Create vendor record if needed
@@ -118,15 +150,18 @@ export const useAuth = () => {
                 email: email,
                 contact_person: userData.full_name,
                 phone: userData.phone,
-                is_approved: false
+                is_approved: false,
+                verification_status: 'pending'
               });
 
             if (vendorError) {
               console.error('Vendor creation error:', vendorError);
+              // Don't fail the signup if vendor creation fails
             }
           }
         } catch (profileError) {
           console.error('Error creating user profile:', profileError);
+          // Don't fail the signup if profile creation fails
         }
       }
       
@@ -142,6 +177,8 @@ export const useAuth = () => {
 
   const signIn = async (email: string, password: string) => {
     try {
+      console.log('Starting signin process for:', email);
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -149,7 +186,11 @@ export const useAuth = () => {
 
       if (error) {
         console.error('Sign in error:', error);
-        toast.error(error.message);
+        if (error.message.includes('Invalid login credentials')) {
+          toast.error('Invalid email or password. Please check your credentials.');
+        } else {
+          toast.error(error.message);
+        }
         return { error };
       }
 
@@ -222,6 +263,34 @@ export const useAuth = () => {
     }
   };
 
+  const updateProfile = async (updates: any) => {
+    try {
+      if (!authState.user) {
+        throw new Error('User not authenticated');
+      }
+
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          ...updates,
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', authState.user.id);
+
+      if (error) {
+        console.error('Profile update error:', error);
+        throw error;
+      }
+
+      toast.success('Profile updated successfully!');
+      return { error: null };
+    } catch (error: any) {
+      console.error('Error updating profile:', error);
+      toast.error(error.message || 'Failed to update profile');
+      return { error };
+    }
+  };
+
   return {
     ...authState,
     signUp,
@@ -229,5 +298,6 @@ export const useAuth = () => {
     signInWithMagicLink,
     signOut,
     resetPassword,
+    updateProfile,
   };
 };

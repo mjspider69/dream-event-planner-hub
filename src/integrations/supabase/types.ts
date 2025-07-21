@@ -7,58 +7,71 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
-  }
   public: {
     Tables: {
       bookings: {
         Row: {
           budget: number
+          booking_expires_at: string | null
           created_at: string | null
           customer_id: string
+          customer_rating: number | null
           event_date: string
           event_location: string
           event_type: string
           guest_count: number
           id: string
+          payment_status: string | null
           requirements: string | null
+          special_requirements: string | null
           status: string | null
           total_amount: number | null
           updated_at: string | null
           vendor_id: string
+          vendor_rating: number | null
+          vendor_response: string | null
         }
         Insert: {
           budget: number
+          booking_expires_at?: string | null
           created_at?: string | null
           customer_id: string
+          customer_rating?: number | null
           event_date: string
           event_location: string
           event_type: string
           guest_count: number
           id?: string
+          payment_status?: string | null
           requirements?: string | null
+          special_requirements?: string | null
           status?: string | null
           total_amount?: number | null
           updated_at?: string | null
           vendor_id: string
+          vendor_rating?: number | null
+          vendor_response?: string | null
         }
         Update: {
           budget?: number
+          booking_expires_at?: string | null
           created_at?: string | null
           customer_id?: string
+          customer_rating?: number | null
           event_date?: string
           event_location?: string
           event_type?: string
           guest_count?: number
           id?: string
+          payment_status?: string | null
           requirements?: string | null
+          special_requirements?: string | null
           status?: string | null
           total_amount?: number | null
           updated_at?: string | null
           vendor_id?: string
+          vendor_rating?: number | null
+          vendor_response?: string | null
         }
         Relationships: [
           {
@@ -69,6 +82,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      chat_sessions: {
+        Row: {
+          chat_time_used: number | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          max_chat_time: number | null
+          max_voice_time: number | null
+          session_token: string
+          updated_at: string | null
+          user_id: string | null
+          voice_time_used: number | null
+        }
+        Insert: {
+          chat_time_used?: number | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          max_chat_time?: number | null
+          max_voice_time?: number | null
+          session_token: string
+          updated_at?: string | null
+          user_id?: string | null
+          voice_time_used?: number | null
+        }
+        Update: {
+          chat_time_used?: number | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          max_chat_time?: number | null
+          max_voice_time?: number | null
+          session_token?: string
+          updated_at?: string | null
+          user_id?: string | null
+          voice_time_used?: number | null
+        }
+        Relationships: []
       }
       notifications: {
         Row: {
@@ -102,31 +157,37 @@ export type Database = {
       }
       otps: {
         Row: {
+          attempts: number | null
           created_at: string | null
           email: string | null
           expires_at: string
           id: string
           is_verified: boolean | null
+          max_attempts: number | null
           otp_code: string
           phone: string | null
           purpose: string
         }
         Insert: {
+          attempts?: number | null
           created_at?: string | null
           email?: string | null
           expires_at: string
           id?: string
           is_verified?: boolean | null
+          max_attempts?: number | null
           otp_code: string
           phone?: string | null
           purpose?: string
         }
         Update: {
+          attempts?: number | null
           created_at?: string | null
           email?: string | null
           expires_at?: string
           id?: string
           is_verified?: boolean | null
+          max_attempts?: number | null
           otp_code?: string
           phone?: string | null
           purpose?: string
@@ -190,9 +251,13 @@ export type Database = {
         Row: {
           city: string | null
           created_at: string | null
+          email_verified: boolean | null
           full_name: string | null
           id: string
+          last_login: string | null
           phone: string | null
+          phone_verified: boolean | null
+          preferences: Json | null
           updated_at: string | null
           user_id: string
           user_type: string | null
@@ -200,9 +265,13 @@ export type Database = {
         Insert: {
           city?: string | null
           created_at?: string | null
+          email_verified?: boolean | null
           full_name?: string | null
           id?: string
+          last_login?: string | null
           phone?: string | null
+          phone_verified?: boolean | null
+          preferences?: Json | null
           updated_at?: string | null
           user_id: string
           user_type?: string | null
@@ -210,9 +279,13 @@ export type Database = {
         Update: {
           city?: string | null
           created_at?: string | null
+          email_verified?: boolean | null
           full_name?: string | null
           id?: string
+          last_login?: string | null
           phone?: string | null
+          phone_verified?: boolean | null
+          preferences?: Json | null
           updated_at?: string | null
           user_id?: string
           user_type?: string | null
@@ -241,6 +314,77 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "saved_vendors_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      system_settings: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      vendor_availability: {
+        Row: {
+          created_at: string | null
+          date: string
+          id: string
+          is_available: boolean | null
+          notes: string | null
+          time_slots: string[] | null
+          updated_at: string | null
+          vendor_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          date: string
+          id?: string
+          is_available?: boolean | null
+          notes?: string | null
+          time_slots?: string[] | null
+          updated_at?: string | null
+          vendor_id: string
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          id?: string
+          is_available?: boolean | null
+          notes?: string | null
+          time_slots?: string[] | null
+          updated_at?: string | null
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_availability_vendor_id_fkey"
             columns: ["vendor_id"]
             isOneToOne: false
             referencedRelation: "vendors"
@@ -304,6 +448,7 @@ export type Database = {
       }
       vendors: {
         Row: {
+          availability: Json | null
           business_name: string
           category: string
           city: string
@@ -313,15 +458,21 @@ export type Database = {
           email: string | null
           id: string
           is_approved: boolean | null
+          is_featured: boolean | null
+          is_online: boolean | null
           phone: string | null
           portfolio_images: string[] | null
           price_range: string | null
           rating: number | null
+          social_media: Json | null
+          speciality: string[] | null
           total_bookings: number | null
           updated_at: string | null
           user_id: string | null
+          verification_status: string | null
         }
         Insert: {
+          availability?: Json | null
           business_name: string
           category: string
           city: string
@@ -331,15 +482,21 @@ export type Database = {
           email?: string | null
           id?: string
           is_approved?: boolean | null
+          is_featured?: boolean | null
+          is_online?: boolean | null
           phone?: string | null
           portfolio_images?: string[] | null
           price_range?: string | null
           rating?: number | null
+          social_media?: Json | null
+          speciality?: string[] | null
           total_bookings?: number | null
           updated_at?: string | null
           user_id?: string | null
+          verification_status?: string | null
         }
         Update: {
+          availability?: Json | null
           business_name?: string
           category?: string
           city?: string
@@ -349,13 +506,18 @@ export type Database = {
           email?: string | null
           id?: string
           is_approved?: boolean | null
+          is_featured?: boolean | null
+          is_online?: boolean | null
           phone?: string | null
           portfolio_images?: string[] | null
           price_range?: string | null
           rating?: number | null
+          social_media?: Json | null
+          speciality?: string[] | null
           total_bookings?: number | null
           updated_at?: string | null
           user_id?: string | null
+          verification_status?: string | null
         }
         Relationships: []
       }
@@ -364,7 +526,44 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cleanup_expired_otps: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      create_otp_record: {
+        Args: {
+          p_email?: string
+          p_phone?: string
+          p_purpose?: string
+        }
+        Returns: {
+          otp_code: string
+          expires_at: string
+        }[]
+      }
+      generate_otp: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      update_updated_at_column: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      validate_indian_phone: {
+        Args: {
+          phone_number: string
+        }
+        Returns: boolean
+      }
+      verify_otp_code: {
+        Args: {
+          p_email?: string
+          p_phone?: string
+          p_otp_code: string
+          p_purpose?: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
@@ -375,33 +574,27 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
-
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+  PublicTableNameOrOptions extends
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -409,24 +602,20 @@ export type Tables<
     : never
 
 export type TablesInsert<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -434,24 +623,20 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -459,41 +644,14 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
-    | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+  PublicEnumNameOrOptions extends
+    | keyof PublicSchema["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
-
-export type CompositeTypes<
-  PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
-> = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
-
-export const Constants = {
-  public: {
-    Enums: {},
-  },
-} as const

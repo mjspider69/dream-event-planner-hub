@@ -105,15 +105,23 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
           onSuccess();
         }
       } else {
-        // For signup and vendor registration, send OTP first
-        const otpResult = await sendOTP(
-          formData.email, 
-          formData.phone, 
-          mode === 'vendor' ? 'vendor_signup' : 'signup'
-        );
-        
-        if (otpResult.success) {
-          setShowOTP(true);
+        // For signup and vendor registration, send OTP to both email and phone
+        try {
+          const otpResult = await sendOTP(
+            formData.email, 
+            formData.phone, 
+            mode === 'vendor' ? 'vendor_signup' : 'signup'
+          );
+          
+          if (otpResult.success) {
+            setShowOTP(true);
+            toast.success('Verification codes sent to your email and phone!');
+          } else {
+            throw new Error(otpResult.error?.message || 'Failed to send OTP');
+          }
+        } catch (otpError: any) {
+          console.error('OTP sending failed:', otpError);
+          toast.error('Failed to send verification code. Please try again.');
         }
       }
     } catch (error: any) {
@@ -126,14 +134,15 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
 
   const handleOTPVerified = async () => {
     try {
+      setLoading(true);
       const userData = {
         full_name: formData.fullName,
         phone: formData.phone,
         user_type: mode === 'vendor' ? 'vendor' : 'customer',
+        city: formData.city,
         ...(mode === 'vendor' && {
           business_name: formData.businessName,
           business_category: formData.category,
-          city: formData.city,
         })
       };
 
@@ -146,10 +155,14 @@ const AuthForm = ({ mode, onSuccess }: AuthFormProps) => {
           toast.success('Account created successfully!');
         }
         onSuccess();
+      } else {
+        throw new Error(result.error.message || 'Registration failed');
       }
     } catch (error: any) {
       console.error('Registration error:', error);
       toast.error(error.message || 'Registration failed');
+    } finally {
+      setLoading(false);
     }
   };
 
