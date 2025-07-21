@@ -137,7 +137,7 @@ const Packages = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3">
-                <CheckCircle className="h-5 w-5 text-bright-gold" />
+                <CheckCircle className="h-5 w-5 text-bright-gold bg-amber-400" />
                 <span className="font-semibold text-amber-400">AI-Matched Vendors</span>
               </div>
               <div className="flex items-center space-x-2 backdrop-blur-sm rounded-full px-6 py-3 bg-amber-400">
