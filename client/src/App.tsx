@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -49,15 +48,23 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/customer-auth" element={<CustomerAuth />} />
-            <Route path="/customer-login" element={<CustomerLogin />} />
-            <Route path="/vendor-auth" element={<VendorAuth />} />
-            <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
-            <Route path="/vendors" element={<VendorListing />} />
-            <Route path="/vendor/:id" element={<VendorView />} />
+            {/* Public Routes */}
+          <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/vendor-listing" element={<VendorListing />} />
+          <Route path="/vendor/:id" element={<VendorView />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/customer-auth" element={<CustomerAuth />} />
+          <Route path="/customer-login" element={<CustomerLogin />} />
+          <Route path="/vendor-auth" element={<VendorAuth />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/customer-care" element={<CustomerCare />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin-panel" element={<AdminPanel />} />
             <Route
               path="/customer-dashboard"
               element={
@@ -78,19 +85,12 @@ const App = () => (
             <Route path="/quotation" element={<Quotation />} />
             <Route path="/deal-done" element={<DealDone />} />
             <Route path="/plan-my-event" element={<PlanMyEvent />} />
-            <Route path="/packages" element={<Packages />} />
             <Route path="/talk-to-vendor" element={<TalkToVendor />} />
             <Route path="/talk-to-vendor/:id" element={<TalkToVendor />} />
             <Route path="/custom-input" element={<CustomInput />} />
             <Route path="/ai-chatbot" element={<AIChatbot />} />
-            <Route path="/customer-care" element={<CustomerCare />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/refund-policy" element={<RefundPolicy />} />
-            
+
             {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminLogin />} />
             <Route 
               path="/admin-dashboard" 
               element={
@@ -99,15 +99,7 @@ const App = () => (
                 </AdminProtectedRoute>
               } 
             />
-            <Route 
-              path="/admin-panel" 
-              element={
-                <AdminProtectedRoute>
-                  <AdminPanel />
-                </AdminProtectedRoute>
-              } 
-            />
-            
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

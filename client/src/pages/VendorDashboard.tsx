@@ -4,9 +4,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/useAuth";
-
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+
+// Mock supabase for now - replace with actual Supabase client
+const supabase = {
+  from: (table: string) => ({
+    select: (fields: string) => ({
+      eq: (field: string, value: any) => ({
+        single: async () => ({ data: null, error: null }),
+        order: (field: string, options: any) => ({ data: [], error: null })
+      }),
+      order: (field: string, options: any) => Promise.resolve({ data: [], error: null })
+    }),
+    update: (data: any) => ({
+      eq: (field: string, value: any) => Promise.resolve({ error: null })
+    })
+  })
+};
 
 // Import the vendor components
 import VendorStats from "@/components/vendor/VendorStats";
