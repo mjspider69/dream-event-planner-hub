@@ -108,7 +108,7 @@ const About = () => {
                   <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                     <p>
                       <strong className="text-blue-600">Aaroham (आरोहम्)</strong> is a Sanskrit word that signifies "rising," 
-                      "ascending," or "climbing upward." It represents growth, progress, and the journey toward excellence.
+                      "ascending,\" or "climbing upward.\" It represents growth, progress, and the journey toward excellence.
                     </p>
                     <p>
                       We chose this name because we believe every celebration is an opportunity to rise above the ordinary, 
