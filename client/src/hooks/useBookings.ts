@@ -1,32 +1,31 @@
-
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiClient } from '@/lib/api';
+import { toast } from 'sonner';
 
 export interface Booking {
   id: string;
-  customer_id: string | null;
-  vendor_ids: string[] | null;
-  event_type: string;
-  event_date: string;
-  event_location: string;
-  guest_count: number | null;
-  budget: number | null;
-  requirements: string | null;
-  status: string;
-  total_amount: number | null;
-  payment_status: string;
-  booking_expires_at: string | null;
-  created_at: string;
-  updated_at: string;
+  customerId: string;
+  vendorId: string;
+  eventType: string;
+  eventDate: string;
+  eventLocation: string;
+  guestCount: number;
+  budget: number;
+  requirements?: string;
+  status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
+  totalAmount?: number;
+  paymentStatus: 'pending' | 'completed' | 'failed';
+  bookingExpiresAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface CreateBookingData {
-  event_type: string;
-  vendor_ids: string[];
-  event_date: string;
-  event_location: string;
-  guest_count: number;
+  eventType: string;
+  vendorIds: string[];
+  eventDate: string;
+  eventLocation: string;
+  guestCount: number;
   budget: number;
   requirements?: string;
 }
@@ -36,46 +35,27 @@ export const useCreateBooking = () => {
 
   return useMutation({
     mutationFn: async (bookingData: CreateBookingData) => {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        throw new Error('User must be authenticated to create booking');
-      }
+      // Transform the data to match our API
+      const bookingPayload = {
+        vendorId: bookingData.vendorIds[0], // Use first vendor ID
+        eventType: bookingData.eventType,
+        eventDate: bookingData.eventDate,
+        eventLocation: bookingData.eventLocation,
+        guestCount: bookingData.guestCount,
+        budget: bookingData.budget,
+        requirements: bookingData.requirements,
+        status: 'pending',
+        paymentStatus: 'pending',
+      };
 
-      // Set booking expiry to 24 hours from now
-      const expiryDate = new Date();
-      expiryDate.setHours(expiryDate.getHours() + 24);
-
-      const { data, error } = await supabase
-        .from('bookings')
-        .insert({
-          customer_id: user.id,
-          vendor_id: bookingData.vendor_ids[0], // Use first vendor for now, since we only have vendor_id field
-          event_type: bookingData.event_type,
-          event_date: bookingData.event_date,
-          event_location: bookingData.event_location,
-          guest_count: bookingData.guest_count,
-          budget: bookingData.budget,
-          requirements: bookingData.requirements,
-          status: 'pending',
-        })
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Booking creation error:', error);
-        throw error;
-      }
-
-      console.log('Booking created successfully:', data);
-
-      return data;
+      return await apiClient.createBooking(bookingPayload);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['user-bookings'] });
       toast.success('Booking created successfully!');
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error creating booking:', error);
       toast.error('Failed to create booking. Please try again.');
     },
@@ -86,42 +66,71 @@ export const useUserBookings = () => {
   return useQuery({
     queryKey: ['user-bookings'],
     queryFn: async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        throw new Error('User must be authenticated');
-      }
+      // Get bookings for the current user
+      // Note: In a real implementation, you'd get the user ID from the auth context
+      const bookings = await apiClient.getBookings();
+      return bookings;
+    },
+    retry: 1,
+    staleTime: 2 * 60 * 1000, // 2 minutes
+  });
+};
 
-      const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .eq('customer_id', user.id)
-        .order('created_at', { ascending: false });
+export const useBookings = (filters: { customerId?: string; vendorId?: string; status?: string } = {}) => {
+  return useQuery({
+    queryKey: ['bookings', filters],
+    queryFn: async () => {
+      return await apiClient.getBookings(filters);
+    },
+    retry: 1,
+    staleTime: 2 * 60 * 1000, // 2 minutes
+  });
+};
 
-      if (error) {
-        throw error;
-      }
+export const useBooking = (id: string) => {
+  return useQuery({
+    queryKey: ['booking', id],
+    queryFn: async () => {
+      return await apiClient.getBooking(id);
+    },
+    enabled: !!id,
+    retry: 1,
+  });
+};
 
-      // Transform the data to match our Booking interface
-      const transformedData = data?.map(booking => ({
-        id: booking.id,
-        customer_id: booking.customer_id,
-        vendor_ids: booking.vendor_id ? [booking.vendor_id] : [], // Convert single vendor_id to array
-        event_type: booking.event_type,
-        event_date: booking.event_date,
-        event_location: booking.event_location,
-        guest_count: booking.guest_count,
-        budget: booking.budget,
-        requirements: booking.requirements,
-        status: booking.status || 'pending',
-        total_amount: booking.total_amount,
-        payment_status: 'pending', // Default for now
-        booking_expires_at: null, // Default for now
-        created_at: booking.created_at,
-        updated_at: booking.updated_at,
-      })) || [];
+export const useUpdateBooking = () => {
+  const queryClient = useQueryClient();
 
-      return transformedData as Booking[];
+  return useMutation({
+    mutationFn: async ({ id, updates }: { id: string; updates: Partial<Booking> }) => {
+      return await apiClient.updateBooking(id, updates);
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['user-bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['booking', variables.id] });
+      toast.success('Booking updated successfully!');
+    },
+    onError: (error: any) => {
+      toast.error(error.message || 'Failed to update booking');
+    },
+  });
+};
+
+export const useCancelBooking = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (bookingId: string) => {
+      return await apiClient.updateBooking(bookingId, { status: 'cancelled' });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['user-bookings'] });
+      toast.success('Booking cancelled successfully!');
+    },
+    onError: (error: any) => {
+      toast.error(error.message || 'Failed to cancel booking');
     },
   });
 };

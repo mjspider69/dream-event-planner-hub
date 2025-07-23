@@ -9,7 +9,8 @@ import { Phone, Mail, Eye, EyeOff, User, MapPin } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useOTP } from "@/hooks/useOTP";
 import OTPInput from "@/components/OTPInput";
 
 const CustomerLogin = () => {

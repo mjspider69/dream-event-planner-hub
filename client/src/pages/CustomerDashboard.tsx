@@ -9,7 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserBookings } from "@/hooks/useBookings";
-import { supabase } from "@/integrations/supabase/client";
+
 import { toast } from "sonner";
 
 const CustomerDashboard = () => {

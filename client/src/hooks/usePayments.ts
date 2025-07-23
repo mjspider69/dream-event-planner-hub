@@ -1,6 +1,21 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { apiClient } from '@/lib/api';
+import { toast } from 'sonner';
+
+export interface Payment {
+  id: string;
+  bookingId: string;
+  customerId: string;
+  amount: number;
+  currency: string;
+  paymentStatus: 'pending' | 'completed' | 'failed';
+  razorpayOrderId?: string;
+  razorpayPaymentId?: string;
+  razorpaySignature?: string;
+  paymentDate?: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface InitiatePaymentData {
   bookingId: string;
@@ -17,40 +32,26 @@ interface VerifyPaymentData {
 export const useInitiatePayment = () => {
   return useMutation({
     mutationFn: async (paymentData: InitiatePaymentData) => {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        throw new Error('User must be authenticated');
-      }
+      const paymentPayload = {
+        bookingId: paymentData.bookingId,
+        amount: paymentData.amount,
+        currency: 'INR',
+        paymentStatus: 'pending',
+      };
 
-      // Create payment record in database
-      const { data, error } = await supabase
-        .from('payments')
-        .insert({
-          booking_id: paymentData.bookingId,
-          customer_id: user.id,
-          amount: paymentData.amount,
-          currency: 'INR',
-          payment_status: 'pending',
-        })
-        .select()
-        .single();
-
-      if (error) {
-        throw error;
-      }
+      const payment = await apiClient.createPayment(paymentPayload);
 
       // In production, this would integrate with Razorpay API
       // For now, we'll return mock data for testing
       return {
-        ...data,
+        ...payment,
         razorpay_order_id: `order_${Date.now()}`,
         amount: paymentData.amount * 100, // Razorpay expects amount in paise
         currency: 'INR',
         key: 'rzp_test_your_key_here', // Replace with actual Razorpay key
       };
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error initiating payment:', error);
       toast.error('Failed to initiate payment. Please try again.');
     },
@@ -63,148 +64,62 @@ export const useVerifyPayment = () => {
   return useMutation({
     mutationFn: async (verificationData: VerifyPaymentData) => {
       // Update payment record with Razorpay details
-      const { data, error } = await supabase
-        .from('payments')
-        .update({
-          razorpay_order_id: verificationData.razorpay_order_id,
-          razorpay_payment_id: verificationData.razorpay_payment_id,
-          razorpay_signature: verificationData.razorpay_signature,
-          payment_status: 'completed',
-          payment_date: new Date().toISOString(),
-        })
-        .eq('booking_id', verificationData.bookingId)
-        .select()
-        .single();
+      const paymentUpdates = {
+        razorpayOrderId: verificationData.razorpay_order_id,
+        razorpayPaymentId: verificationData.razorpay_payment_id,
+        razorpaySignature: verificationData.razorpay_signature,
+        paymentStatus: 'completed',
+        paymentDate: new Date().toISOString(),
+      };
 
-      if (error) {
-        throw error;
+      // Find the payment by booking ID and update it
+      const payments = await apiClient.getPayments(verificationData.bookingId);
+      if (payments.length === 0) {
+        throw new Error('Payment not found');
       }
+
+      const payment = payments[0];
+      const updatedPayment = await apiClient.updatePayment(payment.id, paymentUpdates);
 
       // Update booking status to confirmed
-      await supabase
-        .from('bookings')
-        .update({
-          status: 'confirmed',
-        })
-        .eq('id', verificationData.bookingId);
+      await apiClient.updateBooking(verificationData.bookingId, {
+        status: 'confirmed',
+      });
 
-      // Calculate and create vendor earnings
-      const { data: booking } = await supabase
-        .from('bookings')
-        .select('vendor_id, budget')
-        .eq('id', verificationData.bookingId)
-        .single();
-
-      if (booking) {
-        const commissionRate = 0.10; // 10% commission
-        const grossAmount = booking.budget || 0;
-        const commissionAmount = grossAmount * commissionRate;
-        const netAmount = grossAmount - commissionAmount;
-
-        // Insert into vendor_earnings table using type casting to bypass TypeScript checks
-        const { error: earningsError } = await (supabase as any)
-          .from('vendor_earnings')
-          .insert({
-            vendor_id: booking.vendor_id,
-            booking_id: verificationData.bookingId,
-            amount: grossAmount,
-            commission_amount: commissionAmount,
-            commission_rate: commissionRate,
-            net_amount: netAmount,
-            status: 'completed',
-          });
-
-        if (earningsError) {
-          console.error('Error creating vendor earnings:', earningsError);
-        }
-      }
-
-      return data;
+      return updatedPayment;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['payments'] });
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
       queryClient.invalidateQueries({ queryKey: ['user-bookings'] });
-      toast.success('Payment verified successfully! Your booking is confirmed.');
+      toast.success('Payment verified successfully!');
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error verifying payment:', error);
       toast.error('Payment verification failed. Please contact support.');
     },
   });
 };
 
-export const useRazorpayPayment = () => {
-  const { mutateAsync: initiatePayment } = useInitiatePayment();
-  const { mutateAsync: verifyPayment } = useVerifyPayment();
-
-  const processPayment = async (bookingId: string, amount: number) => {
-    try {
-      // Step 1: Create order on backend
-      const orderData = await initiatePayment({ bookingId, amount });
-
-      // Step 2: Load Razorpay script if not already loaded
-      if (!window.Razorpay) {
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.async = true;
-        document.body.appendChild(script);
-        
-        await new Promise((resolve) => {
-          script.onload = resolve;
-        });
-      }
-
-      // Step 3: Open Razorpay payment modal
-      const options = {
-        key: orderData.key,
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: 'Aaroham',
-        description: 'Event Booking Payment',
-        order_id: orderData.razorpay_order_id,
-        handler: async (response: any) => {
-          try {
-            // Step 4: Verify payment on backend
-            await verifyPayment({
-              bookingId,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            });
-          } catch (error) {
-            console.error('Payment verification failed:', error);
-            toast.error('Payment verification failed');
-          }
-        },
-        prefill: {
-          name: '',
-          email: '',
-          contact: '',
-        },
-        theme: {
-          color: '#F59E0B', // Amber color
-        },
-        modal: {
-          ondismiss: () => {
-            toast.error('Payment cancelled');
-          },
-        },
-      };
-
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error('Payment process failed:', error);
-      toast.error('Payment process failed');
-    }
-  };
-
-  return { processPayment };
+export const usePayments = (bookingId?: string) => {
+  return useQuery({
+    queryKey: ['payments', bookingId],
+    queryFn: async () => {
+      return await apiClient.getPayments(bookingId);
+    },
+    retry: 1,
+    staleTime: 2 * 60 * 1000, // 2 minutes
+  });
 };
 
-// Extend window interface for Razorpay
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
-}
+export const usePayment = (paymentId: string) => {
+  return useQuery({
+    queryKey: ['payment', paymentId],
+    queryFn: async () => {
+      const payments = await apiClient.getPayments();
+      return payments.find((p: Payment) => p.id === paymentId);
+    },
+    enabled: !!paymentId,
+    retry: 1,
+  });
+};

@@ -35,6 +35,7 @@ import CustomerLogin from "./pages/CustomerLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -43,9 +44,10 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
+          <AuthProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
@@ -109,9 +111,10 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </TooltipProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
+          </AuthProvider>
+        </TooltipProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
   </ErrorBoundary>
 );
 

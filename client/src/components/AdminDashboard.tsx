@@ -20,7 +20,7 @@ import {
   Shield,
   Activity
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { apiClient } from "@/lib/api";
 import { toast } from "sonner";
 
 interface AdminDashboardProps {

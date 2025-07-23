@@ -15,7 +15,7 @@ import LoginPromptModal from "@/components/LoginPromptModal";
 import SEOOptimization from "@/components/SEOOptimization";
 import { useVendors } from "@/hooks/useVendors";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import { VENDOR_CATEGORIES, CATEGORY_GROUPS } from "@/constants/vendorCategories";
 
 const VendorListing = () => {
@@ -23,7 +23,6 @@ const VendorListing = () => {
   const [selectedLocation, setSelectedLocation] = useState("all cities");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState<string>("");
-  const [user, setUser] = useState<any>(null);
   const [filters, setFilters] = useState({
     speciality: "",
     city: "",
@@ -32,13 +31,7 @@ const VendorListing = () => {
   });
 
   const { data: vendors = [], isLoading, error } = useVendors(filters);
-
-  // Check authentication status
-  useState(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-    });
-  });
+  const { user } = useAuth();
 
   // Filter vendors based on search term and approval status
   const filteredVendors = vendors.filter(vendor => {
