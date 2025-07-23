@@ -203,6 +203,29 @@ export const useAuth = () => {
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/customer-dashboard`,
+        },
+      });
+
+      if (error) {
+        console.error('Google sign in error:', error);
+        toast.error(error.message);
+        return { error };
+      }
+
+      return { data, error: null };
+    } catch (error: any) {
+      console.error('Unexpected Google sign in error:', error);
+      toast.error(error.message || 'Failed to sign in with Google');
+      return { error };
+    }
+  };
+
   const signInWithMagicLink = async (email: string) => {
     try {
       const redirectUrl = `${window.location.origin}/customer-dashboard`;
@@ -295,6 +318,7 @@ export const useAuth = () => {
     ...authState,
     signUp,
     signIn,
+    signInWithGoogle,
     signInWithMagicLink,
     signOut,
     resetPassword,

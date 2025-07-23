@@ -55,6 +55,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOOptimization 
+        title="About Aaroham - Our Story of Rising with Every Celebration"
+        description="Learn about Aaroham's mission to revolutionize event planning in India through AI technology, cultural respect, and verified vendor networks."
+        keywords="about aaroham, event planning company, AI technology, indian celebrations, vendor network, aaroham story"
+        canonicalUrl="https://aaroham-com.lovable.app/about"
+      />
       <Helmet>
         <title>About Aaroham - Our Story of Rising with Every Celebration</title>
         <meta name="description" content="Learn about Aaroham's mission to revolutionize event planning in India through AI technology, cultural respect, and verified vendor networks." />

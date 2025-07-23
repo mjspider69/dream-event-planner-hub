@@ -12,6 +12,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CulturalBackdrop from "@/components/CulturalBackdrop";
 import LoginPromptModal from "@/components/LoginPromptModal";
+import SEOOptimization from "@/components/SEOOptimization";
 import { useVendors } from "@/hooks/useVendors";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -93,6 +94,12 @@ const VendorListing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <SEOOptimization 
+        title="Find Best Event Vendors in India - Aaroham"
+        description="Discover 1000+ verified event vendors across India. From photographers to caterers, decorators to DJs. Book with confidence on Aaroham's AI-powered platform."
+        keywords="event vendors India, wedding vendors, photographers, caterers, decorators, DJ services, event planning vendors, aaroham vendors"
+        canonicalUrl="https://aaroham-com.lovable.app/vendors"
+      />
       <Helmet>
         <title>Find Best Event Vendors in India - Aaroham</title>
         <meta name="description" content="Discover 1000+ verified event vendors across India. From photographers to caterers, decorators to DJs. Book with confidence on Aaroham's AI-powered platform." />

@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import ChatbotIntroPopup from "@/components/ChatbotIntroPopup";
 import EventPackages from "@/components/EventPackages";
 import SignUpModal from "@/components/SignUpModal";
+import SEOOptimization from "@/components/SEOOptimization";
 import { useAuth } from "@/hooks/useAuth";
 import heroBackground from "@/assets/hero-bg.jpg";
 
@@ -51,6 +52,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-pearl-white">
+      <SEOOptimization 
+        title="Aaroham - India's Premier AI-Powered Event Planning Platform"
+        description="Plan perfect events with Aaroham's AI-powered platform. 1000+ verified vendors, secure payments, 24/7 support. From weddings to corporate events across India."
+        keywords="event planning, wedding planner, AI event planning, India events, vendor booking, corporate events, birthday parties, aaroham, celebration planning"
+        ogImage="https://aaroham-com.lovable.app/og-image.jpg"
+        canonicalUrl="https://aaroham-com.lovable.app/"
+      />
       <Helmet>
         <title>Aaroham - India's Premier AI Event Planning Platform</title>
         <meta name="description" content="Plan perfect events with Aaroham's AI-powered platform. 1000+ verified vendors, secure payments, 24/7 support. From weddings to corporate events across India." />

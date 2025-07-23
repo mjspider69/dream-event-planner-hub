@@ -190,20 +190,25 @@ const OTPVerification = ({
         </div>
         
         <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent mb-2">
-          Verify Your {email ? 'Email' : 'Phone'}
+          Two-Way Verification
         </CardTitle>
         
         <p className="text-gray-600">
-          We've sent a 6-digit verification code to
+          We've sent verification codes to:
         </p>
-        <p className="text-blue-600 font-semibold">
-          {email || phone}
-        </p>
-        {email && phone && (
-          <p className="text-sm text-gray-500 mt-1">
-            Check both your email and SMS messages
+        {email && (
+          <p className="text-blue-600 font-semibold">
+            📧 {email}
           </p>
         )}
+        {phone && (
+          <p className="text-green-600 font-semibold">
+            📱 {phone}
+          </p>
+        )}
+        <p className="text-sm text-gray-500 mt-2">
+          Enter the 6-digit code from either source
+        </p>
       </CardHeader>
       
       <CardContent className="space-y-6 p-6">
@@ -281,11 +286,11 @@ const OTPVerification = ({
         <div className="bg-blue-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 mb-2">
             <CheckCircle className="h-5 w-5 text-blue-600" />
-            <span className="font-semibold text-blue-800">Two-Way Verification</span>
+            <span className="font-semibold text-blue-800">Enhanced Security</span>
           </div>
           <p className="text-sm text-blue-700">
             {email && phone 
-              ? 'We\'ve sent the same code to both your email and phone for enhanced security.'
+              ? 'We\'ve sent the same code to both your email and phone for maximum security.'
               : email 
               ? 'Verification code sent to your email address.'
               : 'Verification code sent to your phone number.'

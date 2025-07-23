@@ -90,6 +90,9 @@ export const useOTP = () => {
         
         // Simulate SMS sending delay
         await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // For demo purposes, show the OTP in console
+        toast.success(`Demo: SMS OTP sent to ${phone}: ${data[0]?.otp_code}`);
       }
 
       // Show success message
@@ -99,7 +102,7 @@ export const useOTP = () => {
       
       toast.success(`OTP sent successfully via ${channels.join(' and ')}!`);
       
-      return { success: true, error: null, data };
+      return { success: true, error: null, data, otpCode: data[0]?.otp_code };
     } catch (error: any) {
       console.error('Error in sendOTP:', error);
       toast.error(error.message || 'Failed to send OTP');
