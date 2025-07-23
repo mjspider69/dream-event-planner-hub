@@ -177,14 +177,4 @@ export const useUnsaveVendor = () => {
   });
 };
 
-// Hook to get a specific vendor by ID
-export const useVendorById_2 = (vendorId: string) => {
-  return useQuery({
-    queryKey: ['vendor', vendorId],
-    queryFn: () => apiClient.getVendor(vendorId),
-    enabled: !!vendorId,
-  });
-};
-
 // Add other vendor-related hooks as needed
-export { useVendors, useVendorById_2 as useVendorById };
