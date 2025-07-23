@@ -415,6 +415,278 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Authentication Routes
+  app.post("/api/auth/register", async (req, res) => {
+    try {
+      const userData = insertProfileSchema.parse(req.body);
+      
+      // Check if user already exists
+      const existingUser = await storage.getUserByEmail(userData.email);
+      if (existingUser) {
+        return res.status(400).json({ error: "User already exists" });
+      }
+
+      // Create new user
+      const user = await storage.createProfile(userData);
+      
+      // Store session
+      const sessionToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      
+      res.json({ 
+        success: true, 
+        user: { ...user, sessionToken },
+        message: "Registration successful" 
+      });
+    } catch (error) {
+      console.error("Registration error:", error);
+      res.status(500).json({ error: "Registration failed" });
+    }
+  });
+
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+      if (!email || !password) {
+        return res.status(400).json({ error: "Email and password required" });
+      }
+
+      const user = await storage.getUserByEmail(email);
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      // In a real app, verify password hash
+      // For now, accept any password for demo purposes
+      
+      const sessionToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      
+      res.json({ 
+        success: true, 
+        user: { ...user, sessionToken },
+        message: "Login successful" 
+      });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ error: "Login failed" });
+    }
+  });
+
+  app.post("/api/auth/login-otp", async (req, res) => {
+    try {
+      const { email, phone } = req.body;
+      
+      if (!email && !phone) {
+        return res.status(400).json({ error: "Email or phone required" });
+      }
+
+      // Generate and send OTP
+      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+      await storage.createOtp({
+        email,
+        phone,
+        otpCode,
+        purpose: "login",
+        expiresAt,
+        isVerified: false,
+        attempts: 0,
+        maxAttempts: 3
+      });
+
+      console.log(`🔐 Login OTP sent to ${email || phone}: ${otpCode}`);
+
+      res.json({ 
+        success: true, 
+        message: "OTP sent successfully",
+        otpCode: process.env.NODE_ENV === "development" ? otpCode : undefined
+      });
+    } catch (error) {
+      console.error("OTP login error:", error);
+      res.status(500).json({ error: "Failed to send login OTP" });
+    }
+  });
+
+  app.post("/api/auth/verify-login-otp", async (req, res) => {
+    try {
+      const { email, phone, otpCode } = req.body;
+      
+      const identifier = email || phone;
+      if (!identifier || !otpCode) {
+        return res.status(400).json({ error: "Email/phone and OTP code required" });
+      }
+
+      const isValid = await storage.verifyOtp(identifier, otpCode, "login");
+      
+      if (!isValid) {
+        return res.status(400).json({ error: "Invalid or expired OTP" });
+      }
+
+      // Find or create user
+      let user = await storage.getUserByEmail(identifier);
+      if (!user && email) {
+        // Create new user if doesn't exist
+        user = await storage.createProfile({
+          email,
+          phone,
+          fullName: "",
+          userType: "customer",
+          emailVerified: true,
+          phoneVerified: !!phone
+        });
+      }
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const sessionToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      
+      res.json({ 
+        success: true, 
+        user: { ...user, sessionToken },
+        message: "Login successful" 
+      });
+    } catch (error) {
+      console.error("OTP verification error:", error);
+      res.status(500).json({ error: "Login verification failed" });
+    }
+  });
+
+  // Complete Vendor Management
+  app.get("/api/vendors/pending", async (req, res) => {
+    try {
+      const vendors = await storage.getPendingVendors();
+      res.json(vendors);
+    } catch (error) {
+      console.error("Get pending vendors error:", error);
+      res.status(500).json({ error: "Failed to fetch pending vendors" });
+    }
+  });
+
+  app.post("/api/vendors/:id/approve", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const vendor = await storage.approveVendor(id);
+      
+      if (!vendor) {
+        return res.status(404).json({ error: "Vendor not found" });
+      }
+
+      res.json({ success: true, vendor });
+    } catch (error) {
+      console.error("Approve vendor error:", error);
+      res.status(500).json({ error: "Failed to approve vendor" });
+    }
+  });
+
+  app.post("/api/vendors/:id/reject", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { reason } = req.body;
+      
+      const vendor = await storage.rejectVendor(id, reason);
+      
+      if (!vendor) {
+        return res.status(404).json({ error: "Vendor not found" });
+      }
+
+      res.json({ success: true, vendor });
+    } catch (error) {
+      console.error("Reject vendor error:", error);
+      res.status(500).json({ error: "Failed to reject vendor" });
+    }
+  });
+
+  // Complete Booking Management
+  app.post("/api/bookings", async (req, res) => {
+    try {
+      const bookingData = insertBookingSchema.parse(req.body);
+      const booking = await storage.createBooking(bookingData);
+      
+      // Create notification for vendor
+      await storage.createNotification({
+        userId: booking.vendorId,
+        type: "booking_request",
+        title: "New Booking Request",
+        message: `You have a new booking request for ${booking.eventDate}`,
+        isRead: false
+      });
+
+      res.status(201).json(booking);
+    } catch (error) {
+      console.error("Create booking error:", error);
+      res.status(500).json({ error: "Failed to create booking" });
+    }
+  });
+
+  app.patch("/api/bookings/:id/status", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, notes } = req.body;
+      
+      const booking = await storage.updateBookingStatus(id, status, notes);
+      
+      if (!booking) {
+        return res.status(404).json({ error: "Booking not found" });
+      }
+
+      // Create notification for customer
+      await storage.createNotification({
+        userId: booking.customerId,
+        type: "booking_update",
+        title: "Booking Status Updated",
+        message: `Your booking has been ${status}`,
+        isRead: false
+      });
+
+      res.json(booking);
+    } catch (error) {
+      console.error("Update booking status error:", error);
+      res.status(500).json({ error: "Failed to update booking status" });
+    }
+  });
+
+  // Complete Payment Management
+  app.post("/api/payments", async (req, res) => {
+    try {
+      const paymentData = insertPaymentSchema.parse(req.body);
+      
+      // Simulate payment processing
+      const paymentStatus = Math.random() > 0.1 ? "completed" : "failed";
+      
+      const payment = await storage.createPayment({
+        ...paymentData,
+        status: paymentStatus,
+        transactionId: `txn_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`
+      });
+
+      // Update booking payment status if successful
+      if (paymentStatus === "completed" && payment.bookingId) {
+        await storage.updateBookingPaymentStatus(payment.bookingId, "paid");
+      }
+
+      res.status(201).json(payment);
+    } catch (error) {
+      console.error("Process payment error:", error);
+      res.status(500).json({ error: "Failed to process payment" });
+    }
+  });
+
+  // Dashboard Analytics
+  app.get("/api/analytics/overview", async (req, res) => {
+    try {
+      const { userType, userId } = req.query;
+      
+      const analytics = await storage.getAnalytics(userType as string, userId as string);
+      res.json(analytics);
+    } catch (error) {
+      console.error("Analytics error:", error);
+      res.status(500).json({ error: "Failed to fetch analytics" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

@@ -6,7 +6,7 @@ import {
   type Otp, type InsertOtp, type ChatSession, type InsertChatSession
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, and, desc, like, gte, lte } from "drizzle-orm";
+import { eq, and, desc, like, gte, lte, inArray } from "drizzle-orm";
 
 export interface IStorage {
   // Legacy user methods for compatibility
@@ -324,6 +324,134 @@ export class DatabaseStorage implements IStorage {
       .where(eq(savedVendors.userId, userId));
     
     return result.map(r => r.vendor);
+  }
+
+  async getUserByEmail(email: string): Promise<Profile | undefined> {
+    const [user] = await db.select().from(profiles).where(eq(profiles.email, email));
+    return user || undefined;
+  }
+
+  async getPendingVendors(): Promise<Vendor[]> {
+    return await db.select().from(vendors).where(eq(vendors.isApproved, false));
+  }
+
+  async approveVendor(id: string): Promise<Vendor | undefined> {
+    const [vendor] = await db
+      .update(vendors)
+      .set({ isApproved: true, updatedAt: new Date() })
+      .where(eq(vendors.id, id))
+      .returning();
+    return vendor || undefined;
+  }
+
+  async rejectVendor(id: string, reason?: string): Promise<Vendor | undefined> {
+    const [vendor] = await db
+      .update(vendors)
+      .set({ 
+        isApproved: false, 
+        rejectionReason: reason,
+        updatedAt: new Date() 
+      })
+      .where(eq(vendors.id, id))
+      .returning();
+    return vendor || undefined;
+  }
+
+  async updateBookingStatus(id: string, status: string, notes?: string): Promise<Booking | undefined> {
+    const [booking] = await db
+      .update(bookings)
+      .set({ 
+        status: status as any, 
+        notes,
+        updatedAt: new Date() 
+      })
+      .where(eq(bookings.id, id))
+      .returning();
+    return booking || undefined;
+  }
+
+  async updateBookingPaymentStatus(bookingId: string, paymentStatus: string): Promise<void> {
+    await db
+      .update(bookings)
+      .set({ 
+        paymentStatus: paymentStatus as any,
+        updatedAt: new Date() 
+      })
+      .where(eq(bookings.id, bookingId));
+  }
+
+  async getAnalytics(userType: string, userId?: string): Promise<any> {
+    const now = new Date();
+    const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    
+    if (userType === 'admin') {
+      const allVendors = await db.select().from(vendors);
+      const pendingVendors = await db.select().from(vendors).where(eq(vendors.isApproved, false));
+      const allBookings = await db.select().from(bookings);
+      const allPayments = await db.select().from(payments);
+      const monthlyBookings = await db.select().from(bookings).where(gte(bookings.createdAt, thisMonth));
+      
+      return {
+        totalVendors: allVendors.length,
+        pendingVendors: pendingVendors.length,
+        totalBookings: allBookings.length,
+        totalRevenue: allPayments.reduce((sum, p) => sum + (p.amount || 0), 0),
+        monthlyBookings: monthlyBookings.length,
+        recentActivity: [
+          ...allBookings.slice(-5).map(b => ({
+            type: 'booking',
+            message: `New booking for ${b.eventDate}`,
+            timestamp: b.createdAt
+          })),
+          ...allVendors.slice(-3).map(v => ({
+            type: 'vendor',
+            message: `New vendor registration: ${v.businessName}`,
+            timestamp: v.createdAt
+          }))
+        ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      };
+    }
+    
+    if (userType === 'vendor' && userId) {
+      const vendorBookings = await db.select().from(bookings).where(eq(bookings.vendorId, userId));
+      const vendorPayments = await db.select().from(payments).where(
+        inArray(payments.bookingId, vendorBookings.map(b => b.id))
+      );
+      
+      return {
+        totalBookings: vendorBookings.length,
+        pendingBookings: vendorBookings.filter(b => b.status === 'pending').length,
+        completedBookings: vendorBookings.filter(b => b.status === 'completed').length,
+        totalEarnings: vendorPayments.reduce((sum, p) => sum + (p.amount || 0), 0),
+        monthlyBookings: vendorBookings.filter(b => new Date(b.createdAt) >= thisMonth).length,
+        upcomingEvents: vendorBookings
+          .filter(b => new Date(b.eventDate) > now && b.status === 'confirmed')
+          .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
+          .slice(0, 5)
+      };
+    }
+    
+    if (userType === 'customer' && userId) {
+      const customerBookings = await db.select().from(bookings).where(eq(bookings.customerId, userId));
+      const customerPayments = await db.select().from(payments).where(
+        inArray(payments.bookingId, customerBookings.map(b => b.id))
+      );
+      
+      return {
+        totalBookings: customerBookings.length,
+        upcomingEvents: customerBookings
+          .filter(b => new Date(b.eventDate) > now)
+          .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
+          .slice(0, 5),
+        pastEvents: customerBookings
+          .filter(b => new Date(b.eventDate) < now)
+          .sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime())
+          .slice(-5),
+        totalSpent: customerPayments.reduce((sum, p) => sum + (p.amount || 0), 0)
+      };
+    }
+    
+    return {};
   }
 }
 

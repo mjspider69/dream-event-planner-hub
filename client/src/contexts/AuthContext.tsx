@@ -113,7 +113,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signInWithOTP = async (email: string, phone?: string) => {
     try {
       setLoading(true);
-      await apiClient.sendOTP({ email, phone, purpose: 'login' });
+      const response = await apiClient.post('/auth/login-otp', { email, phone });
+      if (response.otpCode) {
+        console.log(`Development OTP: ${response.otpCode}`);
+      }
       toast.success('OTP sent successfully!');
     } catch (error: any) {
       toast.error(error.message || 'Failed to send OTP');
@@ -133,7 +136,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (pendingRegistration) {
         // Complete registration
         const regData = JSON.parse(pendingRegistration);
-        await apiClient.verifyOTP({ email, otpCode, purpose: 'signup' });
+        await apiClient.post('/otp/verify', { email, otpCode, purpose: 'signup' });
         
         // Create profile
         const profileData = {
