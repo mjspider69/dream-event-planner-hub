@@ -36,29 +36,29 @@ export const useVendors = (params: UseVendorsParams = {}) => {
     queryKey: ['vendors', params],
     queryFn: async () => {
       console.log('Fetching vendors with params:', params);
-      
+
       const filters: { category?: string; city?: string; featured?: boolean } = {};
-      
+
       if (params.speciality && params.speciality !== 'all') {
         filters.category = params.speciality;
       }
-      
+
       if (params.city && params.city !== 'all cities') {
         filters.city = params.city;
       }
-      
+
       if (params.featured) {
         filters.featured = true;
       }
-      
+
       const vendors = await apiClient.getVendors(filters);
-      
+
       // Filter by rating if specified
       if (params.rating) {
         const minRating = parseFloat(params.rating.replace('+', ''));
         return vendors.filter((vendor: Vendor) => vendor.rating >= minRating);
       }
-      
+
       return vendors;
     },
     retry: 1,
@@ -82,7 +82,7 @@ export const useVendorById = useVendor;
 
 export const useCreateVendor = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (vendorData: any) => {
       return await apiClient.createVendor(vendorData);
@@ -99,7 +99,7 @@ export const useCreateVendor = () => {
 
 export const useUpdateVendor = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: any }) => {
       return await apiClient.updateVendor(id, updates);
@@ -117,7 +117,7 @@ export const useUpdateVendor = () => {
 
 export const useApproveVendor = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (vendorId: string) => {
       return await apiClient.approveVendor(vendorId);
@@ -145,7 +145,7 @@ export const useSavedVendors = (userId: string) => {
 
 export const useSaveVendor = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async ({ userId, vendorId }: { userId: string; vendorId: string }) => {
       return await apiClient.saveVendor(userId, vendorId);
@@ -162,7 +162,7 @@ export const useSaveVendor = () => {
 
 export const useUnsaveVendor = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async ({ userId, vendorId }: { userId: string; vendorId: string }) => {
       return await apiClient.unsaveVendor(userId, vendorId);
@@ -176,3 +176,15 @@ export const useUnsaveVendor = () => {
     },
   });
 };
+
+// Hook to get a specific vendor by ID
+export const useVendorById_2 = (vendorId: string) => {
+  return useQuery({
+    queryKey: ['vendor', vendorId],
+    queryFn: () => apiClient.getVendor(vendorId),
+    enabled: !!vendorId,
+  });
+};
+
+// Add other vendor-related hooks as needed
+export { useVendors, useVendorById_2 as useVendorById };
