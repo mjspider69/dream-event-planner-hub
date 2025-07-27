@@ -29,8 +29,9 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
     
     try {
       if (paymentMethod === 'upi') {
-        // Generate UPI payment URL
-        const upiUrl = `upi://pay?pa=${upiId || 'aaroham@upi'}&pn=Aaroham Events&am=${paymentData.amount}&cu=INR&tn=${paymentData.description}`;
+        // Generate UPI payment URL - Replace 'your-business@upi' with your actual UPI ID
+        const businessUpiId = 'your-business@upi'; // TODO: Replace with your actual business UPI ID
+        const upiUrl = `upi://pay?pa=${upiId || businessUpiId}&pn=Aaroham Events&am=${paymentData.amount}&cu=INR&tn=${paymentData.description}`;
         
         // Create payment record in backend
         const response = await fetch('/api/payment', {
@@ -53,12 +54,12 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
           window.open(upiUrl, '_blank');
           
           // Show manual UPI instructions
-          alert(`Please complete payment via UPI:\n\nUPI ID: aaroham@upi\nAmount: ₹${paymentData.amount}\nReference: ${paymentData.orderId}\n\nClick OK after completing payment.`);
+          alert(`Please complete payment via UPI:\n\nUPI ID: ${businessUpiId}\nAmount: ₹${paymentData.amount}\nReference: ${paymentData.orderId}\n\nClick OK after completing payment.`);
           
           onSuccess(payment.id);
         } catch (error) {
           // Fallback: show manual UPI details
-          alert(`UPI Payment Details:\n\nUPI ID: aaroham@upi\nAmount: ₹${paymentData.amount}\nReference: ${paymentData.orderId}\n\nPlease complete payment using any UPI app.`);
+          alert(`UPI Payment Details:\n\nUPI ID: ${businessUpiId}\nAmount: ₹${paymentData.amount}\nReference: ${paymentData.orderId}\n\nPlease complete payment using any UPI app.`);
           onSuccess(payment.id);
         }
       } else {
@@ -165,9 +166,12 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
                 <div className="bg-white p-3 rounded border">
                   <p className="text-sm text-gray-600">
                     <strong>Payment will be made to:</strong><br/>
-                    UPI ID: aaroham@upi<br/>
+                    UPI ID: your-business@upi<br/>
                     Amount: ₹{paymentData.amount.toLocaleString()}<br/>
                     Reference: {paymentData.orderId}
+                  </p>
+                  <p className="text-xs text-amber-600 mt-2">
+                    ⚠️ Replace with your actual business UPI ID
                   </p>
                 </div>
               </div>
