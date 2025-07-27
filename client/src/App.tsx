@@ -1,34 +1,3 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import Index from "./pages/Index";
-import About from "./pages/About";
-import Auth from "./pages/Auth";
-import CustomerAuth from "./pages/CustomerAuth";
-import VendorAuth from "./pages/VendorAuth";
-import VendorOnboarding from "./pages/VendorOnboarding";
-import VendorListing from "./pages/VendorListing";
-import VendorView from "./pages/VendorView";
-import CustomerDashboard from "./pages/CustomerDashboard";
-import VendorDashboard from "./pages/VendorDashboard";
-import Booking from "./pages/Booking";
-import Quotation from "./pages/Quotation";
-import DealDone from "./pages/DealDone";
-import PlanMyEvent from "./pages/PlanMyEvent";
-import Packages from "./pages/Packages";
-import TalkToVendor from "./pages/TalkToVendor";
-import CustomInput from "./pages/CustomInput";
-import AIChatbot from "./pages/AIChatbot";
-import CustomerCare from "./pages/CustomerCare";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import RefundPolicy from "./pages/RefundPolicy";
-import NotFound from "./pages/NotFound";
-import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -63,8 +32,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { AuthProvider } from "./contexts/AuthContext";
-
-const queryClient = new QueryClient();
 
 const queryClient = new QueryClient();
 
