@@ -26,6 +26,13 @@ import CustomerDashboard from "./pages/CustomerDashboard";
 import VendorDashboard from "./pages/VendorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
+import Booking from "./pages/Booking";
+import Quotation from "./pages/Quotation";
+import DealDone from "./pages/DealDone";
+import PlanMyEvent from "./pages/PlanMyEvent";
+import TalkToVendor from "./pages/TalkToVendor";
+import CustomInput from "./pages/CustomInput";
+import AIChatbot from "./pages/AIChatbot";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
