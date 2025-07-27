@@ -29,11 +29,12 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
     
     try {
       if (paymentMethod === 'upi') {
-        // Generate UPI payment URL - Replace with your actual business UPI ID
-        // Get this from your bank: Contact your bank for business UPI ID
-        // Examples: 'aarohamevents@sbi', 'aaroham@hdfc', 'businessname@paytm'
-        const businessUpiId = 'your-business@upi'; // 🔥 REPLACE THIS WITH YOUR REAL UPI ID
-        const upiUrl = `upi://pay?pa=${upiId || businessUpiId}&pn=Aaroham Events&am=${paymentData.amount}&cu=INR&tn=${paymentData.description}`;
+        // Get UPI configuration from local storage or use default
+        const savedConfig = localStorage.getItem('aaroham_upi_config');
+        const upiConfig = savedConfig ? JSON.parse(savedConfig) : null;
+        const businessUpiId = upiConfig?.businessUpiId || 'your-business@upi';
+        const businessName = upiConfig?.businessName || 'Aaroham Events';
+        const upiUrl = `upi://pay?pa=${upiId || businessUpiId}&pn=${encodeURIComponent(businessName)}&am=${paymentData.amount}&cu=INR&tn=${encodeURIComponent(paymentData.description)}`;
         
         // Create payment record in backend
         const response = await fetch('/api/payment', {
@@ -172,14 +173,27 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
                     Amount: ₹{paymentData.amount.toLocaleString()}<br/>
                     Reference: {paymentData.orderId}
                   </p>
-                  <div className="bg-amber-50 border border-amber-200 rounded p-2 mt-2">
-                    <p className="text-xs text-amber-700 font-medium">
-                      🔥 Action Required: Replace 'your-business@upi' with your real UPI ID
-                    </p>
-                    <p className="text-xs text-amber-600 mt-1">
-                      Contact your bank to get business UPI ID (e.g., aarohamevents@sbi)
-                    </p>
-                  </div>
+                  {businessUpiId === 'your-business@upi' ? (
+                    <div className="bg-amber-50 border border-amber-200 rounded p-2 mt-2">
+                      <p className="text-xs text-amber-700 font-medium">
+                        ⚠️ UPI Not Configured
+                      </p>
+                      <p className="text-xs text-amber-600 mt-1">
+                        <a href="/upi-config" className="underline hover:text-amber-800">
+                          Click here to configure your UPI ID
+                        </a>
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="bg-green-50 border border-green-200 rounded p-2 mt-2">
+                      <p className="text-xs text-green-700 font-medium">
+                        ✅ UPI Configured
+                      </p>
+                      <p className="text-xs text-green-600 mt-1">
+                        Payments will be received at: {businessUpiId}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
