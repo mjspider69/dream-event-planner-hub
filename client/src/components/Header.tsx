@@ -18,9 +18,17 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    const result = await signOut();
-    if (!result.error) {
-      navigate('/');
+    try {
+      const result = await signOut();
+      if (!result?.error) {
+        navigate('/');
+        toast.success("Signed out successfully");
+      } else {
+        toast.error("Failed to sign out");
+      }
+    } catch (error: any) {
+      console.error("Sign out error:", error);
+      toast.error("Failed to sign out");
     }
   };
 
@@ -34,11 +42,11 @@ const Header = () => {
   };
 
   const getUserName = () => {
-    return user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+    return (user as any)?.full_name || user?.email?.split('@')[0] || 'User';
   };
 
   const getUserType = () => {
-    return user?.user_metadata?.user_type || 'customer';
+    return (user as any)?.user_type || 'customer';
   };
 
   return (
