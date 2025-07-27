@@ -179,6 +179,8 @@ export const insertProfileSchema = createInsertSchema(profiles).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  userId: z.string().min(1), // Allow any string, not just UUID
 });
 
 export const insertVendorSchema = createInsertSchema(vendors).omit({

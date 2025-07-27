@@ -13,6 +13,12 @@ export default {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "pearl-white": "#fefefe",
+        "pearl-light": "#f8f9fa", 
+        "pearl-muted": "#f1f3f4",
+        "amber-gold": "#ffd700",
+        "amber-light": "#ffb347",
+        "amber-dark": "#ff8c00",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

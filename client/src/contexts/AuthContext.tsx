@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       
       // Create a mock user session
       const mockUser: User = {
-        id: `user_${Date.now()}`,
+        id: crypto.randomUUID(),
         email,
         fullName: email.split('@')[0],
         userType: 'customer',
@@ -138,9 +138,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const regData = JSON.parse(pendingRegistration);
         await apiClient.post<any>('/otp/verify', { email, otpCode, purpose: 'signup' });
         
-        // Create profile
+        // Create profile with proper UUID
         const profileData = {
-          userId: `user_${Date.now()}`,
+          userId: crypto.randomUUID(),
           fullName: regData.userData.fullName,
           phone: regData.userData.phone,
           city: regData.userData.city,
@@ -167,7 +167,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         
         // Create session
         const mockUser: User = {
-          id: `user_${Date.now()}`,
+          id: crypto.randomUUID(),
           email,
           fullName: email.split('@')[0],
           userType: 'customer',
