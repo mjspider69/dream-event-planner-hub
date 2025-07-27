@@ -1,10 +1,14 @@
 // API client to replace Supabase calls with our backend API
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || (
+  import.meta.env.DEV ? 'http://localhost:5000/api' : '/api'
+);
+
 export class ApiClient {
-  private baseUrl = '';
+  private baseUrl = API_BASE_URL;
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${this.baseUrl}/api${endpoint}`;
+    const url = `${this.baseUrl}${endpoint}`;
     const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +22,7 @@ export class ApiClient {
     }
 
     const response = await fetch(url, config);
-    
+
     if (!response.ok) {
       const error = await response.json().catch(() => ({}));
       throw new Error(error.error || `HTTP ${response.status}: ${response.statusText}`);

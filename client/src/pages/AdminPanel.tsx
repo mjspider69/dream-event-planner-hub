@@ -572,6 +572,8 @@ const AdminPanel = () => {
       </div>
     </AdminProtectedRoute>
   );
+};Route>
+  );
 };
 
 export default AdminPanel;

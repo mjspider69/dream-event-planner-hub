@@ -60,3 +60,26 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
 };
 
 export default AdminProtectedRoute;
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+
+interface AdminProtectedRouteProps {
+  children: React.ReactNode;
+}
+
+const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
+  if (!user || user.userType !== 'admin') {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+export default AdminProtectedRoute;

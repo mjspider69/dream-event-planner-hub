@@ -29,12 +29,42 @@ import RefundPolicy from "./pages/RefundPolicy";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
-import AdminPanel from "./pages/AdminPanel";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from "react-helmet-async";
+import { TooltipProvider } from "./components/ui/tooltip";
+import { Toaster } from "./components/ui/toaster";
+import { Toaster as Sonner } from "./components/ui/sonner";
+
+// Pages
+import Index from "./pages/Index";
+import About from "./pages/About";
+import Packages from "./pages/Packages";
+import VendorListing from "./pages/VendorListing";
+import VendorView from "./pages/VendorView";
+import Auth from "./pages/Auth";
+import CustomerAuth from "./pages/CustomerAuth";
 import CustomerLogin from "./pages/CustomerLogin";
+import VendorAuth from "./pages/VendorAuth";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import RefundPolicy from "./pages/RefundPolicy";
+import CustomerCare from "./pages/CustomerCare";
+import AdminLogin from "./pages/AdminLogin";
+import AdminPanel from "./pages/AdminPanel";
+import CustomerDashboard from "./pages/CustomerDashboard";
+import VendorDashboard from "./pages/VendorDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import NotFound from "./pages/NotFound";
+
+// Components
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { AuthProvider } from "./contexts/AuthContext";
+
+const queryClient = new QueryClient();
 
 const queryClient = new QueryClient();
 
