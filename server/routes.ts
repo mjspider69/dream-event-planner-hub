@@ -4,6 +4,75 @@ import { storage } from "./storage";
 import { insertProfileSchema, insertVendorSchema, insertBookingSchema, insertPaymentSchema, insertNotificationSchema, insertOtpSchema, insertChatSessionSchema } from "@shared/schema";
 import { z } from "zod";
 
+// Email and SMS service functions
+async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
+  if (process.env.SENDGRID_API_KEY) {
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
+    const msg = {
+      to: email,
+      from: 'noreply@aaroham.com', // Change to your verified sender
+      subject: `Aaroham - Your OTP Code`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: linear-gradient(135deg, #3B82F6 0%, #F59E0B 100%); padding: 20px; text-align: center;">
+            <h1 style="color: white; margin: 0;">Aaroham Events</h1>
+          </div>
+          <div style="padding: 20px; background: white;">
+            <h2>Your OTP Code</h2>
+            <p>Use this code to complete your ${purpose}:</p>
+            <div style="background: #F3F4F6; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; margin: 20px 0;">
+              ${otpCode}
+            </div>
+            <p style="color: #666;">This code will expire in 5 minutes.</p>
+            <p style="color: #666;">If you didn't request this code, please ignore this email.</p>
+          </div>
+        </div>
+      `
+    };
+    
+    try {
+      await sgMail.send(msg);
+      console.log(`📧 OTP sent to ${email}: ${otpCode}`);
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      // Fallback to console log in development
+      if (process.env.NODE_ENV === "development") {
+        console.log(`📧 OTP (fallback) for ${email}: ${otpCode}`);
+      }
+    }
+  } else {
+    // Development fallback
+    console.log(`📧 OTP for ${email}: ${otpCode}`);
+  }
+}
+
+async function sendSMSOTP(phone: string, otpCode: string, purpose: string) {
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+    const twilio = require('twilio');
+    const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    
+    try {
+      await client.messages.create({
+        body: `Your Aaroham OTP code is: ${otpCode}. Valid for 5 minutes. Don't share this code.`,
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: phone
+      });
+      console.log(`📱 SMS sent to ${phone}: ${otpCode}`);
+    } catch (error) {
+      console.error('SMS sending failed:', error);
+      // Fallback to console log in development
+      if (process.env.NODE_ENV === "development") {
+        console.log(`📱 SMS (fallback) for ${phone}: ${otpCode}`);
+      }
+    }
+  } else {
+    // Development fallback
+    console.log(`📱 SMS for ${phone}: ${otpCode}`);
+  }
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // OTP Management Routes
   app.post("/api/otp/send", async (req, res) => {
@@ -29,15 +98,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         maxAttempts: 3
       });
 
-      // Send OTP via email (simulated for development)
+      // Send OTP via email and SMS
       if (email) {
-        console.log(`📧 OTP sent to ${email}: ${otpCode}`);
-        // In production, integrate with email service
+        await sendEmailOTP(email, otpCode, purpose);
       }
       
       if (phone) {
-        console.log(`📱 OTP sent to ${phone}: ${otpCode}`);
-        // In production, integrate with SMS service
+        await sendSMSOTP(phone, otpCode, purpose);
       }
 
       res.json({ 

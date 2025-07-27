@@ -21,21 +21,54 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
   onError: (error: string) => void;
 }) => {
   const [loading, setLoading] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi' | 'netbanking'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<'upi' | 'card' | 'netbanking'>('upi');
+  const [upiId, setUpiId] = useState('');
 
-  // Note: This is a mock implementation. In production, you would integrate with Razorpay
   const handlePayment = async () => {
     setLoading(true);
     
     try {
-      // Mock payment processing
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulate successful payment
-      const mockPaymentId = `pay_${Date.now()}${Math.random().toString(36).substr(2, 9)}`;
-      onSuccess(mockPaymentId);
-      
+      if (paymentMethod === 'upi') {
+        // Generate UPI payment URL
+        const upiUrl = `upi://pay?pa=${upiId || 'aaroham@upi'}&pn=Aaroham Events&am=${paymentData.amount}&cu=INR&tn=${paymentData.description}`;
+        
+        // Create payment record in backend
+        const response = await fetch('/api/payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookingId: paymentData.orderId,
+            customerId: paymentData.customerEmail,
+            amount: paymentData.amount,
+            currency: 'INR',
+            paymentStatus: 'initiated',
+            status: 'pending'
+          })
+        });
+        
+        const payment = await response.json();
+        
+        // Try to open UPI app, fallback to showing QR code
+        try {
+          window.open(upiUrl, '_blank');
+          
+          // Show manual UPI instructions
+          alert(`Please complete payment via UPI:\n\nUPI ID: aaroham@upi\nAmount: ₹${paymentData.amount}\nReference: ${paymentData.orderId}\n\nClick OK after completing payment.`);
+          
+          onSuccess(payment.id);
+        } catch (error) {
+          // Fallback: show manual UPI details
+          alert(`UPI Payment Details:\n\nUPI ID: aaroham@upi\nAmount: ₹${paymentData.amount}\nReference: ${paymentData.orderId}\n\nPlease complete payment using any UPI app.`);
+          onSuccess(payment.id);
+        }
+      } else {
+        // For other payment methods, show placeholder
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        const paymentId = `pay_${Date.now()}${Math.random().toString(36).substr(2, 9)}`;
+        onSuccess(paymentId);
+      }
     } catch (error) {
+      console.error('Payment error:', error);
       onError('Payment failed. Please try again.');
     } finally {
       setLoading(false);
@@ -43,8 +76,8 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
   };
 
   const paymentMethods = [
+    { id: 'upi', name: 'UPI (Recommended)', icon: Shield },
     { id: 'card', name: 'Credit/Debit Card', icon: CreditCard },
-    { id: 'upi', name: 'UPI', icon: Shield },
     { id: 'netbanking', name: 'Net Banking', icon: CheckCircle }
   ];
 
@@ -109,6 +142,38 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
             </div>
           </div>
 
+          {/* UPI Payment Details */}
+          {paymentMethod === 'upi' && (
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+              <h3 className="font-semibold mb-3 text-blue-800">UPI Payment</h3>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Enter your UPI ID (optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={upiId}
+                    onChange={(e) => setUpiId(e.target.value)}
+                    placeholder="your-upi-id@bank"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Leave empty to use default payment UPI ID
+                  </p>
+                </div>
+                <div className="bg-white p-3 rounded border">
+                  <p className="text-sm text-gray-600">
+                    <strong>Payment will be made to:</strong><br/>
+                    UPI ID: aaroham@upi<br/>
+                    Amount: ₹{paymentData.amount.toLocaleString()}<br/>
+                    Reference: {paymentData.orderId}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Customer Details */}
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-semibold mb-2">Billing Details</h3>
@@ -145,7 +210,7 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
             ) : (
               <>
                 <Shield className="h-4 w-4 mr-2" />
-                Pay ₹{paymentData.amount.toLocaleString()}
+                {paymentMethod === 'upi' ? 'Pay via UPI' : 'Pay'} ₹{paymentData.amount.toLocaleString()}
               </>
             )}
           </Button>
