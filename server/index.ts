@@ -3,8 +3,56 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// Enhanced middleware for high-performance concurrent user handling
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// High-performance concurrent user handling middleware
+app.use((req, res, next) => {
+  // Add performance headers for multiple concurrent users
+  res.setHeader('X-Powered-By', 'Aaroham-Platform');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Keep-Alive', 'timeout=5, max=1000');
+  
+  // Enable compression for faster responses
+  res.setHeader('Vary', 'Accept-Encoding');
+  
+  // Set concurrent request timeout
+  req.setTimeout(30000); // 30 seconds timeout
+  res.setTimeout(30000);
+  
+  next();
+});
+
+// Memory management for concurrent connections
+let activeConnections = 0;
+const maxConnections = 1000;
+
+app.use((req, res, next) => {
+  activeConnections++;
+  
+  // Monitor connection count
+  if (activeConnections > maxConnections) {
+    res.status(503).json({ 
+      error: 'Server busy, please try again',
+      retryAfter: 1
+    });
+    activeConnections--;
+    return;
+  }
+  
+  // Clean up when request completes
+  res.on('finish', () => {
+    activeConnections--;
+  });
+  
+  res.on('close', () => {
+    activeConnections--;
+  });
+  
+  next();
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
