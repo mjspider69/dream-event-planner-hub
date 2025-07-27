@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Crown, Loader2 } from "lucide-react";
@@ -16,7 +15,7 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
       console.log('Checking admin authentication...');
       const isAdminAuth = localStorage.getItem("isAdminAuthenticated");
       console.log('Admin auth status:', isAdminAuth);
-      
+
       if (isAdminAuth === "true") {
         console.log('Admin authenticated, allowing access');
         setIsAuthenticated(true);
@@ -54,29 +53,6 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
         </div>
       </div>
     );
-  }
-
-  return <>{children}</>;
-};
-
-export default AdminProtectedRoute;
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-
-interface AdminProtectedRouteProps {
-  children: React.ReactNode;
-}
-
-const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ children }) => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  }
-
-  if (!user || user.userType !== 'admin') {
-    return <Navigate to="/admin/login" replace />;
   }
 
   return <>{children}</>;
