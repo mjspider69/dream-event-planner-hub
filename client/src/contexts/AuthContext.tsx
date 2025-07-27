@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signInWithOTP = async (email: string, phone?: string) => {
     try {
       setLoading(true);
-      const response = await apiClient.post('/auth/login-otp', { email, phone });
+      const response = await apiClient.post<any>('/auth/login-otp', { email, phone });
       if (response.otpCode) {
         console.log(`Development OTP: ${response.otpCode}`);
       }
@@ -136,7 +136,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (pendingRegistration) {
         // Complete registration
         const regData = JSON.parse(pendingRegistration);
-        await apiClient.post('/otp/verify', { email, otpCode, purpose: 'signup' });
+        await apiClient.post<any>('/otp/verify', { email, otpCode, purpose: 'signup' });
         
         // Create profile
         const profileData = {

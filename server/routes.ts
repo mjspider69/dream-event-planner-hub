@@ -421,9 +421,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userData = insertProfileSchema.parse(req.body);
       
       // Check if user already exists
-      const existingUser = await storage.getUserByEmail(userData.email);
-      if (existingUser) {
-        return res.status(400).json({ error: "User already exists" });
+      if (userData.email) {
+        const existingUser = await storage.getUserByEmail(userData.email);
+        if (existingUser) {
+          return res.status(400).json({ error: "User already exists" });
+        }
       }
 
       // Create new user
@@ -528,6 +530,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!user && email) {
         // Create new user if doesn't exist
         user = await storage.createProfile({
+          userId: `user_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
           email,
           phone,
           fullName: "",
@@ -659,7 +662,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const payment = await storage.createPayment({
         ...paymentData,
         status: paymentStatus,
-        transactionId: `txn_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`
+        paymentStatus: paymentStatus
       });
 
       // Update booking payment status if successful

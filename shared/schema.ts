@@ -7,6 +7,7 @@ import { z } from "zod";
 export const profiles = pgTable("profiles", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").notNull(),
+  email: text("email").unique(),
   fullName: text("full_name"),
   phone: text("phone"),
   city: text("city"),
@@ -57,6 +58,7 @@ export const vendors = pgTable("vendors", {
   socialMedia: jsonb("social_media").default("{}"),
   availability: jsonb("availability").default("{}"),
   verificationStatus: text("verification_status").default("pending"),
+  rejectionReason: text("rejection_reason"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -80,6 +82,7 @@ export const bookings = pgTable("bookings", {
   vendorResponse: text("vendor_response"),
   customerRating: integer("customer_rating"),
   vendorRating: integer("vendor_rating"),
+  notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -92,6 +95,7 @@ export const payments = pgTable("payments", {
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   currency: text("currency").default("INR"),
   paymentStatus: text("payment_status").default("pending"),
+  status: text("status").default("pending"),
   paymentDate: timestamp("payment_date"),
   razorpayOrderId: text("razorpay_order_id"),
   razorpayPaymentId: text("razorpay_payment_id"),

@@ -335,15 +335,6 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(vendors).where(eq(vendors.isApproved, false));
   }
 
-  async approveVendor(id: string): Promise<Vendor | undefined> {
-    const [vendor] = await db
-      .update(vendors)
-      .set({ isApproved: true, updatedAt: new Date() })
-      .where(eq(vendors.id, id))
-      .returning();
-    return vendor || undefined;
-  }
-
   async rejectVendor(id: string, reason?: string): Promise<Vendor | undefined> {
     const [vendor] = await db
       .update(vendors)
@@ -395,18 +386,18 @@ export class DatabaseStorage implements IStorage {
         totalVendors: allVendors.length,
         pendingVendors: pendingVendors.length,
         totalBookings: allBookings.length,
-        totalRevenue: allPayments.reduce((sum, p) => sum + (p.amount || 0), 0),
+        totalRevenue: allPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
         monthlyBookings: monthlyBookings.length,
         recentActivity: [
           ...allBookings.slice(-5).map(b => ({
             type: 'booking',
             message: `New booking for ${b.eventDate}`,
-            timestamp: b.createdAt
+            timestamp: b.createdAt || new Date()
           })),
           ...allVendors.slice(-3).map(v => ({
             type: 'vendor',
             message: `New vendor registration: ${v.businessName}`,
-            timestamp: v.createdAt
+            timestamp: v.createdAt || new Date()
           }))
         ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       };
@@ -422,8 +413,8 @@ export class DatabaseStorage implements IStorage {
         totalBookings: vendorBookings.length,
         pendingBookings: vendorBookings.filter(b => b.status === 'pending').length,
         completedBookings: vendorBookings.filter(b => b.status === 'completed').length,
-        totalEarnings: vendorPayments.reduce((sum, p) => sum + (p.amount || 0), 0),
-        monthlyBookings: vendorBookings.filter(b => new Date(b.createdAt) >= thisMonth).length,
+        totalEarnings: vendorPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
+        monthlyBookings: vendorBookings.filter(b => new Date(b.createdAt || new Date()) >= thisMonth).length,
         upcomingEvents: vendorBookings
           .filter(b => new Date(b.eventDate) > now && b.status === 'confirmed')
           .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
@@ -447,7 +438,7 @@ export class DatabaseStorage implements IStorage {
           .filter(b => new Date(b.eventDate) < now)
           .sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime())
           .slice(-5),
-        totalSpent: customerPayments.reduce((sum, p) => sum + (p.amount || 0), 0)
+        totalSpent: customerPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)
       };
     }
     

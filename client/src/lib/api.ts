@@ -31,14 +31,14 @@ export class ApiClient {
   async sendOTP(data: { email?: string; phone?: string; purpose?: string }) {
     return this.request<{ success: boolean; message: string; otpCode?: string }>('/otp/send', {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(data),
     });
   }
 
   async verifyOTP(data: { email?: string; phone?: string; otpCode: string; purpose?: string }) {
     return this.request<{ success: boolean; message: string }>('/otp/verify', {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(data),
     });
   }
 
@@ -50,14 +50,14 @@ export class ApiClient {
   async createProfile(profile: any) {
     return this.request('/profile', {
       method: 'POST',
-      body: profile,
+      body: JSON.stringify(profile),
     });
   }
 
   async updateProfile(userId: string, updates: any) {
     return this.request(`/profile/${userId}`, {
       method: 'PUT',
-      body: updates,
+      body: JSON.stringify(updates),
     });
   }
 
@@ -174,14 +174,14 @@ export class ApiClient {
   async saveVendor(userId: string, vendorId: string) {
     return this.request('/saved-vendors', {
       method: 'POST',
-      body: { userId, vendorId },
+      body: JSON.stringify({ userId, vendorId }),
     });
   }
 
   async unsaveVendor(userId: string, vendorId: string) {
     return this.request('/saved-vendors', {
       method: 'DELETE',
-      body: { userId, vendorId },
+      body: JSON.stringify({ userId, vendorId }),
     });
   }
 
@@ -198,6 +198,14 @@ export class ApiClient {
   async cleanupExpiredOTPs() {
     return this.request('/cleanup/otps', {
       method: 'POST',
+    });
+  }
+
+  // Generic post method for flexibility
+  async post<T>(endpoint: string, data?: any): Promise<T> {
+    return this.request<T>(endpoint, {
+      method: 'POST',
+      body: data ? JSON.stringify(data) : undefined,
     });
   }
 }
