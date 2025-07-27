@@ -34,6 +34,7 @@ import TalkToVendor from "./pages/TalkToVendor";
 import CustomInput from "./pages/CustomInput";
 import AIChatbot from "./pages/AIChatbot";
 import AdminSetup from "./components/AdminSetup";
+import Settings from "./pages/Settings";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -95,6 +96,7 @@ const App = () => (
             <Route path="/custom-input" element={<CustomInput />} />
             <Route path="/ai-chatbot" element={<AIChatbot />} />
             <Route path="/admin/setup" element={<AdminSetup />} />
+            <Route path="/settings" element={<Settings />} />
 
             {/* Admin Routes */}
             <Route 

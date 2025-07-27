@@ -6,14 +6,60 @@ import { z } from "zod";
 
 // Email and SMS service functions
 async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
+  // Try SendGrid first if API key is available
   if (process.env.SENDGRID_API_KEY) {
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    try {
+      const sgMail = require('@sendgrid/mail');
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      
+      const msg = {
+        to: email,
+        from: 'noreply@aaroham.com', // Change to your verified sender
+        subject: `Aaroham - Your OTP Code`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #3B82F6 0%, #F59E0B 100%); padding: 20px; text-align: center;">
+              <h1 style="color: white; margin: 0;">Aaroham Events</h1>
+            </div>
+            <div style="padding: 20px; background: white;">
+              <h2>Your OTP Code</h2>
+              <p>Use this code to complete your ${purpose}:</p>
+              <div style="background: #F3F4F6; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; margin: 20px 0;">
+                ${otpCode}
+              </div>
+              <p style="color: #666;">This code will expire in 5 minutes.</p>
+              <p style="color: #666;">If you didn't request this code, please ignore this email.</p>
+            </div>
+          </div>
+        `
+      };
+      
+      await sgMail.send(msg);
+      console.log(`📧 SendGrid OTP sent to ${email}: ${otpCode}`);
+      return true;
+    } catch (error) {
+      console.error('SendGrid email failed, trying free service:', error);
+    }
+  }
+  
+  // Free email service fallback
+  try {
+    // Use nodemailer with free SMTP service
+    const nodemailer = require('nodemailer');
     
-    const msg = {
+    // Create transporter for free email service
+    const transporter = nodemailer.createTransporter({
+      service: 'gmail', // You can use other free services
+      auth: {
+        user: process.env.SMTP_USER || 'demo@gmail.com',
+        pass: process.env.SMTP_PASS || 'demo'
+      }
+    });
+    
+    const mailOptions = {
+      from: '"Aaroham Events" <noreply@aaroham.com>',
       to: email,
-      from: 'noreply@aaroham.com', // Change to your verified sender
-      subject: `Aaroham - Your OTP Code`,
+      subject: 'Aaroham - Your OTP Code',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #3B82F6 0%, #F59E0B 100%); padding: 20px; text-align: center;">
@@ -32,19 +78,21 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
       `
     };
     
-    try {
-      await sgMail.send(msg);
-      console.log(`📧 OTP sent to ${email}: ${otpCode}`);
-    } catch (error) {
-      console.error('Email sending failed:', error);
-      // Fallback to console log in development
-      if (process.env.NODE_ENV === "development") {
-        console.log(`📧 OTP (fallback) for ${email}: ${otpCode}`);
-      }
+    // In development, just log the OTP
+    if (process.env.NODE_ENV === "development") {
+      console.log(`📧 Free Email OTP for ${email}: ${otpCode}`);
+      console.log('Email HTML content prepared (not sent in development)');
+      return true;
     }
-  } else {
-    // Development fallback
-    console.log(`📧 OTP for ${email}: ${otpCode}`);
+    
+    // In production, attempt to send
+    await transporter.sendMail(mailOptions);
+    console.log(`📧 Free email OTP sent to ${email}: ${otpCode}`);
+    return true;
+  } catch (error) {
+    console.error('Free email service failed:', error);
+    console.log(`📧 Fallback - OTP for ${email}: ${otpCode}`);
+    return false;
   }
 }
 

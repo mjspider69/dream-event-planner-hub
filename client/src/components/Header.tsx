@@ -194,6 +194,14 @@ const Header = () => {
                     <Settings className="h-4 w-4 mr-2" />
                     Dashboard
                   </Link>
+                  <Link
+                    to="/settings"
+                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Platform Settings
+                  </Link>
                   <button
                     onClick={() => {
                       handleSignOut();
