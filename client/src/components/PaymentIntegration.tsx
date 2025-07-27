@@ -29,8 +29,10 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
     
     try {
       if (paymentMethod === 'upi') {
-        // Generate UPI payment URL - Replace 'your-business@upi' with your actual UPI ID
-        const businessUpiId = 'your-business@upi'; // TODO: Replace with your actual business UPI ID
+        // Generate UPI payment URL - Replace with your actual business UPI ID
+        // Get this from your bank: Contact your bank for business UPI ID
+        // Examples: 'aarohamevents@sbi', 'aaroham@hdfc', 'businessname@paytm'
+        const businessUpiId = 'your-business@upi'; // 🔥 REPLACE THIS WITH YOUR REAL UPI ID
         const upiUrl = `upi://pay?pa=${upiId || businessUpiId}&pn=Aaroham Events&am=${paymentData.amount}&cu=INR&tn=${paymentData.description}`;
         
         // Create payment record in backend
@@ -170,9 +172,14 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
                     Amount: ₹{paymentData.amount.toLocaleString()}<br/>
                     Reference: {paymentData.orderId}
                   </p>
-                  <p className="text-xs text-amber-600 mt-2">
-                    ⚠️ Replace with your actual business UPI ID
-                  </p>
+                  <div className="bg-amber-50 border border-amber-200 rounded p-2 mt-2">
+                    <p className="text-xs text-amber-700 font-medium">
+                      🔥 Action Required: Replace 'your-business@upi' with your real UPI ID
+                    </p>
+                    <p className="text-xs text-amber-600 mt-1">
+                      Contact your bank to get business UPI ID (e.g., aarohamevents@sbi)
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
