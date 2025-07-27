@@ -11,5 +11,14 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Enterprise-scale connection pool for 7000+ concurrent users
+export const pool = new Pool({ 
+  connectionString: process.env.DATABASE_URL,
+  max: 100, // Maximum 100 database connections
+  min: 10,  // Minimum 10 connections always ready
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
+  maxUses: 7500, // Each connection handles up to 7500 requests
+  allowExitOnIdle: false
+});
 export const db = drizzle({ client: pool, schema });

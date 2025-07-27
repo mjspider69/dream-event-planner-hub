@@ -13,7 +13,7 @@ app.use((req, res, next) => {
   res.setHeader('X-Powered-By', 'Aaroham-Platform');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-  res.setHeader('Keep-Alive', 'timeout=5, max=1000');
+  res.setHeader('Keep-Alive', 'timeout=30, max=10000');
   
   // Enable compression for faster responses
   res.setHeader('Vary', 'Accept-Encoding');
@@ -25,9 +25,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Memory management for concurrent connections
+// Enterprise-scale memory management for 7000+ concurrent users
 let activeConnections = 0;
-const maxConnections = 1000;
+const maxConnections = 10000; // Support 10,000 concurrent connections
+const memoryThreshold = 0.8; // 80% memory usage threshold
 
 app.use((req, res, next) => {
   activeConnections++;
