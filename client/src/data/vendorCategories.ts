@@ -16,21 +16,21 @@ export const VENDOR_CATEGORIES = {
       "Projector & Equipment Rentals",
       "Lighting Technology"
     ],
-    "Conference & Exhibition": [
+    "Conference & Exhibition Booth Designers": [
       "Booth Designers",
       "Exhibition Stall Setup",
       "Trade Show Organizers",
       "Convention Center Management",
       "Display & Signage"
     ],
-    "Team Building Activities": [
+    "Team Building Activity Coordinators": [
       "Adventure Sports Coordinators",
       "Indoor Activity Organizers",
       "Team Building Trainers",
       "Corporate Games & Sports",
       "Leadership Development Activities"
     ],
-    "Corporate Gifting": [
+    "Corporate Gifting Solutions": [
       "Customized Gift Solutions",
       "Branded Merchandise",
       "Executive Gift Services",
@@ -62,14 +62,14 @@ export const VENDOR_CATEGORIES = {
       "Sugar Art Creators",
       "Themed Cake Artists"
     ],
-    "Kids Entertainment": [
+    "Kids Entertainers": [
       "Magicians & Illusionists",
       "Clowns & Puppeteers",
       "Face Painting Artists",
       "Balloon Twisters",
       "Character Performers"
     ],
-    "Photo & Memory Services": [
+    "Photobooth & Instant Print Services": [
       "Photobooth Providers",
       "Instant Print Services",
       "Birthday Photography",
@@ -80,35 +80,35 @@ export const VENDOR_CATEGORIES = {
 
   // Cultural & Religious Events
   CULTURAL: {
-    "Festival Decoration": [
+    "Festival Decor Experts": [
       "Diwali Decoration Specialists",
       "Ganesh Chaturthi Organizers",
       "Navratri Setup Providers",
       "Christmas Decoration",
       "Eid Celebration Planners"
     ],
-    "Pooja & Religious Services": [
+    "Pooja Setup Services": [
       "Mandap Setup Services",
       "Temple Decoration",
       "Priest & Pandit Services",
       "Religious Idol Providers",
       "Sacred Fire Arrangements"
     ],
-    "Traditional Music & Arts": [
+    "Traditional Musicians & Folk Artists": [
       "Classical Musicians",
       "Folk Dance Groups",
       "Traditional Instrument Players",
       "Cultural Performance Artists",
       "Regional Music Specialists"
     ],
-    "Mehendi & Beauty": [
+    "Mehendi & Face Art Professionals": [
       "Bridal Mehendi Artists",
       "Face Art Professionals",
       "Traditional Makeup Artists",
       "Hair Styling Specialists",
       "Beauty Parlor Services"
     ],
-    "Regional Cuisine": [
+    "Local Food Caterers": [
       "Traditional Food Caterers",
       "Regional Specialty Chefs",
       "Festival Food Specialists",
@@ -158,35 +158,35 @@ export const VENDOR_CATEGORIES = {
 
   // Social Events & Gatherings
   SOCIAL: {
-    "Catering Services": [
+    "Caterers for Small & Large Groups": [
       "Small Group Caterers",
       "Large Event Caterers",
       "Specialty Cuisine Providers",
       "Buffet Service Specialists",
       "Live Food Counters"
     ],
-    "Bar & Beverage Services": [
+    "Bartenders & Mixologists": [
       "Professional Bartenders",
       "Mixologists",
       "Wine Service Specialists",
       "Non-alcoholic Beverage Services",
       "Coffee & Tea Services"
     ],
-    "Entertainment Services": [
+    "MCs & Hosts & Stand-up Comedians": [
       "MCs & Event Hosts",
       "Stand-up Comedians",
       "Live Music Performers",
       "DJ Services",
       "Game Show Organizers"
     ],
-    "Security & Support": [
+    "Security & Valet Services": [
       "Event Security Services",
       "Valet Parking Services",
       "Crowd Management",
       "Emergency Medical Services",
       "Guest Reception Services"
     ],
-    "Cleaning & Maintenance": [
+    "Cleaning & Maintenance Crews": [
       "Post-event Cleaning",
       "Maintenance Crews",
       "Waste Management",
@@ -197,65 +197,79 @@ export const VENDOR_CATEGORIES = {
 
   // Fashion, Launch & Promotional Events
   FASHION: {
-    "Event Styling": [
+    "Event Stylists & Set Designers": [
       "Fashion Show Organizers",
       "Runway Setup Specialists",
       "Model Coordination Services",
       "Styling Consultants",
       "Wardrobe Management"
     ],
-    "Lighting & Effects": [
+    "Lighting & Effects Experts": [
       "Stage Lighting Specialists",
       "Special Effects Providers",
       "Smoke & Fog Machine Rentals",
       "LED Wall Providers",
       "Laser Light Shows"
     ],
-    "Influencer & PR": [
+    "Influencer Coordination Agencies": [
       "Influencer Coordination",
       "PR Agency Services",
       "Media Relations",
       "Social Media Management",
       "Celebrity Management"
     ],
-    "Model & Brand Services": [
+    "Model & Brand Ambassador Agencies": [
       "Modeling Agencies",
       "Brand Ambassador Services",
       "Product Launch Specialists",
       "Promotional Staff Providers",
       "Demo Coordinators"
+    ],
+    "On-Ground Promo Staff Providers": [
+      "Event Promoters",
+      "Product Demonstrators",
+      "Sample Distribution Teams",
+      "Brand Activation Staff",
+      "Interactive Experience Coordinators"
     ]
   },
 
   // Educational & Institutional Events
   EDUCATIONAL: {
-    "Educational Setup": [
+    "EdTech Demo Setup Providers": [
       "EdTech Demo Providers",
       "Training Session Organizers",
       "Workshop Coordinators",
       "Seminar Management",
       "Academic Event Planners"
     ],
-    "Print & Backdrop": [
+    "Stall & Backdrop Print Vendors": [
       "Banner & Signage Providers",
       "Backdrop Design Services",
       "Print & Graphics Solutions",
       "Stage Backdrop Specialists",
       "Promotional Material Printing"
     ],
-    "Awards & Recognition": [
+    "Trophy & Award Makers": [
       "Trophy & Medal Makers",
       "Certificate Printing Services",
       "Award Ceremony Organizers",
       "Recognition Gift Providers",
       "Achievement Display Services"
     ],
-    "Stationery & Kits": [
+    "Stationery & Welcome Kit Vendors": [
       "Welcome Kit Providers",
       "Promotional Stationery",
       "Conference Material Suppliers",
       "Registration Kit Services",
       "Educational Material Providers"
+    ],
+    "Live Streaming Services": [
+      "Professional Live Streaming",
+      "Multi-camera Setup",
+      "Online Event Broadcasting",
+      "Webinar Technical Support",
+      "Virtual Event Production"
     ]
   }
 };

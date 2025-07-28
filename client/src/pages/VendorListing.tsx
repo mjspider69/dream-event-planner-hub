@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, MapPin, Star, Filter, Heart, Bot, Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,7 +16,7 @@ import SEOOptimization from "@/components/SEOOptimization";
 import { useVendors } from "@/hooks/useVendors";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
-import { VENDOR_CATEGORIES, CATEGORY_GROUPS } from "@/constants/vendorCategories";
+import { VENDOR_CATEGORIES, ALL_VENDOR_TYPES } from "@/data/vendorCategories";
 
 const VendorListing = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,18 +32,17 @@ const VendorListing = () => {
 
   const { data: vendors = [], isLoading, error } = useVendors(filters);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
-  // Filter vendors based on search term and approval status
-  const filteredVendors = vendors.filter(vendor => {
+  // Filter vendors based on search term and show ALL vendors (both approved and pending)
+  const filteredVendors = vendors.filter((vendor: any) => {
     const matchesSearch = vendor.business_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.city?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.category?.toLowerCase().includes(searchTerm.toLowerCase());
     
-    // Only show approved vendors (is_online field may not exist in all records)
-    const isApproved = vendor.is_approved === true;
-    
-    return matchesSearch && isApproved;
+    // Show all vendors to customers - both approved and newly registered ones
+    return matchesSearch;
   });
 
   const locations = ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Pune", "Hyderabad", "Ahmedabad", "Jaipur", "Kolkata", "Kochi", "Lucknow"];
