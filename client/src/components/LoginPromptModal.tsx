@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LogIn, X, Shield, Star } from "lucide-react";
@@ -23,16 +22,16 @@ const LoginPromptModal = ({ isOpen, onClose, vendorName }: LoginPromptModalProps
           >
             <X className="h-4 w-4 text-gray-500" />
           </button>
-          
+
           <div className="w-16 h-16 bg-gradient-to-r from-amber-600 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield className="h-8 w-8 text-white" />
           </div>
-          
+
           <CardTitle className="text-2xl font-bold text-gray-900">
             Login Required
           </CardTitle>
         </CardHeader>
-        
+
         <CardContent className="p-6 text-center">
           <p className="text-gray-600 mb-6">
             {vendorName 
@@ -40,7 +39,7 @@ const LoginPromptModal = ({ isOpen, onClose, vendorName }: LoginPromptModalProps
               : "Please log in to view full vendor details and contact options."
             }
           </p>
-          
+
           <div className="bg-amber-50 p-4 rounded-lg mb-6">
             <div className="flex items-center justify-center space-x-2 mb-2">
               <Star className="h-4 w-4 text-amber-500" />
@@ -54,7 +53,7 @@ const LoginPromptModal = ({ isOpen, onClose, vendorName }: LoginPromptModalProps
               <li>• Get personalized recommendations</li>
             </ul>
           </div>
-          
+
           <div className="flex flex-col space-y-3">
             <Link to="/login" onClick={onClose}>
               <Button className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white">
@@ -62,7 +61,7 @@ const LoginPromptModal = ({ isOpen, onClose, vendorName }: LoginPromptModalProps
                 Login to Continue
               </Button>
             </Link>
-            
+
             <Link to="/login" onClick={onClose}>
               <Button 
                 variant="outline" 
@@ -71,7 +70,7 @@ const LoginPromptModal = ({ isOpen, onClose, vendorName }: LoginPromptModalProps
                 Create New Account
               </Button>
             </Link>
-            
+
             <Button 
               variant="ghost" 
               onClick={onClose}

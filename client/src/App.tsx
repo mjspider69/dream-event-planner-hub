@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Packages from "./pages/Packages";
 import VendorListing from "./pages/VendorListing";
 import VendorView from "./pages/VendorView";
+import TalkToVendor from "./pages/TalkToVendor";
 import Auth from "./pages/Auth";
 import CustomerAuth from "./pages/CustomerAuth";
 import CustomerLogin from "./pages/CustomerLogin";
@@ -30,7 +31,6 @@ import Booking from "./pages/Booking";
 import Quotation from "./pages/Quotation";
 import DealDone from "./pages/DealDone";
 import PlanMyEvent from "./pages/PlanMyEvent";
-import TalkToVendor from "./pages/TalkToVendor";
 import CustomInput from "./pages/CustomInput";
 import AIChatbot from "./pages/AIChatbot";
 import AdminSetup from "./components/AdminSetup";
@@ -61,6 +61,7 @@ const App = () => (
           <Route path="/packages" element={<Packages />} />
           <Route path="/vendor-listing" element={<VendorListing />} />
           <Route path="/vendor/:id" element={<VendorView />} />
+          <Route path="/talk-to-vendor/:id" element={<TalkToVendor />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/customer-auth" element={<CustomerAuth />} />
           <Route path="/customer-login" element={<CustomerLogin />} />
@@ -93,7 +94,6 @@ const App = () => (
             <Route path="/deal-done" element={<DealDone />} />
             <Route path="/plan-my-event" element={<PlanMyEvent />} />
             <Route path="/talk-to-vendor" element={<TalkToVendor />} />
-            <Route path="/talk-to-vendor/:id" element={<TalkToVendor />} />
             <Route path="/custom-input" element={<CustomInput />} />
             <Route path="/ai-chatbot" element={<AIChatbot />} />
             <Route path="/admin/setup" element={<AdminSetup />} />

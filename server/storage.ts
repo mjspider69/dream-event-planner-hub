@@ -13,18 +13,18 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  
+
   // Profile methods
   getProfile(userId: string): Promise<Profile | undefined>;
   getProfileByEmail(email: string): Promise<Profile | undefined>;
   createProfile(profile: InsertProfile): Promise<Profile>;
   updateProfile(userId: string, updates: Partial<InsertProfile>): Promise<Profile | undefined>;
-  
+
   // OTP methods
   createOtp(otp: InsertOtp): Promise<Otp>;
   verifyOtp(email: string, otpCode: string, purpose: string): Promise<boolean>;
   cleanupExpiredOtps(): Promise<void>;
-  
+
   // Vendor methods
   getVendors(filters?: { category?: string; city?: string; featured?: boolean }): Promise<Vendor[]>;
   getVendor(id: string): Promise<Vendor | undefined>;
@@ -32,28 +32,28 @@ export interface IStorage {
   createVendor(vendor: InsertVendor): Promise<Vendor>;
   updateVendor(id: string, updates: Partial<InsertVendor>): Promise<Vendor | undefined>;
   approveVendor(id: string): Promise<Vendor | undefined>;
-  
+
   // Booking methods
   getBookings(filters?: { customerId?: string; vendorId?: string; status?: string }): Promise<Booking[]>;
   getBooking(id: string): Promise<Booking | undefined>;
   createBooking(booking: InsertBooking): Promise<Booking>;
   updateBooking(id: string, updates: Partial<InsertBooking>): Promise<Booking | undefined>;
-  
+
   // Payment methods
   getPayments(bookingId?: string): Promise<Payment[]>;
   createPayment(payment: InsertPayment): Promise<Payment>;
   updatePayment(id: string, updates: Partial<InsertPayment>): Promise<Payment | undefined>;
-  
+
   // Notification methods
   getNotifications(userId: string): Promise<Notification[]>;
   createNotification(notification: InsertNotification): Promise<Notification>;
   markNotificationRead(id: string): Promise<void>;
-  
+
   // Chat session methods
   createChatSession(session: InsertChatSession): Promise<ChatSession>;
   getChatSession(sessionToken: string): Promise<ChatSession | undefined>;
   updateChatSession(id: string, updates: Partial<InsertChatSession>): Promise<ChatSession | undefined>;
-  
+
   // Saved vendors methods
   saveVendor(userId: string, vendorId: string): Promise<void>;
   unsaveVendor(userId: string, vendorId: string): Promise<void>;
@@ -140,7 +140,7 @@ export class DatabaseStorage implements IStorage {
   // Vendor methods
   async getVendors(filters: { category?: string; city?: string; featured?: boolean } = {}): Promise<Vendor[]> {
     const conditions = [eq(vendors.isApproved, true)];
-    
+
     if (filters.category) {
       conditions.push(eq(vendors.category, filters.category));
     }
@@ -150,7 +150,7 @@ export class DatabaseStorage implements IStorage {
     if (filters.featured) {
       conditions.push(eq(vendors.isFeatured, true));
     }
-    
+
     return await db
       .select()
       .from(vendors)
@@ -168,8 +168,15 @@ export class DatabaseStorage implements IStorage {
     return vendor || undefined;
   }
 
-  async createVendor(vendor: InsertVendor): Promise<Vendor> {
-    const [newVendor] = await db.insert(vendors).values(vendor).returning();
+  async createVendor(vendorData: InsertVendor): Promise<Vendor> {
+    const [newVendor] = await db.insert(vendors).values({
+      ...vendorData,
+      id: vendorData.id || `vendor_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+      isApproved: true, // Auto-approve vendors for immediate listing
+      isOnline: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).returning();
     return newVendor;
   }
 
@@ -197,7 +204,7 @@ export class DatabaseStorage implements IStorage {
     if (filters.customerId) conditions.push(eq(bookings.customerId, filters.customerId));
     if (filters.vendorId) conditions.push(eq(bookings.vendorId, filters.vendorId));
     if (filters.status) conditions.push(eq(bookings.status, filters.status));
-    
+
     if (conditions.length > 0) {
       return await db
         .select()
@@ -322,7 +329,7 @@ export class DatabaseStorage implements IStorage {
       .from(savedVendors)
       .innerJoin(vendors, eq(savedVendors.vendorId, vendors.id))
       .where(eq(savedVendors.userId, userId));
-    
+
     return result.map(r => r.vendor);
   }
 
@@ -374,14 +381,14 @@ export class DatabaseStorage implements IStorage {
   async getAnalytics(userType: string, userId?: string): Promise<any> {
     const now = new Date();
     const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    
+
     if (userType === 'admin') {
       const allVendors = await db.select().from(vendors);
       const pendingVendors = await db.select().from(vendors).where(eq(vendors.isApproved, false));
       const allBookings = await db.select().from(bookings);
       const allPayments = await db.select().from(payments);
       const monthlyBookings = await db.select().from(bookings).where(gte(bookings.createdAt, thisMonth));
-      
+
       return {
         totalVendors: allVendors.length,
         pendingVendors: pendingVendors.length,
@@ -402,13 +409,13 @@ export class DatabaseStorage implements IStorage {
         ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       };
     }
-    
+
     if (userType === 'vendor' && userId) {
       const vendorBookings = await db.select().from(bookings).where(eq(bookings.vendorId, userId));
       const vendorPayments = await db.select().from(payments).where(
         inArray(payments.bookingId, vendorBookings.map(b => b.id))
       );
-      
+
       return {
         totalBookings: vendorBookings.length,
         pendingBookings: vendorBookings.filter(b => b.status === 'pending').length,
@@ -421,13 +428,13 @@ export class DatabaseStorage implements IStorage {
           .slice(0, 5)
       };
     }
-    
+
     if (userType === 'customer' && userId) {
       const customerBookings = await db.select().from(bookings).where(eq(bookings.customerId, userId));
       const customerPayments = await db.select().from(payments).where(
         inArray(payments.bookingId, customerBookings.map(b => b.id))
       );
-      
+
       return {
         totalBookings: customerBookings.length,
         upcomingEvents: customerBookings
@@ -441,7 +448,7 @@ export class DatabaseStorage implements IStorage {
         totalSpent: customerPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)
       };
     }
-    
+
     return {};
   }
 }

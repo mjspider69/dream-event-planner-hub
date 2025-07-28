@@ -71,12 +71,14 @@ const VendorListing = () => {
     setSelectedLocation("all cities");
   };
 
-  const handleVendorClick = (vendorName: string) => {
+  const handleVendorClick = (vendorId: string, vendorName: string) => {
     if (!user) {
       setSelectedVendor(vendorName);
       setShowLoginModal(true);
       return false;
     }
+    // Allow logged-in users to view vendor details
+    navigate(`/vendor/${vendorId}`);
     return true;
   };
 
@@ -302,20 +304,12 @@ const VendorListing = () => {
                       </div>
                       
                       <div className="flex space-x-2">
-                        {handleVendorClick(vendor.business_name) ? (
-                          <Link to={`/vendor/${vendor.id}`} className="flex-1">
-                            <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
-                              View Details
-                            </Button>
-                          </Link>
-                        ) : (
-                          <Button 
-                            onClick={() => handleVendorClick(vendor.business_name)}
-                            className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
-                          >
-                            View Details
-                          </Button>
-                        )}
+                        <Button 
+                          onClick={() => handleVendorClick(vendor.id, vendor.business_name)}
+                          className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                        >
+                          View Details
+                        </Button>
                         <Button variant="outline" size="icon">
                           <Heart className="h-4 w-4" />
                         </Button>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -73,7 +72,7 @@ const VendorAuth = () => {
         emailVerified: true,
         phoneVerified: false,
       };
-      
+
       // In a real implementation, you would use Google OAuth
       toast({
         title: "Google Sign-In Successful!",
@@ -95,7 +94,7 @@ const VendorAuth = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       if (loginData.useOTP) {
         if (!otpData.sent) {
@@ -142,7 +141,7 @@ const VendorAuth = () => {
       });
       return;
     }
-    
+
     setLoading(true);
     try {
       const vendorData = {
@@ -153,12 +152,13 @@ const VendorAuth = () => {
         category: registerData.category,
         userType: 'vendor'
       };
-      
+
       await signUp(registerData.email, registerData.password, vendorData);
       toast({
         title: "Registration Submitted!",
         description: "Please verify your email to complete registration",
       });
+      navigate("/vendors");
     } catch (error: any) {
       toast({
         title: "Registration Failed",
@@ -209,7 +209,7 @@ const VendorAuth = () => {
                   <TabsTrigger value="login">Login</TabsTrigger>
                   <TabsTrigger value="register">Register</TabsTrigger>
                 </TabsList>
-                
+
                 {/* Login Tab */}
                 <TabsContent value="login">
                   <form onSubmit={handleLogin} className="space-y-4">
@@ -339,7 +339,7 @@ const VendorAuth = () => {
                     </Button>
                   </form>
                 </TabsContent>
-                
+
                 {/* Register Tab */}
                 <TabsContent value="register">
                   <form onSubmit={handleRegister} className="space-y-4">

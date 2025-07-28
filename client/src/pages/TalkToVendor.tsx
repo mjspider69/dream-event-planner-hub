@@ -204,3 +204,223 @@ const TalkToVendor = () => {
 };
 
 export default TalkToVendor;
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Phone, MessageCircle, Star, MapPin, ArrowLeft, Clock, CheckCircle } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { useVendorById } from "@/hooks/useVendors";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
+
+const TalkToVendor = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { data: vendor, isLoading } = useVendorById(id || '');
+  const [hasCalledBefore, setHasCalledBefore] = useState(false);
+  const [showCallConfirm, setShowCallConfirm] = useState(false);
+
+  useEffect(() => {
+    // Check if user has called this vendor before
+    const calledVendors = JSON.parse(localStorage.getItem('calledVendors') || '[]');
+    setHasCalledBefore(calledVendors.includes(id));
+  }, [id]);
+
+  const handleFirstCall = () => {
+    if (!vendor?.phone) {
+      toast.error("Vendor phone number not available");
+      return;
+    }
+
+    // Mark as called
+    const calledVendors = JSON.parse(localStorage.getItem('calledVendors') || '[]');
+    calledVendors.push(id);
+    localStorage.setItem('calledVendors', JSON.stringify(calledVendors));
+    setHasCalledBefore(true);
+
+    // Initiate call
+    window.open(`tel:${vendor.phone}`);
+    toast.success("Call initiated! Future calls will require booking.");
+  };
+
+  const handleBookingRequired = () => {
+    toast.info("Please book a consultation for further calls");
+    navigate(`/booking?vendor=${id}`);
+  };
+
+  if (!user) {
+    navigate('/auth');
+    return null;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+        <Header />
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex items-center justify-center min-h-96">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500 mx-auto mb-4"></div>
+              <p>Loading vendor details...</p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!vendor) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+        <Header />
+        <div className="container mx-auto px-6 py-8">
+          <div className="text-center py-12">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Vendor Not Found</h1>
+            <Button onClick={() => navigate('/vendors')} className="bg-gradient-to-r from-amber-500 to-orange-500">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Vendors
+            </Button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <Header />
+      
+      <div className="container mx-auto px-6 py-8">
+        <div className="max-w-4xl mx-auto">
+          <Button 
+            onClick={() => navigate(`/vendor/${id}`)} 
+            variant="outline" 
+            className="mb-6"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Vendor Profile
+          </Button>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Vendor Info */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center space-x-4">
+                  <div className="flex-1">
+                    <CardTitle className="text-2xl">{vendor.business_name}</CardTitle>
+                    <p className="text-gray-600">{vendor.category}</p>
+                  </div>
+                  {vendor.is_approved && (
+                    <Badge className="bg-green-500 text-white">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      Verified
+                    </Badge>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <Star className="h-5 w-5 text-yellow-400 fill-current mr-2" />
+                    <span className="font-semibold">{vendor.rating || '0.0'}</span>
+                    <span className="text-gray-500 ml-1">({vendor.total_bookings} bookings)</span>
+                  </div>
+                  
+                  <div className="flex items-center text-gray-600">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    <span>{vendor.city}</span>
+                  </div>
+                  
+                  <p className="text-gray-700">{vendor.description || 'Professional service provider'}</p>
+                  
+                  <div className="bg-amber-50 p-4 rounded-lg">
+                    <p className="font-semibold text-amber-800">Price Range</p>
+                    <p className="text-amber-600">{vendor.price_range || 'Contact for pricing'}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Contact Options */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Phone className="h-5 w-5 mr-2" />
+                  Contact Vendor
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {!hasCalledBefore ? (
+                    <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+                      <div className="flex items-center mb-4">
+                        <CheckCircle className="h-6 w-6 text-green-600 mr-2" />
+                        <h3 className="font-semibold text-green-800">First Call Free!</h3>
+                      </div>
+                      <p className="text-green-700 mb-4">
+                        You can make your first call to this vendor for free through our platform.
+                      </p>
+                      <Button 
+                        onClick={handleFirstCall}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                      >
+                        <Phone className="h-4 w-4 mr-2" />
+                        Call Now (Free)
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="bg-amber-50 p-6 rounded-lg border border-amber-200">
+                      <div className="flex items-center mb-4">
+                        <Clock className="h-6 w-6 text-amber-600 mr-2" />
+                        <h3 className="font-semibold text-amber-800">Book for More Calls</h3>
+                      </div>
+                      <p className="text-amber-700 mb-4">
+                        You've already used your free call. Book a consultation for detailed discussions.
+                      </p>
+                      <Button 
+                        onClick={handleBookingRequired}
+                        className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+                      >
+                        <Calendar className="h-4 w-4 mr-2" />
+                        Book Consultation
+                      </Button>
+                    </div>
+                  )}
+
+                  <div className="border-t pt-6">
+                    <h4 className="font-semibold mb-3">Alternative Contact</h4>
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => navigate(`/booking?vendor=${id}`)}
+                    >
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Send Message & Book
+                    </Button>
+                  </div>
+
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <p className="text-sm text-blue-700">
+                      <strong>Note:</strong> Our platform ensures verified vendors and secure communication. 
+                      Your first call is free to help you evaluate the vendor.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default TalkToVendor;
