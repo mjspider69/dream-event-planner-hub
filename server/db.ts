@@ -8,13 +8,14 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-// Enterprise-scale connection pool for 7000+ concurrent users
+// High-performance connection pool for enterprise-scale traffic
 export const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
-  max: 100, // Maximum 100 database connections
-  min: 10,  // Minimum 10 connections always ready
+  max: 50, // Maximum 50 database connections (optimal for Replit PostgreSQL)
+  min: 5,  // Minimum 5 connections always ready
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000,
-  allowExitOnIdle: false
+  connectionTimeoutMillis: 5000,
+  allowExitOnIdle: false,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 export const db = drizzle(pool, { schema });

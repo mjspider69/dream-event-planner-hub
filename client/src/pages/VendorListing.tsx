@@ -143,12 +143,12 @@ const VendorListing = () => {
               </SelectTrigger>
               <SelectContent className="max-h-60">
                 <SelectItem value="all">All Categories</SelectItem>
-                {Object.entries(CATEGORY_GROUPS).map(([groupName, categories]) => (
+                {Object.entries(VENDOR_CATEGORIES).map(([groupName, categories]) => (
                   <div key={groupName}>
                     <div className="px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100">
                       {groupName}
                     </div>
-                    {categories.map((category) => (
+                    {Object.keys(categories).map((category: string) => (
                       <SelectItem key={category} value={category.toLowerCase()}>
                         {category}
                       </SelectItem>
@@ -245,7 +245,7 @@ const VendorListing = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredVendors.map((vendor) => {
+              {filteredVendors.map((vendor: any) => {
                 const portfolioImages = Array.isArray(vendor.portfolio_images) ? vendor.portfolio_images : [];
                 const mainImage = portfolioImages.length > 0 ? portfolioImages[0] : 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=400&q=80';
                 
