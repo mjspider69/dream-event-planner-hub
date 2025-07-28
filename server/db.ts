@@ -8,11 +8,11 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-// High-performance connection pool for enterprise-scale traffic
+// Ultra-high performance connection pool for 2000+ concurrent users
 export const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
-  max: 50, // Maximum 50 database connections (optimal for Replit PostgreSQL)
-  min: 5,  // Minimum 5 connections always ready
+  max: 2000, // Maximum 2000 database connections for massive scale
+  min: 50,   // Minimum 50 connections always ready
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 5000,
   allowExitOnIdle: false,
