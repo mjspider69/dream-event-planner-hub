@@ -1,6 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { db } from "./db";
+import { sql } from "drizzle-orm";
 
 const app = express();
 // Enhanced middleware for high-performance concurrent user handling
@@ -96,6 +98,21 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Add database health check middleware
+  app.use('/api', async (req, res, next) => {
+    try {
+      // Simple health check
+      await db.execute(sql`SELECT 1`);
+      next();
+    } catch (error) {
+      console.error('Database connection error:', error);
+      res.status(503).json({ 
+        error: 'Database temporarily unavailable',
+        message: 'Please try again in a moment'
+      });
+    }
+  });
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

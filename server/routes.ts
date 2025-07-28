@@ -11,7 +11,7 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
     try {
       const sgMail = require('@sendgrid/mail');
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      
+
       const msg = {
         to: email,
         from: 'noreply@aaroham.com', // Change to your verified sender
@@ -33,7 +33,7 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
           </div>
         `
       };
-      
+
       await sgMail.send(msg);
       console.log(`📧 SendGrid OTP sent to ${email}: ${otpCode}`);
       return true;
@@ -41,12 +41,12 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
       console.error('SendGrid email failed, trying free service:', error);
     }
   }
-  
+
   // Free email service fallback
   try {
     // Use nodemailer with free SMTP service
     const nodemailer = require('nodemailer');
-    
+
     // Create transporter for free email service
     const transporter = nodemailer.createTransporter({
       service: 'gmail', // You can use other free services
@@ -55,7 +55,7 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
         pass: process.env.SMTP_PASS || 'demo'
       }
     });
-    
+
     const mailOptions = {
       from: '"Aaroham Events" <noreply@aaroham.com>',
       to: email,
@@ -77,14 +77,14 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
         </div>
       `
     };
-    
+
     // In development, just log the OTP
     if (process.env.NODE_ENV === "development") {
       console.log(`📧 Free Email OTP for ${email}: ${otpCode}`);
       console.log('Email HTML content prepared (not sent in development)');
       return true;
     }
-    
+
     // In production, attempt to send
     await transporter.sendMail(mailOptions);
     console.log(`📧 Free email OTP sent to ${email}: ${otpCode}`);
@@ -100,7 +100,7 @@ async function sendSMSOTP(phone: string, otpCode: string, purpose: string) {
   if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
     const twilio = require('twilio');
     const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-    
+
     try {
       await client.messages.create({
         body: `Your Aaroham OTP code is: ${otpCode}. Valid for 5 minutes. Don't share this code.`,
@@ -122,11 +122,25 @@ async function sendSMSOTP(phone: string, otpCode: string, purpose: string) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Add database health check middleware
+  app.use('/api', async (req, res, next) => {
+    try {
+      // Simple health check
+      await storage.healthCheck();
+      next();
+    } catch (error) {
+      console.error('Database connection error:', error);
+      res.status(503).json({ 
+        error: 'Database temporarily unavailable',
+        message: 'Please try again in a moment'
+      });
+    }
+  });
   // OTP Management Routes
   app.post("/api/otp/send", async (req, res) => {
     try {
       const { email, phone, purpose = "signup" } = req.body;
-      
+
       if (!email && !phone) {
         return res.status(400).json({ error: "Email or phone required" });
       }
@@ -150,7 +164,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (email) {
         await sendEmailOTP(email, otpCode, purpose);
       }
-      
+
       if (phone) {
         await sendSMSOTP(phone, otpCode, purpose);
       }
@@ -170,13 +184,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/otp/verify", async (req, res) => {
     try {
       const { email, phone, otpCode, purpose = "signup" } = req.body;
-      
+
       if (!otpCode || (!email && !phone)) {
         return res.status(400).json({ error: "OTP code and email/phone required" });
       }
 
       const isValid = await storage.verifyOtp(email || phone, otpCode, purpose);
-      
+
       if (isValid) {
         res.json({ success: true, message: "OTP verified successfully" });
       } else {
@@ -343,7 +357,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertBookingSchema.parse(req.body);
       const booking = await storage.createBooking(validatedData);
-      
+
       // Create notification for vendor
       await storage.createNotification({
         userId: booking.vendorId,
@@ -534,7 +548,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/auth/register", async (req, res) => {
     try {
       const userData = insertProfileSchema.parse(req.body);
-      
+
       // Check if user already exists
       if (userData.email) {
         const existingUser = await storage.getUserByEmail(userData.email);
@@ -545,10 +559,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Create new user
       const user = await storage.createProfile(userData);
-      
+
       // Store session
       const sessionToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      
+
       res.json({ 
         success: true, 
         user: { ...user, sessionToken },
@@ -563,7 +577,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/auth/login", async (req, res) => {
     try {
       const { email, password } = req.body;
-      
+
       if (!email || !password) {
         return res.status(400).json({ error: "Email and password required" });
       }
@@ -575,9 +589,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // In a real app, verify password hash
       // For now, accept any password for demo purposes
-      
+
       const sessionToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      
+
       res.json({ 
         success: true, 
         user: { ...user, sessionToken },
@@ -592,7 +606,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/auth/login-otp", async (req, res) => {
     try {
       const { email, phone } = req.body;
-      
+
       if (!email && !phone) {
         return res.status(400).json({ error: "Email or phone required" });
       }
@@ -628,14 +642,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/auth/verify-login-otp", async (req, res) => {
     try {
       const { email, phone, otpCode } = req.body;
-      
+
       const identifier = email || phone;
       if (!identifier || !otpCode) {
         return res.status(400).json({ error: "Email/phone and OTP code required" });
       }
 
       const isValid = await storage.verifyOtp(identifier, otpCode, "login");
-      
+
       if (!isValid) {
         return res.status(400).json({ error: "Invalid or expired OTP" });
       }
@@ -660,7 +674,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const sessionToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-      
+
       res.json({ 
         success: true, 
         user: { ...user, sessionToken },
@@ -687,7 +701,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const vendor = await storage.approveVendor(id);
-      
+
       if (!vendor) {
         return res.status(404).json({ error: "Vendor not found" });
       }
@@ -703,9 +717,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { reason } = req.body;
-      
+
       const vendor = await storage.rejectVendor(id, reason);
-      
+
       if (!vendor) {
         return res.status(404).json({ error: "Vendor not found" });
       }
@@ -722,7 +736,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const bookingData = insertBookingSchema.parse(req.body);
       const booking = await storage.createBooking(bookingData);
-      
+
       // Create notification for vendor
       await storage.createNotification({
         userId: booking.vendorId,
@@ -743,9 +757,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { status, notes } = req.body;
-      
+
       const booking = await storage.updateBookingStatus(id, status, notes);
-      
+
       if (!booking) {
         return res.status(404).json({ error: "Booking not found" });
       }
@@ -770,10 +784,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/payments", async (req, res) => {
     try {
       const paymentData = insertPaymentSchema.parse(req.body);
-      
+
       // Simulate payment processing
       const paymentStatus = Math.random() > 0.1 ? "completed" : "failed";
-      
+
       const payment = await storage.createPayment({
         ...paymentData,
         status: paymentStatus,
@@ -796,7 +810,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/analytics/overview", async (req, res) => {
     try {
       const { userType, userId } = req.query;
-      
+
       const analytics = await storage.getAnalytics(userType as string, userId as string);
       res.json(analytics);
     } catch (error) {
