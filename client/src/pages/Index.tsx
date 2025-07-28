@@ -10,6 +10,7 @@ import ChatbotIntroPopup from "@/components/ChatbotIntroPopup";
 import EventPackages from "@/components/EventPackages";
 import SignUpModal from "@/components/SignUpModal";
 import SEOOptimization from "@/components/SEOOptimization";
+import HorizontalVendorScroll from "@/components/HorizontalVendorScroll";
 import { useAuth } from "@/hooks/useAuth";
 import heroBackground from "@/assets/hero-bg.jpg";
 
@@ -185,6 +186,23 @@ const Index = () => {
 
       {/* Event Packages Section */}
       <EventPackages />
+
+      {/* Featured Vendors Section */}
+      <HorizontalVendorScroll 
+        title="Featured Vendors" 
+        featured={true}
+      />
+
+      {/* Category-wise Vendor Sections */}
+      <HorizontalVendorScroll 
+        title="Wedding Specialists" 
+        category="Photography"
+      />
+
+      <HorizontalVendorScroll 
+        title="Corporate Event Experts" 
+        category="Event Management"
+      />
 
       {/* Testimonials Section */}
       <section className="luxury-section py-20 bg-gradient-to-br from-soft-sand via-pearl-white to-misty-rose">

@@ -23,6 +23,7 @@ import RefundPolicy from "./pages/RefundPolicy";
 import CustomerCare from "./pages/CustomerCare";
 import AdminLogin from "./pages/AdminLogin";
 import AdminPanel from "./pages/AdminPanel";
+import AdminPortal from "./pages/AdminPortal";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import VendorDashboard from "./pages/VendorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -73,6 +74,7 @@ const App = () => (
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/admin-portal" element={<AdminPortal />} />
             <Route
               path="/customer-dashboard"
               element={
