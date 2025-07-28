@@ -1,8 +1,6 @@
 // API client to replace Supabase calls with our backend API
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || (
-  import.meta.env.DEV ? 'http://localhost:5000/api' : '/api'
-);
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export class ApiClient {
   private baseUrl = API_BASE_URL;
@@ -21,14 +19,25 @@ export class ApiClient {
       config.body = JSON.stringify(config.body);
     }
 
-    const response = await fetch(url, config);
+    console.log('Making API request to:', url);
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(error.error || `HTTP ${response.status}: ${response.statusText}`);
+    try {
+      const response = await fetch(url, config);
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        console.error('API Error:', error);
+        throw new Error(error.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('Network Error:', error);
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new Error('Unable to connect to server. Please check your connection.');
+      }
+      throw error;
     }
-
-    return response.json();
   }
 
   // OTP Management
