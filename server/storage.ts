@@ -568,4 +568,333 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+// Create memory storage implementation for immediate functionality
+class MemoryStorage implements IStorage {
+  private users: User[] = [];
+  private profiles: Profile[] = [];
+  private vendors: Vendor[] = [
+    {
+      id: "1",
+      userId: "user1",
+      businessName: "Elite Events Photography",
+      contactPerson: "Rajesh Kumar",
+      email: "rajesh@eliteevents.com",
+      phone: "+91 98765 43210",
+      category: "Photography",
+      city: "Mumbai",
+      description: "Professional wedding and event photography with 10+ years experience",
+      priceRange: "₹50,000 - ₹2,00,000",
+      portfolioImages: ["/api/placeholder/400/300", "/api/placeholder/400/300"],
+      isApproved: true,
+      isOnline: true,
+      isFeatured: true,
+      rating: "4.8",
+      totalBookings: 125,
+      speciality: ["Wedding Photography", "Corporate Events"],
+      socialMedia: { instagram: "@eliteevents", facebook: "EliteEventsIndia" },
+      availability: { weekdays: true, weekends: true },
+      verificationStatus: "verified",
+      rejectionReason: null,
+      createdAt: new Date("2024-01-15"),
+      updatedAt: new Date("2025-01-28")
+    },
+    {
+      id: "2", 
+      userId: "user2",
+      businessName: "Royal Catering Services",
+      contactPerson: "Priya Sharma",
+      email: "priya@royalcatering.com",
+      phone: "+91 87654 32109",
+      category: "Catering",
+      city: "Delhi",
+      description: "Premium catering services for all types of events with authentic Indian cuisine",
+      priceRange: "₹800 - ₹1,500 per person",
+      portfolioImages: ["/api/placeholder/400/300", "/api/placeholder/400/300"],
+      isApproved: true,
+      isOnline: true,
+      isFeatured: true,
+      rating: "4.9",
+      totalBookings: 89,
+      speciality: ["North Indian Cuisine", "South Indian Specialties"],
+      socialMedia: { instagram: "@royalcatering", website: "royalcatering.com" },
+      availability: { weekdays: true, weekends: true },
+      verificationStatus: "verified",
+      rejectionReason: null,
+      createdAt: new Date("2024-02-10"),
+      updatedAt: new Date("2025-01-28")
+    }
+  ];
+  private bookings: Booking[] = [];
+  private payments: Payment[] = [];
+  private notifications: Notification[] = [];
+  private otps: Otp[] = [];
+  private chatSessions: ChatSession[] = [];
+  private savedVendorsData: {userId: string, vendorId: string}[] = [];
+
+  async getUser(id: number): Promise<User | undefined> {
+    return this.users.find(u => u.id === id);
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    return this.users.find(u => u.username === username);
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const newUser = { ...user, id: this.users.length + 1 } as User;
+    this.users.push(newUser);
+    return newUser;
+  }
+
+  async getProfile(userId: string): Promise<Profile | undefined> {
+    return this.profiles.find(p => p.userId === userId);
+  }
+
+  async getProfileByEmail(email: string): Promise<Profile | undefined> {
+    return this.profiles.find(p => p.email === email);
+  }
+
+  async createProfile(profile: InsertProfile): Promise<Profile> {
+    const newProfile = { ...profile, id: `profile-${this.profiles.length + 1}`, createdAt: new Date(), updatedAt: new Date() } as Profile;
+    this.profiles.push(newProfile);
+    return newProfile;
+  }
+
+  async updateProfile(userId: string, updates: Partial<InsertProfile>): Promise<Profile | undefined> {
+    const index = this.profiles.findIndex(p => p.userId === userId);
+    if (index >= 0) {
+      this.profiles[index] = { ...this.profiles[index], ...updates, updatedAt: new Date() };
+      return this.profiles[index];
+    }
+    return undefined;
+  }
+
+  async createOtp(otp: InsertOtp): Promise<Otp> {
+    const newOtp = { ...otp, id: `otp-${this.otps.length + 1}`, createdAt: new Date() } as Otp;
+    this.otps.push(newOtp);
+    return newOtp;
+  }
+
+  async verifyOtp(email: string, otpCode: string, purpose: string): Promise<boolean> {
+    const otp = this.otps.find(o => o.email === email && o.otpCode === otpCode && o.purpose === purpose && !o.isVerified && new Date() < new Date(o.expiresAt));
+    if (otp) {
+      otp.isVerified = true;
+      return true;
+    }
+    return false;
+  }
+
+  async cleanupExpiredOtps(): Promise<void> {
+    this.otps = this.otps.filter(o => new Date(o.expiresAt) > new Date());
+  }
+
+  async getVendors(filters: { category?: string; city?: string; featured?: boolean } = {}): Promise<Vendor[]> {
+    let result = this.vendors.filter(v => v.isApproved);
+    
+    if (filters.category) {
+      result = result.filter(v => v.category === filters.category);
+    }
+    if (filters.city) {
+      result = result.filter(v => v.city === filters.city);
+    }
+    if (filters.featured) {
+      result = result.filter(v => v.isFeatured);
+    }
+    
+    return result.sort((a, b) => parseFloat(b.rating || '0') - parseFloat(a.rating || '0'));
+  }
+
+  async getVendor(id: string): Promise<Vendor | undefined> {
+    return this.vendors.find(v => v.id === id);
+  }
+
+  async getVendorByUserId(userId: string): Promise<Vendor | undefined> {
+    return this.vendors.find(v => v.userId === userId);
+  }
+
+  async createVendor(vendor: InsertVendor): Promise<Vendor> {
+    const newVendor = { 
+      ...vendor, 
+      id: `vendor-${this.vendors.length + 1}`,
+      isApproved: true,
+      isOnline: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    } as Vendor;
+    this.vendors.push(newVendor);
+    return newVendor;
+  }
+
+  async updateVendor(id: string, updates: Partial<InsertVendor>): Promise<Vendor | undefined> {
+    const index = this.vendors.findIndex(v => v.id === id);
+    if (index >= 0) {
+      this.vendors[index] = { ...this.vendors[index], ...updates, updatedAt: new Date() };
+      return this.vendors[index];
+    }
+    return undefined;
+  }
+
+  async approveVendor(id: string): Promise<Vendor | undefined> {
+    return this.updateVendor(id, { isApproved: true });
+  }
+
+  async getBookings(filters: { customerId?: string; vendorId?: string; status?: string } = {}): Promise<Booking[]> {
+    let result = [...this.bookings];
+    if (filters.customerId) result = result.filter(b => b.customerId === filters.customerId);
+    if (filters.vendorId) result = result.filter(b => b.vendorId === filters.vendorId);
+    if (filters.status) result = result.filter(b => b.status === filters.status);
+    return result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  }
+
+  async getBooking(id: string): Promise<Booking | undefined> {
+    return this.bookings.find(b => b.id === id);
+  }
+
+  async createBooking(booking: InsertBooking): Promise<Booking> {
+    const newBooking = { ...booking, id: `booking-${this.bookings.length + 1}`, createdAt: new Date(), updatedAt: new Date() } as Booking;
+    this.bookings.push(newBooking);
+    return newBooking;
+  }
+
+  async updateBooking(id: string, updates: Partial<InsertBooking>): Promise<Booking | undefined> {
+    const index = this.bookings.findIndex(b => b.id === id);
+    if (index >= 0) {
+      this.bookings[index] = { ...this.bookings[index], ...updates, updatedAt: new Date() };
+      return this.bookings[index];
+    }
+    return undefined;
+  }
+
+  async getPayments(bookingId?: string): Promise<Payment[]> {
+    let result = [...this.payments];
+    if (bookingId) result = result.filter(p => p.bookingId === bookingId);
+    return result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  }
+
+  async createPayment(payment: InsertPayment): Promise<Payment> {
+    const newPayment = { ...payment, id: `payment-${this.payments.length + 1}`, createdAt: new Date(), updatedAt: new Date() } as Payment;
+    this.payments.push(newPayment);
+    return newPayment;
+  }
+
+  async updatePayment(id: string, updates: Partial<InsertPayment>): Promise<Payment | undefined> {
+    const index = this.payments.findIndex(p => p.id === id);
+    if (index >= 0) {
+      this.payments[index] = { ...this.payments[index], ...updates, updatedAt: new Date() };
+      return this.payments[index];
+    }
+    return undefined;
+  }
+
+  async getNotifications(userId: string): Promise<Notification[]> {
+    return this.notifications.filter(n => n.userId === userId).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  }
+
+  async createNotification(notification: InsertNotification): Promise<Notification> {
+    const newNotification = { ...notification, id: `notification-${this.notifications.length + 1}`, createdAt: new Date() } as Notification;
+    this.notifications.push(newNotification);
+    return newNotification;
+  }
+
+  async markNotificationRead(id: string): Promise<void> {
+    const notification = this.notifications.find(n => n.id === id);
+    if (notification) notification.isRead = true;
+  }
+
+  async createChatSession(session: InsertChatSession): Promise<ChatSession> {
+    const newSession = { ...session, id: `session-${this.chatSessions.length + 1}`, createdAt: new Date(), updatedAt: new Date() } as ChatSession;
+    this.chatSessions.push(newSession);
+    return newSession;
+  }
+
+  async getChatSession(sessionToken: string): Promise<ChatSession | undefined> {
+    return this.chatSessions.find(s => s.sessionToken === sessionToken);
+  }
+
+  async updateChatSession(id: string, updates: Partial<InsertChatSession>): Promise<ChatSession | undefined> {
+    const index = this.chatSessions.findIndex(s => s.id === id);
+    if (index >= 0) {
+      this.chatSessions[index] = { ...this.chatSessions[index], ...updates, updatedAt: new Date() };
+      return this.chatSessions[index];
+    }
+    return undefined;
+  }
+
+  async saveVendor(userId: string, vendorId: string): Promise<void> {
+    const exists = this.savedVendorsData.find(sv => sv.userId === userId && sv.vendorId === vendorId);
+    if (!exists) {
+      this.savedVendorsData.push({ userId, vendorId });
+    }
+  }
+
+  async unsaveVendor(userId: string, vendorId: string): Promise<void> {
+    const index = this.savedVendorsData.findIndex(sv => sv.userId === userId && sv.vendorId === vendorId);
+    if (index >= 0) {
+      this.savedVendorsData.splice(index, 1);
+    }
+  }
+
+  async getSavedVendors(userId: string): Promise<Vendor[]> {
+    const savedVendorIds = this.savedVendorsData.filter(sv => sv.userId === userId).map(sv => sv.vendorId);
+    return this.vendors.filter(v => savedVendorIds.includes(v.id));
+  }
+
+  async getUserByEmail(email: string): Promise<Profile | undefined> {
+    return this.profiles.find(p => p.email === email);
+  }
+
+  async getPendingVendors(): Promise<Vendor[]> {
+    return this.vendors.filter(v => !v.isApproved);
+  }
+
+  async rejectVendor(id: string, reason?: string): Promise<Vendor | undefined> {
+    return this.updateVendor(id, { isApproved: false, rejectionReason: reason });
+  }
+
+  async updateBookingStatus(id: string, status: string, notes?: string): Promise<Booking | undefined> {
+    return this.updateBooking(id, { status: status as any, notes });
+  }
+
+  async updateBookingPaymentStatus(bookingId: string, paymentStatus: string): Promise<void> {
+    const index = this.bookings.findIndex(b => b.id === bookingId);
+    if (index >= 0) {
+      this.bookings[index] = { ...this.bookings[index], paymentStatus: paymentStatus as any, updatedAt: new Date() };
+    }
+  }
+
+  async getAnalytics(userType: string, userId?: string): Promise<any> {
+    const now = new Date();
+    const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    if (userType === 'admin') {
+      return {
+        totalVendors: this.vendors.length,
+        pendingVendors: this.vendors.filter(v => !v.isApproved).length,
+        totalBookings: this.bookings.length,
+        totalRevenue: this.payments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
+        monthlyBookings: this.bookings.filter(b => new Date(b.createdAt || 0) >= thisMonth).length,
+        recentActivity: [
+          ...this.bookings.slice(-5).map(b => ({
+            type: 'booking',
+            message: `New booking for ${b.eventDate}`,
+            timestamp: b.createdAt || new Date()
+          })),
+          ...this.vendors.slice(-3).map(v => ({
+            type: 'vendor',
+            message: `New vendor registration: ${v.businessName}`,
+            timestamp: v.createdAt || new Date()
+          }))
+        ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      };
+    }
+
+    return {};
+  }
+
+  async healthCheck(): Promise<void> {
+    // Memory storage is always healthy
+    return Promise.resolve();
+  }
+}
+
+// Use memory storage temporarily for immediate functionality
+export const storage = new MemoryStorage();

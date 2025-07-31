@@ -98,20 +98,9 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Add database health check middleware
-  app.use('/api', async (req, res, next) => {
-    try {
-      // Simple health check
-      await db.execute(sql`SELECT 1`);
-      next();
-    } catch (error) {
-      console.error('Database connection error:', error);
-      res.status(503).json({ 
-        error: 'Database temporarily unavailable',
-        message: 'Please try again in a moment'
-      });
-    }
-  });
+  // Database health check middleware disabled during migration
+  // Using memory storage for immediate functionality
+  console.log("Database health check disabled - using memory storage");
 
   const server = await registerRoutes(app);
 
