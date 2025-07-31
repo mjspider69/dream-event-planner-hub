@@ -127,9 +127,9 @@ export class ApiClient {
   }
 
   async createBooking(booking: any) {
-    return this.request('/booking', {
+    return this.request('/bookings', {
       method: 'POST',
-      body: booking,
+      body: JSON.stringify(booking),
     });
   }
 

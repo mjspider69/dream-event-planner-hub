@@ -65,7 +65,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link
-              to="/vendors"
+              to="/vendor-listing"
               className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
             >
               Find Vendors

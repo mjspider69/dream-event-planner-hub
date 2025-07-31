@@ -36,7 +36,7 @@ const VendorListing = () => {
 
   // Filter vendors based on search term and show ALL vendors (both approved and pending)
   const filteredVendors = vendors.filter((vendor: any) => {
-    const matchesSearch = vendor.business_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = vendor.businessName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.city?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.category?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -261,13 +261,13 @@ const VendorListing = () => {
                         }}
                       />
                       <div className="absolute top-4 left-4 flex flex-col space-y-2">
-                        {vendor.is_featured && (
+                        {vendor.isFeatured && (
                           <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
                             <Bot className="h-3 w-3 mr-1" />
                             AI Pick
                           </Badge>
                         )}
-                        {vendor.is_approved && (
+                        {vendor.isApproved && (
                           <Badge className="bg-green-500 text-white">
                             Verified
                           </Badge>
@@ -282,14 +282,14 @@ const VendorListing = () => {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="font-bold text-lg group-hover:text-amber-600 transition-colors">
-                            {vendor.business_name}
+                            {vendor.businessName}
                           </h3>
                           <p className="text-gray-600">{vendor.category || 'Service Provider'}</p>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Star className="h-4 w-4 text-yellow-400 fill-current" />
                           <span className="font-semibold">{vendor.rating || 4.5}</span>
-                          <span className="text-gray-500 text-sm">({vendor.total_bookings || 0})</span>
+                          <span className="text-gray-500 text-sm">({vendor.totalBookings || 0})</span>
                         </div>
                       </div>
                       
@@ -299,12 +299,12 @@ const VendorListing = () => {
                       </div>
                       
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-semibold text-amber-600">{vendor.price_range || 'Contact for pricing'}</span>
+                        <span className="font-semibold text-amber-600">{vendor.priceRange || 'Contact for pricing'}</span>
                       </div>
                       
                       <div className="flex space-x-2">
                         <Button 
-                          onClick={() => handleVendorClick(vendor.id, vendor.business_name)}
+                          onClick={() => handleVendorClick(vendor.id, vendor.businessName)}
                           className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
                         >
                           View Details

@@ -720,8 +720,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Complete Booking Management
   app.post("/api/bookings", async (req, res) => {
     try {
-      const bookingData = insertBookingSchema.parse(req.body);
-      const booking = await storage.createBooking(bookingData);
+      // Create custom validation for booking with date string conversion
+      const bookingData = {
+        customerId: req.body.customerId,
+        vendorId: req.body.vendorId, 
+        eventType: req.body.eventType,
+        eventDate: new Date(req.body.eventDate),
+        eventLocation: req.body.eventLocation,
+        guestCount: req.body.guestCount,
+        budget: req.body.budget,
+        requirements: req.body.requirements,
+        status: req.body.status || 'pending',
+        paymentStatus: req.body.paymentStatus || 'pending'
+      };
+      const booking = await storage.createBooking(bookingData as any);
 
       // Create notification for vendor
       await storage.createNotification({

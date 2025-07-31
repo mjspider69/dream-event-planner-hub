@@ -22,8 +22,8 @@ export interface Booking {
 
 interface CreateBookingData {
   eventType: string;
-  vendorIds: string[];
-  eventDate: string;
+  vendorId: string;
+  eventDate: Date;
   eventLocation: string;
   guestCount: number;
   budget: number;
@@ -35,14 +35,15 @@ export const useCreateBooking = () => {
 
   return useMutation({
     mutationFn: async (bookingData: CreateBookingData) => {
-      // Transform the data to match our API
+      // Transform the data to match our API schema
       const bookingPayload = {
-        vendorId: bookingData.vendorIds[0], // Use first vendor ID
+        customerId: 'temp-customer-id', // TODO: Get from auth context
+        vendorId: bookingData.vendorId,
         eventType: bookingData.eventType,
         eventDate: bookingData.eventDate,
         eventLocation: bookingData.eventLocation,
         guestCount: bookingData.guestCount,
-        budget: bookingData.budget,
+        budget: bookingData.budget.toString(),
         requirements: bookingData.requirements,
         status: 'pending',
         paymentStatus: 'pending',
