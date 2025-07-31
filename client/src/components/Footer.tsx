@@ -1,14 +1,14 @@
 import { Sparkles, Crown, Diamond, Heart, MapPin, Phone, Mail, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 const Footer = () => {
-  return <footer className="bg-gradient-to-br from-navy-blue via-deep-blue to-royal-blue text-white py-20 relative overflow-hidden">
+  return <footer className="bg-gradient-to-br from-amber-800 via-orange-800 to-amber-900 text-white py-20 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-bright-gold rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-golden-yellow rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-15">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-golden-yellow rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-bright-gold rounded-full blur-3xl"></div>
       </div>
       
-      <div className="container mx-auto px-6 relative z-10 bg-amber-300">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center space-x-4 mb-8">

@@ -25,7 +25,8 @@ const EventPackages = () => {
         "Return gifts for guests",
         "Dedicated event manager"
       ],
-      popular: false
+      popular: false,
+      border: "border-2 border-pink-300 hover:border-pink-500"
     },
     {
       id: 2,
@@ -36,13 +37,14 @@ const EventPackages = () => {
       features: [
         "Venue decoration",
         "Photography & videography (full day)",
-        "Catering for 100 guests",
+        "Catering for 100 guests", 
         "Bridal makeup",
         "Sound system",
         "Seating arrangements",
         "Coordination team"
       ],
-      popular: true
+      popular: true,
+      border: "border-2 border-amber-400 hover:border-amber-600"
     },
     {
       id: 3,
@@ -55,11 +57,12 @@ const EventPackages = () => {
         "Catering for 50",
         "Photographer (3 hours)",
         "Professional anchor",
-        "Branding standees",
+        "Branding standees", 
         "Technical support",
         "Event coordination"
       ],
-      popular: false
+      popular: false,
+      border: "border-2 border-blue-300 hover:border-blue-500"
     },
     {
       id: 4,
@@ -76,7 +79,8 @@ const EventPackages = () => {
         "Permission letter templates",
         "Youth-focused entertainment"
       ],
-      popular: false
+      popular: false,
+      border: "border-2 border-purple-300 hover:border-purple-500"
     },
     {
       id: 5,
@@ -93,7 +97,8 @@ const EventPackages = () => {
         "Baby-friendly arrangements",
         "Memory book creation"
       ],
-      popular: false
+      popular: false,
+      border: "border-2 border-green-300 hover:border-green-500"
     }
   ];
 
@@ -124,7 +129,7 @@ const EventPackages = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {packages.map((pkg) => (
-            <Card key={pkg.id} className={`relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 ${pkg.popular ? 'ring-2 ring-amber-400' : ''}`}>
+            <Card key={pkg.id} className={`relative overflow-hidden ${pkg.border} shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 ${pkg.popular ? 'ring-2 ring-amber-400' : ''}`}>
               {pkg.popular && (
                 <div className="absolute top-4 right-4">
                   <Badge className="bg-amber-500 text-white">

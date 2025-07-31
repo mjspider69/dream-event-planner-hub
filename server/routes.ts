@@ -78,10 +78,11 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
       `
     };
 
-    // In development, just log the OTP
+    // Always log OTP in development for debugging
     if (process.env.NODE_ENV === "development") {
-      console.log(`📧 Free Email OTP for ${email}: ${otpCode}`);
-      console.log('Email HTML content prepared (not sent in development)');
+      console.log(`📧 *** DEVELOPMENT OTP FOR ${email}: ${otpCode} ***`);
+      console.log(`📧 Copy this OTP to verify: ${otpCode}`);
+      // Return true to indicate successful "sending" in development
       return true;
     }
 

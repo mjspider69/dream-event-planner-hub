@@ -64,11 +64,36 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
+            <div className="relative group">
+              <button className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium flex items-center space-x-1">
+                <span>Services</span>
+                <svg className="w-4 h-4 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-56 bg-pearl-white shadow-xl rounded-lg border border-royal-gold/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="py-2">
+                  <Link to="/vendor-listing" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                    Find Vendors
+                  </Link>
+                  <Link to="/packages" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                    Event Packages
+                  </Link>
+                  <Link to="/plan-my-event" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                    Plan My Event
+                  </Link>
+                  <Link to="/quotation" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                    Get Quotation
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
             <Link
-              to="/vendor-listing"
+              to="/about"
               className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
             >
-              Find Vendors
+              About
             </Link>
             
             <Link
@@ -142,7 +167,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+            className="md:hidden p-2 rounded-md text-charcoal-gray hover:text-royal-gold hover:bg-soft-sand transition-colors"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -150,87 +175,88 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden border-t py-4">
-            <nav className="flex flex-col space-y-4">
+          <div className="md:hidden border-t border-royal-gold/20 py-4 bg-pearl-white/95 backdrop-blur-sm">
+            <nav className="flex flex-col space-y-4 px-4">
               <Link
-                to="/vendors"
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                to="/vendor-listing"
+                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Find Vendors
               </Link>
-              
               <Link
                 to="/packages"
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Packages
+                Event Packages
               </Link>
-              
-              {/* Only show these links when user is authenticated */}
-              {user && (
-                <Link
-                  to="/ai-chatbot"
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <MessageCircle className="h-4 w-4 mr-1" />
-                  Chat with Aarohi
-                </Link>
-              )}
-              
+              <Link
+                to="/plan-my-event"
+                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Plan My Event
+              </Link>
+              <Link
+                to="/quotation"
+                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Get Quotation
+              </Link>
               <Link
                 to="/about"
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </Link>
               
-              {user ? (
-                <div className="border-t pt-4 space-y-2">
-                  <Link
-                    to={getUserDashboard()}
-                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors font-medium"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Settings className="h-4 w-4 mr-2" />
-                    Dashboard
-                  </Link>
-                  <Link
-                    to="/settings"
-                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors font-medium"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Settings className="h-4 w-4 mr-2" />
-                    Platform Settings
-                  </Link>
-                  <button
-                    onClick={() => {
-                      handleSignOut();
-                      setIsOpen(false);
-                    }}
-                    className="flex items-center text-gray-700 hover:text-blue-600 transition-colors font-medium w-full text-left"
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sign Out
-                  </button>
-                </div>
-              ) : (
-                <div className="border-t pt-4 space-y-2">
-                  <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start text-gray-700 hover:text-blue-600">
+              {/* Mobile User Actions */}
+              <div className="border-t border-royal-gold/20 pt-4 mt-4">
+                {user ? (
+                  <div className="space-y-3">
+                    <Link
+                      to={getUserDashboard()}
+                      className="flex items-center space-x-2 text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <User className="h-4 w-4" />
+                      <span>Dashboard</span>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleSignOut();
+                        setIsOpen(false);
+                      }}
+                      className="flex items-center space-x-2 text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2 w-full text-left"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <Link
+                      to="/auth"
+                      className="block text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                      onClick={() => setIsOpen(false)}
+                    >
                       Sign In
-                    </Button>
-                  </Link>
-                  <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-blue-500 to-yellow-500 hover:from-blue-600 hover:to-yellow-600 text-white">
-                      Get Started
-                    </Button>
-                  </Link>
-                </div>
-              )}
+                    </Link>
+                    <Link
+                      to="/auth"
+                      className="block"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Button className="w-full luxury-button">
+                        Get Started
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </nav>
           </div>
         )}

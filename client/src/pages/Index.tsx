@@ -33,21 +33,21 @@ const Index = () => {
       event: "Wedding in Mumbai",
       rating: 5,
       review: "Aaroham made our dream wedding come true! The coordination was flawless and every vendor was professional.",
-      image: "https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=150&h=150&fit=crop&crop=face"
+      image: "/api/placeholder/150/150"
     },
     {
       name: "Rajesh Kumar",
       event: "Corporate Event",
       rating: 5,
       review: "Outstanding service for our company's annual day. Everything was perfectly organized and within budget.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+      image: "/api/placeholder/150/150"
     },
     {
       name: "Meera Sharma",
       event: "Birthday Party",
       rating: 5,
       review: "My daughter's birthday party was magical! The team handled everything while I enjoyed the celebration.",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b562?w=150&h=150&fit=crop&crop=face"
+      image: "/api/placeholder/150/150"
     }
   ];
 

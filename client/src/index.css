@@ -45,6 +45,26 @@
     --radius: 0.5rem;
   }
 
+  .dark {
+    --background: 30 15% 8%; /* Dark charcoal */
+    --foreground: 45 95% 95%; /* Light amber */
+    --card: 30 10% 12%;
+    --card-foreground: 45 95% 95%;
+    --popover: 30 10% 12%;
+    --popover-foreground: 45 95% 95%;
+    --primary: 45 95% 55%;
+    --primary-foreground: 30 10% 15%;
+    --secondary: 30 8% 20%;
+    --secondary-foreground: 45 95% 95%;
+    --muted: 30 5% 18%;
+    --muted-foreground: 45 20% 70%;
+    --accent: 35 85% 65%;
+    --accent-foreground: 30 10% 15%;
+    --border: 30 8% 25%;
+    --input: 30 5% 15%;
+    --ring: 45 95% 55%;
+  }
+
   body {
     font-family: 'Poppins', sans-serif;
     background: var(--pearl-gradient);
@@ -69,6 +89,69 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Mobile-first responsive design improvements */
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .grid-responsive {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .text-responsive-sm {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+    
+    .text-responsive-base {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+    
+    .text-responsive-lg {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+    
+    .text-responsive-xl {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+    
+    .text-responsive-2xl {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+    
+    .text-responsive-3xl {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
+    
+    .text-responsive-4xl {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-responsive {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-responsive {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
   }
 
   .pearl-backdrop {
