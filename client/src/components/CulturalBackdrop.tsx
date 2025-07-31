@@ -11,7 +11,7 @@ const CulturalBackdrop = ({ location, className = "" }: CulturalBackdropProps) =
 
   useEffect(() => {
     const locationKey = location.toLowerCase().trim();
-    const imageUrl = CULTURAL_BACKDROPS[locationKey] || CULTURAL_BACKDROPS["default"];
+    const imageUrl = CULTURAL_BACKDROPS[locationKey as keyof typeof CULTURAL_BACKDROPS] || CULTURAL_BACKDROPS["default"];
     setBackdropImage(imageUrl);
   }, [location]);
 

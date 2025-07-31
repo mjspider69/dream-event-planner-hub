@@ -74,13 +74,15 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
       const analyticsData = await analyticsResponse.json();
       
       setStats({
+        totalUsers: analyticsData.totalUsers || 0,
         totalVendors: analyticsData.totalVendors || 0,
         pendingVendors: analyticsData.pendingVendors || 0,
         totalBookings: analyticsData.totalBookings || 0,
         totalRevenue: analyticsData.totalRevenue || 0,
-        monthlyBookings: analyticsData.monthlyBookings || 0,
         websiteVisitors: stats.websiteVisitors,
-        successfulVerifications: 0,
+        activeUsers: analyticsData.activeUsers || 0,
+        otpsSent: analyticsData.otpsSent || 0,
+        successfulVerifications: analyticsData.successfulVerifications || 0,
       });
 
       // Set demo data for users and bookings

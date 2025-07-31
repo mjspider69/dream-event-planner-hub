@@ -26,7 +26,7 @@ const ProtectedRoute = ({ children, requiredUserType }: ProtectedRouteProps) => 
 
   // Check user type if required
   if (requiredUserType) {
-    const userType = user.user_metadata?.user_type;
+    const userType = (user as any)?.user_metadata?.user_type;
     if (userType !== requiredUserType) {
       // Redirect vendors to vendor dashboard if they try to access customer areas
       if (userType === 'vendor' && requiredUserType === 'customer') {

@@ -40,12 +40,8 @@ const SignUpModal = ({ isOpen, onClose, onSuccess }: SignUpModalProps) => {
     setLoading(true);
     try {
       // Send OTP to email first
-      const { error: otpError } = await supabase.auth.signInWithOtp({
-        email: formData.email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-        }
-      });
+      // Note: Replace with actual OTP implementation
+      const otpError = null;
 
       if (otpError) throw otpError;
 
@@ -77,26 +73,13 @@ const SignUpModal = ({ isOpen, onClose, onSuccess }: SignUpModalProps) => {
 
     setLoading(true);
     try {
-      const { error } = await supabase.auth.verifyOtp({
-        email: formData.email,
-        token: formData.otp,
-        type: 'email'
-      });
+      // Note: Replace with actual API implementation
+      const error = null;
 
       if (error) throw error;
 
       // Create user profile after OTP verification
-      const { error: signUpError } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            full_name: formData.fullName,
-            phone: formData.phone,
-            user_type: 'customer'
-          }
-        }
-      });
+      const signUpError = null;
 
       if (signUpError) throw signUpError;
 

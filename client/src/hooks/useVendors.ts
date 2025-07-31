@@ -51,7 +51,7 @@ export const useVendors = (params: UseVendorsParams = {}) => {
         filters.featured = true;
       }
 
-      const vendors = await apiClient.getVendors(filters);
+      const vendors = await apiClient.getVendors(filters) as Vendor[];
 
       // Filter by rating if specified
       if (params.rating) {

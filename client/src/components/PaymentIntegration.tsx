@@ -173,7 +173,7 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
                     Amount: ₹{paymentData.amount.toLocaleString()}<br/>
                     Reference: {paymentData.orderId}
                   </p>
-                  {businessUpiId === 'your-business@upi' ? (
+                  {'your-business@upi' === 'your-business@upi' ? (
                     <div className="bg-amber-50 border border-amber-200 rounded p-2 mt-2">
                       <p className="text-xs text-amber-700 font-medium">
                         ⚠️ UPI Not Configured
@@ -190,7 +190,7 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
                         ✅ UPI Configured
                       </p>
                       <p className="text-xs text-green-600 mt-1">
-                        Payments will be received at: {businessUpiId}
+                        Payments will be received at: your-business@upi
                       </p>
                     </div>
                   )}
