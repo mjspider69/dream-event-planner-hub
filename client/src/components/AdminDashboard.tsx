@@ -64,77 +64,29 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
       setLoading(true);
       console.log('Fetching admin dashboard data...');
       
-      // Fetch vendors
-      const { data: vendorsData, error: vendorsError } = await supabase
-        .from('vendors')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Fetch vendors from our API
+      const vendorsResponse = await fetch('/api/vendors');
+      const vendorsData = await vendorsResponse.json();
+      setVendors(vendorsData || []);
 
-      if (vendorsError) {
-        console.error('Error fetching vendors:', vendorsError);
-        toast.error('Error loading vendors data');
-      } else {
-        setVendors(vendorsData || []);
-      }
-
-      // Fetch users
-      const { data: usersData, error: usersError } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (usersError) {
-        console.error('Error fetching users:', usersError);
-        toast.error('Error loading users data');
-      } else {
-        setUsers(usersData || []);
-      }
-
-      // Fetch bookings
-      const { data: bookingsData, error: bookingsError } = await supabase
-        .from('bookings')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (bookingsError) {
-        console.error('Error fetching bookings:', bookingsError);
-        toast.error('Error loading bookings data');
-      } else {
-        setBookings(bookingsData || []);
-      }
-
-      // Fetch OTP logs
-      const { data: otpData, error: otpError } = await supabase
-        .from('otps')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(100);
-
-      if (otpError) {
-        console.error('Error fetching OTP logs:', otpError);
-      } else {
-        setOtpLogs(otpData || []);
-      }
-
-      // Calculate stats
-      const pendingVendors = vendorsData?.filter(v => !v.is_approved).length || 0;
-      const totalRevenue = bookingsData?.reduce((sum, booking) => sum + (booking.budget || 0), 0) || 0;
-      const activeUsers = usersData?.length || 0;
-      const visitors = localStorage.getItem('websiteVisitors') || '0';
-      const otpsSent = otpData?.length || 0;
-      const successfulVerifications = otpData?.filter(otp => otp.is_verified).length || 0;
-
+      // Fetch analytics data
+      const analyticsResponse = await fetch('/api/analytics?userType=admin');
+      const analyticsData = await analyticsResponse.json();
+      
       setStats({
-        totalUsers: usersData?.length || 0,
-        totalVendors: vendorsData?.length || 0,
-        totalBookings: bookingsData?.length || 0,
-        totalRevenue,
-        pendingVendors,
-        websiteVisitors: parseInt(visitors),
-        activeUsers,
-        otpsSent,
-        successfulVerifications,
+        totalVendors: analyticsData.totalVendors || 0,
+        pendingVendors: analyticsData.pendingVendors || 0,
+        totalBookings: analyticsData.totalBookings || 0,
+        totalRevenue: analyticsData.totalRevenue || 0,
+        monthlyBookings: analyticsData.monthlyBookings || 0,
+        websiteVisitors: stats.websiteVisitors,
+        successfulVerifications: 0,
       });
+
+      // Set demo data for users and bookings
+      setUsers([]);
+      setBookings([]);
+      setOtpLogs([]);
 
     } catch (error: any) {
       console.error('Error fetching dashboard data:', error);
@@ -146,16 +98,15 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
 
   const approveVendor = async (vendorId: string) => {
     try {
-      const { error } = await supabase
-        .from('vendors')
-        .update({ is_approved: true, verification_status: 'approved' })
-        .eq('id', vendorId);
+      const response = await fetch(`/api/vendors/${vendorId}/approve`, {
+        method: 'PUT',
+      });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to approve vendor');
       
       setVendors(vendors.map(v => 
         v.id === vendorId 
-          ? { ...v, is_approved: true, verification_status: 'approved' }
+          ? { ...v, isApproved: true, verificationStatus: 'approved' }
           : v
       ));
       
@@ -168,16 +119,15 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
 
   const rejectVendor = async (vendorId: string) => {
     try {
-      const { error } = await supabase
-        .from('vendors')
-        .update({ is_approved: false, verification_status: 'rejected' })
-        .eq('id', vendorId);
+      const response = await fetch(`/api/vendors/${vendorId}/reject`, {
+        method: 'PUT',
+      });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to reject vendor');
       
       setVendors(vendors.map(v => 
         v.id === vendorId 
-          ? { ...v, is_approved: false, verification_status: 'rejected' }
+          ? { ...v, isApproved: false, verificationStatus: 'rejected' }
           : v
       ));
       
@@ -552,7 +502,7 @@ const AdminDashboard = ({ onLogout }: AdminDashboardProps) => {
                 <CardContent className="space-y-4">
                   <Button 
                     onClick={() => {
-                      supabase.rpc('cleanup_expired_otps').then(() => {
+                      fetch('/api/cleanup-otps', { method: 'POST' }).then(() => {
                         toast.success('Expired OTPs cleaned up successfully');
                         fetchDashboardData();
                       });

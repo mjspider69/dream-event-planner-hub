@@ -39,11 +39,11 @@ const BookingForm = ({ vendorId, vendorName, onSuccess }: BookingFormProps) => {
 
     try {
       await createBookingMutation.mutateAsync({
-        event_type: formData.event_type,
-        vendor_ids: [vendorId],
-        event_date: format(formData.event_date, 'yyyy-MM-dd'),
-        event_location: formData.event_location,
-        guest_count: parseInt(formData.guest_count),
+        eventType: formData.event_type,
+        vendorId: vendorId,
+        eventDate: formData.event_date,
+        eventLocation: formData.event_location,
+        guestCount: parseInt(formData.guest_count),
         budget: parseFloat(formData.budget),
         requirements: formData.requirements,
       });

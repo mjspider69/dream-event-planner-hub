@@ -19,13 +19,9 @@ const Header = () => {
 
   const handleSignOut = async () => {
     try {
-      const result = await signOut();
-      if (!result?.error) {
-        navigate('/');
-        toast.success("Signed out successfully");
-      } else {
-        toast.error("Failed to sign out");
-      }
+      await signOut();
+      navigate('/');
+      toast.success("Signed out successfully");
     } catch (error: any) {
       console.error("Sign out error:", error);
       toast.error("Failed to sign out");
