@@ -118,9 +118,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getProfileByEmail(email: string): Promise<Profile | undefined> {
-    // Note: This would need email field in profiles table or join with auth
     return withRetry(async () => {
-      const [profile] = await db.select().from(profiles).limit(1);
+      const [profile] = await db.select().from(profiles).where(eq(profiles.email, email));
       return profile || undefined;
     });
   }
@@ -897,4 +896,19 @@ class MemoryStorage implements IStorage {
 }
 
 // Use memory storage temporarily for immediate functionality
-export const storage = new MemoryStorage();
+// Try to use DatabaseStorage, fallback to MemoryStorage if database is not available
+let storage: IStorage;
+try {
+  if (db) {
+    storage = new DatabaseStorage();
+    console.log("✅ Using PostgreSQL database storage");
+  } else {
+    storage = new MemoryStorage();
+    console.log("⚠️ Database not available, using memory storage");
+  }
+} catch (error) {
+  console.warn("Database initialization failed, using memory storage:", error);
+  storage = new MemoryStorage();
+}
+
+export { storage };

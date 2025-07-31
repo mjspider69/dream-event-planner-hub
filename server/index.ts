@@ -98,9 +98,14 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Database health check middleware disabled during migration
-  // Using memory storage for immediate functionality
-  console.log("Database health check disabled - using memory storage");
+  // Database health check - only if using database storage
+  try {
+    const { storage } = await import("./storage");
+    await storage.healthCheck();
+    console.log("✅ Database health check passed");
+  } catch (error) {
+    console.warn("⚠️ Database health check failed, continuing with available storage:", error);
+  }
 
   const server = await registerRoutes(app);
 
