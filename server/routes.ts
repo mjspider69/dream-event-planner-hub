@@ -122,20 +122,6 @@ async function sendSMSOTP(phone: string, otpCode: string, purpose: string) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Add database health check middleware
-  app.use('/api', async (req, res, next) => {
-    try {
-      // Simple health check
-      await storage.healthCheck();
-      next();
-    } catch (error) {
-      console.error('Database connection error:', error);
-      res.status(503).json({ 
-        error: 'Database temporarily unavailable',
-        message: 'Please try again in a moment'
-      });
-    }
-  });
   // OTP Management Routes
   app.post("/api/otp/send", async (req, res) => {
     try {

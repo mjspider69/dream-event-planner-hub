@@ -83,6 +83,7 @@ export interface IStorage {
   updateBookingStatus(id: string, status: string, notes?: string): Promise<Booking | undefined>;
   updateBookingPaymentStatus(bookingId: string, paymentStatus: string): Promise<void>;
   getAnalytics(userType: string, userId?: string): Promise<any>;
+  healthCheck(): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -556,6 +557,13 @@ export class DatabaseStorage implements IStorage {
       }
 
       return {};
+    });
+  }
+
+  async healthCheck(): Promise<void> {
+    return withRetry(async () => {
+      // Simple health check - just query the database
+      await db.select().from(profiles).limit(1);
     });
   }
 }
