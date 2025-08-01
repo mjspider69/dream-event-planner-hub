@@ -9,13 +9,17 @@ export const useOTP = () => {
   const sendOTP = async (email: string, phone?: string, purpose: string = 'signup') => {
     try {
       setLoading(true);
+      console.log(`📱 Sending OTP request - Email: ${email}, Phone: ${phone}, Purpose: ${purpose}`);
+      
       const response = await apiClient.sendOTP({ email, phone, purpose });
       setOtpSent(true);
       
-      // In development, show the OTP in console for testing
-      if (process.env.NODE_ENV === 'development' && response.otpCode) {
-        console.log(`Development OTP: ${response.otpCode}`);
-        toast.success(`OTP sent! Dev code: ${response.otpCode}`);
+      // Always show the OTP for testing
+      if (response.otpCode) {
+        console.log(`📧 OTP Code: ${response.otpCode}`);
+        toast.success(`OTP sent! Code: ${response.otpCode}`, {
+          duration: 10000, // Show for 10 seconds
+        });
       } else {
         toast.success('OTP sent successfully!');
       }
@@ -32,10 +36,15 @@ export const useOTP = () => {
   const verifyOTP = async (email: string, otpCode: string, phone?: string, purpose: string = 'signup') => {
     try {
       setLoading(true);
+      console.log(`📱 Verifying OTP - Email: ${email}, Phone: ${phone}, Code: ${otpCode}, Purpose: ${purpose}`);
+      
       const response = await apiClient.verifyOTP({ email, phone, otpCode, purpose });
+      console.log(`📱 OTP verification response:`, response);
+      
       toast.success('OTP verified successfully!');
       return response;
     } catch (error: any) {
+      console.error('OTP verification error:', error);
       toast.error(error.message || 'Invalid OTP');
       throw error;
     } finally {

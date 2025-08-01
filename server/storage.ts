@@ -152,12 +152,14 @@ export class DatabaseStorage implements IStorage {
 
   async verifyOtp(email: string, otpCode: string, purpose: string): Promise<boolean> {
     return withRetry(async () => {
+      console.log(`🔍 Database OTP verification - Email: ${email}, Code: ${otpCode}, Purpose: ${purpose}`);
+      
       const [otp] = await db
         .select()
         .from(otps)
         .where(
           and(
-            eq(otps.email, email),
+            or(eq(otps.email, email), eq(otps.phone, email)),
             eq(otps.otpCode, otpCode),
             eq(otps.purpose, purpose),
             eq(otps.isVerified, false),
@@ -165,13 +167,18 @@ export class DatabaseStorage implements IStorage {
           )
         );
 
+      console.log(`🔍 Found OTP in database:`, otp);
+
       if (otp) {
         await db
           .update(otps)
           .set({ isVerified: true })
           .where(eq(otps.id, otp.id));
+        console.log(`✅ OTP verified and marked as used`);
         return true;
       }
+      
+      console.log(`❌ No valid OTP found in database`);
       return false;
     }).catch(error => {
       console.error("Verify OTP error:", error);
@@ -674,11 +681,26 @@ class MemoryStorage implements IStorage {
   }
 
   async verifyOtp(email: string, otpCode: string, purpose: string): Promise<boolean> {
-    const otp = this.otps.find(o => o.email === email && o.otpCode === otpCode && o.purpose === purpose && !o.isVerified && new Date() < new Date(o.expiresAt));
+    console.log(`🔍 Memory OTP verification - Email: ${email}, Code: ${otpCode}, Purpose: ${purpose}`);
+    console.log(`🔍 Available OTPs:`, this.otps.map(o => ({ email: o.email, phone: o.phone, code: o.otpCode, purpose: o.purpose, verified: o.isVerified, expires: o.expiresAt })));
+    
+    const otp = this.otps.find(o => 
+      (o.email === email || o.phone === email) && 
+      o.otpCode === otpCode && 
+      o.purpose === purpose && 
+      !o.isVerified && 
+      new Date() < new Date(o.expiresAt)
+    );
+    
+    console.log(`🔍 Found matching OTP:`, otp);
+    
     if (otp) {
       otp.isVerified = true;
+      console.log(`✅ Memory OTP verified and marked as used`);
       return true;
     }
+    
+    console.log(`❌ No valid OTP found in memory storage`);
     return false;
   }
 

@@ -42,6 +42,7 @@ export class ApiClient {
 
   // OTP Management
   async sendOTP(data: { email?: string; phone?: string; purpose?: string }) {
+    console.log('📡 API: Sending OTP request:', data);
     return this.request<{ success: boolean; message: string; otpCode?: string }>('/otp/send', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -49,6 +50,7 @@ export class ApiClient {
   }
 
   async verifyOTP(data: { email?: string; phone?: string; otpCode: string; purpose?: string }) {
+    console.log('📡 API: Verifying OTP:', { ...data, otpCode: '***' });
     return this.request<{ success: boolean; message: string }>('/otp/verify', {
       method: 'POST',
       body: JSON.stringify(data),

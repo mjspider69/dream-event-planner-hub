@@ -106,13 +106,17 @@ const OTPVerification = ({
   const handleVerifyOTP = async (codeToVerify?: string) => {
     const code = codeToVerify || otpCode.join('');
     
+    console.log(`🔐 Attempting to verify OTP: ${code} for ${email}`);
+    
     if (code.length !== 6) {
       toast.error('Please enter a complete 6-digit code');
       return;
     }
 
     try {
-      await verifyOTP(email, code, phone, purpose);
+      console.log(`🔐 Calling verifyOTP with: email=${email}, code=${code}, phone=${phone}, purpose=${purpose}`);
+      const result = await verifyOTP(email, code, phone, purpose);
+      console.log(`🔐 OTP verification result:`, result);
       
       if (purpose === 'signup') {
         // Complete registration process
@@ -136,6 +140,7 @@ const OTPVerification = ({
       }, 1500);
       
     } catch (error: any) {
+      console.error('OTP verification failed:', error);
       toast.error(error.message || 'Invalid verification code');
       // Clear the code on error
       setOtpCode(Array(6).fill(''));
@@ -147,6 +152,7 @@ const OTPVerification = ({
     if (!canResend || resendCount >= 3) return;
 
     try {
+      console.log(`🔄 Resending OTP to ${email}, phone: ${phone}`);
       await sendOTP(email, phone, purpose);
       setTimeLeft(300);
       setCanResend(false);
@@ -155,6 +161,7 @@ const OTPVerification = ({
       inputRefs.current[0]?.focus();
       toast.success('New verification code sent!');
     } catch (error: any) {
+      console.error('Resend OTP failed:', error);
       toast.error(error.message || 'Failed to resend code');
     }
   };
