@@ -488,12 +488,37 @@ const AdminPanel = () => {
                     <CardContent>
                       <div className="space-y-4">
                         <div className="p-4 border-2 border-pastel-gold/30 rounded-lg bg-gradient-to-r from-cream-white to-pastel-gold/5">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-center justify-between mb-3">
                             <div>
                               <h4 className="font-elegant text-soft-burgundy">UPI Payment Gateway</h4>
-                              <p className="text-sm text-royal-purple">Primary payment method</p>
+                              <p className="text-sm text-royal-purple">Integrated with bank account</p>
                             </div>
                             <Badge className="bg-pastel-mint text-soft-burgundy">Active</Badge>
+                          </div>
+                          <div className="bg-cream-white p-3 rounded border border-pastel-gold/20">
+                            <h5 className="font-majestic text-sm text-soft-burgundy mb-2">🔒 Bank Account Details</h5>
+                            <div className="space-y-1 text-xs text-royal-purple">
+                              <div className="flex justify-between">
+                                <span>UPI ID:</span>
+                                <span className="font-mono">9491422983@paytm</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Bank:</span>
+                                <span>Kotak Mahindra Bank</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Account:</span>
+                                <span className="font-mono">4950746469</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>IFSC:</span>
+                                <span className="font-mono">KKBK0007813</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Mobile:</span>
+                                <span className="font-mono">9491422983</span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         

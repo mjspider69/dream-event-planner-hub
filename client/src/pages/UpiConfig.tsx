@@ -23,14 +23,14 @@ export default function UpiConfig() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState<UpiConfigData>({
-    businessUpiId: '',
+    businessUpiId: '9491422983@paytm',
     businessName: 'Aaroham Events',
-    accountHolderName: '',
-    bankName: '',
-    accountNumber: '',
-    ifscCode: '',
-    branchName: '',
-    phoneNumber: ''
+    accountHolderName: 'Aaroham Events Private Limited',
+    bankName: 'Kotak Mahindra Bank',
+    accountNumber: '4950746469',
+    ifscCode: 'KKBK0007813',
+    branchName: 'Mumbai Main Branch',
+    phoneNumber: '9491422983'
   });
 
   useEffect(() => {
