@@ -589,10 +589,130 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Cleanup route for expired OTPs
+  // Admin-only data access routes
+  app.get("/api/admin/all-data", async (req, res) => {
+    try {
+      const { adminToken } = req.headers;
+      if (!adminToken || adminToken !== 'admin-authenticated') {
+        return res.status(403).json({ error: "Admin access required" });
+      }
+
+      // Fetch all platform data for admin dashboard
+      const [profiles, vendors, bookings, payments, notifications] = await Promise.all([
+        storage.getAllProfiles(),
+        storage.getVendors({}),
+        storage.getBookings({}),
+        storage.getPayments(),
+        storage.getAllNotifications()
+      ]);
+
+      console.log('🔒 Admin data access - Total records:', {
+        profiles: profiles.length,
+        vendors: vendors.length,
+        bookings: bookings.length,
+        payments: payments.length,
+        notifications: notifications.length
+      });
+
+      res.json({
+        totalUsers: profiles.length,
+        totalVendors: vendors.length,
+        totalBookings: bookings.length,
+        totalPayments: payments.length,
+        totalNotifications: notifications.length,
+        users: profiles,
+        vendors: vendors,
+        bookings: bookings,
+        payments: payments,
+        notifications: notifications,
+        analytics: {
+          revenue: payments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
+          pendingApprovals: vendors.filter(v => !v.isApproved).length,
+          activeUsers: profiles.filter(p => p.emailVerified).length,
+          recentSignups: profiles.filter(p => {
+            const signupDate = new Date(p.createdAt);
+            const today = new Date();
+            return (today.getTime() - signupDate.getTime()) < (24 * 60 * 60 * 1000);
+          }).length
+        }
+      });
+    } catch (error) {
+      console.error("Get admin data error:", error);
+      res.status(500).json({ error: "Failed to get admin data" });
+    }
+  });
+
+  app.get("/api/admin/user-details/:userId", async (req, res) => {
+    try {
+      const { adminToken } = req.headers;
+      if (!adminToken || adminToken !== 'admin-authenticated') {
+        return res.status(403).json({ error: "Admin access required" });
+      }
+
+      const userId = req.params.userId;
+      const [profile, userBookings, userPayments, userNotifications, savedVendors] = await Promise.all([
+        storage.getProfile(userId),
+        storage.getBookings({ customerId: userId }),
+        storage.getPayments(userId),
+        storage.getNotifications(userId),
+        storage.getSavedVendors(userId)
+      ]);
+
+      console.log(`🔒 Admin accessing user details for ${userId}`);
+
+      res.json({
+        profile,
+        bookings: userBookings,
+        payments: userPayments,
+        notifications: userNotifications,
+        savedVendors: savedVendors,
+        summary: {
+          totalBookings: userBookings.length,
+          totalSpent: userPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
+          accountStatus: profile?.emailVerified ? 'Verified' : 'Unverified'
+        }
+      });
+    } catch (error) {
+      console.error("Get user details error:", error);
+      res.status(500).json({ error: "Failed to get user details" });
+    }
+  });
+
+  app.get("/api/admin/otp-logs", async (req, res) => {
+    try {
+      const { adminToken } = req.headers;
+      if (!adminToken || adminToken !== 'admin-authenticated') {
+        return res.status(403).json({ error: "Admin access required" });
+      }
+
+      const otpLogs = await storage.getAllOtps();
+      console.log('🔒 Admin accessing OTP logs - Total:', otpLogs.length);
+
+      res.json({
+        otps: otpLogs,
+        analytics: {
+          totalSent: otpLogs.length,
+          verified: otpLogs.filter(otp => otp.isVerified).length,
+          expired: otpLogs.filter(otp => new Date() > new Date(otp.expiresAt)).length,
+          successRate: ((otpLogs.filter(otp => otp.isVerified).length / otpLogs.length) * 100).toFixed(1)
+        }
+      });
+    } catch (error) {
+      console.error("Get OTP logs error:", error);
+      res.status(500).json({ error: "Failed to get OTP logs" });
+    }
+  });
+
+  // Cleanup route for expired OTPs (admin only)
   app.post("/api/cleanup/otps", async (req, res) => {
     try {
+      const { adminToken } = req.headers;
+      if (!adminToken || adminToken !== 'admin-authenticated') {
+        return res.status(403).json({ error: "Admin access required" });
+      }
+
       await storage.cleanupExpiredOtps();
+      console.log('🔒 Admin performed OTP cleanup');
       res.json({ success: true, message: "Expired OTPs cleaned up" });
     } catch (error) {
       console.error("Cleanup OTPs error:", error);

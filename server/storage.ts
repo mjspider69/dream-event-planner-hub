@@ -83,6 +83,12 @@ export interface IStorage {
   updateBookingStatus(id: string, status: string, notes?: string): Promise<Booking | undefined>;
   updateBookingPaymentStatus(bookingId: string, paymentStatus: string): Promise<void>;
   getAnalytics(userType: string, userId?: string): Promise<any>;
+  
+  // Admin-only data access methods
+  getAllProfiles(): Promise<Profile[]>;
+  getAllNotifications(): Promise<Notification[]>;
+  getAllOtps(): Promise<Otp[]>;
+  
   healthCheck(): Promise<void>;
 }
 
@@ -566,6 +572,24 @@ export class DatabaseStorage implements IStorage {
     });
   }
 
+  async getAllProfiles(): Promise<Profile[]> {
+    return withRetry(async () => {
+      return await db.select().from(profiles).orderBy(desc(profiles.createdAt));
+    });
+  }
+
+  async getAllNotifications(): Promise<Notification[]> {
+    return withRetry(async () => {
+      return await db.select().from(notifications).orderBy(desc(notifications.createdAt));
+    });
+  }
+
+  async getAllOtps(): Promise<Otp[]> {
+    return withRetry(async () => {
+      return await db.select().from(otps).orderBy(desc(otps.createdAt));
+    });
+  }
+
   async healthCheck(): Promise<void> {
     return withRetry(async () => {
       // Simple health check - just query the database
@@ -909,6 +933,18 @@ class MemoryStorage implements IStorage {
     }
 
     return {};
+  }
+
+  async getAllProfiles(): Promise<Profile[]> {
+    return [...this.profiles].sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  }
+
+  async getAllNotifications(): Promise<Notification[]> {
+    return [...this.notifications].sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  }
+
+  async getAllOtps(): Promise<Otp[]> {
+    return [...this.otps].sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   }
 
   async healthCheck(): Promise<void> {
