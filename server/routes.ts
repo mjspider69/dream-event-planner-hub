@@ -499,6 +499,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // UPI Configuration Routes
+  app.post("/api/upi-config", async (req, res) => {
+    try {
+      const config = req.body;
+      console.log('💳 UPI Configuration saved:', { 
+        businessUpiId: config.businessUpiId,
+        businessName: config.businessName,
+        accountHolderName: config.accountHolderName,
+        bankName: config.bankName 
+      });
+      
+      // In a real application, you might want to save this to database
+      // For now, we'll just acknowledge the save
+      res.json({ 
+        success: true, 
+        message: "UPI configuration saved successfully",
+        config: {
+          businessUpiId: config.businessUpiId,
+          businessName: config.businessName,
+          configured: true
+        }
+      });
+    } catch (error) {
+      console.error("Save UPI config error:", error);
+      res.status(500).json({ error: "Failed to save UPI configuration" });
+    }
+  });
+
+  app.get("/api/upi-config", async (req, res) => {
+    try {
+      // In a real application, retrieve from database
+      // For now, return a basic response
+      res.json({ 
+        configured: true,
+        message: "UPI configuration loaded from local storage"
+      });
+    } catch (error) {
+      console.error("Get UPI config error:", error);
+      res.status(500).json({ error: "Failed to get UPI configuration" });
+    }
+  });
+
   // Saved Vendors Routes
   app.post("/api/saved-vendors", async (req, res) => {
     try {

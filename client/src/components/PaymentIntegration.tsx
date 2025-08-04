@@ -32,8 +32,15 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
         // Get UPI configuration from local storage or use default
         const savedConfig = localStorage.getItem('aaroham_upi_config');
         const upiConfig = savedConfig ? JSON.parse(savedConfig) : null;
-        const businessUpiId = upiConfig?.businessUpiId || 'your-business@upi';
-        const businessName = upiConfig?.businessName || 'Aaroham Events';
+        
+        if (!upiConfig || !upiConfig.businessUpiId) {
+          alert('UPI not configured. Please configure your UPI ID in settings.');
+          window.open('/upi-config', '_blank');
+          return;
+        }
+        
+        const businessUpiId = upiConfig.businessUpiId;
+        const businessName = upiConfig.businessName || 'Aaroham Events';
         const upiUrl = `upi://pay?pa=${upiId || businessUpiId}&pn=${encodeURIComponent(businessName)}&am=${paymentData.amount}&cu=INR&tn=${encodeURIComponent(paymentData.description)}`;
         
         // Create payment record in backend
@@ -167,33 +174,50 @@ const PaymentIntegration = ({ paymentData, onSuccess, onError }: {
                   </p>
                 </div>
                 <div className="bg-white p-3 rounded border">
-                  <p className="text-sm text-gray-600">
-                    <strong>Payment will be made to:</strong><br/>
-                    UPI ID: your-business@upi<br/>
-                    Amount: ₹{paymentData.amount.toLocaleString()}<br/>
-                    Reference: {paymentData.orderId}
-                  </p>
-                  {'your-business@upi' === 'your-business@upi' ? (
-                    <div className="bg-amber-50 border border-amber-200 rounded p-2 mt-2">
-                      <p className="text-xs text-amber-700 font-medium">
-                        ⚠️ UPI Not Configured
-                      </p>
-                      <p className="text-xs text-amber-600 mt-1">
-                        <a href="/upi-config" className="underline hover:text-amber-800">
-                          Click here to configure your UPI ID
-                        </a>
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="bg-green-50 border border-green-200 rounded p-2 mt-2">
-                      <p className="text-xs text-green-700 font-medium">
-                        ✅ UPI Configured
-                      </p>
-                      <p className="text-xs text-green-600 mt-1">
-                        Payments will be received at: your-business@upi
-                      </p>
-                    </div>
-                  )}
+                  {(() => {
+                    const savedConfig = localStorage.getItem('aaroham_upi_config');
+                    const upiConfig = savedConfig ? JSON.parse(savedConfig) : null;
+                    const businessUpiId = upiConfig?.businessUpiId || 'Not Configured';
+                    const businessName = upiConfig?.businessName || 'Aaroham Events';
+                    const accountHolder = upiConfig?.accountHolderName || 'Not Set';
+                    const bankName = upiConfig?.bankName || 'Not Set';
+                    
+                    return (
+                      <>
+                        <p className="text-sm text-gray-600">
+                          <strong>Payment will be made to:</strong><br/>
+                          Business: {businessName}<br/>
+                          Account Holder: {accountHolder}<br/>
+                          Bank: {bankName}<br/>
+                          UPI ID: {businessUpiId}<br/>
+                          Amount: ₹{paymentData.amount.toLocaleString()}<br/>
+                          Reference: {paymentData.orderId}
+                        </p>
+                        {businessUpiId === 'Not Configured' ? (
+                          <div className="bg-amber-50 border border-amber-200 rounded p-2 mt-2">
+                            <p className="text-xs text-amber-700 font-medium">
+                              ⚠️ UPI Not Configured
+                            </p>
+                            <p className="text-xs text-amber-600 mt-1">
+                              <a href="/upi-config" className="underline hover:text-amber-800" target="_blank" rel="noopener noreferrer">
+                                Click here to configure your bank account & UPI ID
+                              </a>
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="bg-green-50 border border-green-200 rounded p-2 mt-2">
+                            <p className="text-xs text-green-700 font-medium">
+                              ✅ UPI Configured
+                            </p>
+                            <p className="text-xs text-green-600 mt-1">
+                              Payments will be received at: {businessUpiId}<br/>
+                              Account: {accountHolder} - {bankName}
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             </div>

@@ -37,6 +37,7 @@ import AIChatbot from "./pages/AIChatbot";
 import AdminSetup from "./components/AdminSetup";
 import Settings from "./pages/Settings";
 import UPIConfiguration from "./components/UPIConfiguration";
+import UpiConfig from "./pages/UpiConfig";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -100,7 +101,7 @@ const App = () => (
             <Route path="/ai-chatbot" element={<AIChatbot />} />
             <Route path="/admin/setup" element={<AdminSetup />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/upi-config" element={<UPIConfiguration />} />
+            <Route path="/upi-config" element={<UpiConfig />} />
 
             {/* Admin Routes */}
             <Route 
