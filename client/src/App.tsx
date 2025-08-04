@@ -38,6 +38,7 @@ import AdminSetup from "./components/AdminSetup";
 import Settings from "./pages/Settings";
 import UPIConfiguration from "./components/UPIConfiguration";
 import UpiConfig from "./pages/UpiConfig";
+import UPIDemo from "./pages/UPIDemo";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -102,6 +103,7 @@ const App = () => (
             <Route path="/admin/setup" element={<AdminSetup />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/upi-config" element={<UpiConfig />} />
+            <Route path="/upi-demo" element={<UPIDemo />} />
 
             {/* Admin Routes */}
             <Route 
