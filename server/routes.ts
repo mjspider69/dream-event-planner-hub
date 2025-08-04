@@ -37,11 +37,25 @@ async function sendEmailOTP(email: string, otpCode: string, purpose: string) {
       };
 
       await sgMail.send(msg);
-      console.log(`📧 SendGrid OTP sent to ${email}: ${otpCode}`);
+      console.log(`📧 ✅ SendGrid email successfully sent to ${email}`);
+      
+      // Also log in development for backup verification
+      if (process.env.NODE_ENV === "development") {
+        console.log(`📧 *** DEVELOPMENT BACKUP OTP FOR ${email}: ${otpCode} ***`);
+      }
+      
       return true;
     } catch (error) {
-      console.error('SendGrid email failed:', error);
-      // Fall through to free service
+      console.error('📧 ❌ SendGrid email failed:', error);
+      console.log('📧 Please check your SendGrid API key and try again');
+      
+      // Always log OTP in development as fallback
+      if (process.env.NODE_ENV === "development") {
+        console.log(`📧 *** FALLBACK OTP FOR ${email}: ${otpCode} ***`);
+        console.log(`📧 Copy this OTP to verify: ${otpCode}`);
+        return true;
+      }
+      return false;
     }
   }
 
