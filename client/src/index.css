@@ -72,10 +72,7 @@
 
   body {
     font-family: 'Rasa', serif;
-    background: #FEF5ED url('/pattern-bg.png');
-    background-size: 400px auto;
-    background-repeat: repeat;
-    background-attachment: fixed;
+    background: #FEF5ED;
     min-height: 100vh;
     position: relative;
   }
@@ -84,7 +81,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, rgba(254, 245, 237, 0.95) 0%, rgba(246, 207, 168, 0.85) 100%);
+    background: linear-gradient(180deg, rgba(254, 245, 237, 1) 0%, rgba(246, 207, 168, 0.15) 100%);
     pointer-events: none;
     z-index: 0;
   }
