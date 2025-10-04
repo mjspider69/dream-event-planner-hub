@@ -10,12 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          dark: '#291823',
-          peach: '#FECAA8',
-          tan: '#CCAB8D',
-          'dark-rgb': '41, 24, 35',
-          'peach-rgb': '254, 202, 168',
-          'tan-rgb': '204, 171, 141'
+          dark: '#301823',
+          peach: '#F6CFA8',
+          tan: '#CBAD8D',
+          cream: '#FEF5ED',
+          'dark-rgb': '48, 24, 35',
+          'peach-rgb': '246, 207, 168',
+          'tan-rgb': '203, 173, 141',
+          'cream-rgb': '254, 245, 237'
         },
         pearl: {
           50: '#fefdfb',

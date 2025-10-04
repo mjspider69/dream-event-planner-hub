@@ -6,44 +6,45 @@
 
 @layer base {
   :root {
-    /* Brand Color Palette - Dark Purple, Peach, Tan */
-    --brand-dark: #291823;
-    --brand-peach: #FECAA8;
-    --brand-tan: #CCAB8D;
+    /* Brand Color Palette - #F6CFA8, #301823, #CBAD8D, #FEF5ED */
+    --brand-dark: #301823;
+    --brand-peach: #F6CFA8;
+    --brand-tan: #CBAD8D;
+    --brand-cream: #FEF5ED;
     
-    --background: 35 15% 96%; /* Light peach background */
-    --foreground: 330 30% 15%; /* Dark purple text */
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 330 30% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 330 30% 15%;
-    --primary: 330 30% 15%; /* Dark purple primary */
-    --primary-foreground: 28 100% 84%; /* Peach on dark */
-    --secondary: 28 100% 84%; /* Peach secondary */
-    --secondary-foreground: 330 30% 15%;
-    --muted: 28 30% 88%; /* Muted peach */
-    --muted-foreground: 330 15% 40%;
-    --accent: 28 40% 70%; /* Tan accent */
-    --accent-foreground: 330 30% 15%;
+    --background: 28 50% 97%; /* Light cream background */
+    --foreground: 340 40% 12%; /* Dark purple text */
+    --card: 28 50% 99%; /* Cream white cards */
+    --card-foreground: 340 40% 12%;
+    --popover: 28 50% 99%;
+    --popover-foreground: 340 40% 12%;
+    --primary: 340 40% 12%; /* Dark purple primary */
+    --primary-foreground: 28 85% 82%; /* Peach on dark */
+    --secondary: 28 85% 82%; /* Peach secondary */
+    --secondary-foreground: 340 40% 12%;
+    --muted: 28 35% 88%; /* Muted peach */
+    --muted-foreground: 340 20% 40%;
+    --accent: 28 45% 70%; /* Tan accent */
+    --accent-foreground: 340 40% 12%;
     --success: 120 50% 45%;
     --success-foreground: 0 0% 100%;
     --warning: 40 95% 55%;
     --warning-foreground: 30 10% 15%;
     --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 28 20% 85%; /* Subtle tan border */
-    --input: 28 15% 94%; /* Light peach input */
-    --ring: 330 30% 15%; /* Dark purple focus ring */
-    --chart-1: 330 30% 15%;
-    --chart-2: 28 100% 84%;
-    --chart-3: 28 40% 70%;
+    --border: 28 30% 85%; /* Subtle tan border */
+    --input: 28 50% 96%; /* Light cream input */
+    --ring: 340 40% 12%; /* Dark purple focus ring */
+    --chart-1: 340 40% 12%;
+    --chart-2: 28 85% 82%;
+    --chart-3: 28 45% 70%;
     --chart-4: 200 50% 60%;
     --chart-5: 280 65% 60%;
 
     /* Brand gradient variables */
-    --brand-gradient: linear-gradient(135deg, #FECAA8 0%, #CCAB8D 50%, #291823 100%);
-    --peach-gradient: linear-gradient(135deg, #FECAA8 0%, #CCAB8D 100%);
-    --premium-shadow: 0 8px 32px rgba(41, 24, 35, 0.15);
+    --brand-gradient: linear-gradient(135deg, #F6CFA8 0%, #CBAD8D 50%, #301823 100%);
+    --peach-gradient: linear-gradient(135deg, #F6CFA8 0%, #CBAD8D 100%);
+    --premium-shadow: 0 8px 32px rgba(48, 24, 35, 0.15);
     
     /* Mobile responsiveness */
     --radius: 0.5rem;
@@ -71,8 +72,26 @@
 
   body {
     font-family: 'Rasa', serif;
-    background: linear-gradient(135deg, #fefefe 0%, #FECAA8 100%);
+    background: #FEF5ED url('/pattern-bg.png');
+    background-size: 400px auto;
+    background-repeat: repeat;
+    background-attachment: fixed;
     min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(254, 245, 237, 0.95) 0%, rgba(246, 207, 168, 0.85) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
