@@ -9,6 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          dark: '#291823',
+          peach: '#FECAA8',
+          tan: '#CCAB8D',
+          'dark-rgb': '41, 24, 35',
+          'peach-rgb': '254, 202, 168',
+          'tan-rgb': '204, 171, 141'
+        },
         pearl: {
           50: '#fefdfb',
           100: '#fdf9f3',
@@ -68,8 +76,9 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Playfair Display', 'serif']
+        sans: ['Rasa', 'serif'],
+        heading: ['ZCOOL XiaoWei', 'serif'],
+        body: ['Rasa', 'serif']
       },
       borderRadius: {
         lg: "var(--radius)",

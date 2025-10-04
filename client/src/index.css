@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Rasa:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,40 +6,44 @@
 
 @layer base {
   :root {
-    /* Pearl White and Amber Gold Premium Color Palette */
-    --background: 210 20% 97%; /* Pearl white background */
-    --foreground: 30 10% 15%; /* Rich dark text */
+    /* Brand Color Palette - Dark Purple, Peach, Tan */
+    --brand-dark: #291823;
+    --brand-peach: #FECAA8;
+    --brand-tan: #CCAB8D;
+    
+    --background: 35 15% 96%; /* Light peach background */
+    --foreground: 330 30% 15%; /* Dark purple text */
     --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 30 10% 15%;
+    --card-foreground: 330 30% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 30 10% 15%;
-    --primary: 45 95% 55%; /* Amber gold primary */
-    --primary-foreground: 30 10% 15%;
-    --secondary: 210 15% 92%; /* Light pearl */
-    --secondary-foreground: 30 10% 15%;
-    --muted: 210 10% 88%; /* Muted pearl */
-    --muted-foreground: 30 5% 40%;
-    --accent: 35 85% 65%; /* Light amber accent */
-    --accent-foreground: 30 10% 15%;
+    --popover-foreground: 330 30% 15%;
+    --primary: 330 30% 15%; /* Dark purple primary */
+    --primary-foreground: 28 100% 84%; /* Peach on dark */
+    --secondary: 28 100% 84%; /* Peach secondary */
+    --secondary-foreground: 330 30% 15%;
+    --muted: 28 30% 88%; /* Muted peach */
+    --muted-foreground: 330 15% 40%;
+    --accent: 28 40% 70%; /* Tan accent */
+    --accent-foreground: 330 30% 15%;
     --success: 120 50% 45%;
     --success-foreground: 0 0% 100%;
     --warning: 40 95% 55%;
     --warning-foreground: 30 10% 15%;
     --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 15% 85%; /* Subtle pearl border */
-    --input: 210 10% 94%; /* Light input background */
-    --ring: 45 95% 55%; /* Amber focus ring */
-    --chart-1: 45 95% 55%;
-    --chart-2: 35 85% 65%;
-    --chart-3: 25 75% 50%;
+    --border: 28 20% 85%; /* Subtle tan border */
+    --input: 28 15% 94%; /* Light peach input */
+    --ring: 330 30% 15%; /* Dark purple focus ring */
+    --chart-1: 330 30% 15%;
+    --chart-2: 28 100% 84%;
+    --chart-3: 28 40% 70%;
     --chart-4: 200 50% 60%;
     --chart-5: 280 65% 60%;
 
-    /* Premium gradient variables */
-    --pearl-gradient: linear-gradient(135deg, #fefefe 0%, #f8f9fa 50%, #f1f3f4 100%);
-    --amber-gradient: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff8c00 100%);
-    --premium-shadow: 0 8px 32px rgba(255, 215, 0, 0.1);
+    /* Brand gradient variables */
+    --brand-gradient: linear-gradient(135deg, #FECAA8 0%, #CCAB8D 50%, #291823 100%);
+    --peach-gradient: linear-gradient(135deg, #FECAA8 0%, #CCAB8D 100%);
+    --premium-shadow: 0 8px 32px rgba(41, 24, 35, 0.15);
     
     /* Mobile responsiveness */
     --radius: 0.5rem;
@@ -66,13 +70,13 @@
   }
 
   body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--pearl-gradient);
+    font-family: 'Rasa', serif;
+    background: linear-gradient(135deg, #fefefe 0%, #FECAA8 100%);
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'ZCOOL XiaoWei', serif;
     font-weight: 600;
     color: hsl(var(--foreground));
   }
@@ -89,6 +93,35 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .brand-gradient-text {
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .brand-pattern {
+    background-image: url('/src/assets/brand-pattern.png');
+    background-size: 174px 17px;
+    background-repeat: repeat;
+    opacity: 0.1;
+  }
+
+  .brand-pattern-overlay {
+    position: relative;
+  }
+
+  .brand-pattern-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/src/assets/brand-pattern.png');
+    background-size: 174px 17px;
+    background-repeat: repeat;
+    opacity: 0.08;
+    pointer-events: none;
   }
 
   /* Mobile-first responsive design improvements */

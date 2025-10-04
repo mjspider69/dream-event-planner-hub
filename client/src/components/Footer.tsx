@@ -12,12 +12,14 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center space-x-4 mb-8">
-              <div className="w-16 h-16 bg-gradient-to-r from-bright-gold to-golden-yellow rounded-full flex items-center justify-center shadow-xl">
-                <Crown className="h-9 w-9 text-navy-blue" />
-              </div>
+              <img 
+                src="/src/assets/logo.png" 
+                alt="Aaroham Logo" 
+                className="h-16 w-auto object-contain"
+              />
               <div className="flex flex-col">
-                <span className="text-4xl font-majestic font-bold text-white">AAROHAM</span>
-                <span className="text-sm font-signature text-bright-gold tracking-widest">Royal Events</span>
+                <span className="text-4xl font-heading font-bold text-white">AAROHAM</span>
+                <span className="text-sm font-body text-brand-peach tracking-widest">Royal Events</span>
               </div>
             </div>
             <p className="text-white/90 leading-relaxed font-elegant text-base mb-6">

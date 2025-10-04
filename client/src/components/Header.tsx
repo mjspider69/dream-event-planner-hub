@@ -51,14 +51,16 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center shadow-lg">
-              <Sparkles className="h-6 w-6 text-pearl-white" />
-            </div>
+            <img 
+              src="/src/assets/logo.png" 
+              alt="Aaroham Logo" 
+              className="h-12 w-auto object-contain"
+            />
             <div>
-              <h1 className="font-playfair text-2xl font-bold gold-shimmer-text">
+              <h1 className="font-heading text-2xl font-bold brand-gradient-text">
                 Aaroham
               </h1>
-              <p className="font-poppins text-xs text-charcoal-gray -mt-1">AI Event Planning</p>
+              <p className="font-body text-xs text-brand-dark/70 -mt-1">AI Event Planning</p>
             </div>
           </Link>
 
