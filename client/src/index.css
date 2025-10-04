@@ -103,7 +103,7 @@
   }
 
   .brand-pattern {
-    background-image: url('/src/assets/brand-pattern.png');
+    background-image: url('/brand-pattern.png');
     background-size: 174px 17px;
     background-repeat: repeat;
     opacity: 0.1;
@@ -117,7 +117,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('/src/assets/brand-pattern.png');
+    background-image: url('/brand-pattern.png');
     background-size: 174px 17px;
     background-repeat: repeat;
     opacity: 0.08;

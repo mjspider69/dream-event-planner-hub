@@ -52,7 +52,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img 
-              src="/src/assets/logo.png" 
+              src="/logo.png" 
               alt="Aaroham Logo" 
               className="h-12 w-auto object-contain"
             />
