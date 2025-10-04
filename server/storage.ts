@@ -437,7 +437,7 @@ export class DatabaseStorage implements IStorage {
         .innerJoin(vendors, eq(savedVendors.vendorId, vendors.id))
         .where(eq(savedVendors.userId, userId));
 
-      return result.map(r => r.vendor);
+      return result.map((r: any) => r.vendor);
     });
   }
 
@@ -512,38 +512,38 @@ export class DatabaseStorage implements IStorage {
           totalVendors: allVendors.length,
           pendingVendors: pendingVendors.length,
           totalBookings: allBookings.length,
-          totalRevenue: allPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
+          totalRevenue: allPayments.reduce((sum: number, p: any) => sum + (parseFloat(p.amount) || 0), 0),
           monthlyBookings: monthlyBookings.length,
           recentActivity: [
-            ...allBookings.slice(-5).map(b => ({
+            ...allBookings.slice(-5).map((b: any) => ({
               type: 'booking',
               message: `New booking for ${b.eventDate}`,
               timestamp: b.createdAt || new Date()
             })),
-            ...allVendors.slice(-3).map(v => ({
+            ...allVendors.slice(-3).map((v: any) => ({
               type: 'vendor',
               message: `New vendor registration: ${v.businessName}`,
               timestamp: v.createdAt || new Date()
             }))
-          ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+          ].sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
         };
       }
 
       if (userType === 'vendor' && userId) {
         const vendorBookings = await db.select().from(bookings).where(eq(bookings.vendorId, userId));
         const vendorPayments = await db.select().from(payments).where(
-          inArray(payments.bookingId, vendorBookings.map(b => b.id))
+          inArray(payments.bookingId, vendorBookings.map((b: any) => b.id))
         );
 
         return {
           totalBookings: vendorBookings.length,
-          pendingBookings: vendorBookings.filter(b => b.status === 'pending').length,
-          completedBookings: vendorBookings.filter(b => b.status === 'completed').length,
-          totalEarnings: vendorPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0),
-          monthlyBookings: vendorBookings.filter(b => new Date(b.createdAt || new Date()) >= thisMonth).length,
+          pendingBookings: vendorBookings.filter((b: any) => b.status === 'pending').length,
+          completedBookings: vendorBookings.filter((b: any) => b.status === 'completed').length,
+          totalEarnings: vendorPayments.reduce((sum: number, p: any) => sum + (parseFloat(p.amount) || 0), 0),
+          monthlyBookings: vendorBookings.filter((b: any) => new Date(b.createdAt || new Date()) >= thisMonth).length,
           upcomingEvents: vendorBookings
-            .filter(b => new Date(b.eventDate) > now && b.status === 'confirmed')
-            .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
+            .filter((b: any) => new Date(b.eventDate) > now && b.status === 'confirmed')
+            .sort((a: any, b: any) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
             .slice(0, 5)
         };
       }
@@ -551,20 +551,20 @@ export class DatabaseStorage implements IStorage {
       if (userType === 'customer' && userId) {
         const customerBookings = await db.select().from(bookings).where(eq(bookings.customerId, userId));
         const customerPayments = await db.select().from(payments).where(
-          inArray(payments.bookingId, customerBookings.map(b => b.id))
+          inArray(payments.bookingId, customerBookings.map((b: any) => b.id))
         );
 
         return {
           totalBookings: customerBookings.length,
           upcomingEvents: customerBookings
-            .filter(b => new Date(b.eventDate) > now)
-            .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
+            .filter((b: any) => new Date(b.eventDate) > now)
+            .sort((a: any, b: any) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
             .slice(0, 5),
           pastEvents: customerBookings
-            .filter(b => new Date(b.eventDate) < now)
-            .sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime())
+            .filter((b: any) => new Date(b.eventDate) < now)
+            .sort((a: any, b: any) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime())
             .slice(-5),
-          totalSpent: customerPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)
+          totalSpent: customerPayments.reduce((sum: number, p: any) => sum + (parseFloat(p.amount) || 0), 0)
         };
       }
 
