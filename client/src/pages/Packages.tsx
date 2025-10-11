@@ -57,7 +57,7 @@ const Packages = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
+    <div className="min-h-screen bg-brand-cream">
       <Helmet>
         <title>Event Packages - Aaroham | Premium Event Planning</title>
         <meta name="description" content="Choose from our curated event packages for weddings, corporate events, and celebrations. Premium planning services with trusted vendors." />
@@ -74,14 +74,14 @@ const Packages = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-4 border-amber-600 text-amber-700">
+            <Badge variant="outline" className="mb-4 border-brand-tan text-brand-dark">
               <Crown className="w-4 h-4 mr-2" />
               Premium Packages
             </Badge>
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent font-heading">
+            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-brand-peach via-brand-tan to-brand-dark bg-clip-text text-transparent font-heading">
               Choose Your Perfect Package
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-brand-dark/70 max-w-3xl mx-auto leading-relaxed">
               Carefully curated packages designed to make your special moments unforgettable. 
               Each package includes premium vendors and personalized service.
             </p>
@@ -89,23 +89,23 @@ const Packages = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {packages.map((pkg) => (
-              <Card key={pkg.id} className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${pkg.popular ? 'border-2 border-amber-500 shadow-xl' : 'border border-gray-200'}`}>
+              <Card key={pkg.id} className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${pkg.popular ? 'border-2 border-brand-peach shadow-xl' : 'border border-brand-tan/30'}`}>
                 {pkg.popular && (
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-center py-2 text-sm font-semibold">
+                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-brand-peach to-brand-tan text-brand-dark text-center py-2 text-sm font-semibold">
                     Most Popular
                   </div>
                 )}
                 <CardContent className="p-8">
                   <div className={`mb-6 ${pkg.popular ? 'mt-6' : ''}`}>
-                    <h3 className="text-2xl font-bold mb-2 text-gray-800">{pkg.name}</h3>
-                    <div className="text-4xl font-bold text-amber-600 mb-2">{pkg.price}</div>
-                    <p className="text-gray-600">{pkg.description}</p>
+                    <h3 className="text-2xl font-bold mb-2 text-brand-dark">{pkg.name}</h3>
+                    <div className="text-4xl font-bold text-brand-peach mb-2">{pkg.price}</div>
+                    <p className="text-brand-dark/70">{pkg.description}</p>
                   </div>
 
                   <ul className="space-y-3 mb-8">
                     {pkg.features.map((feature, index) => (
-                      <li key={index} className="flex items-center text-gray-700">
-                        <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                      <li key={index} className="flex items-center text-brand-dark/80">
+                        <CheckCircle className="w-5 h-5 text-brand-tan mr-3 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -114,8 +114,8 @@ const Packages = () => {
                   <Button 
                     className={`w-full py-3 text-lg font-semibold transition-all duration-300 ${
                       pkg.popular 
-                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white' 
-                        : 'bg-white text-amber-600 border-2 border-amber-600 hover:bg-amber-50'
+                        ? 'bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90 text-brand-dark' 
+                        : 'bg-white text-brand-dark border-2 border-brand-tan hover:bg-brand-peach/10'
                     }`}
                   >
                     Choose {pkg.name}
@@ -126,13 +126,13 @@ const Packages = () => {
           </div>
 
           <div className="text-center">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">Need Something Custom?</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-brand-dark">Need Something Custom?</h2>
+            <p className="text-lg text-brand-dark/70 mb-8 max-w-2xl mx-auto">
               Every event is unique. Let us create a personalized package that perfectly matches your vision and requirements.
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-4 text-lg font-semibold"
+              className="bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90 text-brand-dark px-8 py-4 text-lg font-semibold"
             >
               <Sparkles className="w-5 h-5 mr-2" />
               Create Custom Package
