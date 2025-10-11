@@ -19,6 +19,13 @@ const config: Config = {
           'tan-rgb': '203, 173, 141',
           'cream-rgb': '254, 245, 237'
         },
+        'royal-gold': '#CBAD8D',
+        'warm-gold': '#F6CFA8',
+        'deep-gold': '#C9A87A',
+        'pearl-white': '#FEF5ED',
+        'charcoal-gray': '#301823',
+        'soft-sand': '#F5E6D3',
+        'misty-rose': '#FAE8E0',
         pearl: {
           50: '#fefdfb',
           100: '#fdf9f3',
@@ -80,7 +87,11 @@ const config: Config = {
       fontFamily: {
         sans: ['Rasa', 'serif'],
         heading: ['ZCOOL XiaoWei', 'serif'],
-        body: ['Rasa', 'serif']
+        body: ['Rasa', 'serif'],
+        playfair: ['ZCOOL XiaoWei', 'serif'],
+        poppins: ['Rasa', 'serif'],
+        cormorant: ['Rasa', 'serif'],
+        'great-vibes': ['ZCOOL XiaoWei', 'serif']
       },
       borderRadius: {
         lg: "var(--radius)",

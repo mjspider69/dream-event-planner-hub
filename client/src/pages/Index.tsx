@@ -77,18 +77,20 @@ const Index = () => {
       <Header />
       
       {/* Customer Support CTA - Fixed Position */}
-      <div className="fixed top-20 right-6 z-40 flex flex-col space-y-2">
+      <div className="fixed top-24 right-6 z-40 flex flex-col space-y-3">
         <Button 
-          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg rounded-full p-3"
+          data-testid="button-whatsapp"
+          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg rounded-full p-4 hover:scale-110 transition-transform"
           onClick={() => window.open('https://wa.me/917698889321', '_blank')}
         >
-          <MessageCircle className="h-5 w-5" />
+          <MessageCircle className="h-6 w-6" />
         </Button>
         <Button 
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg rounded-full p-3"
+          data-testid="button-call"
+          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg rounded-full p-4 hover:scale-110 transition-transform"
           onClick={() => window.open('tel:+917698889321', '_blank')}
         >
-          <Phone className="h-5 w-5" />
+          <Phone className="h-6 w-6" />
         </Button>
       </div>
       
@@ -115,18 +117,20 @@ const Index = () => {
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
+                data-testid="button-plan-event"
                 onClick={handleGetStarted}
                 size="lg" 
-                className="luxury-button px-12 py-6 text-xl font-poppins font-semibold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+                className="luxury-button px-12 py-7 text-xl font-poppins font-semibold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
               >
                 Plan My Event
               </Button>
               
               <Link to="/vendors">
                 <Button 
+                  data-testid="button-explore-vendors"
                   variant="outline" 
                   size="lg" 
-                  className="border-3 border-pearl-white bg-pearl-white/20 backdrop-blur-sm text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-12 py-6 text-xl font-poppins font-semibold rounded-full shadow-2xl transition-all duration-300"
+                  className="border-3 border-pearl-white bg-pearl-white/20 backdrop-blur-sm text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-12 py-7 text-xl font-poppins font-semibold rounded-full shadow-2xl transition-all duration-300"
                 >
                   Explore Vendors
                 </Button>
@@ -137,48 +141,48 @@ const Index = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="luxury-section py-20 bg-gradient-to-br from-pearl-white to-soft-sand">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-5xl font-bold mb-6 gold-shimmer-text">
+      <section className="luxury-section py-24 md:py-32 bg-gradient-to-br from-pearl-white to-soft-sand">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center mb-20">
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-8 gold-shimmer-text" data-testid="heading-how-it-works">
               How Aaroham Works
             </h2>
-            <p className="font-cormorant text-2xl text-charcoal-gray max-w-3xl mx-auto">
+            <p className="font-cormorant text-xl md:text-2xl text-charcoal-gray max-w-3xl mx-auto leading-relaxed" data-testid="text-how-it-works-description">
               Experience the seamless journey from dream to celebration with our proven process
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            <div className="text-center group">
-              <div className="w-24 h-24 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 max-w-7xl mx-auto">
+            <div className="text-center group px-4" data-testid="step-1">
+              <div className="w-28 h-28 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-8 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 1
               </div>
-              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Tell Us Your Vision</h3>
-              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Share your event details, preferences, and budget with our intelligent platform</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-4 text-gradient-gold">Tell Us Your Vision</h3>
+              <p className="font-poppins text-charcoal-gray text-base md:text-lg leading-relaxed">Share your event details, preferences, and budget with our intelligent platform</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-24 h-24 bg-gradient-to-br from-deep-gold via-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
+            <div className="text-center group px-4" data-testid="step-2">
+              <div className="w-28 h-28 bg-gradient-to-br from-deep-gold via-royal-gold to-warm-gold rounded-full flex items-center justify-center mx-auto mb-8 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 2
               </div>
-              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Get Matched</h3>
-              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Our AI algorithm connects you with the perfect vendors based on your requirements</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-4 text-gradient-gold">Get Matched</h3>
+              <p className="font-poppins text-charcoal-gray text-base md:text-lg leading-relaxed">Our AI algorithm connects you with the perfect vendors based on your requirements</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-24 h-24 bg-gradient-to-br from-warm-gold via-deep-gold to-royal-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
+            <div className="text-center group px-4" data-testid="step-3">
+              <div className="w-28 h-28 bg-gradient-to-br from-warm-gold via-deep-gold to-royal-gold rounded-full flex items-center justify-center mx-auto mb-8 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 3
               </div>
-              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Book & Pay Securely</h3>
-              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Confirm your vendors with secure payments and comprehensive protection</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-4 text-gradient-gold">Book & Pay Securely</h3>
+              <p className="font-poppins text-charcoal-gray text-base md:text-lg leading-relaxed">Confirm your vendors with secure payments and comprehensive protection</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-24 h-24 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-6 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
+            <div className="text-center group px-4" data-testid="step-4">
+              <div className="w-28 h-28 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold rounded-full flex items-center justify-center mx-auto mb-8 text-pearl-white text-3xl font-bold shadow-xl group-hover:shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                 4
               </div>
-              <h3 className="font-playfair text-2xl font-semibold mb-3 text-gradient-gold">Celebrate</h3>
-              <p className="font-poppins text-charcoal-gray text-lg leading-relaxed">Relax and enjoy your perfectly orchestrated event while we handle everything</p>
+              <h3 className="font-playfair text-2xl font-semibold mb-4 text-gradient-gold">Celebrate</h3>
+              <p className="font-poppins text-charcoal-gray text-base md:text-lg leading-relaxed">Relax and enjoy your perfectly orchestrated event while we handle everything</p>
             </div>
           </div>
         </div>
@@ -205,21 +209,21 @@ const Index = () => {
       />
 
       {/* Testimonials Section */}
-      <section className="luxury-section py-20 bg-gradient-to-br from-soft-sand via-pearl-white to-misty-rose">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-5xl font-bold mb-6 gold-shimmer-text">
+      <section className="luxury-section py-24 md:py-32 bg-gradient-to-br from-soft-sand via-pearl-white to-misty-rose">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center mb-20">
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-8 gold-shimmer-text" data-testid="heading-testimonials">
               Stories of Success
             </h2>
-            <p className="font-cormorant text-2xl text-charcoal-gray max-w-3xl mx-auto mb-4">
+            <p className="font-cormorant text-xl md:text-2xl text-charcoal-gray max-w-3xl mx-auto mb-6 leading-relaxed" data-testid="text-testimonials-description">
               Real experiences from families who trusted Aaroham with their most precious moments
             </p>
-            <div className="cultural-quote text-2xl font-great-vibes text-royal-gold opacity-80">
+            <div className="cultural-quote text-xl md:text-2xl font-great-vibes text-royal-gold opacity-80">
               "Every celebration tells a story of love and tradition"
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 max-w-7xl mx-auto">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="testimonial-card group">
                 <div className="flex items-center mb-6">
@@ -255,22 +259,23 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white relative overflow-hidden">
+      <section className="py-28 md:py-36 bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="container mx-auto px-6 text-center relative z-10">
+        <div className="container mx-auto px-6 md:px-12 text-center relative z-10">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-playfair text-6xl font-bold mb-6 drop-shadow-lg">
+            <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-8 drop-shadow-lg" data-testid="heading-cta">
               Your Dream Event Awaits
             </h2>
-            <p className="font-cormorant text-2xl mb-12 opacity-95 leading-relaxed">
+            <p className="font-cormorant text-xl md:text-2xl mb-16 opacity-95 leading-relaxed" data-testid="text-cta-description">
               Join thousands of satisfied families who trusted Aaroham to create their most cherished memories
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
+                data-testid="button-start-planning"
                 onClick={handleGetStarted}
                 size="lg" 
-                className="bg-pearl-white text-royal-gold hover:bg-soft-sand px-12 py-6 text-xl font-poppins font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 rounded-full"
+                className="bg-pearl-white text-royal-gold hover:bg-soft-sand px-12 py-7 text-xl font-poppins font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 rounded-full"
               >
                 Start Planning Now
                 <Sparkles className="ml-3 h-6 w-6" />
@@ -278,9 +283,10 @@ const Index = () => {
               
               <Link to="/vendors">
                 <Button 
+                  data-testid="button-browse-vendors"
                   variant="outline" 
                   size="lg" 
-                  className="border-3 border-pearl-white bg-pearl-white/10 backdrop-blur-sm text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-12 py-6 text-xl font-poppins font-bold transition-all duration-300 rounded-full"
+                  className="border-3 border-pearl-white bg-pearl-white/10 backdrop-blur-sm text-pearl-white hover:bg-pearl-white hover:text-royal-gold px-12 py-7 text-xl font-poppins font-bold transition-all duration-300 rounded-full"
                 >
                   Browse Vendors
                   <ArrowRight className="ml-3 h-6 w-6" />
@@ -299,12 +305,13 @@ const Index = () => {
         <div className="group relative">
           <Link to="/ai-chatbot">
             <Button 
+              data-testid="button-chatbot"
               className="w-20 h-20 rounded-full bg-gradient-to-br from-royal-gold via-warm-gold to-deep-gold text-pearl-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 border-4 border-pearl-white/20"
             >
               <Bot className="h-9 w-9" />
             </Button>
           </Link>
-          <div className="absolute bottom-full right-0 mb-2 px-4 py-2 bg-charcoal-gray text-pearl-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          <div className="absolute bottom-full right-0 mb-3 px-4 py-2 bg-charcoal-gray text-pearl-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
             Chat with Aarohi AI
           </div>
         </div>

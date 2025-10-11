@@ -118,6 +118,61 @@
     background-clip: text;
   }
 
+  .text-gradient-gold {
+    background: var(--peach-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-shimmer-text {
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .luxury-button {
+    background: var(--peach-gradient);
+    color: hsl(var(--primary));
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(246, 207, 168, 0.4);
+  }
+
+  .luxury-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(246, 207, 168, 0.5);
+  }
+
+  .luxury-section {
+    position: relative;
+  }
+
+  .luxury-nav {
+    background: rgba(254, 245, 237, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(203, 173, 141, 0.2);
+    box-shadow: 0 2px 16px rgba(48, 24, 35, 0.08);
+  }
+
+  .testimonial-card {
+    background: linear-gradient(145deg, rgba(254, 245, 237, 0.95) 0%, rgba(254, 245, 237, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(203, 173, 141, 0.25);
+    box-shadow: 0 8px 32px rgba(48, 24, 35, 0.12);
+    padding: 2rem;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(48, 24, 35, 0.18);
+  }
+
   .brand-pattern {
     background-image: url('/brand-pattern.png');
     background-size: 174px 17px;
