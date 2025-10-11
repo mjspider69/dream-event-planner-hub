@@ -215,33 +215,33 @@ const AIChatbot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-tan via-white to-brand-tan">
       <Header />
       
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-6">
-            <Badge className="mb-4 bg-gradient-to-r from-blue-100 to-yellow-100 text-blue-800 px-6 py-2 rounded-full">
+            <Badge className="mb-4 bg-gradient-to-r from-brand-tan to-brand-tan text-brand-dark px-6 py-2 rounded-full">
               <Bot className="w-4 h-4 mr-2" />
               AI Assistant
             </Badge>
-            <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-brand-tan to-brand-tan bg-clip-text text-transparent">
               Chat with Aarohi - Your AI Event Planner
             </h1>
             <div className="flex items-center justify-center space-x-6 text-sm">
-              <div className="flex items-center space-x-2 text-blue-600">
+              <div className="flex items-center space-x-2 text-brand-dark">
                 <Clock className="h-4 w-4" />
                 <span>Chat Time: {formatTime(timeLeft)} remaining</span>
               </div>
               {isVoiceChatActive && (
-                <div className="flex items-center space-x-2 text-yellow-600">
+                <div className="flex items-center space-x-2 text-brand-tan">
                   <Mic className="h-4 w-4" />
                   <span>Voice Chat: {formatTime(voiceTimeLeft)} remaining</span>
                 </div>
               )}
               {!user && (
-                <Badge className="bg-red-100 text-red-800">
+                <Badge className="bg-brand-peach/20 text-brand-dark">
                   Guest Mode - Limited Time
                 </Badge>
               )}
@@ -254,9 +254,9 @@ const AIChatbot = () => {
               <Button
                 onClick={toggleVoiceChat}
                 className={`${isVoiceChatActive 
-                  ? 'bg-gradient-to-r from-yellow-500 to-yellow-600' 
-                  : 'bg-gradient-to-r from-blue-600 to-yellow-500'
-                } text-white`}
+                  ? 'bg-gradient-to-r from-brand-peach to-brand-tan' 
+                  : 'bg-gradient-to-r from-brand-tan to-brand-tan'
+                } text-brand-cream`}
               >
                 {isVoiceChatActive ? (
                   <>
@@ -276,8 +276,8 @@ const AIChatbot = () => {
                   onClick={toggleListening}
                   variant="outline"
                   className={`border-2 ${isListening 
-                    ? 'border-red-500 bg-red-50 text-red-600' 
-                    : 'border-blue-500 text-blue-600'
+                    ? 'border-brand-tan bg-brand-peach/20 text-brand-dark' 
+                    : 'border-brand-tan/30 text-brand-dark'
                   }`}
                 >
                   {isListening ? (
@@ -299,14 +299,14 @@ const AIChatbot = () => {
           {/* Voice Chat Visualization */}
           {isVoiceChatActive && (
             <div className="flex justify-center mb-6">
-              <div className="bg-white rounded-lg p-6 shadow-lg border-2 border-yellow-200">
+              <div className="bg-brand-cream rounded-lg p-6 shadow-lg border-2 border-brand-tan">
                 <div className="flex items-center space-x-4">
                   <div className={`w-16 h-16 rounded-full flex items-center justify-center ${
-                    isSpeaking ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 voice-bot-active' : 
-                    isListening ? 'bg-gradient-to-r from-blue-400 to-blue-600 voice-bot-active' : 
+                    isSpeaking ? 'bg-gradient-to-r from-brand-peach to-brand-tan voice-bot-active' : 
+                    isListening ? 'bg-gradient-to-r from-brand-tan to-brand-dark voice-bot-active' : 
                     'bg-gray-200'
                   }`}>
-                    <Bot className={`h-8 w-8 ${isSpeaking || isListening ? 'text-white' : 'text-gray-400'}`} />
+                    <Bot className={`h-8 w-8 ${isSpeaking || isListening ? 'text-brand-cream' : 'text-gray-400'}`} />
                   </div>
                   
                   {/* Enhanced Visual Elements */}
@@ -316,9 +316,9 @@ const AIChatbot = () => {
                         key={i}
                         className={`w-2 rounded-full transition-all duration-300 ${
                           isSpeaking 
-                            ? `voice-wave bg-yellow-400` 
+                            ? `voice-wave bg-brand-peach/20` 
                             : isListening 
-                            ? `voice-wave bg-blue-400`
+                            ? `voice-wave bg-brand-cream`
                             : 'h-2 bg-gray-300'
                         }`}
                         style={{
@@ -331,9 +331,9 @@ const AIChatbot = () => {
                   
                   <div className="text-sm">
                     {isSpeaking ? (
-                      <span className="text-yellow-600 font-medium">Aarohi is speaking...</span>
+                      <span className="text-brand-tan font-medium">Aarohi is speaking...</span>
                     ) : isListening ? (
-                      <span className="text-blue-600 font-medium">Listening to you...</span>
+                      <span className="text-brand-dark font-medium">Listening to you...</span>
                     ) : (
                       <span className="text-gray-500">Voice chat ready</span>
                     )}
@@ -352,30 +352,30 @@ const AIChatbot = () => {
                   <div className={`flex items-start space-x-3 max-w-xs lg:max-w-md ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                       message.sender === 'ai' 
-                        ? 'bg-gradient-to-r from-blue-600 to-yellow-500' 
+                        ? 'bg-gradient-to-r from-brand-tan to-brand-tan' 
                         : 'bg-gradient-to-r from-gray-400 to-gray-600'
                     }`}>
                       {message.sender === 'ai' ? (
-                        <Bot className="h-4 w-4 text-white" />
+                        <Bot className="h-4 w-4 text-brand-cream" />
                       ) : (
-                        <span className="text-white text-sm font-semibold">U</span>
+                        <span className="text-brand-cream text-sm font-semibold">U</span>
                       )}
                     </div>
                     <div className={`rounded-2xl p-4 ${
                       message.sender === 'ai' 
-                        ? 'bg-white shadow-md border border-gray-100' 
-                        : 'bg-gradient-to-r from-blue-600 to-yellow-500 text-white shadow-lg'
+                        ? 'bg-brand-cream shadow-md border border-gray-100' 
+                        : 'bg-gradient-to-r from-brand-tan to-brand-tan text-brand-cream shadow-lg'
                     }`}>
                       <p className="text-sm leading-relaxed">{message.text}</p>
                       <div className="flex items-center justify-between mt-2">
                         <p className={`text-xs ${
-                          message.sender === 'ai' ? 'text-gray-500' : 'text-white/80'
+                          message.sender === 'ai' ? 'text-gray-500' : 'text-brand-cream/80'
                         }`}>
                           {message.time}
                         </p>
                         {message.isVoice && (
                           <Volume2 className={`h-3 w-3 ${
-                            message.sender === 'ai' ? 'text-blue-500' : 'text-white/80'
+                            message.sender === 'ai' ? 'text-brand-dark' : 'text-brand-cream/80'
                           }`} />
                         )}
                       </div>
@@ -396,7 +396,7 @@ const AIChatbot = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => setInputMessage(suggestion)}
-                    className="text-xs border-blue-200 text-blue-600 hover:bg-blue-50"
+                    className="text-xs border-brand-tan/30 text-brand-dark hover:bg-brand-cream"
                     disabled={showLoginWall && !user}
                   >
                     {suggestion}
@@ -406,7 +406,7 @@ const AIChatbot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-6 border-t bg-white">
+            <div className="p-6 border-t bg-brand-cream">
               <div className="flex space-x-2">
                 <Input
                   value={inputMessage}
@@ -414,12 +414,12 @@ const AIChatbot = () => {
                   placeholder={showLoginWall && !user ? "Session expired. Please login to continue..." : "Ask me anything about event planning..."}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   disabled={showLoginWall && !user}
-                  className="border-gray-200 focus:border-blue-500"
+                  className="border-gray-200 focus:border-brand-tan/30"
                 />
                 <Button 
                   onClick={sendMessage}
                   disabled={(showLoginWall && !user) || !inputMessage.trim()}
-                  className="bg-gradient-to-r from-blue-600 to-yellow-500 hover:from-blue-700 hover:to-yellow-600 text-white"
+                  className="bg-gradient-to-r from-brand-tan to-brand-tan hover:from-brand-tan hover:to-brand-tan text-brand-cream"
                 >
                   <Send className="h-4 w-4" />
                 </Button>
@@ -430,7 +430,7 @@ const AIChatbot = () => {
           {/* Login Wall */}
           {showLoginWall && !user && (
             <div className="mt-6">
-              <Card className="bg-gradient-to-r from-blue-600 to-yellow-500 text-white border-0 shadow-xl">
+              <Card className="bg-gradient-to-r from-brand-tan to-brand-tan text-brand-cream border-0 shadow-xl">
                 <CardContent className="p-8 text-center">
                   <LogIn className="h-12 w-12 mx-auto mb-4" />
                   <h2 className="text-2xl font-bold mb-2">Your Free Session Has Ended</h2>
@@ -441,7 +441,7 @@ const AIChatbot = () => {
                     <Link to="/auth">
                       <Button 
                         size="lg" 
-                        className="bg-white text-blue-600 hover:bg-gray-100 font-semibold"
+                        className="bg-brand-cream text-brand-dark hover:bg-gray-100 font-semibold"
                       >
                         Login / Sign Up
                       </Button>
@@ -450,7 +450,7 @@ const AIChatbot = () => {
                       onClick={() => window.location.reload()}
                       size="lg" 
                       variant="outline" 
-                      className="border-white text-white hover:bg-white/10"
+                      className="border-white text-brand-cream hover:bg-brand-cream/10"
                     >
                       Start New Session
                     </Button>

@@ -59,7 +59,7 @@ DEMO: This shows your integrated bank account (4950746469) working with the UPI 
             <Button 
               variant="outline" 
               onClick={() => navigate('/admin/portal')}
-              className="mr-4 border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-white"
+              className="mr-4 border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-brand-cream"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin

@@ -75,15 +75,15 @@ const CustomerAuth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-tan via-white to-brand-tan">
       {/* Header */}
       <div className="container mx-auto px-6 py-6">
         <Link to="/" className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center">
-            <Sparkles className="h-6 w-6 text-white" />
+          <div className="w-10 h-10 bg-gradient-to-r from-brand-tan to-brand-tan rounded-full flex items-center justify-center">
+            <Sparkles className="h-6 w-6 text-brand-cream" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-amber-500 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-brand-tan to-brand-tan bg-clip-text text-transparent">
               Aaroham
             </h1>
             <p className="text-xs text-gray-500 -mt-1">Customer Portal</p>
@@ -95,7 +95,7 @@ const CustomerAuth = () => {
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
-            <Badge className="mb-4 bg-blue-100 text-blue-700">Customer Access</Badge>
+            <Badge className="mb-4 bg-brand-cream text-brand-dark">Customer Access</Badge>
             <h2 className="text-3xl font-bold mb-2">Welcome to Aaroham</h2>
             <p className="text-gray-600">Plan your perfect celebration</p>
           </div>
@@ -145,7 +145,7 @@ const CustomerAuth = () => {
                             type="button"
                             onClick={sendOTP}
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-blue-600 to-amber-500"
+                            className="w-full bg-gradient-to-r from-brand-tan to-brand-tan"
                           >
                             {loading ? "Sending..." : "Send OTP"}
                           </Button>
@@ -164,7 +164,7 @@ const CustomerAuth = () => {
                             <Button 
                               type="submit"
                               disabled={loading}
-                              className="w-full bg-gradient-to-r from-blue-600 to-amber-500"
+                              className="w-full bg-gradient-to-r from-brand-tan to-brand-tan"
                             >
                               {loading ? "Verifying..." : "Verify & Login"}
                             </Button>
@@ -195,12 +195,12 @@ const CustomerAuth = () => {
                         <Button 
                           type="submit"
                           disabled={loading}
-                          className="w-full bg-gradient-to-r from-blue-600 to-amber-500"
+                          className="w-full bg-gradient-to-r from-brand-tan to-brand-tan"
                         >
                           {loading ? "Logging in..." : "Login"}
                         </Button>
                         <div className="text-center">
-                          <a href="#" className="text-sm text-blue-600 hover:underline">
+                          <a href="#" className="text-sm text-brand-dark hover:underline">
                             Forgot Password?
                           </a>
                         </div>
@@ -278,7 +278,7 @@ const CustomerAuth = () => {
                     <Button 
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500"
+                      className="w-full bg-gradient-to-r from-brand-peach to-brand-dark"
                     >
                       {loading ? "Creating Account..." : "Create Account"}
                     </Button>

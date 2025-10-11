@@ -34,14 +34,14 @@ const VendorOnboarding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br bg-brand-cream">
       <Header />
       
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-brand-peach to-brand-tan bg-clip-text text-transparent">
               Join Aaroham as a Vendor
             </h1>
             <p className="text-xl text-gray-600">
@@ -53,8 +53,8 @@ const VendorOnboarding = () => {
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
               {steps.map((step) => (
-                <div key={step.number} className={`flex items-center ${currentStep >= step.number ? 'text-amber-600' : 'text-gray-400'}`}>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${currentStep >= step.number ? 'border-amber-600 bg-amber-100' : 'border-gray-300'}`}>
+                <div key={step.number} className={`flex items-center ${currentStep >= step.number ? 'text-brand-peach' : 'text-gray-400'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${currentStep >= step.number ? 'border-brand-tan bg-brand-peach/20' : 'border-gray-300'}`}>
                     <step.icon className="h-5 w-5" />
                   </div>
                   <span className="ml-2 text-sm font-medium hidden md:block">{step.title}</span>
@@ -72,7 +72,7 @@ const VendorOnboarding = () => {
                 <div>
                   <CardHeader className="px-0 pb-6">
                     <CardTitle className="flex items-center">
-                      <User className="h-6 w-6 mr-2 text-amber-600" />
+                      <User className="h-6 w-6 mr-2 text-brand-peach" />
                       Basic Information
                     </CardTitle>
                   </CardHeader>
@@ -131,7 +131,7 @@ const VendorOnboarding = () => {
                 <div>
                   <CardHeader className="px-0 pb-6">
                     <CardTitle className="flex items-center">
-                      <Camera className="h-6 w-6 mr-2 text-amber-600" />
+                      <Camera className="h-6 w-6 mr-2 text-brand-peach" />
                       Portfolio Upload
                     </CardTitle>
                   </CardHeader>
@@ -164,7 +164,7 @@ const VendorOnboarding = () => {
                 <div>
                   <CardHeader className="px-0 pb-6">
                     <CardTitle className="flex items-center">
-                      <DollarSign className="h-6 w-6 mr-2 text-amber-600" />
+                      <DollarSign className="h-6 w-6 mr-2 text-brand-peach" />
                       Pricing Setup
                     </CardTitle>
                   </CardHeader>
@@ -190,7 +190,7 @@ const VendorOnboarding = () => {
                 <div>
                   <CardHeader className="px-0 pb-6">
                     <CardTitle className="flex items-center">
-                      <Share2 className="h-6 w-6 mr-2 text-amber-600" />
+                      <Share2 className="h-6 w-6 mr-2 text-brand-peach" />
                       Social Media Links
                     </CardTitle>
                   </CardHeader>
@@ -221,12 +221,12 @@ const VendorOnboarding = () => {
                 <div>
                   <CardHeader className="px-0 pb-6">
                     <CardTitle className="flex items-center">
-                      <FileCheck className="h-6 w-6 mr-2 text-amber-600" />
+                      <FileCheck className="h-6 w-6 mr-2 text-brand-peach" />
                       Final Review & Agreement
                     </CardTitle>
                   </CardHeader>
                   <div className="space-y-6">
-                    <div className="bg-amber-50 p-6 rounded-lg">
+                    <div className="bg-brand-peach/20 p-6 rounded-lg">
                       <h3 className="font-semibold mb-4">Review Your Information</h3>
                       <div className="space-y-2 text-sm">
                         <p><strong>Business:</strong> Royal Wedding Photographers</p>
@@ -241,7 +241,7 @@ const VendorOnboarding = () => {
                       <div className="flex items-start space-x-3">
                         <Checkbox id="terms" />
                         <label htmlFor="terms" className="text-sm">
-                          I agree to Aaroham's <a href="#" className="text-amber-600 hover:underline">Terms of Service</a> and <a href="#" className="text-amber-600 hover:underline">Vendor Agreement</a>
+                          I agree to Aaroham's <a href="#" className="text-brand-peach hover:underline">Terms of Service</a> and <a href="#" className="text-brand-peach hover:underline">Vendor Agreement</a>
                         </label>
                       </div>
                       <div className="flex items-start space-x-3">
@@ -277,13 +277,13 @@ const VendorOnboarding = () => {
             {currentStep < totalSteps ? (
               <Button 
                 onClick={nextStep}
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                className="bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90"
               >
                 Next
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             ) : (
-              <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600">
+              <Button className="bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90">
                 Submit Application
                 <FileCheck className="h-4 w-4 ml-2" />
               </Button>
@@ -292,7 +292,7 @@ const VendorOnboarding = () => {
 
           {currentStep === totalSteps && (
             <div className="mt-8 text-center">
-              <Badge className="bg-amber-100 text-amber-700 px-4 py-2">
+              <Badge className="bg-brand-peach/20 text-brand-dark px-4 py-2">
                 Your application will be reviewed within 24-48 hours
               </Badge>
             </div>

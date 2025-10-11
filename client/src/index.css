@@ -174,10 +174,10 @@
   }
 
   .brand-pattern {
-    background-image: url('/brand-pattern.png');
-    background-size: 174px 17px;
+    background-image: url('/kologram-pattern-light.png');
+    background-size: 200px 200px;
     background-repeat: repeat;
-    opacity: 0.1;
+    opacity: 0.15;
   }
 
   .brand-pattern-overlay {
@@ -188,11 +188,18 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('/brand-pattern.png');
-    background-size: 174px 17px;
+    background-image: url('/kologram-pattern-light.png');
+    background-size: 200px 200px;
     background-repeat: repeat;
-    opacity: 0.08;
+    opacity: 0.1;
     pointer-events: none;
+  }
+  
+  .brand-pattern-dark {
+    background-image: url('/kologram-pattern-dark.png');
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    opacity: 0.2;
   }
 
   /* Mobile-first responsive design improvements */

@@ -52,12 +52,12 @@ const TalkToVendor = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <div className="min-h-screen bg-brand-cream">
         <Header />
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-center min-h-96">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-peach mx-auto mb-4"></div>
               <p>Loading vendor details...</p>
             </div>
           </div>
@@ -69,11 +69,11 @@ const TalkToVendor = () => {
 
   if (!vendor) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <div className="min-h-screen bg-brand-cream">
         <Header />
         <div className="container mx-auto px-6 py-8">
           <div className="text-center py-16">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Vendor not found</h2>
+            <h2 className="text-2xl font-bold text-brand-dark mb-4">Vendor not found</h2>
             <Button onClick={() => navigate('/')} variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Home
@@ -86,7 +86,7 @@ const TalkToVendor = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-brand-cream">
       <Header />
       
       <div className="container mx-auto px-6 py-8">
@@ -107,7 +107,7 @@ const TalkToVendor = () => {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-xl">{vendor.businessName}</CardTitle>
                   {vendor.isApproved && (
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
+                    <Badge variant="secondary" className="bg-brand-tan/20 text-brand-dark">
                       <CheckCircle className="h-3 w-3 mr-1" />
                       Verified
                     </Badge>
@@ -122,27 +122,27 @@ const TalkToVendor = () => {
                     </Badge>
                     {vendor.rating && (
                       <div className="flex items-center">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
+                        <Star className="h-4 w-4 fill-brand-tan text-brand-tan mr-1" />
                         <span className="text-sm font-medium">{vendor.rating}</span>
                       </div>
                     )}
                   </div>
 
                   {vendor.city && (
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-brand-dark/70">
                       <MapPin className="h-4 w-4 mr-2" />
                       <span>{vendor.city}</span>
                     </div>
                   )}
 
                   {vendor.description && (
-                    <p className="text-gray-700">{vendor.description}</p>
+                    <p className="text-brand-dark/80">{vendor.description}</p>
                   )}
 
                   {vendor.priceRange && (
                     <div>
                       <span className="font-medium">Price Range: </span>
-                      <span className="text-amber-600">{vendor.priceRange}</span>
+                      <span className="text-brand-peach">{vendor.priceRange}</span>
                     </div>
                   )}
 
@@ -170,34 +170,34 @@ const TalkToVendor = () => {
               <CardContent>
                 <div className="space-y-6">
                   {!hasCalledBefore ? (
-                    <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+                    <div className="bg-brand-peach/20 p-6 rounded-lg border border-brand-peach">
                       <div className="flex items-center mb-4">
-                        <Phone className="h-6 w-6 text-green-600 mr-2" />
-                        <h3 className="font-semibold text-green-800">Free First Call</h3>
+                        <Phone className="h-6 w-6 text-brand-dark mr-2" />
+                        <h3 className="font-semibold text-brand-dark">Free First Call</h3>
                       </div>
-                      <p className="text-green-700 mb-4">
+                      <p className="text-brand-dark/80 mb-4">
                         Get started with a complimentary call to discuss your requirements and evaluate this vendor.
                       </p>
                       <Button 
                         onClick={handleFirstCall}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                        className="w-full bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90 text-brand-dark"
                       >
                         <Phone className="h-4 w-4 mr-2" />
                         Call Now (Free)
                       </Button>
                     </div>
                   ) : (
-                    <div className="bg-amber-50 p-6 rounded-lg border border-amber-200">
+                    <div className="bg-brand-tan/20 p-6 rounded-lg border border-brand-tan">
                       <div className="flex items-center mb-4">
-                        <Clock className="h-6 w-6 text-amber-600 mr-2" />
-                        <h3 className="font-semibold text-amber-800">Book for More Calls</h3>
+                        <Clock className="h-6 w-6 text-brand-dark mr-2" />
+                        <h3 className="font-semibold text-brand-dark">Book for More Calls</h3>
                       </div>
-                      <p className="text-amber-700 mb-4">
+                      <p className="text-brand-dark/80 mb-4">
                         You've already used your free call. Book a consultation for detailed discussions.
                       </p>
                       <Button 
                         onClick={handleBookingRequired}
-                        className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+                        className="w-full bg-gradient-to-r from-brand-tan to-brand-dark hover:opacity-90 text-brand-cream"
                       >
                         <Calendar className="h-4 w-4 mr-2" />
                         Book Consultation
@@ -217,8 +217,8 @@ const TalkToVendor = () => {
                     </Button>
                   </div>
 
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-sm text-blue-700">
+                  <div className="bg-brand-cream p-4 rounded-lg border border-brand-tan/30">
+                    <p className="text-sm text-brand-dark/80">
                       <strong>Note:</strong> Our platform ensures verified vendors and secure communication. 
                       Your first call is free to help you evaluate the vendor.
                     </p>

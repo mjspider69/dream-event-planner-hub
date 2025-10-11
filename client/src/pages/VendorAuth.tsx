@@ -171,15 +171,15 @@ const VendorAuth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       {/* Header */}
       <div className="container mx-auto px-6 py-6">
         <Link to="/" className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-            <Shield className="h-6 w-6 text-white" />
+          <div className="w-10 h-10 bg-gradient-to-r from-brand-peach to-brand-dark rounded-full flex items-center justify-center">
+            <Shield className="h-6 w-6 text-brand-cream" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-brand-peach to-brand-dark bg-clip-text text-transparent">
               Aaroham
             </h1>
             <p className="text-xs text-gray-500 -mt-1">Vendor Portal</p>
@@ -191,15 +191,15 @@ const VendorAuth = () => {
       <div className="container mx-auto px-6 py-8">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
-            <Badge className="mb-4 bg-amber-100 text-amber-700">Vendor Access</Badge>
+            <Badge className="mb-4 bg-brand-peach text-brand-peach">Vendor Access</Badge>
             <h2 className="text-3xl font-bold mb-2">Welcome, Aaroham Vendor</h2>
             <p className="text-gray-600">Grow your business with us</p>
           </div>
 
           <Card className="shadow-2xl border-0">
-            <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
+            <CardHeader className="bg-gradient-to-r from-brand-peach to-brand-dark">
               <CardTitle className="text-center text-2xl flex items-center justify-center">
-                <Building className="h-6 w-6 mr-2 text-amber-600" />
+                <Building className="h-6 w-6 mr-2 text-brand-peach" />
                 Vendor Portal
               </CardTitle>
             </CardHeader>
@@ -244,7 +244,7 @@ const VendorAuth = () => {
                             type="button"
                             onClick={sendOTP}
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-amber-500 to-orange-500"
+                            className="w-full bg-gradient-to-r from-brand-peach to-brand-dark"
                           >
                             {loading ? "Sending..." : "Send OTP"}
                           </Button>
@@ -263,7 +263,7 @@ const VendorAuth = () => {
                             <Button 
                               type="submit"
                               disabled={loading}
-                              className="w-full bg-gradient-to-r from-amber-500 to-orange-500"
+                              className="w-full bg-gradient-to-r from-brand-peach to-brand-dark"
                             >
                               {loading ? "Verifying..." : "Verify & Login"}
                             </Button>
@@ -294,7 +294,7 @@ const VendorAuth = () => {
                         <Button 
                           type="submit"
                           disabled={loading}
-                          className="w-full bg-gradient-to-r from-amber-500 to-orange-500"
+                          className="w-full bg-gradient-to-r from-brand-peach to-brand-dark"
                         >
                           {loading ? "Logging in..." : "Login"}
                         </Button>
@@ -306,7 +306,7 @@ const VendorAuth = () => {
                         <span className="w-full border-t" />
                       </div>
                       <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+                        <span className="bg-brand-cream px-2 text-muted-foreground">Or continue with</span>
                       </div>
                     </div>
 
@@ -414,7 +414,7 @@ const VendorAuth = () => {
                       <select
                         value={registerData.category}
                         onChange={(e) => setRegisterData({...registerData, category: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-peach"
                         required
                       >
                         <option value="">Select your service</option>
@@ -442,13 +442,13 @@ const VendorAuth = () => {
                         className="mt-1"
                       />
                       <label htmlFor="agreeTerms" className="text-sm text-gray-600">
-                        I agree to the <a href="#" className="text-amber-600 hover:underline">Vendor Agreement</a> and <a href="#" className="text-amber-600 hover:underline">Terms of Service</a>
+                        I agree to the <a href="#" className="text-brand-peach hover:underline">Vendor Agreement</a> and <a href="#" className="text-brand-peach hover:underline">Terms of Service</a>
                       </label>
                     </div>
                     <Button 
                       type="submit"
                       disabled={loading || !registerData.agreeTerms}
-                      className="w-full bg-gradient-to-r from-green-500 to-emerald-500"
+                      className="w-full bg-gradient-to-r from-brand-peach to-brand-dark"
                     >
                       {loading ? "Submitting Application..." : "Submit Application"}
                     </Button>
@@ -458,7 +458,7 @@ const VendorAuth = () => {
                         <span className="w-full border-t" />
                       </div>
                       <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+                        <span className="bg-brand-cream px-2 text-muted-foreground">Or continue with</span>
                       </div>
                     </div>
 

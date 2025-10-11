@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
     <div className="min-h-screen bg-gradient-to-br from-cream-gold via-white to-light-gold">
       <Header />
       
-      <section className="py-20 bg-gradient-to-r from-navy-blue to-royal-blue text-white">
+      <section className="py-20 bg-gradient-to-r from-navy-blue to-royal-blue text-brand-cream">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-6">
             <Shield className="h-16 w-16 text-bright-gold mr-4" />
@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <Eye className="h-8 w-8 mr-3 text-bright-gold" />
               Information We Collect
@@ -35,7 +35,7 @@ const PrivacyPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <Lock className="h-8 w-8 mr-3 text-bright-gold" />
               How We Use Your Information
@@ -48,7 +48,7 @@ const PrivacyPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <UserCheck className="h-8 w-8 mr-3 text-bright-gold" />
               Your Rights and Choices
@@ -62,7 +62,7 @@ const PrivacyPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Data Security</h2>
             <div className="space-y-4 text-gray-700">
               <p>We implement industry-standard security measures including:</p>
@@ -76,7 +76,7 @@ const PrivacyPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Third-Party Services</h2>
             <div className="space-y-4 text-gray-700">
               <p>We work with trusted third-party service providers for:</p>
@@ -90,7 +90,7 @@ const PrivacyPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Contact Us</h2>
             <div className="space-y-4 text-gray-700">
               <p>For privacy-related questions or to exercise your rights, contact us:</p>

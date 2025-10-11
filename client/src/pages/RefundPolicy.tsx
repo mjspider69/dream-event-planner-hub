@@ -8,7 +8,7 @@ const RefundPolicy = () => {
     <div className="min-h-screen bg-gradient-to-br from-cream-gold via-white to-light-gold">
       <Header />
       
-      <section className="py-20 bg-gradient-to-r from-navy-blue to-royal-blue text-white">
+      <section className="py-20 bg-gradient-to-r from-navy-blue to-royal-blue text-brand-cream">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-6">
             <RefreshCw className="h-16 w-16 text-bright-gold mr-4" />
@@ -22,67 +22,67 @@ const RefundPolicy = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <Clock className="h-8 w-8 mr-3 text-bright-gold" />
               Cancellation Timeline & Refunds
             </h2>
             <div className="space-y-6">
-              <div className="border-l-4 border-green-500 pl-6 py-4 bg-green-50 rounded-r-lg">
-                <h3 className="text-xl font-semibold text-green-800 mb-2">30+ Days Before Event</h3>
-                <p className="text-green-700"><strong>Full Refund (100%)</strong> - Minus payment processing fees (2-3%)</p>
-                <p className="text-sm text-green-600 mt-1">Perfect for early planning changes with minimal impact</p>
+              <div className="border-l-4 border-brand-tan pl-6 py-4 bg-brand-tan/20 rounded-r-lg">
+                <h3 className="text-xl font-semibold text-brand-tan mb-2">30+ Days Before Event</h3>
+                <p className="text-brand-tan"><strong>Full Refund (100%)</strong> - Minus payment processing fees (2-3%)</p>
+                <p className="text-sm text-brand-tan mt-1">Perfect for early planning changes with minimal impact</p>
               </div>
 
-              <div className="border-l-4 border-blue-500 pl-6 py-4 bg-blue-50 rounded-r-lg">
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">15-29 Days Before Event</h3>
-                <p className="text-blue-700"><strong>75% Refund</strong> - Allows vendors reasonable notice</p>
-                <p className="text-sm text-blue-600 mt-1">Good balance between customer flexibility and vendor protection</p>
+              <div className="border-l-4 border-brand-tan/30 pl-6 py-4 bg-brand-cream rounded-r-lg">
+                <h3 className="text-xl font-semibold text-brand-dark mb-2">15-29 Days Before Event</h3>
+                <p className="text-brand-dark"><strong>75% Refund</strong> - Allows vendors reasonable notice</p>
+                <p className="text-sm text-brand-dark mt-1">Good balance between customer flexibility and vendor protection</p>
               </div>
 
-              <div className="border-l-4 border-yellow-500 pl-6 py-4 bg-yellow-50 rounded-r-lg">
-                <h3 className="text-xl font-semibold text-yellow-800 mb-2">7-14 Days Before Event</h3>
-                <p className="text-yellow-700"><strong>50% Refund</strong> - Partial compensation for last-minute changes</p>
-                <p className="text-sm text-yellow-600 mt-1">Vendors may have already declined other bookings</p>
+              <div className="border-l-4 border-brand-tan pl-6 py-4 bg-brand-peach/20 rounded-r-lg">
+                <h3 className="text-xl font-semibold text-brand-tan mb-2">7-14 Days Before Event</h3>
+                <p className="text-brand-tan"><strong>50% Refund</strong> - Partial compensation for last-minute changes</p>
+                <p className="text-sm text-brand-tan mt-1">Vendors may have already declined other bookings</p>
               </div>
 
-              <div className="border-l-4 border-red-500 pl-6 py-4 bg-red-50 rounded-r-lg">
-                <h3 className="text-xl font-semibold text-red-800 mb-2">Less than 7 Days Before Event</h3>
-                <p className="text-red-700"><strong>25% Refund</strong> - Emergency situations only</p>
-                <p className="text-sm text-red-600 mt-1">Vendors have likely prepared extensively for your event</p>
+              <div className="border-l-4 border-brand-tan pl-6 py-4 bg-brand-peach/20 rounded-r-lg">
+                <h3 className="text-xl font-semibold text-brand-dark mb-2">Less than 7 Days Before Event</h3>
+                <p className="text-brand-dark"><strong>25% Refund</strong> - Emergency situations only</p>
+                <p className="text-sm text-brand-dark mt-1">Vendors have likely prepared extensively for your event</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <CheckCircle className="h-8 w-8 mr-3 text-bright-gold" />
               Special Circumstances
             </h2>
             <div className="space-y-4 text-gray-700">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-blue-800 mb-2">Medical Emergencies</h3>
-                <p className="text-blue-700">Full refund available with valid medical documentation</p>
+              <div className="bg-brand-cream p-4 rounded-lg">
+                <h3 className="font-semibold text-brand-dark mb-2">Medical Emergencies</h3>
+                <p className="text-brand-dark">Full refund available with valid medical documentation</p>
               </div>
               
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-orange-800 mb-2">Natural Disasters/Force Majeure</h3>
-                <p className="text-orange-700">Full refund for events cancelled due to natural disasters or government restrictions</p>
+              <div className="bg-brand-peach/20 p-4 rounded-lg">
+                <h3 className="font-semibold text-brand-peach mb-2">Natural Disasters/Force Majeure</h3>
+                <p className="text-brand-peach">Full refund for events cancelled due to natural disasters or government restrictions</p>
               </div>
               
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-purple-800 mb-2">Vendor Cancellation</h3>
-                <p className="text-purple-700">100% refund if vendor cancels, plus assistance finding replacement</p>
+              <div className="bg-brand-peach/20 p-4 rounded-lg">
+                <h3 className="font-semibold text-brand-dark mb-2">Vendor Cancellation</h3>
+                <p className="text-brand-dark/80">100% refund if vendor cancels, plus assistance finding replacement</p>
               </div>
               
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-2">Service Quality Issues</h3>
-                <p className="text-green-700">Partial or full refund based on investigation of service quality complaints</p>
+              <div className="bg-brand-tan/20 p-4 rounded-lg">
+                <h3 className="font-semibold text-brand-tan mb-2">Service Quality Issues</h3>
+                <p className="text-brand-tan">Partial or full refund based on investigation of service quality complaints</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <CreditCard className="h-8 w-8 mr-3 text-bright-gold" />
               Refund Processing
@@ -96,11 +96,11 @@ const RefundPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">How to Request a Refund</h2>
             <div className="space-y-4 text-gray-700">
               <div className="flex items-start space-x-3">
-                <div className="bg-bright-gold text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
+                <div className="bg-bright-gold text-brand-cream rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
                 <div>
                   <h3 className="font-semibold mb-1">Login to Your Dashboard</h3>
                   <p>Navigate to your customer dashboard and find the booking you want to cancel</p>
@@ -108,7 +108,7 @@ const RefundPolicy = () => {
               </div>
               
               <div className="flex items-start space-x-3">
-                <div className="bg-bright-gold text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
+                <div className="bg-bright-gold text-brand-cream rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
                 <div>
                   <h3 className="font-semibold mb-1">Click 'Cancel Booking'</h3>
                   <p>Select the cancellation option and choose your reason for cancellation</p>
@@ -116,7 +116,7 @@ const RefundPolicy = () => {
               </div>
               
               <div className="flex items-start space-x-3">
-                <div className="bg-bright-gold text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
+                <div className="bg-bright-gold text-brand-cream rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
                 <div>
                   <h3 className="font-semibold mb-1">Submit Documentation</h3>
                   <p>For special circumstances, upload supporting documents (medical certificates, etc.)</p>
@@ -124,7 +124,7 @@ const RefundPolicy = () => {
               </div>
               
               <div className="flex items-start space-x-3">
-                <div className="bg-bright-gold text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">4</div>
+                <div className="bg-bright-gold text-brand-cream rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">4</div>
                 <div>
                   <h3 className="font-semibold mb-1">Await Processing</h3>
                   <p>Our team will review your request and process the refund within 2-3 business days</p>
@@ -133,7 +133,7 @@ const RefundPolicy = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Contact Support</h2>
             <div className="space-y-4 text-gray-700">
               <p>Need help with a refund or have questions about our policy?</p>

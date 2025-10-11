@@ -29,30 +29,30 @@ const DealDone = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br bg-brand-cream">
       <Header />
       
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Success Message */}
           <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="h-12 w-12 text-white" />
+            <div className="w-20 h-20 bg-gradient-to-r from-brand-peach to-brand-tan rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="h-12 w-12 text-brand-cream" />
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-brand-peach to-brand-tan bg-clip-text text-transparent">
               Booking Confirmed! 🎉
             </h1>
             <p className="text-xl text-gray-600 mb-2">
               Congratulations! Your event has been successfully booked.
             </p>
-            <Badge className="bg-green-100 text-green-700 text-lg px-4 py-2">
+            <Badge className="bg-brand-tan/20 text-brand-dark text-lg px-4 py-2">
               Booking ID: {bookingDetails.bookingId}
             </Badge>
           </div>
 
           {/* Booking Summary */}
           <Card className="mb-8">
-            <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-t-lg">
+            <CardHeader className="bg-gradient-to-r from-brand-peach to-brand-tan text-brand-cream rounded-t-lg">
               <CardTitle className="text-2xl">Booking Summary</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -88,11 +88,11 @@ const DealDone = () => {
             <CardContent>
               <div className="grid md:grid-cols-2 gap-4">
                 {bookingDetails.vendors.map((vendor, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg bg-gradient-to-r from-amber-50 to-orange-50">
+                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg bg-gradient-to-r from-brand-cream to-brand-peach/20">
                     <div>
                       <h4 className="font-semibold">{vendor.name}</h4>
                       <p className="text-sm text-gray-600">{vendor.contact}</p>
-                      <p className="text-sm font-medium text-amber-600">₹{vendor.amount.toLocaleString()}</p>
+                      <p className="text-sm font-medium text-brand-peach">₹{vendor.amount.toLocaleString()}</p>
                     </div>
                     <Link to={`/talk-to-vendor/${index + 1}`}>
                       <Button size="sm" variant="outline">
@@ -109,14 +109,14 @@ const DealDone = () => {
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Sparkles className="h-5 w-5 mr-2 text-amber-600" />
+                <Sparkles className="h-5 w-5 mr-2 text-brand-peach" />
                 What's Next?
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                  <div className="w-8 h-8 bg-gradient-to-r from-brand-peach to-brand-tan rounded-full flex items-center justify-center text-brand-cream text-sm font-semibold">
                     1
                   </div>
                   <div>
@@ -125,7 +125,7 @@ const DealDone = () => {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                  <div className="w-8 h-8 bg-gradient-to-r from-brand-tan to-brand-dark rounded-full flex items-center justify-center text-brand-cream text-sm font-semibold">
                     2
                   </div>
                   <div>
@@ -134,7 +134,7 @@ const DealDone = () => {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                  <div className="w-8 h-8 bg-gradient-to-r from-brand-tan to-brand-dark rounded-full flex items-center justify-center text-brand-cream text-sm font-semibold">
                     3
                   </div>
                   <div>
@@ -149,7 +149,7 @@ const DealDone = () => {
           {/* Action Buttons */}
           <div className="grid md:grid-cols-4 gap-4 mb-8">
             <Link to="/customer-dashboard">
-              <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+              <Button className="w-full bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90">
                 <Calendar className="h-4 w-4 mr-2" />
                 Track Booking
               </Button>
@@ -169,29 +169,29 @@ const DealDone = () => {
           </div>
 
           {/* Thank You Message */}
-          <Card className="bg-gradient-to-r from-amber-100 to-orange-100">
+          <Card className="bg-gradient-to-r from-brand-peach/30 to-brand-tan/30">
             <CardContent className="p-8 text-center">
               <h2 className="text-2xl font-bold mb-4">Thank You for Choosing Aaroham! 🙏</h2>
               <p className="text-gray-700 mb-4">
                 We're excited to be part of your special celebration. Our AI-powered platform has carefully matched you with the best vendors, and our team will ensure everything goes perfectly.
               </p>
-              <p className="text-amber-700 font-semibold">
+              <p className="text-brand-dark font-semibold">
                 Your event is in safe hands. Let's make it extraordinary together!
               </p>
             </CardContent>
           </Card>
 
           {/* Contact Information */}
-          <div className="text-center mt-8 p-6 bg-white rounded-lg shadow-sm">
+          <div className="text-center mt-8 p-6 bg-brand-cream rounded-lg shadow-sm">
             <p className="text-gray-600 mb-2">Need immediate assistance?</p>
             <div className="flex justify-center space-x-6">
               <div>
                 <p className="font-semibold">Call Us</p>
-                <p className="text-amber-600">+91 98765 43210</p>
+                <p className="text-brand-peach">+91 98765 43210</p>
               </div>
               <div>
                 <p className="font-semibold">Email Us</p>
-                <p className="text-amber-600">support@aaroham.com</p>
+                <p className="text-brand-peach">support@aaroham.com</p>
               </div>
             </div>
           </div>

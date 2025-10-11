@@ -67,24 +67,24 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <div className="relative group">
-              <button className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium flex items-center space-x-1">
+              <button className="font-poppins text-brand-dark hover:text-brand-tan transition-colors font-medium flex items-center space-x-1">
                 <span>Services</span>
                 <svg className="w-4 h-4 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className="absolute top-full left-0 mt-2 w-56 bg-pearl-white shadow-xl rounded-lg border border-royal-gold/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <div className="absolute top-full left-0 mt-2 w-56 bg-brand-cream shadow-xl rounded-lg border border-brand-tan/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                 <div className="py-2">
-                  <Link to="/vendor-listing" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                  <Link to="/vendor-listing" className="block px-4 py-2 text-brand-dark hover:text-brand-tan hover:bg-brand-tan/5 transition-colors">
                     Find Vendors
                   </Link>
-                  <Link to="/packages" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                  <Link to="/packages" className="block px-4 py-2 text-brand-dark hover:text-brand-tan hover:bg-brand-tan/5 transition-colors">
                     Event Packages
                   </Link>
-                  <Link to="/plan-my-event" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                  <Link to="/plan-my-event" className="block px-4 py-2 text-brand-dark hover:text-brand-tan hover:bg-brand-tan/5 transition-colors">
                     Plan My Event
                   </Link>
-                  <Link to="/quotation" className="block px-4 py-2 text-charcoal-gray hover:text-royal-gold hover:bg-royal-gold/5 transition-colors">
+                  <Link to="/quotation" className="block px-4 py-2 text-brand-dark hover:text-brand-tan hover:bg-brand-tan/5 transition-colors">
                     Get Quotation
                   </Link>
                 </div>
@@ -93,14 +93,14 @@ const Header = () => {
             
             <Link
               to="/about"
-              className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
+              className="font-poppins text-brand-dark hover:text-brand-tan transition-colors font-medium"
             >
               About
             </Link>
             
             <Link
               to="/packages"
-              className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
+              className="font-poppins text-brand-dark hover:text-brand-tan transition-colors font-medium"
             >
               Packages
             </Link>
@@ -109,7 +109,7 @@ const Header = () => {
             {user && (
               <Link
                 to="/ai-chatbot"
-                className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium flex items-center"
+                className="font-poppins text-brand-dark hover:text-brand-tan transition-colors font-medium flex items-center"
               >
                 <MessageCircle className="h-4 w-4 mr-1" />
                 Chat with Aarohi
@@ -118,7 +118,7 @@ const Header = () => {
             
             <Link
               to="/about"
-              className="font-poppins text-charcoal-gray hover:text-royal-gold transition-colors font-medium"
+              className="font-poppins text-brand-dark hover:text-brand-tan transition-colors font-medium"
             >
               About
             </Link>
@@ -129,14 +129,14 @@ const Header = () => {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-2 hover:bg-soft-sand">
-                    <div className="w-8 h-8 bg-gradient-to-r from-royal-gold to-warm-gold rounded-full flex items-center justify-center">
-                      <User className="h-4 w-4 text-pearl-white" />
+                  <Button variant="ghost" className="flex items-center space-x-2 hover:bg-brand-peach/20">
+                    <div className="w-8 h-8 bg-gradient-to-r from-brand-tan to-brand-peach rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 text-brand-cream" />
                     </div>
-                    <span className="font-cormorant font-medium text-royal-gold">{getUserName()}</span>
+                    <span className="font-cormorant font-medium text-brand-tan">{getUserName()}</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-pearl-white border-soft-sand">
+                <DropdownMenuContent align="end" className="w-56 bg-brand-cream border-brand-peach/20">
                   <DropdownMenuItem asChild>
                     <Link to={getUserDashboard()} className="flex items-center font-poppins">
                       <Settings className="h-4 w-4 mr-2" />
@@ -153,7 +153,7 @@ const Header = () => {
             ) : (
               <div className="flex items-center space-x-3">
                 <Link to="/auth">
-                  <Button variant="ghost" className="font-poppins text-charcoal-gray hover:text-royal-gold hover:bg-soft-sand">
+                  <Button variant="ghost" className="font-poppins text-brand-dark hover:text-brand-tan hover:bg-brand-peach/20">
                     Sign In
                   </Button>
                 </Link>
@@ -169,7 +169,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-charcoal-gray hover:text-royal-gold hover:bg-soft-sand transition-colors"
+            className="md:hidden p-2 rounded-md text-brand-dark hover:text-brand-tan hover:bg-brand-peach/20 transition-colors"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -177,51 +177,51 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden border-t border-royal-gold/20 py-4 bg-pearl-white/95 backdrop-blur-sm">
+          <div className="md:hidden border-t border-brand-tan/20 py-4 bg-brand-cream/95 backdrop-blur-sm">
             <nav className="flex flex-col space-y-4 px-4">
               <Link
                 to="/vendor-listing"
-                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                className="text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Find Vendors
               </Link>
               <Link
                 to="/packages"
-                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                className="text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Event Packages
               </Link>
               <Link
                 to="/plan-my-event"
-                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                className="text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Plan My Event
               </Link>
               <Link
                 to="/quotation"
-                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                className="text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 Get Quotation
               </Link>
               <Link
                 to="/about"
-                className="text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                className="text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </Link>
               
               {/* Mobile User Actions */}
-              <div className="border-t border-royal-gold/20 pt-4 mt-4">
+              <div className="border-t border-brand-tan/20 pt-4 mt-4">
                 {user ? (
                   <div className="space-y-3">
                     <Link
                       to={getUserDashboard()}
-                      className="flex items-center space-x-2 text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                      className="flex items-center space-x-2 text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                       onClick={() => setIsOpen(false)}
                     >
                       <User className="h-4 w-4" />
@@ -232,7 +232,7 @@ const Header = () => {
                         handleSignOut();
                         setIsOpen(false);
                       }}
-                      className="flex items-center space-x-2 text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2 w-full text-left"
+                      className="flex items-center space-x-2 text-brand-dark hover:text-brand-tan transition-colors font-medium py-2 w-full text-left"
                     >
                       <LogOut className="h-4 w-4" />
                       <span>Sign Out</span>
@@ -242,7 +242,7 @@ const Header = () => {
                   <div className="space-y-3">
                     <Link
                       to="/auth"
-                      className="block text-charcoal-gray hover:text-royal-gold transition-colors font-medium py-2"
+                      className="block text-brand-dark hover:text-brand-tan transition-colors font-medium py-2"
                       onClick={() => setIsOpen(false)}
                     >
                       Sign In

@@ -36,13 +36,13 @@ const Booking = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br bg-brand-cream">
       <Header />
       
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-brand-peach to-brand-tan bg-clip-text text-transparent">
               Confirm Your Booking
             </h1>
             <p className="text-xl text-gray-600">
@@ -57,7 +57,7 @@ const Booking = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Calendar className="h-5 w-5 mr-2 text-amber-600" />
+                    <Calendar className="h-5 w-5 mr-2 text-brand-peach" />
                     Event Details
                   </CardTitle>
                 </CardHeader>
@@ -119,7 +119,7 @@ const Booking = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <CreditCard className="h-5 w-5 mr-2 text-amber-600" />
+                    <CreditCard className="h-5 w-5 mr-2 text-brand-peach" />
                     Payment Details
                   </CardTitle>
                 </CardHeader>
@@ -194,7 +194,7 @@ const Booking = () => {
                     </div>
                     
                     <div className="flex items-center space-x-2 text-sm text-gray-600">
-                      <Shield className="h-4 w-4 text-green-500" />
+                      <Shield className="h-4 w-4 text-brand-tan" />
                       <span>Your payment is secured with 256-bit SSL encryption</span>
                     </div>
                   </div>
@@ -210,7 +210,7 @@ const Booking = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="text-center p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg">
+                    <div className="text-center p-4 bg-gradient-to-r from-brand-cream to-brand-peach/20 rounded-lg">
                       <h3 className="font-semibold text-lg">{bookingSummary.eventDetails.type}</h3>
                       <p className="text-gray-600">{bookingSummary.eventDetails.date}</p>
                       <p className="text-gray-600">{bookingSummary.eventDetails.guests} guests</p>
@@ -241,8 +241,8 @@ const Booking = () => {
                       </div>
                     </div>
 
-                    <div className="bg-amber-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-amber-800 mb-2">Payment Breakdown</h4>
+                    <div className="bg-brand-peach/20 p-4 rounded-lg">
+                      <h4 className="font-semibold text-brand-dark mb-2">Payment Breakdown</h4>
                       <div className="space-y-1 text-sm">
                         <div className="flex justify-between">
                           <span>Advance Payment (20%)</span>
@@ -257,7 +257,7 @@ const Booking = () => {
 
                     <Link to="/deal-done">
                       <Button 
-                        className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 py-6 text-lg"
+                        className="w-full bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90 py-6 text-lg"
                         disabled={!agreedToTerms}
                       >
                         <CreditCard className="h-5 w-5 mr-2" />

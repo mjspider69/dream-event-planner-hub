@@ -98,17 +98,17 @@ const AdminPortal = () => {
 
   const getStatusBadge = (vendor: any) => {
     if (vendor.isFeatured) {
-      return <Badge className="bg-purple-100 text-purple-800">Featured</Badge>;
+      return <Badge className="bg-brand-tan/20 text-brand-dark">Featured</Badge>;
     }
     if (vendor.isApproved) {
-      return <Badge className="bg-green-100 text-green-800">Approved</Badge>;
+      return <Badge className="bg-brand-tan/20 text-brand-tan">Approved</Badge>;
     }
-    return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>;
+    return <Badge className="bg-brand-peach/20 text-brand-tan">Pending</Badge>;
   };
 
   if (!user || (user as any)?.user_type !== 'admin') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
         <Header />
         <div className="container mx-auto px-6 py-8">
           <div className="text-center py-16">
@@ -125,7 +125,7 @@ const AdminPortal = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       <div className="container mx-auto px-6 py-8">
@@ -213,7 +213,7 @@ const AdminPortal = () => {
                             
                             {vendor.rating > 0 && (
                               <div className="flex items-center">
-                                <Star className="h-4 w-4 text-yellow-400 mr-1" />
+                                <Star className="h-4 w-4 text-brand-tan mr-1" />
                                 <span className="text-sm">{vendor.rating}</span>
                               </div>
                             )}
@@ -238,7 +238,7 @@ const AdminPortal = () => {
                               {!vendor.isApproved && (
                                 <Button
                                   size="sm"
-                                  className="bg-green-600 hover:bg-green-700"
+                                  className="bg-brand-tan/20 hover:bg-brand-tan/20"
                                   onClick={() => handleApproveVendor(vendor.id)}
                                   disabled={approveVendorMutation.isPending}
                                 >
@@ -272,24 +272,24 @@ const AdminPortal = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-4 gap-4 mb-6">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">{vendors?.length || 0}</div>
+                  <div className="text-center p-4 bg-brand-cream rounded-lg">
+                    <div className="text-2xl font-bold text-brand-dark">{vendors?.length || 0}</div>
                     <div className="text-sm text-gray-600">Total Vendors</div>
                   </div>
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">
+                  <div className="text-center p-4 bg-brand-tan/20 rounded-lg">
+                    <div className="text-2xl font-bold text-brand-tan">
                       {vendors?.filter((v: any) => v.isApproved).length || 0}
                     </div>
                     <div className="text-sm text-gray-600">Approved Vendors</div>
                   </div>
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">
+                  <div className="text-center p-4 bg-brand-peach/20 rounded-lg">
+                    <div className="text-2xl font-bold text-brand-dark">
                       {vendors?.filter((v: any) => v.isFeatured).length || 0}
                     </div>
                     <div className="text-sm text-gray-600">Featured Vendors</div>
                   </div>
-                  <div className="text-center p-4 bg-yellow-50 rounded-lg">
-                    <div className="text-2xl font-bold text-yellow-600">
+                  <div className="text-center p-4 bg-brand-peach/20 rounded-lg">
+                    <div className="text-2xl font-bold text-brand-tan">
                       {vendors?.filter((v: any) => !v.isApproved).length || 0}
                     </div>
                     <div className="text-sm text-gray-600">Pending Approval</div>

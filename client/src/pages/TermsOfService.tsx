@@ -8,7 +8,7 @@ const TermsOfService = () => {
     <div className="min-h-screen bg-gradient-to-br from-cream-gold via-white to-light-gold">
       <Header />
       
-      <section className="py-20 bg-gradient-to-r from-navy-blue to-royal-blue text-white">
+      <section className="py-20 bg-gradient-to-r from-navy-blue to-royal-blue text-brand-cream">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-6">
             <Scale className="h-16 w-16 text-bright-gold mr-4" />
@@ -22,7 +22,7 @@ const TermsOfService = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <FileText className="h-8 w-8 mr-3 text-bright-gold" />
               Service Agreement
@@ -34,7 +34,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <CheckCircle className="h-8 w-8 mr-3 text-bright-gold" />
               User Responsibilities
@@ -48,7 +48,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Booking and Cancellation Policy</h2>
             <div className="space-y-4 text-gray-700">
               <p><strong>Booking Confirmation:</strong> Bookings are confirmed upon payment and vendor acceptance.</p>
@@ -64,7 +64,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Payment Terms</h2>
             <div className="space-y-4 text-gray-700">
               <p><strong>Payment Processing:</strong> Payments are processed securely through our verified payment partners.</p>
@@ -74,7 +74,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue flex items-center">
               <AlertCircle className="h-8 w-8 mr-3 text-bright-gold" />
               Limitations and Disclaimers
@@ -87,7 +87,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Intellectual Property</h2>
             <div className="space-y-4 text-gray-700">
               <p><strong>Platform Content:</strong> All content, design, and technology on Aaroham platform is protected by intellectual property rights.</p>
@@ -96,7 +96,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-brand-cream rounded-2xl shadow-xl p-8">
             <h2 className="text-3xl font-majestic font-bold mb-6 text-navy-blue">Contact and Updates</h2>
             <div className="space-y-4 text-gray-700">
               <p>For questions about these terms or our services:</p>

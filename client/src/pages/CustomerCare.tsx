@@ -37,15 +37,15 @@ const CustomerCare = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-600/10 to-orange-600/10">
+      <section className="py-20 bg-gradient-to-r from-brand-peach/10 to-brand-dark/10">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-amber-100 text-amber-700">Customer Support</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <Badge className="mb-4 bg-brand-peach text-brand-peach">Customer Support</Badge>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-brand-peach to-brand-dark bg-clip-text text-transparent">
               We're Here to Help
             </h1>
             <p className="text-xl text-gray-600 mb-8">
@@ -56,20 +56,20 @@ const CustomerCare = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-brand-cream">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-6 mb-16">
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <Phone className="h-8 w-8 text-amber-600 mx-auto mb-4" />
+                <Phone className="h-8 w-8 text-brand-peach mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Call Us</h3>
-                <a href="tel:+917698889321" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <a href="tel:+917698889321" className="text-gray-600 hover:text-brand-peach transition-colors">
                   +91 769 888 9321
                 </a>
                 <p className="text-sm text-gray-500 mt-1">24/7 Support</p>
                 <Button 
                   size="sm" 
-                  className="mt-3 bg-amber-600 hover:bg-amber-700"
+                  className="mt-3 bg-brand-peach hover:bg-brand-peach"
                   onClick={() => window.open('tel:+917698889321')}
                 >
                   📱 Call Us Now
@@ -79,15 +79,15 @@ const CustomerCare = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <Mail className="h-8 w-8 text-amber-600 mx-auto mb-4" />
+                <Mail className="h-8 w-8 text-brand-peach mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Email Us</h3>
-                <a href="mailto:aaroham.net@gmail.com" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <a href="mailto:aaroham.net@gmail.com" className="text-gray-600 hover:text-brand-peach transition-colors">
                   aaroham.net@gmail.com
                 </a>
                 <p className="text-sm text-gray-500 mt-1">Quick Response</p>
                 <Button 
                   size="sm" 
-                  className="mt-3 bg-amber-600 hover:bg-amber-700"
+                  className="mt-3 bg-brand-peach hover:bg-brand-peach"
                   onClick={() => window.open('mailto:aaroham.net@gmail.com')}
                 >
                   📬 Drop Us a Mail
@@ -97,7 +97,7 @@ const CustomerCare = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <MapPin className="h-8 w-8 text-amber-600 mx-auto mb-4" />
+                <MapPin className="h-8 w-8 text-brand-peach mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Visit Us</h3>
                 <p className="text-gray-600">Mumbai, India</p>
                 <p className="text-sm text-gray-500">Business Hours</p>
@@ -106,7 +106,7 @@ const CustomerCare = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <Clock className="h-8 w-8 text-amber-600 mx-auto mb-4" />
+                <Clock className="h-8 w-8 text-brand-peach mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Response Time</h3>
                 <p className="text-gray-600">&lt; 2 Hours</p>
                 <p className="text-sm text-gray-500">Average</p>
@@ -116,10 +116,10 @@ const CustomerCare = () => {
 
           {/* Social Media & Career Section */}
           <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <Card className="bg-gradient-to-br from-amber-50 to-orange-50">
+            <Card className="bg-gradient-to-br from-brand-peach to-brand-dark">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Instagram className="h-5 w-5 text-amber-600" />
+                  <Instagram className="h-5 w-5 text-brand-peach" />
                   Follow Our Journey
                 </CardTitle>
               </CardHeader>
@@ -128,7 +128,7 @@ const CustomerCare = () => {
                   Stay updated with our latest events, behind-the-scenes content, and royal celebrations on Instagram.
                 </p>
                 <Button 
-                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                  className="bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                   onClick={() => window.open('https://www.instagram.com/aaroham_', '_blank')}
                 >
                   📸 Follow Our Journey <ExternalLink className="ml-2 h-4 w-4" />
@@ -136,10 +136,10 @@ const CustomerCare = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50">
+            <Card className="bg-gradient-to-br from-brand-tan to-brand-dark">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Linkedin className="h-5 w-5 text-blue-600" />
+                  <Linkedin className="h-5 w-5 text-brand-dark" />
                   Join Our Network
                 </CardTitle>
               </CardHeader>
@@ -148,7 +148,7 @@ const CustomerCare = () => {
                   Connect with vendors, partners, and event professionals in our exclusive LinkedIn community.
                 </p>
                 <Button 
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                  className="bg-gradient-to-r from-brand-tan to-brand-dark hover:from-brand-tan hover:to-brand-dark"
                   onClick={() => window.open('https://www.linkedin.com/groups/14719662/', '_blank')}
                 >
                   👥 Join Our Network <ExternalLink className="ml-2 h-4 w-4" />
@@ -158,7 +158,7 @@ const CustomerCare = () => {
           </div>
 
           {/* Careers Section */}
-          <Card className="mb-16 bg-gradient-to-r from-amber-600/10 to-orange-600/10">
+          <Card className="mb-16 bg-gradient-to-r from-brand-peach/10 to-brand-dark/10">
             <CardContent className="p-8 text-center">
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Work With Us</h3>
               <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ const CustomerCare = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700"
+                  className="bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                   onClick={() => window.open('mailto:withaaroham@aaroham', '_blank')}
                 >
                   💼 Career Opportunities
@@ -176,14 +176,14 @@ const CustomerCare = () => {
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="border-amber-600 text-amber-600 hover:bg-amber-50"
+                  className="border-brand-tan text-brand-peach hover:bg-brand-peach"
                   onClick={() => window.open('mailto:withaaroham@aaroham', '_blank')}
                 >
                   🎓 Internship Programs
                 </Button>
               </div>
               <p className="text-sm text-gray-500 mt-4">
-                Send your resume to: <a href="mailto:withaaroham@aaroham" className="text-amber-600 hover:underline">withaaroham@aaroham</a>
+                Send your resume to: <a href="mailto:withaaroham@aaroham" className="text-brand-peach hover:underline">withaaroham@aaroham</a>
               </p>
             </CardContent>
           </Card>
@@ -191,7 +191,7 @@ const CustomerCare = () => {
       </section>
 
       {/* Contact Form & Help Categories */}
-      <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50">
+      <section className="py-16 bg-gradient-to-br from-brand-peach to-brand-dark">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -207,7 +207,7 @@ const CustomerCare = () => {
                   </div>
                   <Input placeholder="Mobile Number" />
                   <Textarea placeholder="How can we help you?" rows={4} />
-                  <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                  <Button className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark">
                     Send Message
                   </Button>
                 </form>
@@ -221,7 +221,7 @@ const CustomerCare = () => {
                 {helpCategories.map((category, index) => (
                   <Card key={index} className="hover:shadow-lg transition-shadow cursor-pointer">
                     <CardContent className="p-6 flex items-center">
-                      <category.icon className="h-8 w-8 text-amber-600 mr-4" />
+                      <category.icon className="h-8 w-8 text-brand-peach mr-4" />
                       <div>
                         <h3 className="font-semibold">{category.title}</h3>
                         <p className="text-gray-600 text-sm">{category.description}</p>
@@ -236,7 +236,7 @@ const CustomerCare = () => {
       </section>
 
       {/* FAQs */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-brand-cream">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>

@@ -21,16 +21,16 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-tan via-white to-brand-tan">
       {/* Header */}
       <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-yellow-500 rounded-full flex items-center justify-center">
-              <Sparkles className="h-6 w-6 text-white" />
+            <div className="w-10 h-10 bg-gradient-to-r from-brand-tan to-brand-tan rounded-full flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-brand-cream" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-brand-tan to-brand-tan bg-clip-text text-transparent">
                 Aaroham
               </h1>
               <p className="text-xs text-gray-500 -mt-1">AI Event Planning</p>
@@ -55,7 +55,7 @@ const Auth = () => {
             <div className="space-y-8">
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-brand-tan to-brand-tan bg-clip-text text-transparent">
                     Join India's Premier
                   </span>
                   <br />
@@ -68,32 +68,32 @@ const Auth = () => {
 
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+                  <div className="w-6 h-6 bg-brand-tan/20 rounded-full flex items-center justify-center">
+                    <span className="text-brand-cream text-sm">✓</span>
                   </div>
                   <span className="text-gray-700">Aarohi AI-powered event planning</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+                  <div className="w-6 h-6 bg-brand-tan/20 rounded-full flex items-center justify-center">
+                    <span className="text-brand-cream text-sm">✓</span>
                   </div>
                   <span className="text-gray-700">1000+ verified vendors</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+                  <div className="w-6 h-6 bg-brand-tan/20 rounded-full flex items-center justify-center">
+                    <span className="text-brand-cream text-sm">✓</span>
                   </div>
                   <span className="text-gray-700">Secure Razorpay payment processing</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+                  <div className="w-6 h-6 bg-brand-tan/20 rounded-full flex items-center justify-center">
+                    <span className="text-brand-cream text-sm">✓</span>
                   </div>
                   <span className="text-gray-700">OTP-based secure authentication</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+                  <div className="w-6 h-6 bg-brand-tan/20 rounded-full flex items-center justify-center">
+                    <span className="text-brand-cream text-sm">✓</span>
                   </div>
                   <span className="text-gray-700">24/7 customer support</span>
                 </div>
@@ -111,7 +111,7 @@ const Auth = () => {
                     variant={mode === 'login' ? 'default' : 'ghost'}
                     onClick={() => setMode('login')}
                     size="sm"
-                    className={mode === 'login' ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white' : ''}
+                    className={mode === 'login' ? 'bg-gradient-to-r from-brand-tan to-brand-tan text-brand-cream' : ''}
                   >
                     Customer Login
                   </Button>
@@ -119,7 +119,7 @@ const Auth = () => {
                     variant={mode === 'signup' ? 'default' : 'ghost'}
                     onClick={() => setMode('signup')}
                     size="sm"
-                    className={mode === 'signup' ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white' : ''}
+                    className={mode === 'signup' ? 'bg-gradient-to-r from-brand-tan to-brand-tan text-brand-cream' : ''}
                   >
                     Customer Sign Up
                   </Button>
@@ -127,7 +127,7 @@ const Auth = () => {
                     variant={mode === 'vendor' ? 'default' : 'ghost'}
                     onClick={() => setMode('vendor')}
                     size="sm"
-                    className={mode === 'vendor' ? 'bg-gradient-to-r from-blue-500 to-yellow-500 text-white' : ''}
+                    className={mode === 'vendor' ? 'bg-gradient-to-r from-brand-tan to-brand-tan text-brand-cream' : ''}
                   >
                     Vendor Registration
                   </Button>
@@ -140,7 +140,7 @@ const Auth = () => {
                 </p>
 
                 {mode === 'login' && (
-                  <p className="text-sm text-blue-600 font-medium">
+                  <p className="text-sm text-brand-dark font-medium">
                     Are you a vendor? 
                     <button 
                       onClick={() => setMode('vendor')}

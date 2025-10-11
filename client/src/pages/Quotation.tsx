@@ -79,23 +79,23 @@ const Quotation = () => {
   const grandTotal = quotationData.totalAmount + taxes;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Quotation Header */}
           <Card className="mb-8">
-            <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-t-lg">
+            <CardHeader className="bg-gradient-to-r from-brand-peach to-brand-dark text-brand-cream rounded-t-lg">
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-2xl flex items-center">
                     <FileText className="h-6 w-6 mr-2" />
                     Event Quotation
                   </CardTitle>
-                  <p className="text-amber-100">Quote ID: {quotationData.id}</p>
+                  <p className="text-brand-peach">Quote ID: {quotationData.id}</p>
                 </div>
-                <Badge className="bg-white text-amber-600">
+                <Badge className="bg-brand-cream text-brand-peach">
                   AI Generated
                 </Badge>
               </div>
@@ -116,7 +116,7 @@ const Quotation = () => {
                   <div className="space-y-2">
                     <p><span className="font-medium">Generated:</span> {quotationData.generatedDate}</p>
                     <p><span className="font-medium">Valid Until:</span> {quotationData.validUntil}</p>
-                    <p><span className="font-medium">Status:</span> <Badge className="bg-green-100 text-green-700">Active</Badge></p>
+                    <p><span className="font-medium">Status:</span> <Badge className="bg-brand-tan/20 text-brand-tan">Active</Badge></p>
                   </div>
                 </div>
               </div>
@@ -139,10 +139,10 @@ const Quotation = () => {
                           <h4 className="font-semibold text-lg">{vendor.name}</h4>
                           <Badge variant="outline">{vendor.category}</Badge>
                           {vendor.aiRecommended && (
-                            <Badge className="bg-purple-100 text-purple-700">AI Pick</Badge>
+                            <Badge className="bg-brand-tan/20 text-brand-dark/80">AI Pick</Badge>
                           )}
                           <div className="flex items-center">
-                            <Star className="h-4 w-4 text-yellow-400 fill-current mr-1" />
+                            <Star className="h-4 w-4 text-brand-tan fill-current mr-1" />
                             <span className="text-sm">{vendor.rating}</span>
                           </div>
                         </div>
@@ -156,7 +156,7 @@ const Quotation = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-amber-600">
+                        <p className="text-2xl font-bold text-brand-peach">
                           ₹{vendor.amount.toLocaleString()}
                         </p>
                         <div className="space-x-2 mt-2">
@@ -196,7 +196,7 @@ const Quotation = () => {
                 <Separator />
                 <div className="flex justify-between text-xl font-bold">
                   <span>Grand Total</span>
-                  <span className="text-amber-600">₹{grandTotal.toLocaleString()}</span>
+                  <span className="text-brand-peach">₹{grandTotal.toLocaleString()}</span>
                 </div>
               </div>
             </CardContent>
@@ -204,12 +204,12 @@ const Quotation = () => {
 
           {/* Action Buttons */}
           <div className="grid md:grid-cols-4 gap-4">
-            <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600">
+            <Button className="bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark">
               <Check className="h-4 w-4 mr-2" />
               Accept Quote
             </Button>
             <Link to="/booking">
-              <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+              <Button className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark">
                 Proceed to Book
               </Button>
             </Link>
@@ -228,7 +228,7 @@ const Quotation = () => {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               This quotation is valid until {quotationData.validUntil}. 
-              <Link to="/customer-care" className="text-amber-600 hover:underline ml-1">
+              <Link to="/customer-care" className="text-brand-peach hover:underline ml-1">
                 Need help? Contact support
               </Link>
             </p>

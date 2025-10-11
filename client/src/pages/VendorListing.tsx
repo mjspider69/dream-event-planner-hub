@@ -87,7 +87,7 @@ const VendorListing = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <SEOOptimization 
         title="Find Best Event Vendors in India - Aaroham"
         description="Discover 1000+ verified event vendors across India. From photographers to caterers, decorators to DJs. Book with confidence on Aaroham's AI-powered platform."
@@ -107,10 +107,10 @@ const VendorListing = () => {
         <CulturalBackdrop location={selectedLocation} />
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-brand-cream drop-shadow-lg">
               Find Perfect Vendors
             </h1>
-            <p className="text-xl text-white/90 mb-8 drop-shadow">
+            <p className="text-xl text-brand-cream/90 mb-8 drop-shadow">
               Discover verified vendors matched by AI for your perfect celebration
             </p>
             
@@ -121,7 +121,7 @@ const VendorListing = () => {
                 placeholder="Search vendors, services, or locations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 pr-4 py-3 text-lg bg-white/95 backdrop-blur"
+                className="pl-12 pr-4 py-3 text-lg bg-brand-cream/95 backdrop-blur"
               />
             </div>
           </div>
@@ -129,7 +129,7 @@ const VendorListing = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-white border-b">
+      <section className="py-8 bg-brand-cream border-b">
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap gap-4 items-center">
             <div className="flex items-center space-x-2">
@@ -262,18 +262,18 @@ const VendorListing = () => {
                       />
                       <div className="absolute top-4 left-4 flex flex-col space-y-2">
                         {vendor.isFeatured && (
-                          <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                          <Badge className="bg-gradient-to-r from-brand-tan to-brand-tan text-brand-cream">
                             <Bot className="h-3 w-3 mr-1" />
                             AI Pick
                           </Badge>
                         )}
                         {vendor.isApproved && (
-                          <Badge className="bg-green-500 text-white">
+                          <Badge className="bg-brand-tan/20 text-brand-cream">
                             Verified
                           </Badge>
                         )}
                       </div>
-                      <button className="absolute top-4 right-4 p-2 bg-white/80 rounded-full hover:bg-white transition-colors">
+                      <button className="absolute top-4 right-4 p-2 bg-brand-cream/80 rounded-full hover:bg-brand-cream transition-colors">
                         <Heart className="h-4 w-4 text-gray-600" />
                       </button>
                     </div>
@@ -281,13 +281,13 @@ const VendorListing = () => {
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <h3 className="font-bold text-lg group-hover:text-amber-600 transition-colors">
+                          <h3 className="font-bold text-lg group-hover:text-brand-peach transition-colors">
                             {vendor.businessName}
                           </h3>
                           <p className="text-gray-600">{vendor.category || 'Service Provider'}</p>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                          <Star className="h-4 w-4 text-brand-tan fill-current" />
                           <span className="font-semibold">{vendor.rating || 4.5}</span>
                           <span className="text-gray-500 text-sm">({vendor.totalBookings || 0})</span>
                         </div>
@@ -299,13 +299,13 @@ const VendorListing = () => {
                       </div>
                       
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-semibold text-amber-600">{vendor.priceRange || 'Contact for pricing'}</span>
+                        <span className="font-semibold text-brand-peach">{vendor.priceRange || 'Contact for pricing'}</span>
                       </div>
                       
                       <div className="flex space-x-2">
                         <Button 
                           onClick={() => handleVendorClick(vendor.id, vendor.businessName)}
-                          className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                          className="flex-1 bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                         >
                           View Details
                         </Button>
@@ -323,7 +323,7 @@ const VendorListing = () => {
           {/* Load More */}
           {!isLoading && filteredVendors.length > 0 && (
             <div className="text-center mt-12">
-              <Button size="lg" variant="outline" className="border-amber-400 text-amber-600 hover:bg-amber-50">
+              <Button size="lg" variant="outline" className="border-brand-tan text-brand-peach hover:bg-brand-peach">
                 Load More Vendors
               </Button>
             </div>

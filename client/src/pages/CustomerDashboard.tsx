@@ -120,15 +120,15 @@ const CustomerDashboard = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
+      case 'confirmed': return 'bg-brand-tan/20 text-brand-tan';
+      case 'pending': return 'bg-brand-peach/20 text-brand-tan';
+      case 'cancelled': return 'bg-brand-peach/20 text-brand-dark';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       <div className="container mx-auto px-6 py-8">
@@ -166,7 +166,7 @@ const CustomerDashboard = () => {
           <TabsContent value="bookings" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">My Bookings</h2>
-              <Button className="bg-gradient-to-r from-amber-500 to-orange-500">
+              <Button className="bg-gradient-to-r from-brand-peach to-brand-dark">
                 <Plus className="h-4 w-4 mr-2" />
                 New Booking
               </Button>
@@ -189,7 +189,7 @@ const CustomerDashboard = () => {
                   <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">No bookings yet</h3>
                   <p className="text-gray-600 mb-4">Start planning your next event!</p>
-                  <Button className="bg-gradient-to-r from-amber-500 to-orange-500">
+                  <Button className="bg-gradient-to-r from-brand-peach to-brand-dark">
                     Browse Vendors
                   </Button>
                 </CardContent>
@@ -243,7 +243,7 @@ const CustomerDashboard = () => {
                   <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">No saved vendors</h3>
                   <p className="text-gray-600 mb-4">Save vendors you like for easy access later!</p>
-                  <Button className="bg-gradient-to-r from-amber-500 to-orange-500">
+                  <Button className="bg-gradient-to-r from-brand-peach to-brand-dark">
                     Browse Vendors
                   </Button>
                 </CardContent>
@@ -268,15 +268,15 @@ const CustomerDashboard = () => {
                             size="sm"
                             onClick={() => removeSavedVendor(vendor.id)}
                           >
-                            <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+                            <Heart className="h-4 w-4 text-brand-dark fill-brand-dark" />
                           </Button>
                         </div>
                         
                         <div className="flex justify-between items-center">
-                          <div className="text-sm text-amber-600 font-semibold">
+                          <div className="text-sm text-brand-peach font-semibold">
                             {vendor.price_range}
                           </div>
-                          <Button size="sm" className="bg-gradient-to-r from-amber-500 to-orange-500">
+                          <Button size="sm" className="bg-gradient-to-r from-brand-peach to-brand-dark">
                             View Details
                           </Button>
                         </div>
@@ -315,7 +315,7 @@ const CustomerDashboard = () => {
                       type="text"
                       value={profile?.full_name || ''}
                       onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-peach"
                     />
                   </div>
                   <div>
@@ -326,7 +326,7 @@ const CustomerDashboard = () => {
                       type="tel"
                       value={profile?.phone || ''}
                       onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-peach"
                     />
                   </div>
                 </div>
@@ -346,7 +346,7 @@ const CustomerDashboard = () => {
                     full_name: profile?.full_name, 
                     phone: profile?.phone 
                   })}
-                  className="bg-gradient-to-r from-amber-500 to-orange-500"
+                  className="bg-gradient-to-r from-brand-peach to-brand-dark"
                 >
                   Save Changes
                 </Button>
@@ -363,7 +363,7 @@ const CustomerDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-4">Need help? Contact our support team.</p>
-                  <Button className="bg-gradient-to-r from-amber-500 to-orange-500">
+                  <Button className="bg-gradient-to-r from-brand-peach to-brand-dark">
                     <FileText className="h-4 w-4 mr-2" />
                     Create Ticket
                   </Button>

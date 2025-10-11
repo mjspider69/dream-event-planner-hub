@@ -16,14 +16,14 @@ const CustomInput = () => {
   const culturalStyles = ["Traditional Indian", "Contemporary", "Fusion", "Western", "Regional Specific"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <Badge className="mb-4 bg-amber-100 text-amber-700">Customize Your Event</Badge>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <Badge className="mb-4 bg-brand-peach text-brand-peach">Customize Your Event</Badge>
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-brand-peach to-brand-dark bg-clip-text text-transparent">
               Tell Us Your Vision
             </h1>
             <p className="text-xl text-gray-600">
@@ -34,7 +34,7 @@ const CustomInput = () => {
           <Card className="shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Sparkles className="h-6 w-6 mr-2 text-amber-600" />
+                <Sparkles className="h-6 w-6 mr-2 text-brand-peach" />
                 Event Customization
               </CardTitle>
             </CardHeader>
@@ -185,7 +185,7 @@ const CustomInput = () => {
                 {/* Submit Button */}
                 <div className="text-center pt-6">
                   <Link to="/quotation">
-                    <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 px-12 py-6 text-lg">
+                    <Button size="lg" className="bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark px-12 py-6 text-lg">
                       <Heart className="h-5 w-5 mr-2" />
                       Generate My Custom Quote
                     </Button>

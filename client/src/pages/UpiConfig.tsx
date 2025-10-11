@@ -131,7 +131,7 @@ export default function UpiConfig() {
   const isConfigured = config.businessUpiId && config.accountHolderName && config.bankName;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-pearl-50 to-amber-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-brand-50 to-brand-tan p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center mb-6">
@@ -156,18 +156,18 @@ export default function UpiConfig() {
             <div className="flex items-center space-x-3">
               {isConfigured ? (
                 <>
-                  <CheckCircle className="h-6 w-6 text-green-600" />
+                  <CheckCircle className="h-6 w-6 text-brand-tan" />
                   <div>
-                    <p className="font-semibold text-green-700">UPI Configuration Active</p>
-                    <p className="text-sm text-green-600">Your bank account is configured and ready to receive payments</p>
+                    <p className="font-semibold text-brand-tan">UPI Configuration Active</p>
+                    <p className="text-sm text-brand-tan">Your bank account is configured and ready to receive payments</p>
                   </div>
                 </>
               ) : (
                 <>
-                  <AlertCircle className="h-6 w-6 text-amber-600" />
+                  <AlertCircle className="h-6 w-6 text-brand-peach" />
                   <div>
-                    <p className="font-semibold text-amber-700">UPI Configuration Required</p>
-                    <p className="text-sm text-amber-600">Please configure your bank account details to receive payments</p>
+                    <p className="font-semibold text-brand-peach">UPI Configuration Required</p>
+                    <p className="text-sm text-brand-peach">Please configure your bank account details to receive payments</p>
                   </div>
                 </>
               )}
@@ -180,7 +180,7 @@ export default function UpiConfig() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Smartphone className="h-5 w-5 mr-2 text-blue-600" />
+                <Smartphone className="h-5 w-5 mr-2 text-brand-dark" />
                 UPI Details
               </CardTitle>
               <CardDescription>
@@ -233,7 +233,7 @@ export default function UpiConfig() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Building className="h-5 w-5 mr-2 text-green-600" />
+                <Building className="h-5 w-5 mr-2 text-brand-tan" />
                 Bank Account Details
               </CardTitle>
               <CardDescription>
@@ -303,31 +303,31 @@ export default function UpiConfig() {
         <Card className="mt-6">
           <CardHeader>
             <CardTitle className="flex items-center">
-              <CreditCard className="h-5 w-5 mr-2 text-amber-600" />
+              <CreditCard className="h-5 w-5 mr-2 text-brand-peach" />
               How to Get Your UPI ID
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-blue-800 mb-2">PhonePe</h4>
-                <p className="text-blue-700">
+              <div className="bg-brand-cream p-4 rounded-lg border border-brand-tan/30">
+                <h4 className="font-semibold text-brand-dark mb-2">PhonePe</h4>
+                <p className="text-brand-dark">
                   1. Open PhonePe app<br />
                   2. Go to Profile → Payment Settings<br />
                   3. Find your UPI ID (like: name@ybl)
                 </p>
               </div>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">Google Pay</h4>
-                <p className="text-green-700">
+              <div className="bg-brand-tan/20 p-4 rounded-lg border border-brand-tan">
+                <h4 className="font-semibold text-brand-tan mb-2">Google Pay</h4>
+                <p className="text-brand-tan">
                   1. Open Google Pay app<br />
                   2. Tap profile picture → Settings<br />
                   3. Find your UPI ID (like: name@okaxis)
                 </p>
               </div>
-              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <h4 className="font-semibold text-purple-800 mb-2">Paytm</h4>
-                <p className="text-purple-700">
+              <div className="bg-brand-peach/20 p-4 rounded-lg border border-brand-tan/30">
+                <h4 className="font-semibold text-brand-dark mb-2">Paytm</h4>
+                <p className="text-brand-dark/80">
                   1. Open Paytm app<br />
                   2. Go to Profile → Payment Settings<br />
                   3. Find your UPI ID (like: name@paytm)
@@ -342,7 +342,7 @@ export default function UpiConfig() {
           <Button
             onClick={handleSave}
             disabled={loading}
-            className="bg-gradient-to-r from-blue-600 to-amber-600 hover:from-blue-700 hover:to-amber-700 text-white px-8 py-3"
+            className="bg-gradient-to-r from-brand-tan to-brand-tan hover:from-brand-tan hover:to-brand-tan text-brand-cream px-8 py-3"
             data-testid="button-save-config"
           >
             {loading ? (

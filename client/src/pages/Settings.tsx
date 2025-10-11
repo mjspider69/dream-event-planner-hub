@@ -109,14 +109,14 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br bg-brand-cream p-6">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
-        <Card className="border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50">
+        <Card className="border-brand-tan bg-gradient-to-br from-brand-cream to-brand-peach/20">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-amber-500 rounded-full flex items-center justify-center">
-                <Settings className="h-6 w-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-r from-brand-tan to-brand-peach rounded-full flex items-center justify-center">
+                <Settings className="h-6 w-6 text-brand-cream" />
               </div>
               <div>
                 <CardTitle className="text-2xl">Platform Settings</CardTitle>
@@ -185,13 +185,13 @@ const SettingsPage = () => {
             </div>
             
             <div className="flex items-center space-x-4">
-              <Button onClick={saveUpiSettings} className="bg-green-600 hover:bg-green-700">
+              <Button onClick={saveUpiSettings} className="bg-brand-tan hover:bg-brand-dark">
                 <Save className="h-4 w-4 mr-2" />
                 Save UPI Settings
               </Button>
               
               {testResults.upi === 'saved' && (
-                <div className="flex items-center text-green-600">
+                <div className="flex items-center text-brand-tan">
                   <Check className="h-4 w-4 mr-1" />
                   <span className="text-sm">Settings saved</span>
                 </div>
@@ -199,9 +199,9 @@ const SettingsPage = () => {
             </div>
             
             {upiSettings.businessUpiId && (
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">UPI Payment Details</h4>
-                <div className="text-sm text-green-700 space-y-1">
+              <div className="bg-brand-peach/20 p-4 rounded-lg border border-brand-peach">
+                <h4 className="font-semibold text-brand-dark mb-2">UPI Payment Details</h4>
+                <div className="text-sm text-brand-dark space-y-1">
                   <p><strong>UPI ID:</strong> {upiSettings.businessUpiId}</p>
                   <p><strong>Business:</strong> {upiSettings.businessName}</p>
                   <p><strong>Account Holder:</strong> {upiSettings.accountHolder}</p>
@@ -218,7 +218,7 @@ const SettingsPage = () => {
             <CardTitle className="flex items-center space-x-2">
               <Mail className="h-5 w-5" />
               <span>Email OTP Configuration</span>
-              <Badge className="bg-green-100 text-green-800">Free Service</Badge>
+              <Badge className="bg-brand-tan/20 text-brand-dark">Free Service</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -247,9 +247,9 @@ const SettingsPage = () => {
               </div>
             </div>
             
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <h4 className="font-semibold text-blue-800 mb-2">Free Email OTP Service</h4>
-              <p className="text-sm text-blue-700 mb-3">
+            <div className="bg-brand-cream p-4 rounded-lg border border-brand-tan/30">
+              <h4 className="font-semibold text-brand-dark mb-2">Free Email OTP Service</h4>
+              <p className="text-sm text-brand-dark mb-3">
                 Using built-in email service for OTP delivery. No external API keys required for basic functionality.
               </p>
               <div className="flex items-center space-x-4">
@@ -258,14 +258,14 @@ const SettingsPage = () => {
                 </Button>
                 
                 {testResults.email === 'success' && (
-                  <div className="flex items-center text-green-600">
+                  <div className="flex items-center text-brand-tan">
                     <Check className="h-4 w-4 mr-1" />
                     <span className="text-sm">Email working</span>
                   </div>
                 )}
                 
                 {testResults.email === 'failed' && (
-                  <div className="flex items-center text-red-600">
+                  <div className="flex items-center text-brand-dark">
                     <AlertTriangle className="h-4 w-4 mr-1" />
                     <span className="text-sm">Email failed</span>
                   </div>
@@ -273,12 +273,12 @@ const SettingsPage = () => {
               </div>
             </div>
             
-            <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-              <h4 className="font-semibold text-yellow-800 mb-2">Upgrade to Premium Email</h4>
-              <p className="text-sm text-yellow-700 mb-2">
+            <div className="bg-brand-peach/20 p-4 rounded-lg border border-brand-tan">
+              <h4 className="font-semibold text-brand-dark mb-2">Upgrade to Premium Email</h4>
+              <p className="text-sm text-brand-dark/80 mb-2">
                 For higher delivery rates and professional branding, add SendGrid API key to Replit secrets.
               </p>
-              <p className="text-xs text-yellow-600">
+              <p className="text-xs text-brand-dark/70">
                 SendGrid offers 100 free emails per day with better deliverability.
               </p>
             </div>
@@ -309,9 +309,9 @@ const SettingsPage = () => {
               </p>
             </div>
             
-            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <h4 className="font-semibold text-purple-800 mb-2">SMS Service Status</h4>
-              <p className="text-sm text-purple-700 mb-3">
+            <div className="bg-brand-peach/20 p-4 rounded-lg border border-brand-tan/30">
+              <h4 className="font-semibold text-brand-dark mb-2">SMS Service Status</h4>
+              <p className="text-sm text-brand-dark/80 mb-3">
                 SMS OTP requires Twilio API credentials. Add to Replit secrets for SMS functionality.
               </p>
               <div className="flex items-center space-x-4">
@@ -320,14 +320,14 @@ const SettingsPage = () => {
                 </Button>
                 
                 {testResults.sms === 'success' && (
-                  <div className="flex items-center text-green-600">
+                  <div className="flex items-center text-brand-tan">
                     <Check className="h-4 w-4 mr-1" />
                     <span className="text-sm">SMS working</span>
                   </div>
                 )}
                 
                 {testResults.sms === 'failed' && (
-                  <div className="flex items-center text-red-600">
+                  <div className="flex items-center text-brand-dark">
                     <AlertTriangle className="h-4 w-4 mr-1" />
                     <span className="text-sm">SMS not configured</span>
                   </div>
@@ -353,24 +353,24 @@ const SettingsPage = () => {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-green-50 rounded-lg">
-                <CreditCard className="h-8 w-8 mx-auto text-green-600 mb-2" />
-                <h4 className="font-semibold text-green-800">UPI Payments</h4>
-                <p className="text-sm text-green-600">
+              <div className="text-center p-4 bg-brand-peach/20 rounded-lg">
+                <CreditCard className="h-8 w-8 mx-auto text-brand-tan mb-2" />
+                <h4 className="font-semibold text-brand-dark">UPI Payments</h4>
+                <p className="text-sm text-brand-tan">
                   {upiSettings.businessUpiId ? 'Configured' : 'Needs Setup'}
                 </p>
               </div>
               
-              <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <Mail className="h-8 w-8 mx-auto text-blue-600 mb-2" />
-                <h4 className="font-semibold text-blue-800">Email OTP</h4>
-                <p className="text-sm text-blue-600">Free Service Active</p>
+              <div className="text-center p-4 bg-brand-cream rounded-lg">
+                <Mail className="h-8 w-8 mx-auto text-brand-dark mb-2" />
+                <h4 className="font-semibold text-brand-dark">Email OTP</h4>
+                <p className="text-sm text-brand-dark">Free Service Active</p>
               </div>
               
-              <div className="text-center p-4 bg-purple-50 rounded-lg">
-                <Phone className="h-8 w-8 mx-auto text-purple-600 mb-2" />
-                <h4 className="font-semibold text-purple-800">SMS OTP</h4>
-                <p className="text-sm text-purple-600">Optional Add-on</p>
+              <div className="text-center p-4 bg-brand-peach/20 rounded-lg">
+                <Phone className="h-8 w-8 mx-auto text-brand-dark mb-2" />
+                <h4 className="font-semibold text-brand-dark">SMS OTP</h4>
+                <p className="text-sm text-brand-dark">Optional Add-on</p>
               </div>
             </div>
           </CardContent>

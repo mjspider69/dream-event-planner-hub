@@ -115,7 +115,7 @@ const Packages = () => {
                     className={`w-full py-3 text-lg font-semibold transition-all duration-300 ${
                       pkg.popular 
                         ? 'bg-gradient-to-r from-brand-peach to-brand-tan hover:opacity-90 text-brand-dark' 
-                        : 'bg-white text-brand-dark border-2 border-brand-tan hover:bg-brand-peach/10'
+                        : 'bg-brand-cream text-brand-dark border-2 border-brand-tan hover:bg-brand-peach/10'
                     }`}
                   >
                     Choose {pkg.name}

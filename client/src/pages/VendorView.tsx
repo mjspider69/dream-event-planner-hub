@@ -19,11 +19,11 @@ const VendorView = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
         <Header />
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-center min-h-96">
-            <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-brand-peach" />
             <span className="ml-2 text-lg">Loading vendor details...</span>
           </div>
         </div>
@@ -35,14 +35,14 @@ const VendorView = () => {
   if (error || !vendor) {
     toast.error("Vendor not found");
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
         <Header />
         <div className="container mx-auto px-6 py-8">
           <div className="text-center py-12">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Vendor Not Found</h1>
             <p className="text-gray-600 mb-6">The vendor you're looking for doesn't exist or is no longer available.</p>
             <Link to="/vendors">
-              <Button className="bg-gradient-to-r from-amber-500 to-orange-500">
+              <Button className="bg-gradient-to-r from-brand-peach to-brand-dark">
                 Back to Vendors
               </Button>
             </Link>
@@ -74,7 +74,7 @@ const VendorView = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       <div className="container mx-auto px-6 py-8">
@@ -92,7 +92,7 @@ const VendorView = () => {
                     e.currentTarget.src = defaultImage;
                   }}
                 />
-                <button className="absolute top-4 right-4 p-2 bg-white/80 rounded-full hover:bg-white transition-colors">
+                <button className="absolute top-4 right-4 p-2 bg-brand-cream/80 rounded-full hover:bg-brand-cream transition-colors">
                   <Heart className="h-5 w-5 text-gray-600" />
                 </button>
               </div>
@@ -104,7 +104,7 @@ const VendorView = () => {
                       src={image || defaultImage}
                       alt={`Portfolio ${index + 1}`}
                       className={`w-20 h-20 object-cover rounded cursor-pointer flex-shrink-0 ${
-                        selectedImage === index ? 'ring-2 ring-amber-500' : ''
+                        selectedImage === index ? 'ring-2 ring-brand-peach' : ''
                       }`}
                       onClick={() => setSelectedImage(index)}
                       onError={(e) => {
@@ -124,7 +124,7 @@ const VendorView = () => {
                   <p className="text-gray-600 text-lg">{vendor.category}</p>
                 </div>
                 {vendor.is_approved && (
-                  <Badge className="bg-green-500 text-white">
+                  <Badge className="bg-brand-tan/20 text-brand-cream">
                     <CheckCircle className="h-3 w-3 mr-1" />
                     Verified
                   </Badge>
@@ -133,7 +133,7 @@ const VendorView = () => {
               
               <div className="flex items-center space-x-4 mb-4">
                 <div className="flex items-center">
-                  <Star className="h-5 w-5 text-yellow-400 fill-current mr-1" />
+                  <Star className="h-5 w-5 text-brand-tan fill-current mr-1" />
                   <span className="font-semibold">{vendor.rating || '0.0'}</span>
                   <span className="text-gray-500 ml-1">({vendor.total_bookings} bookings)</span>
                 </div>
@@ -148,7 +148,7 @@ const VendorView = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex items-center">
                   <span className="font-semibold w-24">Price:</span>
-                  <span className="text-amber-600 font-semibold">{vendor.price_range || 'Contact for pricing'}</span>
+                  <span className="text-brand-peach font-semibold">{vendor.price_range || 'Contact for pricing'}</span>
                 </div>
                 {vendor.contact_person && (
                   <div className="flex items-center">
@@ -166,12 +166,12 @@ const VendorView = () => {
               
               <div className="flex space-x-3">
                 <Link to={`/talk-to-vendor/${vendor.id}`} className="flex-1">
-                  <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                  <Button className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark">
                     <MessageCircle className="h-4 w-4 mr-2" />
                     Talk to Vendor
                   </Button>
                 </Link>
-                <Button className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600">
+                <Button className="flex-1 bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark">
                   Add to Event
                 </Button>
               </div>
@@ -199,7 +199,7 @@ const VendorView = () => {
                         <div>
                           <h4 className="font-semibold">{service.name}</h4>
                         </div>
-                        <span className="font-semibold text-amber-600">{service.price}</span>
+                        <span className="font-semibold text-brand-peach">{service.price}</span>
                       </div>
                     ))}
                   </div>
@@ -252,7 +252,7 @@ const VendorView = () => {
                   <div className="text-center py-8">
                     <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                     <p className="text-gray-600 mb-4">Contact vendor to check availability for your event date</p>
-                    <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600">
+                    <Button className="bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark">
                       Contact for Availability
                     </Button>
                   </div>
@@ -273,7 +273,7 @@ const VendorView = () => {
                           <h4 className="font-semibold">{review.name}</h4>
                           <div className="flex items-center">
                             {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                              <Star key={i} className="h-4 w-4 text-brand-tan fill-current" />
                             ))}
                             <span className="text-gray-500 text-sm ml-2">{review.date}</span>
                           </div>

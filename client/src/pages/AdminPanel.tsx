@@ -137,12 +137,12 @@ const AdminPanel = () => {
     <AdminProtectedRoute>
       <div className="min-h-screen royal-section-pastel">
         {/* Header */}
-        <header className="bg-white/95 backdrop-blur-xl shadow-lg border-b-2 border-pastel-gold">
+        <header className="bg-brand-cream/95 backdrop-blur-xl shadow-lg border-b-2 border-pastel-gold">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 pastel-gradient rounded-full flex items-center justify-center shadow-xl">
-                  <Crown className="h-6 w-6 text-white" />
+                  <Crown className="h-6 w-6 text-brand-cream" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-majestic text-gradient-royal">AAROHAM</h1>
@@ -158,7 +158,7 @@ const AdminPanel = () => {
                 <Button 
                   onClick={handleLogout}
                   variant="outline" 
-                  className="border-soft-burgundy text-soft-burgundy hover:bg-soft-burgundy hover:text-white"
+                  className="border-soft-burgundy text-soft-burgundy hover:bg-soft-burgundy hover:text-brand-cream"
                 >
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
@@ -311,7 +311,7 @@ const AdminPanel = () => {
                         </div>
                         <div className="flex justify-between items-center p-3 bg-gradient-to-r from-pastel-rose/10 to-pastel-lavender/10 rounded-lg">
                           <span className="font-elegant text-soft-burgundy">Support Tickets</span>
-                          <Badge className="bg-pastel-rose text-white">3</Badge>
+                          <Badge className="bg-pastel-rose text-brand-cream">3</Badge>
                         </div>
                       </div>
                     </CardContent>
@@ -351,13 +351,13 @@ const AdminPanel = () => {
                             </p>
                           </div>
                           <div className="flex space-x-2">
-                            <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-white">
+                            <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-brand-cream">
                               <Eye className="h-4 w-4" />
                             </Button>
                             <Button size="sm" className="bg-pastel-mint text-soft-burgundy hover:bg-sage-green">
                               <CheckCircle className="h-4 w-4" />
                             </Button>
-                            <Button size="sm" className="bg-pastel-rose text-white hover:bg-soft-burgundy">
+                            <Button size="sm" className="bg-pastel-rose text-brand-cream hover:bg-soft-burgundy">
                               <XCircle className="h-4 w-4" />
                             </Button>
                           </div>
@@ -390,10 +390,10 @@ const AdminPanel = () => {
                             </div>
                           </div>
                           <div className="flex space-x-2">
-                            <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-white">
+                            <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-brand-cream">
                               <Eye className="h-4 w-4" />
                             </Button>
-                            <Button size="sm" variant="outline" className="border-royal-purple text-royal-purple hover:bg-royal-purple hover:text-white">
+                            <Button size="sm" variant="outline" className="border-royal-purple text-royal-purple hover:bg-royal-purple hover:text-brand-cream">
                               <Edit className="h-4 w-4" />
                             </Button>
                           </div>
@@ -431,10 +431,10 @@ const AdminPanel = () => {
                             </div>
                           </div>
                           <div className="flex space-x-2">
-                            <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-white">
+                            <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-brand-cream">
                               <Eye className="h-4 w-4" />
                             </Button>
-                            <Button size="sm" variant="outline" className="border-royal-purple text-royal-purple hover:bg-royal-purple hover:text-white">
+                            <Button size="sm" variant="outline" className="border-royal-purple text-royal-purple hover:bg-royal-purple hover:text-brand-cream">
                               <Edit className="h-4 w-4" />
                             </Button>
                           </div>
@@ -569,7 +569,7 @@ const AdminPanel = () => {
                             </div>
                             <div className="flex items-center space-x-2">
                               <Badge className="bg-pastel-mint text-soft-burgundy">{content.status}</Badge>
-                              <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-white">
+                              <Button size="sm" variant="outline" className="border-pastel-gold text-pastel-gold hover:bg-pastel-gold hover:text-brand-cream">
                                 <Edit className="h-4 w-4" />
                               </Button>
                             </div>
@@ -594,13 +594,13 @@ const AdminPanel = () => {
                         </Button>
                         <div className="grid grid-cols-3 gap-4">
                           <div className="aspect-square bg-gradient-to-br from-pastel-gold to-pastel-peach rounded-lg flex items-center justify-center">
-                            <Image className="h-8 w-8 text-white" />
+                            <Image className="h-8 w-8 text-brand-cream" />
                           </div>
                           <div className="aspect-square bg-gradient-to-br from-pastel-mint to-sage-green rounded-lg flex items-center justify-center">
-                            <Image className="h-8 w-8 text-white" />
+                            <Image className="h-8 w-8 text-brand-cream" />
                           </div>
                           <div className="aspect-square bg-gradient-to-br from-pastel-rose to-pastel-lavender rounded-lg flex items-center justify-center">
-                            <Image className="h-8 w-8 text-white" />
+                            <Image className="h-8 w-8 text-brand-cream" />
                           </div>
                         </div>
                       </div>

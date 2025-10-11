@@ -176,14 +176,14 @@ const VendorDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-500"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-brand-peach"></div>
       </div>
     );
   }
 
   if (!vendorData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+      <div className="min-h-screen bg-gradient-to-br bg-brand-cream">
         <Header />
         <div className="container mx-auto px-6 py-16 text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
@@ -194,7 +194,7 @@ const VendorDashboard = () => {
           </p>
           <button 
             onClick={() => navigate('/vendor-onboarding')}
-            className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-lg hover:from-amber-600 hover:to-orange-600 transition-colors"
+            className="bg-gradient-to-r from-brand-peach to-brand-tan text-brand-cream px-8 py-3 rounded-lg hover:opacity-90 transition-colors"
           >
             Complete Vendor Setup
           </button>
@@ -205,7 +205,7 @@ const VendorDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br bg-brand-cream">
       <Header />
       
       <div className="container mx-auto px-6 py-8">

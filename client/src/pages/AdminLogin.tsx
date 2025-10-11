@@ -59,16 +59,16 @@ const AdminLogin = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center p-6">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-yellow-600/10 opacity-90"></div>
+    <div className="min-h-screen bg-gradient-to-br from-brand-tan via-white to-brand-tan flex items-center justify-center p-6">
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-tan/10 to-brand-tan/10 opacity-90"></div>
       
       <Card className="relative z-10 w-full max-w-md shadow-2xl border-0">
         <CardHeader className="text-center space-y-6">
-          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-blue-600 to-yellow-500 rounded-full flex items-center justify-center shadow-2xl">
-            <Crown className="h-10 w-10 text-white" />
+          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-brand-tan to-brand-tan rounded-full flex items-center justify-center shadow-2xl">
+            <Crown className="h-10 w-10 text-brand-cream" />
           </div>
           <div>
-            <CardTitle className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent mb-2">
+            <CardTitle className="text-4xl font-bold bg-gradient-to-r from-brand-tan to-brand-tan bg-clip-text text-transparent mb-2">
               AAROHAM
             </CardTitle>
             <p className="text-gray-600 font-medium text-lg">Admin Portal</p>
@@ -88,7 +88,7 @@ const AdminLogin = () => {
                 placeholder="admin@aaroham.com"
                 value={loginData.email}
                 onChange={(e) => setLoginData({...loginData, email: e.target.value})}
-                className="border-gray-300 focus:border-blue-500 transition-colors"
+                className="border-gray-300 focus:border-brand-tan/30 transition-colors"
                 required
                 disabled={isLoading}
               />
@@ -105,7 +105,7 @@ const AdminLogin = () => {
                 placeholder="Enter admin password"
                 value={loginData.password}
                 onChange={(e) => setLoginData({...loginData, password: e.target.value})}
-                className="border-gray-300 focus:border-blue-500 transition-colors"
+                className="border-gray-300 focus:border-brand-tan/30 transition-colors"
                 required
                 disabled={isLoading}
               />
@@ -113,7 +113,7 @@ const AdminLogin = () => {
             
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-blue-600 to-yellow-500 hover:from-blue-700 hover:to-yellow-600 text-white font-semibold text-lg py-3"
+              className="w-full bg-gradient-to-r from-brand-tan to-brand-tan hover:from-brand-tan hover:to-brand-tan text-brand-cream font-semibold text-lg py-3"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -127,7 +127,7 @@ const AdminLogin = () => {
             </Button>
           </form>
           
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+          <div className="mt-6 p-4 bg-brand-cream rounded-lg">
             <p className="text-sm text-gray-700 text-center">
               <strong>Demo Credentials:</strong><br />
               Email: admin@aaroham.com<br />

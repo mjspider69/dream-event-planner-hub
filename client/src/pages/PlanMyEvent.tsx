@@ -11,15 +11,15 @@ import Footer from "@/components/Footer";
 
 const PlanMyEvent = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-600/10 to-orange-600/10">
+      <section className="py-20 bg-gradient-to-r from-brand-peach/10 to-brand-dark/10">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-amber-100 text-amber-700">AI-Powered Planning</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+            <Badge className="mb-4 bg-brand-peach text-brand-peach">AI-Powered Planning</Badge>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-brand-peach to-brand-dark bg-clip-text text-transparent">
               Plan Your Perfect Event
             </h1>
             <p className="text-xl text-gray-600 mb-8">
@@ -30,7 +30,7 @@ const PlanMyEvent = () => {
       </section>
 
       {/* Quick Input Form */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-brand-cream">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <Card className="shadow-xl">
@@ -104,7 +104,7 @@ const PlanMyEvent = () => {
 
                   <div className="text-center">
                     <Link to="/ai-chatbot">
-                      <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 px-8 py-6 text-lg">
+                      <Button size="lg" className="bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark px-8 py-6 text-lg">
                         <Bot className="mr-2 h-5 w-5" />
                         Start Planning with AI
                         <ArrowRight className="ml-2 h-5 w-5" />
@@ -119,7 +119,7 @@ const PlanMyEvent = () => {
       </section>
 
       {/* AI Chatbot Preview */}
-      <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50">
+      <section className="py-16 bg-gradient-to-br from-brand-peach to-brand-dark">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -127,14 +127,14 @@ const PlanMyEvent = () => {
               <p className="text-gray-600">Experience intelligent event planning like never before</p>
             </div>
             
-            <Card className="bg-gradient-to-br from-white to-amber-50">
+            <Card className="bg-gradient-to-br from-white to-brand-tan">
               <CardContent className="p-8">
                 <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                    <Bot className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-r from-brand-peach to-brand-dark rounded-full flex items-center justify-center">
+                    <Bot className="h-6 w-6 text-brand-cream" />
                   </div>
                   <div className="flex-1">
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="bg-brand-cream rounded-lg p-4 shadow-sm">
                       <p className="text-gray-800">
                         Hi! I'm your AI event planner. I'll help you create the perfect celebration by understanding your preferences, cultural needs, and budget. What kind of event are you planning?
                       </p>
@@ -144,7 +144,7 @@ const PlanMyEvent = () => {
                 
                 <div className="flex items-start space-x-4 justify-end">
                   <div className="flex-1 max-w-sm">
-                    <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg p-4">
+                    <div className="bg-gradient-to-r from-brand-peach to-brand-dark text-brand-cream rounded-lg p-4">
                       <p>I'm planning a traditional Indian wedding for 300 guests in Mumbai with a budget of ₹5 lakhs.</p>
                     </div>
                   </div>
@@ -159,7 +159,7 @@ const PlanMyEvent = () => {
       </section>
 
       {/* Next Steps */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-brand-cream">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">What Happens Next?</h2>
@@ -169,8 +169,8 @@ const PlanMyEvent = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">1</span>
+                <div className="w-16 h-16 bg-gradient-to-r from-brand-tan to-brand-dark rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-brand-cream font-bold text-xl">1</span>
                 </div>
                 <h3 className="font-semibold mb-2">AI Analysis</h3>
                 <p className="text-gray-600">Our AI analyzes your requirements and preferences</p>
@@ -179,8 +179,8 @@ const PlanMyEvent = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">2</span>
+                <div className="w-16 h-16 bg-gradient-to-r from-brand-peach to-brand-dark rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-brand-cream font-bold text-xl">2</span>
                 </div>
                 <h3 className="font-semibold mb-2">Vendor Matching</h3>
                 <p className="text-gray-600">Get matched with verified vendors perfect for your event</p>
@@ -189,8 +189,8 @@ const PlanMyEvent = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">3</span>
+                <div className="w-16 h-16 bg-gradient-to-r from-brand-tan to-brand-tan rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-brand-cream font-bold text-xl">3</span>
                 </div>
                 <h3 className="font-semibold mb-2">Custom Quote</h3>
                 <p className="text-gray-600">Receive personalized quotations and book instantly</p>

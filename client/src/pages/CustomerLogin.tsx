@@ -208,13 +208,13 @@ const CustomerLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-peach via-white to-brand-dark">
       <Header />
       
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
-            <Badge className="mb-4 bg-amber-100 text-amber-700">Welcome Back</Badge>
+            <Badge className="mb-4 bg-brand-peach text-brand-peach">Welcome Back</Badge>
             <h1 className="text-3xl font-bold mb-2">Login to Aaroham</h1>
             <p className="text-gray-600">Continue planning your perfect event</p>
           </div>
@@ -250,7 +250,7 @@ const CustomerLogin = () => {
                       <Button 
                         onClick={sendOTP}
                         disabled={loading}
-                        className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                        className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                       >
                         {loading ? "Sending..." : "Send OTP"}
                       </Button>
@@ -271,7 +271,7 @@ const CustomerLogin = () => {
                       <Button 
                         onClick={verifyOTP}
                         disabled={loading}
-                        className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                        className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                       >
                         {loading ? "Verifying..." : "Verify & Login"}
                       </Button>
@@ -327,13 +327,13 @@ const CustomerLogin = () => {
                     <Button 
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                      className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                     >
                       {loading ? "Logging in..." : "Login"}
                     </Button>
                   </form>
                   <div className="text-center">
-                    <button className="text-sm text-amber-600 hover:underline">
+                    <button className="text-sm text-brand-peach hover:underline">
                       Forgot Password?
                     </button>
                   </div>
@@ -406,7 +406,7 @@ const CustomerLogin = () => {
                 <Button 
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
+                  className="w-full bg-gradient-to-r from-brand-peach to-brand-dark hover:from-brand-peach hover:to-brand-dark"
                 >
                   {loading ? "Creating Account..." : "Create Account"}
                 </Button>
